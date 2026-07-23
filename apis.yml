@@ -1,24 +1,291 @@
 aid: 360learning
 name: 360Learning
-description: '360Learning is a company surfaced as a portfolio company of softbank-vision-fund and added
-  to the API Evangelist network as a stub for enrichment. Sector: edtech. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: >-
+  360Learning is a collaborative learning platform (LMS) that blends top-down
+  and peer-to-peer "Collaborative Learning" to help enterprises upskill and train
+  employees, customers, and partners at scale. Its REST API v2 lets developers
+  automate the platform: provision and activate users, organize them into groups,
+  build and assign courses and learning paths, schedule instructor-led classrooms
+  with slots and attendance, manage a skills taxonomy and certificates, run bulk
+  operations, and subscribe to near-real-time webhook events. API v2 uses OAuth
+  2.0 client-credentials auth with a two-tier (company/credential) scope system,
+  cursor pagination via the Link header, and is hosted in EU and US regions.
 url: https://raw.githubusercontent.com/api-evangelist/360learning/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://files.readme.io/d2f83e1cf705d24a2d47d5d49cca3ae5b2a36f208b27a4ce4906eeafe46551ec-small-LogoMain.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - softbank-vision-fund
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: enriched
+x-tier-reason: portfolio-lead-enriched
 specificationVersion: '0.20'
 created: '2026-07-17'
 modified: '2026-07-17'
 tags:
 - Company
 - Edtech
-apis: []
+- Learning Management System
+- E-Learning
+- Training
+- Collaborative Learning
+- HR Tech
+- Skills
+- API
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: 360learning:360learning-authentication-api
+  name: 360Learning Authentication API
+  description: The Authentication API from 360Learning — 3 operation(s) for authentication.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-authentication-api-openapi.yml
+- aid: 360learning:360learning-certificate-outlines-api
+  name: 360Learning Certificate Outlines API
+  description: The Certificate Outlines API from 360Learning — 2 operation(s) for certificate outlines.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Certificate Outlines
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-certificate-outlines-api-openapi.yml
+- aid: 360learning:360learning-classrooms-api
+  name: 360Learning Classrooms API
+  description: The Classrooms API from 360Learning — 13 operation(s) for classrooms.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Classrooms
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-classrooms-api-openapi.yml
+- aid: 360learning:360learning-courses-api
+  name: 360Learning Courses API
+  description: The Courses API from 360Learning — 9 operation(s) for courses.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Courses
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-courses-api-openapi.yml
+- aid: 360learning:360learning-custom-fields-api
+  name: 360Learning Custom Fields API
+  description: The Custom Fields API from 360Learning — 3 operation(s) for custom fields.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Custom Fields
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-custom-fields-api-openapi.yml
+- aid: 360learning:360learning-custom-links-api
+  name: 360Learning Custom Links API
+  description: The Custom Links API from 360Learning — 2 operation(s) for custom links.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Custom Links
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-custom-links-api-openapi.yml
+- aid: 360learning:360learning-external-ids-api
+  name: 360Learning External IDs API
+  description: The External IDs API from 360Learning — 2 operation(s) for external ids.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - External IDs
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-external-ids-api-openapi.yml
+- aid: 360learning:360learning-groups-api
+  name: 360Learning Groups API
+  description: The Groups API from 360Learning — 12 operation(s) for groups.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-groups-api-openapi.yml
+- aid: 360learning:360learning-integrations-api
+  name: 360Learning Integrations API
+  description: The Integrations API from 360Learning — 5 operation(s) for integrations.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-integrations-api-openapi.yml
+- aid: 360learning:360learning-learning-needs-api
+  name: 360Learning Learning Needs API
+  description: The Learning Needs API from 360Learning — 1 operation(s) for learning needs.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Learning Needs
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-learning-needs-api-openapi.yml
+- aid: 360learning:360learning-operations-api
+  name: 360Learning Operations API
+  description: The Operations API from 360Learning — 3 operation(s) for operations.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-operations-api-openapi.yml
+- aid: 360learning:360learning-paths-api
+  name: 360Learning Paths API
+  description: The Paths API from 360Learning — 18 operation(s) for paths.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Paths
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-paths-api-openapi.yml
+- aid: 360learning:360learning-projects-api
+  name: 360Learning Projects API
+  description: The Projects API from 360Learning — 1 operation(s) for projects.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-projects-api-openapi.yml
+- aid: 360learning:360learning-skills-api
+  name: 360Learning Skills API
+  description: The Skills API from 360Learning — 9 operation(s) for skills.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Skills
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-skills-api-openapi.yml
+- aid: 360learning:360learning-subscriptions-api
+  name: 360Learning Subscriptions API
+  description: The Subscriptions API from 360Learning — 8 operation(s) for subscriptions.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-subscriptions-api-openapi.yml
+- aid: 360learning:360learning-tags-api
+  name: 360Learning Tags API
+  description: The Tags API from 360Learning — 2 operation(s) for tags.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-tags-api-openapi.yml
+- aid: 360learning:360learning-users-api
+  name: 360Learning Users API
+  description: The Users API from 360Learning — 17 operation(s) for users.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-users-api-openapi.yml
+common:
+- type: Website
+  url: https://360learning.com/
+- type: DeveloperPortal
+  url: https://360learning.readme.io/
+- type: Documentation
+  url: https://360learning.readme.io/docs/introduction
+- type: APIReference
+  url: https://360learning.readme.io/reference
+- type: GettingStarted
+  url: https://360learning.readme.io/docs/get-started
+- type: Support
+  url: https://support.360learning.com/
+- type: Blog
+  url: https://360learning.com/blog/
+- type: StatusPage
+  url: https://status.360learning.com
+- type: ChangeLog
+  url: https://360learning.readme.io/changelog
+- type: Pricing
+  url: https://360learning.com/pricing/
+- type: SignUp
+  url: https://app.360learning.com/
+- type: Login
+  url: https://app.360learning.com/
+- type: TermsOfService
+  url: https://360learning.com/terms-of-use/
+- type: PrivacyPolicy
+  url: https://360learning.com/privacy-policy/
+- type: Deprecation
+  url: https://api.360learning.com/
+- type: Authentication
+  url: authentication/360learning-authentication.yml
+- type: OAuthScopes
+  url: scopes/360learning-scopes.yml
+- type: Conventions
+  url: conventions/360learning-conventions.yml
+- type: ErrorCatalog
+  url: errors/360learning-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/360learning-lifecycle.yml
+- type: ChangeLog
+  url: changelog/360learning-changelog.yml
+- type: Webhooks
+  url: asyncapi/360learning-webhooks.yml
+- type: MCPServer
+  url: mcp/360learning-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Conformance
+  url: conformance/360learning-conformance.yml
+- type: Compliance
+  url: https://360learning.com/privacy-and-security/
+- type: TrustCenter
+  url: security/360learning-trust-center.yml
+- type: DomainSecurity
+  url: security/360learning-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/360learning-agentic-access.yml
+- type: DataModel
+  url: data-model/360learning-data-model.yml
+- type: Packages
+  url: packages/360learning-packages.yml
+- type: LLMsTxt
+  url: llms/360learning-llms.txt
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

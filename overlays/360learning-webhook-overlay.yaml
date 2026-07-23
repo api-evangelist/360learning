@@ -1,0 +1,21 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for 360Learning Webhook API
+  version: 1.0.0
+extends: openapi/360learning-webhook-api.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-17'
+    x-apievangelist-provider: 360learning
+    x-apievangelist-auth: oauth2-client-credentials
+    x-apievangelist-token-url: https://app.360learning.com/api/v2/oauth2/token
+    x-apievangelist-version-header: 360-api-version
+    x-apievangelist-pagination: cursor (Link header rel=next)
+    x-apievangelist-scopes: scopes/360learning-scopes.yml
+    x-apievangelist-errors: errors/360learning-problem-types.yml
+- target: $.info
+  update:
+    x-apievangelist-notes: >-
+      Enhancements captured by the API Evangelist enrichment pipeline over the
+      published 360Learning Webhook API (7 paths). The original spec is not mutated.

@@ -1,0 +1,159 @@
+generated: '2026-07-17'
+method: searched
+source: openapi/360learning-core-api.json (operation descriptions)
+docs: https://360learning.readme.io/docs/oauth-scopes
+notes: >-
+  Scopes follow a resource:action format. action is read (retrieve), write
+  (create/update/delete), or bulk (bulk operations). Scopes operate at two
+  levels: company-level (the permission ceiling, changed via Customer Success
+  Partner) and credential-level (a subset assigned per API credential).
+  The 360Learning OpenAPI declares an oauth2 scheme with empty flows; the
+  scope each endpoint requires is documented in its operation description and
+  enforced at request time (403 invalid_scope on failure).
+schemes:
+- name: oauth2
+  type: oauth2
+  grant: client_credentials
+  tokenUrl: https://app.360learning.com/api/v2/oauth2/token
+  sources:
+  - openapi/360learning-bulk-api.json
+  - openapi/360learning-core-api.json
+  - openapi/360learning-plugin-api.json
+  - openapi/360learning-user-authorized-api.json
+  - openapi/360learning-webhook-api.json
+scopes:
+- scope: attendanceSheets:read
+  description: Read (retrieve) access to attendance sheets.
+  sources: [openapi/360learning-core-api.json]
+- scope: attendanceSheets:write
+  description: Create, update, or delete access to attendance sheets.
+  sources: [openapi/360learning-core-api.json]
+- scope: bulkOperations:read
+  description: Read (retrieve) access to bulk operations.
+  sources: [openapi/360learning-bulk-api.json]
+- scope: certificateOutlines:read
+  description: Read (retrieve) access to certificate outlines.
+  sources: [openapi/360learning-core-api.json]
+- scope: certificateOutlines:write
+  description: Create, update, or delete access to certificate outlines.
+  sources: [openapi/360learning-core-api.json]
+- scope: classrooms:read
+  description: Read (retrieve) access to classrooms.
+  sources: [openapi/360learning-core-api.json]
+- scope: classrooms:write
+  description: Create, update, or delete access to classrooms.
+  sources: [openapi/360learning-core-api.json]
+- scope: courseStats:read
+  description: Read (retrieve) access to course stats.
+  sources: [openapi/360learning-core-api.json]
+- scope: courses:read
+  description: Read (retrieve) access to courses.
+  sources: [openapi/360learning-core-api.json]
+- scope: courses:write
+  description: Create, update, or delete access to courses.
+  sources: [openapi/360learning-core-api.json]
+- scope: customFields:read
+  description: Read (retrieve) access to custom fields.
+  sources: [openapi/360learning-core-api.json]
+- scope: customFields:write
+  description: Create, update, or delete access to custom fields.
+  sources: [openapi/360learning-core-api.json]
+- scope: customLinks:read
+  description: Read (retrieve) access to custom links.
+  sources: [openapi/360learning-core-api.json]
+- scope: customLinks:write
+  description: Create, update, or delete access to custom links.
+  sources: [openapi/360learning-core-api.json]
+- scope: externalIds:read
+  description: Read (retrieve) access to external ids.
+  sources: [openapi/360learning-core-api.json]
+- scope: externalIds:write
+  description: Create, update, or delete access to external ids.
+  sources: [openapi/360learning-core-api.json]
+- scope: groups:bulk
+  description: Bulk operations on groups.
+  sources: [openapi/360learning-bulk-api.json]
+- scope: groups:read
+  description: Read (retrieve) access to groups.
+  sources: [openapi/360learning-core-api.json]
+- scope: groups:write
+  description: Create, update, or delete access to groups.
+  sources: [openapi/360learning-core-api.json]
+- scope: integrations:bulk
+  description: Bulk operations on integrations.
+  sources: [openapi/360learning-bulk-api.json]
+- scope: integrations:read
+  description: Read (retrieve) access to integrations.
+  sources: [openapi/360learning-core-api.json]
+- scope: integrations:write
+  description: Create, update, or delete access to integrations.
+  sources: [openapi/360learning-core-api.json]
+- scope: learningNeeds:read
+  description: Read (retrieve) access to learning needs.
+  sources: [openapi/360learning-core-api.json]
+- scope: pathStats:read
+  description: Read (retrieve) access to path stats.
+  sources: [openapi/360learning-core-api.json]
+- scope: paths:read
+  description: Read (retrieve) access to paths.
+  sources: [openapi/360learning-core-api.json]
+- scope: paths:write
+  description: Create, update, or delete access to paths.
+  sources: [openapi/360learning-core-api.json]
+- scope: projects:read
+  description: Read (retrieve) access to projects.
+  sources: [openapi/360learning-core-api.json]
+- scope: skills:bulk
+  description: Bulk operations on skills.
+  sources: [openapi/360learning-bulk-api.json]
+- scope: skills:read
+  description: Read (retrieve) access to skills.
+  sources: [openapi/360learning-core-api.json]
+- scope: skillsJobSkills:bulk
+  description: Bulk operations on skills job skills.
+  sources: [openapi/360learning-bulk-api.json]
+- scope: skillsJobs:bulk
+  description: Bulk operations on skills jobs.
+  sources: [openapi/360learning-bulk-api.json]
+- scope: skillsJobs:write
+  description: Create, update, or delete access to skills jobs.
+  sources: [openapi/360learning-core-api.json]
+- scope: skillsLibraries:bulk
+  description: Bulk operations on skills libraries.
+  sources: [openapi/360learning-bulk-api.json]
+- scope: skillsPowers:bulk
+  description: Bulk operations on skills powers.
+  sources: [openapi/360learning-bulk-api.json]
+- scope: skillsPowers:read
+  description: Read (retrieve) access to skills powers.
+  sources: [openapi/360learning-core-api.json]
+- scope: subscriptions:bulk
+  description: Bulk operations on subscriptions.
+  sources: [openapi/360learning-bulk-api.json]
+- scope: tags:read
+  description: Read (retrieve) access to tags.
+  sources: [openapi/360learning-core-api.json]
+- scope: tags:write
+  description: Create, update, or delete access to tags.
+  sources: [openapi/360learning-core-api.json]
+- scope: tokens:write
+  description: Create, update, or delete access to tokens.
+  sources: [openapi/360learning-core-api.json]
+- scope: users:read
+  description: Read (retrieve) access to users.
+  sources: [openapi/360learning-core-api.json, openapi/360learning-user-authorized-api.json]
+- scope: users:write
+  description: Create, update, or delete access to users.
+  sources: [openapi/360learning-core-api.json]
+- scope: webhookSecrets:read
+  description: Read (retrieve) access to webhook secrets.
+  sources: [openapi/360learning-webhook-api.json]
+- scope: webhookSecrets:write
+  description: Create, update, or delete access to webhook secrets.
+  sources: [openapi/360learning-webhook-api.json]
+- scope: webhooks:read
+  description: Read (retrieve) access to webhooks.
+  sources: [openapi/360learning-webhook-api.json]
+- scope: webhooks:write
+  description: Create, update, or delete access to webhooks.
+  sources: [openapi/360learning-webhook-api.json]

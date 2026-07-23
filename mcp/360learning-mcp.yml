@@ -1,0 +1,504 @@
+generated: '2026-07-17'
+method: derived
+status: candidate
+source: openapi/360learning-*.json
+notes: >-
+  No official hosted 360Learning MCP server was found. This is a candidate tool
+  list derived one-per-operation from the published API v2 OpenAPI documents.
+server:
+  name: 360learning
+  transport: http
+  auth: oauth2-client-credentials
+tools:  # 164 operations
+- name: v2.certificateOutlines.CreateCertificateOutlineController_createCertificateOutline
+  description: "Create certificate outline"
+  source_operation: openapi/360learning-core-api.json#v2.certificateOutlines.CreateCertificateOutlineController_createCertificateOutline
+- name: v2.certificateOutlines.GetCertificateOutlinesController_getCertificateOutlines
+  description: "List all certificate outlines"
+  source_operation: openapi/360learning-core-api.json#v2.certificateOutlines.GetCertificateOutlinesController_getCertificateOutlines
+- name: v2.certificateOutlines.DeleteCertificateOutlineController_deleteCertificateOutline
+  description: "Delete a certificate outline"
+  source_operation: openapi/360learning-core-api.json#v2.certificateOutlines.DeleteCertificateOutlineController_deleteCertificateOutline
+- name: v2.certificateOutlines.UpdateCertificateOutlineController_updateCertificateOutline
+  description: "Edit a certificate outline"
+  source_operation: openapi/360learning-core-api.json#v2.certificateOutlines.UpdateCertificateOutlineController_updateCertificateOutline
+- name: v2.classrooms.CreateClassroomController_createClassroom
+  description: "Create a classroom"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.CreateClassroomController_createClassroom
+- name: v2.classrooms.GetClassroomsController_getClassrooms
+  description: "List all classrooms"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.GetClassroomsController_getClassrooms
+- name: v2.classrooms.GetClassroomController_getClassroom
+  description: "Retrieve a classroom"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.GetClassroomController_getClassroom
+- name: v2.classrooms.UpdateClassroomController_updateClassroom
+  description: "Edit a classroom"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.UpdateClassroomController_updateClassroom
+- name: v2.classrooms.GetClassroomRegistrationsController_getClassroomRegistrations
+  description: "List all registrations in a classroom"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.GetClassroomRegistrationsController_getClassroomRegistrations
+- name: v2.classrooms.CreateClassroomSlotController_createClassroomSlot
+  description: "Add a slot to a classroom"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.CreateClassroomSlotController_createClassroomSlot
+- name: v2.classrooms.GetClassroomSlotsController_getClassroomSlots
+  description: "List all slots in a classroom"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.GetClassroomSlotsController_getClassroomSlots
+- name: v2.classrooms.DeleteClassroomSlotController_deleteClassroomSlot
+  description: "Remove a slot from a classroom"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.DeleteClassroomSlotController_deleteClassroomSlot
+- name: v2.classrooms.UpdateClassroomSlotController_updateClassroomSlot
+  description: "Edit a classroom slot"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.UpdateClassroomSlotController_updateClassroomSlot
+- name: v2.classrooms.CreateAttendanceSheetController_createAttendanceSheet
+  description: "Create an attendance sheet"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.CreateAttendanceSheetController_createAttendanceSheet
+- name: v2.classrooms.GetAttendanceSheetsController_getAttendanceSheets
+  description: "List all attendance sheets"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.GetAttendanceSheetsController_getAttendanceSheets
+- name: v2.classrooms.DeleteAttendanceSheetController_deleteAttendanceSheet
+  description: "Delete an attendance sheet"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.DeleteAttendanceSheetController_deleteAttendanceSheet
+- name: v2.classrooms.UpdateAttendanceSheetController_updateAttendanceSheet
+  description: "Replace an attendance sheet"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.UpdateAttendanceSheetController_updateAttendanceSheet
+- name: v2.classrooms.GetAttendancesController_getAttendances
+  description: "List all attendances"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.GetAttendancesController_getAttendances
+- name: v2.classrooms.GetClassroomSlotWaitlistController_getClassroomSlotWaitlist
+  description: "List all waitlist requests in a classroom slot"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.GetClassroomSlotWaitlistController_getClassroomSlotWaitlist
+- name: v2.classrooms.JoinClassroomSlotWaitlistController_joinClassroomSlotWaitlist
+  description: "Add a user to a classroom slot waitlist"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.JoinClassroomSlotWaitlistController_joinClassroomSlotWaitlist
+- name: v2.classrooms.LeaveClassroomSlotWaitlistController_leaveClassroomSlotWaitlist
+  description: "Remove a user from a classroom slot waitlist"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.LeaveClassroomSlotWaitlistController_leaveClassroomSlotWaitlist
+- name: v2.classrooms.AddSlotRegistrationController_addSlotRegistration
+  description: "Register a user to a classroom slot"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.AddSlotRegistrationController_addSlotRegistration
+- name: v2.classrooms.GetSlotRegistrationsController_getSlotRegistrations
+  description: "List all registrations in a classroom slot"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.GetSlotRegistrationsController_getSlotRegistrations
+- name: v2.classrooms.UpdateSlotRegistrationController_updateSlotRegistration
+  description: "Edit a classroom slot registration"
+  source_operation: openapi/360learning-core-api.json#v2.classrooms.UpdateSlotRegistrationController_updateSlotRegistration
+- name: v2.courses.ArchiveOrUnarchiveCourseController_archiveOrUnarchiveCourse
+  description: "Archive or restore a course"
+  source_operation: openapi/360learning-core-api.json#v2.courses.ArchiveOrUnarchiveCourseController_archiveOrUnarchiveCourse
+- name: v2.courses.CreateELearningStandardCourseController_createELearningStandardCourse
+  description: "Create an eLearning standard course"
+  source_operation: openapi/360learning-core-api.json#v2.courses.CreateELearningStandardCourseController_createELearningStandardCourse
+- name: v2.courses.GenerateFromPromptController_generateFromPrompt
+  description: "Generate a course from a prompt (internal only)"
+  source_operation: openapi/360learning-core-api.json#v2.courses.GenerateFromPromptController_generateFromPrompt
+- name: v2.courses.GetAllCourseStatsController_getAllCourseStats
+  description: "List all courses statistics"
+  source_operation: openapi/360learning-core-api.json#v2.courses.GetAllCourseStatsController_getAllCourseStats
+- name: v2.courses.GetCourseController_getCourse
+  description: "Retrieve a course"
+  source_operation: openapi/360learning-core-api.json#v2.courses.GetCourseController_getCourse
+- name: v2.courses.GetCourseCustomFieldValuesController_getCourseCustomFieldValues
+  description: "List all custom field values for a course"
+  source_operation: openapi/360learning-core-api.json#v2.courses.GetCourseCustomFieldValuesController_getCourseCustomFieldValues
+- name: v2.courses.UpdateCourseCustomFieldValuesController_updateCourseCustomFieldValues
+  description: "Replace all custom field values for a course"
+  source_operation: openapi/360learning-core-api.json#v2.courses.UpdateCourseCustomFieldValuesController_updateCourseCustomFieldValues
+- name: v2.courses.GetCoursesController_getCourses
+  description: "List all courses"
+  source_operation: openapi/360learning-core-api.json#v2.courses.GetCoursesController_getCourses
+- name: v2.courses.GetCourseTagsController_getTags
+  description: "List all tags in a course"
+  source_operation: openapi/360learning-core-api.json#v2.courses.GetCourseTagsController_getTags
+- name: v2.courses.UpdateTagsController_updateTags
+  description: "Replace all tags in a course"
+  source_operation: openapi/360learning-core-api.json#v2.courses.UpdateTagsController_updateTags
+- name: v2.courses.UpdateELearningStandardCourseController_updateELearningStandardCourse
+  description: "Edit an eLearning standard course"
+  source_operation: openapi/360learning-core-api.json#v2.courses.UpdateELearningStandardCourseController_updateELearningStandardCourse
+- name: v2.customFields.CreateCustomFieldController_createCustomField
+  description: "Create a custom field"
+  source_operation: openapi/360learning-core-api.json#v2.customFields.CreateCustomFieldController_createCustomField
+- name: v2.customFields.GetCustomFieldsController_getCustomFields
+  description: "List all custom fields"
+  source_operation: openapi/360learning-core-api.json#v2.customFields.GetCustomFieldsController_getCustomFields
+- name: v2.customFields.DeleteCustomFieldController_deleteCustomField
+  description: "Delete a custom field"
+  source_operation: openapi/360learning-core-api.json#v2.customFields.DeleteCustomFieldController_deleteCustomField
+- name: v2.customFields.UpdateCustomFieldController_updateCustomField
+  description: "Edit a custom field"
+  source_operation: openapi/360learning-core-api.json#v2.customFields.UpdateCustomFieldController_updateCustomField
+- name: v2.customFields.GetAuthorizedValuesController_getAuthorizedValues
+  description: "List all authorized values"
+  source_operation: openapi/360learning-core-api.json#v2.customFields.GetAuthorizedValuesController_getAuthorizedValues
+- name: v2.customFields.ReplaceAuthorizedValuesController_replaceAuthorizedValues
+  description: "Replace all authorized values"
+  source_operation: openapi/360learning-core-api.json#v2.customFields.ReplaceAuthorizedValuesController_replaceAuthorizedValues
+- name: v2.customLinks.CreateCustomLinkController_createCustomLink
+  description: "Create a custom link"
+  source_operation: openapi/360learning-core-api.json#v2.customLinks.CreateCustomLinkController_createCustomLink
+- name: v2.customLinks.GetCustomLinksByCompanyController_getCustomLinksByCompany
+  description: "List custom links"
+  source_operation: openapi/360learning-core-api.json#v2.customLinks.GetCustomLinksByCompanyController_getCustomLinksByCompany
+- name: v2.customLinks.DeleteCustomLinkController_deleteCustomLink
+  description: "Delete a custom link"
+  source_operation: openapi/360learning-core-api.json#v2.customLinks.DeleteCustomLinkController_deleteCustomLink
+- name: v2.customLinks.ReplaceCustomLinkController_replaceCustomLink
+  description: "Replace a custom link"
+  source_operation: openapi/360learning-core-api.json#v2.customLinks.ReplaceCustomLinkController_replaceCustomLink
+- name: v2.externalIds.CreateExternalIdController_createExternalId
+  description: "Create an ID mapping"
+  source_operation: openapi/360learning-core-api.json#v2.externalIds.CreateExternalIdController_createExternalId
+- name: v2.externalIds.GetExternalIdsController_getExternalIds
+  description: "List all ID mappings"
+  source_operation: openapi/360learning-core-api.json#v2.externalIds.GetExternalIdsController_getExternalIds
+- name: v2.externalIds.DeleteExternalIdController_deleteExternalId
+  description: "Delete an ID mapping"
+  source_operation: openapi/360learning-core-api.json#v2.externalIds.DeleteExternalIdController_deleteExternalId
+- name: v2.externalIds.UpdateExternalIdController_updateExternalId
+  description: "Replace an ID mapping"
+  source_operation: openapi/360learning-core-api.json#v2.externalIds.UpdateExternalIdController_updateExternalId
+- name: v2.groups.AddUserRoleToGroupController_addUserRoleToGroup
+  description: "Add a user's role"
+  source_operation: openapi/360learning-core-api.json#v2.groups.AddUserRoleToGroupController_addUserRoleToGroup
+- name: v2.groups.RemoveUserRoleFromGroupController_removeUserRoleFromGroup
+  description: "Remove a user's role"
+  source_operation: openapi/360learning-core-api.json#v2.groups.RemoveUserRoleFromGroupController_removeUserRoleFromGroup
+- name: v2.groups.CreateGroupController_createGroup
+  description: "Create a group"
+  source_operation: openapi/360learning-core-api.json#v2.groups.CreateGroupController_createGroup
+- name: v2.groups.GetGroupsController_getGroups
+  description: "List all groups"
+  source_operation: openapi/360learning-core-api.json#v2.groups.GetGroupsController_getGroups
+- name: v2.groups.DeleteGroupController_deleteGroup
+  description: "Delete a group"
+  source_operation: openapi/360learning-core-api.json#v2.groups.DeleteGroupController_deleteGroup
+- name: v2.groups.GetGroupController_getGroup
+  description: "Retrieve a group"
+  source_operation: openapi/360learning-core-api.json#v2.groups.GetGroupController_getGroup
+- name: v2.groups.UpdateGroupController_updateGroup
+  description: "Edit a group"
+  source_operation: openapi/360learning-core-api.json#v2.groups.UpdateGroupController_updateGroup
+- name: v2.groups.GetGroupMembersController_getGroupMembers
+  description: "List all memberships in a group"
+  source_operation: openapi/360learning-core-api.json#v2.groups.GetGroupMembersController_getGroupMembers
+- name: v2.groups.GetCatalogContentIdsController_getCatalogContentIds
+  description: "List all content IDs in a group catalog"
+  source_operation: openapi/360learning-core-api.json#v2.groups.GetCatalogContentIdsController_getCatalogContentIds
+- name: v2.groups.GetLibraryContentIdsController_getLibraryContentIds
+  description: "List all content IDs in a group library"
+  source_operation: openapi/360learning-core-api.json#v2.groups.GetLibraryContentIdsController_getLibraryContentIds
+- name: v2.groups.UploadGroupMediaController_uploadGroupMedia
+  description: "Upload group media"
+  source_operation: openapi/360learning-core-api.json#v2.groups.UploadGroupMediaController_uploadGroupMedia
+- name: v2.groups.UpsertGroupCustomizationColorsController_upsertGroupCustomizationColors
+  description: "Set group branding"
+  source_operation: openapi/360learning-core-api.json#v2.groups.UpsertGroupCustomizationColorsController_upsertGroupCustomizationColors
+- name: v2.integrations.CreateIntegrationController_createIntegration
+  description: "Create an integration configuration"
+  source_operation: openapi/360learning-core-api.json#v2.integrations.CreateIntegrationController_createIntegration
+- name: v2.integrations.GetIntegrationsController_getIntegrations
+  description: "List integration configurations"
+  source_operation: openapi/360learning-core-api.json#v2.integrations.GetIntegrationsController_getIntegrations
+- name: v2.integrations.DeleteIntegrationController_deleteIntegration
+  description: "Delete an integration configuration"
+  source_operation: openapi/360learning-core-api.json#v2.integrations.DeleteIntegrationController_deleteIntegration
+- name: v2.integrations.EditIntegrationController_editIntegration
+  description: "Edit an integration configuration"
+  source_operation: openapi/360learning-core-api.json#v2.integrations.EditIntegrationController_editIntegration
+- name: v2.integrations.GetExternalCourseController_getExternalCourse
+  description: "Retrieve an external course"
+  source_operation: openapi/360learning-core-api.json#v2.integrations.GetExternalCourseController_getExternalCourse
+- name: v2.learningNeeds.GetLearningNeedsController_getLearningNeeds
+  description: "List all learning needs"
+  source_operation: openapi/360learning-core-api.json#v2.learningNeeds.GetLearningNeedsController_getLearningNeeds
+- name: v2.authentication.GenerateTokenController_generateToken
+  description: "Create an access token"
+  source_operation: openapi/360learning-core-api.json#v2.authentication.GenerateTokenController_generateToken
+- name: v2.paths.GetAllPathSessionsController_getAllPathSessions
+  description: "List all sessions"
+  source_operation: openapi/360learning-core-api.json#v2.paths.GetAllPathSessionsController_getAllPathSessions
+- name: v2.paths.GetPathStatsController_getPathStats
+  description: "List all user statistics for all paths"
+  source_operation: openapi/360learning-core-api.json#v2.paths.GetPathStatsController_getPathStats
+- name: v2.paths.AddTokensController_addTokens
+  description: "Add tokens"
+  source_operation: openapi/360learning-core-api.json#v2.paths.AddTokensController_addTokens
+- name: v2.paths.ArchiveOrUnarchivePathController_archiveOrUnarchivePath
+  description: "Archive or restore a path"
+  source_operation: openapi/360learning-core-api.json#v2.paths.ArchiveOrUnarchivePathController_archiveOrUnarchivePath
+- name: v2.paths.CreatePathController_createPath
+  description: "Create a path"
+  source_operation: openapi/360learning-core-api.json#v2.paths.CreatePathController_createPath
+- name: v2.paths.GetPathsController_getPaths
+  description: "List all paths"
+  source_operation: openapi/360learning-core-api.json#v2.paths.GetPathsController_getPaths
+- name: v2.paths.CreatePathSessionController_createPathSession
+  description: "Create a path session"
+  source_operation: openapi/360learning-core-api.json#v2.paths.CreatePathSessionController_createPathSession
+- name: v2.paths.GetPathSessionsController_getPathSessions
+  description: "List all sessions in a path"
+  source_operation: openapi/360learning-core-api.json#v2.paths.GetPathSessionsController_getPathSessions
+- name: v2.paths.DeletePathController_deletePath
+  description: "Delete a path"
+  source_operation: openapi/360learning-core-api.json#v2.paths.DeletePathController_deletePath
+- name: v2.paths.GetPathController_getPath
+  description: "Retrieve a path"
+  source_operation: openapi/360learning-core-api.json#v2.paths.GetPathController_getPath
+- name: v2.paths.UpdatePathController_updatePath
+  description: "Edit a path"
+  source_operation: openapi/360learning-core-api.json#v2.paths.UpdatePathController_updatePath
+- name: v2.paths.DeletePathSessionController_deletePathSession
+  description: "Delete a path session"
+  source_operation: openapi/360learning-core-api.json#v2.paths.DeletePathSessionController_deletePathSession
+- name: v2.paths.GetPathSessionController_getPathSession
+  description: "Retrieve a path session"
+  source_operation: openapi/360learning-core-api.json#v2.paths.GetPathSessionController_getPathSession
+- name: v2.paths.ModifyPathSessionController_modifyPathSession
+  description: "Edit a path session"
+  source_operation: openapi/360learning-core-api.json#v2.paths.ModifyPathSessionController_modifyPathSession
+- name: v2.paths.ArchiveSelfEnrollmentController_archiveSelfEnrollment
+  description: "Archive a self-enrolled learner from a path session"
+  source_operation: openapi/360learning-core-api.json#v2.paths.ArchiveSelfEnrollmentController_archiveSelfEnrollment
+- name: v2.paths.GetEnrollmentsController_getEnrollments
+  description: "List all enrollments"
+  source_operation: openapi/360learning-core-api.json#v2.paths.GetEnrollmentsController_getEnrollments
+- name: v2.paths.GetPathSessionCustomFieldValuesController_getPathSessionCustomFieldValues
+  description: "List all custom field values for a session"
+  source_operation: openapi/360learning-core-api.json#v2.paths.GetPathSessionCustomFieldValuesController_getPathSessionCustomFieldValues
+- name: v2.paths.v2.paths.UpdatePathSessionCustomFieldValuesController_updatePathSessionCustomFieldValues
+  description: "Replace all custom fields values for a path session"
+  source_operation: openapi/360learning-core-api.json#v2.paths.v2.paths.UpdatePathSessionCustomFieldValuesController_updatePathSessionCustomFieldValues
+- name: v2.paths.GetPathTagsController_getTags
+  description: "List all tags in a path"
+  source_operation: openapi/360learning-core-api.json#v2.paths.GetPathTagsController_getTags
+- name: v2.paths.UpdateTagsController_updateTags
+  description: "Replace all tags in a path"
+  source_operation: openapi/360learning-core-api.json#v2.paths.UpdateTagsController_updateTags
+- name: v2.paths.GetSessionAudienceController_getSessionAudience
+  description: "Retrieve a path session audience"
+  source_operation: openapi/360learning-core-api.json#v2.paths.GetSessionAudienceController_getSessionAudience
+- name: v2.paths.UpdateSessionAudienceController_updateSessionAudience
+  description: "Replace an audience for a path session"
+  source_operation: openapi/360learning-core-api.json#v2.paths.UpdateSessionAudienceController_updateSessionAudience
+- name: v2.paths.v2.paths.GetSessionStatsController_getSessionStats
+  description: "Retrieve metrics for a path session"
+  source_operation: openapi/360learning-core-api.json#v2.paths.v2.paths.GetSessionStatsController_getSessionStats
+- name: v2.paths.GetUserStatsController_getUserStats
+  description: "List all user statistics for a path session"
+  source_operation: openapi/360learning-core-api.json#v2.paths.GetUserStatsController_getUserStats
+- name: v2.paths.ModifyChildPathSessionController_modifyChildPathSession
+  description: "Edit a child path session"
+  source_operation: openapi/360learning-core-api.json#v2.paths.ModifyChildPathSessionController_modifyChildPathSession
+- name: v2.paths.ReplacePathTranslationsController_replacePathTranslations
+  description: "Replace all translations for a path"
+  source_operation: openapi/360learning-core-api.json#v2.paths.ReplacePathTranslationsController_replacePathTranslations
+- name: v2.paths.UpdateStepsController_updateSteps
+  description: "Replace all steps"
+  source_operation: openapi/360learning-core-api.json#v2.paths.UpdateStepsController_updateSteps
+- name: v2.projects.GetProjectsController_getProjects
+  description: "List all projects"
+  source_operation: openapi/360learning-core-api.json#v2.projects.GetProjectsController_getProjects
+- name: v2.skills.GetPowersController_getPowers
+  description: "List all the powers"
+  source_operation: openapi/360learning-core-api.json#v2.skills.GetPowersController_getPowers
+- name: v2.skills.GetSkillsController_getSkills
+  description: "List all skills"
+  source_operation: openapi/360learning-core-api.json#v2.skills.GetSkillsController_getSkills
+- name: v2.skills.ReplaceUserJobsController_replaceUserJobs
+  description: "Replace all jobs for a user"
+  source_operation: openapi/360learning-core-api.json#v2.skills.ReplaceUserJobsController_replaceUserJobs
+- name: v2.tags.CreateTagController_createTag
+  description: "Create a tag"
+  source_operation: openapi/360learning-core-api.json#v2.tags.CreateTagController_createTag
+- name: v2.tags.GetTagsController_getTags
+  description: "List all tags"
+  source_operation: openapi/360learning-core-api.json#v2.tags.GetTagsController_getTags
+- name: v2.tags.DeleteTagController_deleteTag
+  description: "Delete a tag"
+  source_operation: openapi/360learning-core-api.json#v2.tags.DeleteTagController_deleteTag
+- name: v2.tags.GetTagController_getTag
+  description: "Retrieve a tag"
+  source_operation: openapi/360learning-core-api.json#v2.tags.GetTagController_getTag
+- name: v2.tags.UpdateTagController_updateTag
+  description: "Replace a tag"
+  source_operation: openapi/360learning-core-api.json#v2.tags.UpdateTagController_updateTag
+- name: v2.users.ActivateUserController_activateUser
+  description: "Activate a user"
+  source_operation: openapi/360learning-core-api.json#v2.users.ActivateUserController_activateUser
+- name: v2.users.AddManagerController_addManager
+  description: "Add a manager to a user"
+  source_operation: openapi/360learning-core-api.json#v2.users.AddManagerController_addManager
+- name: v2.users.DeleteManagerController_deleteManager
+  description: "Remove a manager from a user"
+  source_operation: openapi/360learning-core-api.json#v2.users.DeleteManagerController_deleteManager
+- name: v2.users.CreateCustomUserLinkController_createCustomUserLink
+  description: "Create a custom user link"
+  source_operation: openapi/360learning-core-api.json#v2.users.CreateCustomUserLinkController_createCustomUserLink
+- name: v2.users.GetCustomUserLinksController_getCustomUserLinks
+  description: "List all custom user links for a user"
+  source_operation: openapi/360learning-core-api.json#v2.users.GetCustomUserLinksController_getCustomUserLinks
+- name: v2.users.CreateUserController_createUser
+  description: "Create an invited user"
+  source_operation: openapi/360learning-core-api.json#v2.users.CreateUserController_createUser
+- name: v2.users.GetUsersController_getUsers
+  description: "List all users"
+  source_operation: openapi/360learning-core-api.json#v2.users.GetUsersController_getUsers
+- name: v2.users.CreateUserCertificateController_createUserCertificate
+  description: "Import a certificate"
+  source_operation: openapi/360learning-core-api.json#v2.users.CreateUserCertificateController_createUserCertificate
+- name: v2.users.GetUserCertificatesController_getUserCertificates
+  description: "List all certificates for a user"
+  source_operation: openapi/360learning-core-api.json#v2.users.GetUserCertificatesController_getUserCertificates
+- name: v2.users.DeleteCustomUserLinkController_deleteCustomUserLink
+  description: "Delete a custom user link"
+  source_operation: openapi/360learning-core-api.json#v2.users.DeleteCustomUserLinkController_deleteCustomUserLink
+- name: v2.users.UpdateCustomUserLinkController_updateCustomUserLink
+  description: "Replace custom user links"
+  source_operation: openapi/360learning-core-api.json#v2.users.UpdateCustomUserLinkController_updateCustomUserLink
+- name: v2.users.DeleteUserController_deleteUser
+  description: "Delete a user"
+  source_operation: openapi/360learning-core-api.json#v2.users.DeleteUserController_deleteUser
+- name: v2.users.GetUserController_getUser
+  description: "Retrieve a user"
+  source_operation: openapi/360learning-core-api.json#v2.users.GetUserController_getUser
+- name: v2.users.UpdateUserController_updateUser
+  description: "Edit a user"
+  source_operation: openapi/360learning-core-api.json#v2.users.UpdateUserController_updateUser
+- name: v2.users.GetManagersController_getManagers
+  description: "List all manager IDs for a user"
+  source_operation: openapi/360learning-core-api.json#v2.users.GetManagersController_getManagers
+- name: v2.users.GetSubordinatesController_getSubordinates
+  description: "List all subordinate IDs for a user"
+  source_operation: openapi/360learning-core-api.json#v2.users.GetSubordinatesController_getSubordinates
+- name: v2.users.GetUserCustomFieldValuesController_getUserCustomFieldValues
+  description: "List all custom field values for a user"
+  source_operation: openapi/360learning-core-api.json#v2.users.GetUserCustomFieldValuesController_getUserCustomFieldValues
+- name: v2.users.UpdateUserCustomFieldValuesController_updateUserCustomFieldValues
+  description: "Replace a user custom fields values"
+  source_operation: openapi/360learning-core-api.json#v2.users.UpdateUserCustomFieldValuesController_updateUserCustomFieldValues
+- name: v2.users.GetUserCertificateAsPdfController_getUserCertificateAsPdf
+  description: "Retrieve a certificate PDF file"
+  source_operation: openapi/360learning-core-api.json#v2.users.GetUserCertificateAsPdfController_getUserCertificateAsPdf
+- name: v2.users.GetUserRolesInGroupsController_getUserRolesInGroups
+  description: "List all memberships of a user"
+  source_operation: openapi/360learning-core-api.json#v2.users.GetUserRolesInGroupsController_getUserRolesInGroups
+- name: v2.users.PseudonymizeUserController_pseudonymizeUser
+  description: "Pseudonymize user"
+  source_operation: openapi/360learning-core-api.json#v2.users.PseudonymizeUserController_pseudonymizeUser
+- name: v2.users.ReplacePasswordController_replacePassword
+  description: "Replace the password of a user"
+  source_operation: openapi/360learning-core-api.json#v2.users.ReplacePasswordController_replacePassword
+- name: v2.users.UpdateUserCertificatesPrivacyLevelController_updateUserCertificatesPrivacyLevel
+  description: "Update certificates privacy level"
+  source_operation: openapi/360learning-core-api.json#v2.users.UpdateUserCertificatesPrivacyLevelController_updateUserCertificatesPrivacyLevel
+- name: v2.users.UploadUserMediaController_uploadUserMedia
+  description: "Upload user media"
+  source_operation: openapi/360learning-core-api.json#v2.users.UploadUserMediaController_uploadUserMedia
+- name: v2.bulk.groups.AddContentsToGroupsCatalogController_addContentsToGroupsCatalog
+  description: "Add content to catalogs"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.groups.AddContentsToGroupsCatalogController_addContentsToGroupsCatalog
+- name: v2.bulk.groups.RemoveContentsFromGroupsCatalogController_removeContentsFromGroupsCatalog
+  description: "Remove content from catalogs"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.groups.RemoveContentsFromGroupsCatalogController_removeContentsFromGroupsCatalog
+- name: v2.bulk.groups.AddContentsToGroupsLibraryController_addContentsToGroupsLibrary
+  description: "Add content to libraries"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.groups.AddContentsToGroupsLibraryController_addContentsToGroupsLibrary
+- name: v2.bulk.groups.RemoveContentsFromGroupsLibraryController_removeContentsFromGroupsLibrary
+  description: "Remove content from libraries"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.groups.RemoveContentsFromGroupsLibraryController_removeContentsFromGroupsLibrary
+- name: v2.bulk.groups.AddUsersToGroupsController_addUsersToGroups
+  description: "Add users to groups"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.groups.AddUsersToGroupsController_addUsersToGroups
+- name: v2.bulk.groups.RemoveUsersFromGroupsController_removeUsersFromGroups
+  description: "Remove users from groups"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.groups.RemoveUsersFromGroupsController_removeUsersFromGroups
+- name: v2.bulk.groups.DeleteGroupsController_deleteGroups
+  description: "Delete groups"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.groups.DeleteGroupsController_deleteGroups
+- name: v2.bulk.integrations.ArchiveExternalCoursesController_archiveExternalCourses
+  description: "Archive external courses"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.integrations.ArchiveExternalCoursesController_archiveExternalCourses
+- name: v2.bulk.integrations.ImportExternalCoursesController_importExternalCourses
+  description: "Upsert external courses"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.integrations.ImportExternalCoursesController_importExternalCourses
+- name: v2.bulk.integrations.ImportExternalStatisticsController_importExternalStatistics
+  description: "Import integration statistics"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.integrations.ImportExternalStatisticsController_importExternalStatistics
+- name: v2.bulk.operations.GetBulkOperationController_getBulkOperation
+  description: "Retrieve a bulk operation"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.operations.GetBulkOperationController_getBulkOperation
+- name: v2.bulk.operations.GetBulkOperationResultsController_getBulkOperationResults
+  description: "Retrieve a bulk operation result"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.operations.GetBulkOperationResultsController_getBulkOperationResults
+- name: v2.bulk.operations.GetBulkOperationsController_getBulkOperations
+  description: "List all bulk operations"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.operations.GetBulkOperationsController_getBulkOperations
+- name: v2.bulk.skills.AddSkillReviewsController_addSkillReviews
+  description: "Add skill reviews"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.skills.AddSkillReviewsController_addSkillReviews
+- name: v2.bulk.skills.DeleteJobsController_deleteJobs
+  description: "Delete jobs"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.skills.DeleteJobsController_deleteJobs
+- name: v2.bulk.skills.UpsertJobsController_upsertJobs
+  description: "Upsert jobs"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.skills.UpsertJobsController_upsertJobs
+- name: v2.bulk.skills.DeleteLibrariesController_deleteLibraries
+  description: "Delete libraries"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.skills.DeleteLibrariesController_deleteLibraries
+- name: v2.bulk.skills.UpsertLibrariesController_upsertLibraries
+  description: "Upsert libraries"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.skills.UpsertLibrariesController_upsertLibraries
+- name: v2.bulk.skills.DeleteSkillsController_deleteSkills
+  description: "Delete skills"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.skills.DeleteSkillsController_deleteSkills
+- name: v2.bulk.skills.UpsertSkillsController_upsertSkills
+  description: "Upsert skills"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.skills.UpsertSkillsController_upsertSkills
+- name: v2.bulk.skills.ReplaceJobsSkillsController_replaceJobsSkills
+  description: "Replace jobs skills"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.skills.ReplaceJobsSkillsController_replaceJobsSkills
+- name: v2.bulk.skills.ReplaceUsersJobsController_replaceUsersJobs
+  description: "Replace users jobs"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.skills.ReplaceUsersJobsController_replaceUsersJobs
+- name: v2.bulk.subscriptions.CreateSubscriptionEventsController_createSubscriptionEvents
+  description: "Create email subscription events"
+  source_operation: openapi/360learning-bulk-api.json#v2.bulk.subscriptions.CreateSubscriptionEventsController_createSubscriptionEvents
+- name: v2.authentication.GeneratePluginBackendTokenController_generatePluginBackendToken
+  description: "Create an access token for plugin (backend)"
+  source_operation: openapi/360learning-plugin-api.json#v2.authentication.GeneratePluginBackendTokenController_generatePluginBackendToken
+- name: v2.authentication.GeneratePluginClientTokenController_generatePluginClientToken
+  description: "Create an access token for plugin (client)"
+  source_operation: openapi/360learning-plugin-api.json#v2.authentication.GeneratePluginClientTokenController_generatePluginClientToken
+- name: v2.users.GetProfileController_getProfile
+  description: "Retrieve my profile"
+  source_operation: openapi/360learning-user-authorized-api.json#v2.users.GetProfileController_getProfile
+- name: v2.webhook.subscriptions.CreateSubscriptionController_createSubscription
+  description: "Create a webhook subscription"
+  source_operation: openapi/360learning-webhook-api.json#v2.webhook.subscriptions.CreateSubscriptionController_createSubscription
+- name: v2.webhook.subscriptions.GetSubscriptionsController_getSubscriptions
+  description: "List all webhook subscriptions"
+  source_operation: openapi/360learning-webhook-api.json#v2.webhook.subscriptions.GetSubscriptionsController_getSubscriptions
+- name: v2.webhook.subscriptions.DeleteSubscriptionController_deleteSubscription
+  description: "Delete a webhook subscription"
+  source_operation: openapi/360learning-webhook-api.json#v2.webhook.subscriptions.DeleteSubscriptionController_deleteSubscription
+- name: v2.webhook.subscriptions.GetSubscriptionController_getSubscription
+  description: "Retrieve a webhook subscription"
+  source_operation: openapi/360learning-webhook-api.json#v2.webhook.subscriptions.GetSubscriptionController_getSubscription
+- name: v2.webhook.subscriptions.UpdateSubscriptionController_updateSubscription
+  description: "Edit a webhook subscription"
+  source_operation: openapi/360learning-webhook-api.json#v2.webhook.subscriptions.UpdateSubscriptionController_updateSubscription
+- name: v2.webhook.subscriptions.GetEventsController_getEvents
+  description: "List all events for a webhook subscription"
+  source_operation: openapi/360learning-webhook-api.json#v2.webhook.subscriptions.GetEventsController_getEvents
+- name: v2.webhook.subscriptions.GetSigningSecretController_getSigningSecret
+  description: "Retrieve the signing secret of a webhook subscription"
+  source_operation: openapi/360learning-webhook-api.json#v2.webhook.subscriptions.GetSigningSecretController_getSigningSecret
+- name: v2.webhook.subscriptions.RetryEventFailuresController_retryEventFailures
+  description: "Retry the failed webhook events of a webhook subscription"
+  source_operation: openapi/360learning-webhook-api.json#v2.webhook.subscriptions.RetryEventFailuresController_retryEventFailures
+- name: v2.webhook.subscriptions.RetryEventSuccessesController_retryEventSuccesses
+  description: "Retry the successful webhook events of a webhook subscription"
+  source_operation: openapi/360learning-webhook-api.json#v2.webhook.subscriptions.RetryEventSuccessesController_retryEventSuccesses
+- name: v2.webhook.subscriptions.RotateSigningSecretController_rotateSigningSecret
+  description: "Rotate the signing secret of a webhook subscription"
+  source_operation: openapi/360learning-webhook-api.json#v2.webhook.subscriptions.RotateSigningSecretController_rotateSigningSecret

@@ -1,0 +1,36 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/360learning-core-api.json (4xx/5xx responses) + https://360learning.readme.io/docs/errors
+format: json-error-envelope
+docs: https://360learning.readme.io/docs/errors
+envelope:
+  fields: [code, message]
+  code_style: camelCase
+  example: '{"code": "userNotFound", "message": "..."}'
+  special_case: >-
+    Authentication, scope and rate-limit errors return a single `error` field
+    (e.g. "error": "invalid_scope") instead of code/message.
+http_statuses:
+- status: 400
+  description: "The server cannot or will not process the request due to something that is perceived to be a client error."
+- status: 401
+  description: "The given access token is either missing, invalid, has expired, or has been revoked."
+- status: 403
+  description: "The given access token does not have the required OAuth scope to execute the request."
+- status: 404
+  description: "The given `integrationId` does not correspond to any existing integration."
+- status: 409
+  description: "The given `certificateOutlineId` is used in paths."
+- status: 429
+  description: "The maximum number of concurrent operations has been reached."
+- status: 503
+  description: "The bulk API is temporarily disabled."
+known_error_codes:
+- code: badMediaType
+  meaning: "Unsupported or missing Content-Type / media type."
+- code: userNotFound
+  meaning: "The referenced user does not exist."
+- code: invalid_scope
+  meaning: "The credential is missing the OAuth scope required by the endpoint (returned as error, HTTP 403)."
+- code: invalid_client
+  meaning: "The client_id / client_secret pair is invalid (returned as error, HTTP 401)."

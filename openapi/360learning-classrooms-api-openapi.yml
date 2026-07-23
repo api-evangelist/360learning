@@ -1,0 +1,4385 @@
+openapi: 3.1.0
+info:
+  title: Bulk Authentication Classrooms API
+  description: ''
+  version: 1.0.0
+  contact: {}
+servers:
+- url: https://app.360learning.com
+  description: Production EU
+- url: https://app.us.360learning.com
+  description: Production US
+tags:
+- name: Classrooms
+paths:
+  /api/v2/classrooms:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `classrooms:write`.
+
+
+        Creates a classroom.'
+      operationId: v2.classrooms.CreateClassroomController_createClassroom
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputClassroomDTO'
+      responses:
+        '201':
+          description: Returns the created classroom.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassroomDTO'
+        '400':
+          description: 'Some of the given medias are not allowed in a classroom. Allowed types are: attachment, excel, flash, image, pdf, slideshow, video, word'
+          content:
+            application/json:
+              schema:
+                title: Bad Media Type
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - badMediaType
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `groupId` does not correspond to any existing group.
+                  title: Group Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - groupNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: Some of the given media IDs do not correspond to any existing media.
+                  title: Media Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - mediaNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Create a classroom
+      tags:
+      - Classrooms
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `classrooms:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 500 classrooms. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all classrooms in your platform.'
+      operationId: v2.classrooms.GetClassroomsController_getClassrooms
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: groupId
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **groupId** property with LHS bracket notation.
+
+
+          Expected value format is a valid ID (24 digits or letters).'
+        schema:
+          properties:
+            eq:
+              type: string
+              format: ObjectId
+              pattern: ^[a-fA-F0-9]{24}$
+              description: Filter on values equal to the given one
+              example: 507f1f77bcf86cd799439011
+            ne:
+              type: string
+              format: ObjectId
+              pattern: ^[a-fA-F0-9]{24}$
+              description: Filter on values not equal to the given one
+              example: 507f1f77bcf86cd799439011
+            in:
+              type: array
+              description: Filter on values including the given ones
+              items:
+                type: string
+                format: ObjectId
+                pattern: ^[a-fA-F0-9]{24}$
+                example: 507f1f77bcf86cd799439011
+            nin:
+              type: array
+              description: Filter on values excluding the given ones
+              items:
+                type: string
+                format: ObjectId
+                pattern: ^[a-fA-F0-9]{24}$
+                example: 507f1f77bcf86cd799439011
+      - name: createdAt
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **createdAt** property with LHS bracket notation.
+
+
+          Expected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0.'
+        schema:
+          properties:
+            lt:
+              type: string
+              format: date-time
+              description: Filter on dates lower than the given one
+              example: '2020-01-01T10:30:26.000Z'
+            gte:
+              type: string
+              format: date-time
+              description: Filter on dates greater than or equal the given one
+              example: '2020-01-01T10:30:26.000Z'
+      - name: modifiedAt
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **modifiedAt** property with LHS bracket notation.
+
+
+          Expected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0.'
+        schema:
+          properties:
+            lt:
+              type: string
+              format: date-time
+              description: Filter on dates lower than the given one
+              example: '2020-01-01T10:30:26.000Z'
+            gte:
+              type: string
+              format: date-time
+              description: Filter on dates greater than or equal the given one
+              example: '2020-01-01T10:30:26.000Z'
+      responses:
+        '200':
+          description: Returns one page of 500 classrooms.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClassroomDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all classrooms
+      tags:
+      - Classrooms
+  /api/v2/classrooms/{classroomId}:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `classrooms:read`.
+
+
+        Retrieves information about a classroom given its ID.'
+      operationId: v2.classrooms.GetClassroomController_getClassroom
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: classroomId
+        required: true
+        in: path
+        description: The unique ID of the classroom.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns the information about the given classroom. The classroom must be linked to a group.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassroomDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `classroomId` does not correspond to any existing classroom.
+          content:
+            application/json:
+              schema:
+                title: Classroom Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - classroomNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Retrieve a classroom
+      tags:
+      - Classrooms
+    patch:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `classrooms:write`.
+
+
+        Edits specific fields of an existing classroom. Fields not included in the request payload remain unchanged.'
+      operationId: v2.classrooms.UpdateClassroomController_updateClassroom
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: classroomId
+        required: true
+        in: path
+        description: The unique ID of the classroom.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchClassroomDTO'
+      responses:
+        '200':
+          description: Returns the updated classroom.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassroomDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: 'Some of the given medias are not allowed in a classroom. Allowed types are: attachment, excel, flash, image, pdf, slideshow, video, word'
+                  title: Bad Media Type
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - badMediaType
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given classroom does not belong to a group.
+                  title: Unsupported Classroom Type
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - unsupportedClassroomType
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `classroomId` does not correspond to any existing classroom.
+                  title: Classroom Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: Some of the given media IDs do not correspond to any existing media.
+                  title: Media Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - mediaNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Edit a classroom
+      tags:
+      - Classrooms
+  /api/v2/classrooms/{classroomId}/registrations:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `classrooms:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 2,000 slot registrations. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all users registered to any slot in the given classroom.'
+      operationId: v2.classrooms.GetClassroomRegistrationsController_getClassroomRegistrations
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: classroomId
+        required: true
+        in: path
+        description: The unique ID of the classroom.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns one page of 2000 slot registrations.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SlotRegistrationWithClassroomSlotIdDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `classroomId` does not correspond to any existing classroom.
+          content:
+            application/json:
+              schema:
+                title: Classroom Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - classroomNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all registrations in a classroom
+      tags:
+      - Classrooms
+  /api/v2/classrooms/{classroomId}/slots:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `classrooms:write`.
+
+
+        Adds a slot to a given classroom.'
+      operationId: v2.classrooms.CreateClassroomSlotController_createClassroomSlot
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: classroomId
+        required: true
+        in: path
+        description: The unique ID of the classroom.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputClassroomSlotDTO'
+      responses:
+        '201':
+          description: Returns the created classroom slot.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PathClassroomSlotDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `endDate` is before the given `startDate`.
+                  title: Invalid Start Or End Date
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalidStartOrEndDate
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: 'Some of the given medias are not allowed in a classroom. Allowed types are: attachment, excel, flash, image, pdf, slideshow, video, word'
+                  title: Bad Media Type
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - badMediaType
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The classroom dates are out of the parent path session dates.
+                  title: Out Of Path Session Dates
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - outOfPathSessionDates
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `classroomId` does not correspond to any existing classroom.
+                  title: Classroom Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: Some of the given media IDs do not correspond to any existing media.
+                  title: Media Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - mediaNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `context._id` does not correspond to any existing path session.
+                  title: Path Session Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - pathSessionNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: At least one of the given `trainerIds` does not correspond to any existing and non-deleted user.
+                  title: Users Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - usersNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Add a slot to a classroom
+      tags:
+      - Classrooms
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `classrooms:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 100 classroom slots. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all slots in a given classroom.'
+      operationId: v2.classrooms.GetClassroomSlotsController_getClassroomSlots
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: classroomId
+        required: true
+        in: path
+        description: The unique ID of the classroom.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: createdAt
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **createdAt** property with LHS bracket notation.
+
+
+          Expected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0.'
+        schema:
+          properties:
+            lt:
+              type: string
+              format: date-time
+              description: Filter on dates lower than the given one
+              example: '2020-01-01T10:30:26.000Z'
+            gte:
+              type: string
+              format: date-time
+              description: Filter on dates greater than or equal the given one
+              example: '2020-01-01T10:30:26.000Z'
+      - name: modifiedAt
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **modifiedAt** property with LHS bracket notation.
+
+
+          Expected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0.'
+        schema:
+          properties:
+            lt:
+              type: string
+              format: date-time
+              description: Filter on dates lower than the given one
+              example: '2020-01-01T10:30:26.000Z'
+            gte:
+              type: string
+              format: date-time
+              description: Filter on dates greater than or equal the given one
+              example: '2020-01-01T10:30:26.000Z'
+      responses:
+        '200':
+          description: Returns one page of 100 classroom slots.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClassroomSlotDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `classroomId` does not correspond to any existing classroom.
+          content:
+            application/json:
+              schema:
+                title: Classroom Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - classroomNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all slots in a classroom
+      tags:
+      - Classrooms
+  /api/v2/classrooms/{classroomId}/slots/{classroomSlotId}:
+    delete:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `classrooms:write`.
+
+
+        Removes a slot from a classroom based on the provided slot ID.'
+      operationId: v2.classrooms.DeleteClassroomSlotController_deleteClassroomSlot
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: classroomId
+        required: true
+        in: path
+        description: The unique ID of the classroom.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: classroomSlotId
+        required: true
+        in: path
+        description: The unique ID of the classroom slot.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '204':
+          description: Deletes a specific classroom slot given its unique ID.
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `classroomId` does not correspond to any existing classroom.
+                  title: Classroom Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `classroomSlotId` does not correspond to any existing classroom slot.
+                  title: Classroom Slot Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomSlotNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Remove a slot from a classroom
+      tags:
+      - Classrooms
+    patch:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `classrooms:write`.
+
+
+        Edits specific fields of an existing classroom slot. Fields not included in the request payload remain unchanged.'
+      operationId: v2.classrooms.UpdateClassroomSlotController_updateClassroomSlot
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: classroomId
+        required: true
+        in: path
+        description: The unique ID of the classroom.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: classroomSlotId
+        required: true
+        in: path
+        description: The unique ID of the classroom slot.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchClassroomSlotDTO'
+      responses:
+        '200':
+          description: Updates a specific classroom slot given its unique ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PathClassroomSlotDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given classroom slot is linked to a webinar integration which is already started.
+                  title: Already Started Webinar
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - alreadyStartedWebinar
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The location of a classroom slot linked to a webinar integration cannot be modified.
+                  title: Cannot Update Location For Webinar
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - cannotUpdateLocationForWebinar
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `endDate` is before the given `startDate`.
+                  title: Invalid Start Or End Date
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalidStartOrEndDate
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The classroom dates are out of the parent path session dates.
+                  title: Out Of Path Session Dates
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - outOfPathSessionDates
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: At least one of the given `trainerIds` does not correspond to any existing and non-deleted user.
+                  title: Users Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - usersNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `classroomId` does not correspond to any existing classroom.
+                  title: Classroom Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `classroomSlotId` does not correspond to any existing classroom slot.
+                  title: Classroom Slot Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomSlotNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `context._id` does not correspond to any existing path session.
+                  title: Path Session Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - pathSessionNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Edit a classroom slot
+      tags:
+      - Classrooms
+  /api/v2/classroom-slots/{classroomSlotId}/attendance-sheets:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `attendanceSheets:write`.
+
+
+        Creates an attendance sheet for the given classroom slot.'
+      operationId: v2.classrooms.CreateAttendanceSheetController_createAttendanceSheet
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: classroomSlotId
+        required: true
+        in: path
+        description: The unique ID of the classroom slot.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputAttendanceSheetDTO'
+      responses:
+        '201':
+          description: Returns the created attendance sheet.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/ClosedAttendanceSheetDTO'
+                - $ref: '#/components/schemas/OpenedAttendanceSheetDTO'
+        '400':
+          description: Maximum of 100 attendance sheets is reached for the given classroom slot.
+          content:
+            application/json:
+              schema:
+                title: Max Attendance Sheets Reached
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - maxAttendanceSheetsReached
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `classroomSlotId` does not correspond to any existing classroom slot.
+          content:
+            application/json:
+              schema:
+                title: Classroom Slot Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - classroomSlotNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '409':
+          description: Concurrency issue during the creation of the attendance sheet.
+          content:
+            application/json:
+              schema:
+                title: Attendance Sheet Creation Conflict
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - attendanceSheetCreationConflict
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Create an attendance sheet
+      tags:
+      - Classrooms
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `attendanceSheets:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 3,000 attendance sheets. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all attendance sheets in your platform for the given classroom slot.'
+      operationId: v2.classrooms.GetAttendanceSheetsController_getAttendanceSheets
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: classroomSlotId
+        required: true
+        in: path
+        description: The unique ID of the classroom slot.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns one page of 3000 attendance sheets.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                  - $ref: '#/components/schemas/ClosedAttendanceSheetDTO'
+                  - $ref: '#/components/schemas/OpenedAttendanceSheetDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `classroomSlotId` does not correspond to any existing classroom slot.
+          content:
+            application/json:
+              schema:
+                title: Classroom Slot Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - classroomSlotNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all attendance sheets
+      tags:
+      - Classrooms
+  /api/v2/classroom-slots/{classroomSlotId}/attendance-sheets/{attendanceSheetId}:
+    delete:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `attendanceSheets:write`.
+
+
+        Deletes a specific attendance sheet given its unique ID.'
+      operationId: v2.classrooms.DeleteAttendanceSheetController_deleteAttendanceSheet
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: attendanceSheetId
+        required: true
+        in: path
+        description: The unique ID of the attendance sheet.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: classroomSlotId
+        required: true
+        in: path
+        description: The unique ID of the classroom slot.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '204':
+          description: Deletes a specific attendance sheet and the corresponding learner attendances.
+        '400':
+          description: The given `attendanceSheetId` does not belong to the given `classroomSlotId`.
+          content:
+            application/json:
+              schema:
+                title: Attendance Sheet Not Belong To Classroom Slot
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - attendanceSheetNotBelongToClassroomSlot
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `attendanceSheetId` does not correspond to any existing attendance sheet.
+          content:
+            application/json:
+              schema:
+                title: Attendance Sheet Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - attendanceSheetNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Delete an attendance sheet
+      tags:
+      - Classrooms
+    put:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `attendanceSheets:write`.
+
+
+        Replaces the attendance sheet in the given classroom slot.'
+      operationId: v2.classrooms.UpdateAttendanceSheetController_updateAttendanceSheet
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: classroomSlotId
+        required: true
+        in: path
+        description: The unique ID of the classroom slot.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: attendanceSheetId
+        required: true
+        in: path
+        description: The unique ID of the attendance sheet.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputAttendanceSheetDTO'
+      responses:
+        '200':
+          description: Returns the updated attendance sheet.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/ClosedAttendanceSheetDTO'
+                - $ref: '#/components/schemas/OpenedAttendanceSheetDTO'
+        '400':
+          description: The given `attendanceSheetId` does not belong to the given `classroomSlotId`.
+          content:
+            application/json:
+              schema:
+                title: Attendance Sheet Not Belong To Classroom Slot
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - attendanceSheetNotBelongToClassroomSlot
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `attendanceSheetId` does not correspond to any existing attendance sheet.
+          content:
+            application/json:
+              schema:
+                title: Attendance Sheet Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - attendanceSheetNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Replace an attendance sheet
+      tags:
+      - Classrooms
+  /api/v2/classroom-slots/{classroomSlotId}/attendance-sheets/{attendanceSheetId}/attendances:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `attendanceSheets:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 3,000 attendances. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all attendances in your platform for the given classroom slot and attendance sheet.'
+      operationId: v2.classrooms.GetAttendancesController_getAttendances
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: classroomSlotId
+        required: true
+        in: path
+        description: The unique ID of the classroom slot.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: attendanceSheetId
+        required: true
+        in: path
+        description: The unique ID of the attendance sheet.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns one page of 3000 attendances.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AttendanceDTO'
+        '400':
+          description: The given `attendanceSheetId` does not belong to the given `classroomSlotId`.
+          content:
+            application/json:
+              schema:
+                title: Attendance Sheet Not Belong To Classroom Slot
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - attendanceSheetNotBelongToClassroomSlot
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `attendanceSheetId` does not correspond to any existing attendance sheet.
+          content:
+            application/json:
+              schema:
+                title: Attendance Sheet Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - attendanceSheetNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all attendances
+      tags:
+      - Classrooms
+  /api/v2/classroom-slots/{classroomSlotId}/waitlist:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `classrooms:read`.
+
+
+        Lists all waitlist requests in a given classroom slot.'
+      operationId: v2.classrooms.GetClassroomSlotWaitlistController_getClassroomSlotWaitlist
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: classroomSlotId
+        required: true
+        in: path
+        description: The unique ID of the classroom slot.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns all waitlist requests in the classroom slot.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClassroomSlotWaitlistRequestDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `classroomSlotId` does not correspond to any existing classroom slot.
+                  title: Classroom Slot Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomSlotNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `classroomSlotId` does not contain any waitlist.
+                  title: Classroom Slot Waitlist Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomSlotWaitlistNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all waitlist requests in a classroom slot
+      tags:
+      - Classrooms
+  /api/v2/classroom-slots/{classroomSlotId}/waitlist/{userId}:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `classrooms:write`.
+
+
+        Adds a user to the waitlist of a given classroom slot.'
+      operationId: v2.classrooms.JoinClassroomSlotWaitlistController_joinClassroomSlotWaitlist
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: classroomSlotId
+        required: true
+        in: path
+        description: The unique ID of the classroom slot.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '204':
+          description: Adds a user to a classroom slot waitlist.
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The classroom slot is not full.
+                  title: Classroom Slot Not Full
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomSlotNotFull
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The classroom slot is already started.
+                  title: Classroom Slot Already Started
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomSlotAlreadyStarted
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The classroom slot waitlist is full.
+                  title: Classroom Slot Waitlist Full
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomSlotWaitlistFull
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given user is already registered in a classroom slot in the same classroom.
+                  title: User Already Registered In A Classroom Slot
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userAlreadyRegisteredInAClassroomSlot
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The user is not enrolled in the path session of the classroom slot.
+                  title: User Not Enrolled In Path Session
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userNotEnrolledInPathSession
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `classroomSlotId` does not correspond to any existing classroom slot.
+                  title: Classroom Slot Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomSlotNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `classroomSlotId` does not contain any waitlist.
+                  title: Classroom Slot Waitlist Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomSlotWaitlistNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `userId` does not correspond to any existing user.
+                  title: User Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Add a user to a classroom slot waitlist
+      tags:
+      - Classrooms
+    delete:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `classrooms:write`.
+
+
+        Removes a user from the waitlist of a given classroom slot.'
+      operationId: v2.classrooms.LeaveClassroomSlotWaitlistController_leaveClassroomSlotWaitlist
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: classroomSlotId
+        required: true
+        in: path
+        description: The unique ID of the classroom slot.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '204':
+          description: Removes a user from a classroom slot waitlist.
+        '400':
+          description: The user is not in the classroom slot waitlist.
+          content:
+            application/json:
+              schema:
+                title: User Not In Classroom Slot Waitlist
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userNotInClassroomSlotWaitlist
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `classroomSlotId` does not correspond to any existing classroom slot.
+                  title: Classroom Slot Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomSlotNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `userId` does not correspond to any existing user.
+                  title: User Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `classroomSlotId` does not contain any waitlist.
+                  title: Classroom Slot Waitlist Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomSlotWaitlistNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Remove a user from a classroom slot waitlist
+      tags:
+      - Classrooms
+  /api/v2/classroom-slots/{classroomSlotId}/registrations/{userId}:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `classrooms:write`.
+
+
+        Registers a user to a classroom slot based on the provided classroom slot ID and user ID.'
+      operationId: v2.classrooms.AddSlotRegistrationController_addSlotRegistration
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: classroomSlotId
+        required: true
+        in: path
+        description: The unique ID of the classroom slot.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '201':
+          description: Returns the created slot registration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlotRegistrationDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given user is already registered to this classroom slot.
+                  title: User Already Registered
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userAlreadyRegistered
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given user is already registered in another classroom slot with a pending or attended registration.
+                  title: User Already Registered In Another Non Missed Slot
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userAlreadyRegisteredInAnotherNonMissedSlot
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The classroom slot is full.
+                  title: Classroom Slot Full
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomSlotFull
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The user is not enrolled in the path session of the classroom slot.
+                  title: User Not Enrolled In Path Session
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userNotEnrolledInPathSession
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `classroomId` does not correspond to any existing classroom.
+                  title: Classroom Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `userId` does not correspond to any existing user.
+                  title: User Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Register a user to a classroom slot
+      tags:
+      - Classrooms
+  /api/v2/classroom-slots/{classroomSlotId}/registrations:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `classrooms:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 2,000 slot registrations. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all users registered to a given classroom slot.'
+      operationId: v2.classrooms.GetSlotRegistrationsController_getSlotRegistrations
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: classroomSlotId
+        required: true
+        in: path
+        description: The unique ID of the classroom slot.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: createdAt
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **createdAt** property with LHS bracket notation.
+
+
+          Expected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0.'
+        schema:
+          properties:
+            lt:
+              type: string
+              format: date-time
+              description: Filter on dates lower than the given one
+              example: '2020-01-01T10:30:26.000Z'
+            gte:
+              type: string
+              format: date-time
+              description: Filter on dates greater than or equal the given one
+              example: '2020-01-01T10:30:26.000Z'
+      - name: hasAttended
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **hasAttended** property with LHS bracket notation.
+
+
+          Expected value format is a boolean (`true` or `false`).'
+        schema:
+          properties:
+            eq:
+              type: boolean
+              description: Filter on values equal to the given one
+              example: 'true'
+      - name: modifiedAt
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **modifiedAt** property with LHS bracket notation.
+
+
+          Expected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0.'
+        schema:
+          properties:
+            lt:
+              type: string
+              format: date-time
+              description: Filter on dates lower than the given one
+              example: '2020-01-01T10:30:26.000Z'
+            gte:
+              type: string
+              format: date-time
+              description: Filter on dates greater than or equal the given one
+              example: '2020-01-01T10:30:26.000Z'
+      - name: userId
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **userId** property with LHS bracket notation.
+
+
+          Expected value format is a valid ID (24 digits or letters).'
+        schema:
+          properties:
+            eq:
+              type: string
+              format: ObjectId
+              pattern: ^[a-fA-F0-9]{24}$
+              description: Filter on values equal to the given one
+              example: 507f1f77bcf86cd799439011
+            ne:
+              type: string
+              format: ObjectId
+              pattern: ^[a-fA-F0-9]{24}$
+              description: Filter on values not equal to the given one
+              example: 507f1f77bcf86cd799439011
+            in:
+              type: array
+              description: Filter on values including the given ones
+              items:
+                type: string
+                format: ObjectId
+                pattern: ^[a-fA-F0-9]{24}$
+                example: 507f1f77bcf86cd799439011
+            nin:
+              type: array
+              description: Filter on values excluding the given ones
+              items:
+                type: string
+                format: ObjectId
+                pattern: ^[a-fA-F0-9]{24}$
+                example: 507f1f77bcf86cd799439011
+      - name: status
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **status** property with LHS bracket notation.
+
+
+          Expected value format is a string (`archived`, `published`).'
+        schema:
+          properties:
+            eq:
+              type: string
+              description: Filter on values equal to the given one
+              example: archived
+              enum:
+              - archived
+              - published
+      responses:
+        '200':
+          description: Returns one page of 2000 slot registrations.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SlotRegistrationDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `classroomSlotId` does not correspond to any existing classroom slot.
+          content:
+            application/json:
+              schema:
+                title: Classroom Slot Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - classroomSlotNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all registrations in a classroom slot
+      tags:
+      - Classrooms
+  /api/v2/classroom-slots/{classroomSlotId}/registrations/{slotRegistrationId}:
+    patch:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `classrooms:write`.
+
+
+        Edits specific fields of an existing classroom slot registration. Fields not included in the request payload remain unchanged.'
+      operationId: v2.classrooms.UpdateSlotRegistrationController_updateSlotRegistration
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: classroomSlotId
+        required: true
+        in: path
+        description: The unique ID of the classroom slot.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: slotRegistrationId
+        required: true
+        in: path
+        description: The unique ID of the slot registration.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchSlotRegistrationDTO'
+      responses:
+        '200':
+          description: Returns the updated classroom slot registration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlotRegistrationDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `classroomId` does not correspond to any existing classroom.
+                  title: Classroom Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - classroomNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `slotRegistrationId` does not correspond to any existing slot registration.
+                  title: Slot Registration Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - slotRegistrationNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Edit a classroom slot registration
+      tags:
+      - Classrooms
+components:
+  schemas:
+    OpenedAttendanceSheetDTO:
+      title: Opened Attendance Sheet
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the attendance sheet.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The title of the attendance sheet.
+          example: First day afternoon
+        personalizedFields:
+          description: Customization options for the attendance sheet.
+          allOf:
+          - $ref: '#/components/schemas/PersonalizedFields'
+        status:
+          type: string
+          enum:
+          - adjustment
+          - open
+          description: The status of the attendance sheet.
+        checkInCode:
+          type: string
+          description: The code to be used by learners to check in.
+          example: '1234'
+      required:
+      - _id
+      - name
+      - status
+      - checkInCode
+    ClosedAttendanceSheetDTO:
+      title: Closed Attendance Sheet
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the attendance sheet.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The title of the attendance sheet.
+          example: First day afternoon
+        personalizedFields:
+          description: Customization options for the attendance sheet.
+          allOf:
+          - $ref: '#/components/schemas/PersonalizedFields'
+        status:
+          type: string
+          enum:
+          - closed
+          - signed
+          description: The status of the attendance sheet.
+        checkInCode:
+          type: string
+          description: The code to be used by learners to check in.
+          example: '1234'
+      required:
+      - _id
+      - name
+      - status
+    PathClassroomSlotDTO:
+      title: Path Classroom Slot
+      type: object
+      properties:
+        startDate:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot starts (must be before `endDate`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        endDate:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot ends (must be after `startDate`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        reportedDuration:
+          type: number
+          description: The reported duration of the slot, in hours.
+          example: 1
+        selfRegistration:
+          oneOf:
+          - $ref: '#/components/schemas/DisabledSelfRegistrationDTO'
+          - $ref: '#/components/schemas/EnabledSelfRegistrationDTO'
+          description: The self registration settings of the classroom slots.
+        virtual:
+          type: boolean
+          description: True when the slot is a virtual classroom, false otherwise.
+        maxCapacity:
+          type: number
+          description: The maximum number of registrations allowed in the slot. Learners won't be able to self-enroll on this slot if this number is reached.
+          example: 10
+        _id:
+          type: string
+          description: The unique ID of the classroom slot.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        classroomId:
+          type: string
+          description: The unique ID of the classroom the slot is linked to.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot has been created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        name:
+          type: string
+          description: The title of the classroom slot.
+          example: My awesome classroom slot
+        location:
+          type: string
+          description: The location of the classroom slot, being either a URL or a physical address.
+          example: https://meet.google.com/kdf-zkfz-hje
+        trainerIds:
+          description: The list of unique user IDs of trainers in charge of the slot (users must exist in the company).
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        mediaIds:
+          description: The list of medias unique identifiers linked to the classroom slot.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        modifiedAt:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot has been updated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        timezone:
+          type: string
+          description: The timezone of the slot in the format `Continent[/Country]/City` defined by [TZ database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+          example: Europe/Paris
+        webinarProvider:
+          type: string
+          description: If the classroom is setup through a webinar integration, contains the name of the integration.
+          example: Microsoft Teams
+        context:
+          description: The path session context of the classroom slot.
+          allOf:
+          - $ref: '#/components/schemas/PathContextDTO'
+      required:
+      - startDate
+      - endDate
+      - reportedDuration
+      - selfRegistration
+      - virtual
+      - _id
+      - classroomId
+      - name
+      - location
+      - trainerIds
+      - mediaIds
+      - context
+    ClassroomSlotDTO:
+      title: Classroom Slot
+      type: object
+      properties:
+        startDate:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot starts (must be before `endDate`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        endDate:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot ends (must be after `startDate`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        reportedDuration:
+          type: number
+          description: The reported duration of the slot, in hours.
+          example: 1
+        selfRegistration:
+          oneOf:
+          - $ref: '#/components/schemas/DisabledSelfRegistrationDTO'
+          - $ref: '#/components/schemas/EnabledSelfRegistrationDTO'
+          description: The self registration settings of the classroom slots.
+        virtual:
+          type: boolean
+          description: True when the slot is a virtual classroom, false otherwise.
+        maxCapacity:
+          type: number
+          description: The maximum number of registrations allowed in the slot. Learners won't be able to self-enroll on this slot if this number is reached.
+          example: 10
+        _id:
+          type: string
+          description: The unique ID of the classroom slot.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        classroomId:
+          type: string
+          description: The unique ID of the classroom the slot is linked to.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot has been created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        name:
+          type: string
+          description: The title of the classroom slot.
+          example: My awesome classroom slot
+        location:
+          type: string
+          description: The location of the classroom slot, being either a URL or a physical address.
+          example: https://meet.google.com/kdf-zkfz-hje
+        trainerIds:
+          description: The list of unique user IDs of trainers in charge of the slot (users must exist in the company).
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        mediaIds:
+          description: The list of medias unique identifiers linked to the classroom slot.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        modifiedAt:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot has been updated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        timezone:
+          type: string
+          description: The timezone of the slot in the format `Continent[/Country]/City` defined by [TZ database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+          example: Europe/Paris
+        webinarProvider:
+          type: string
+          description: If the classroom is setup through a webinar integration, contains the name of the integration.
+          example: Microsoft Teams
+        context:
+          oneOf:
+          - $ref: '#/components/schemas/PathContextDTO'
+          - $ref: '#/components/schemas/ProgramContextDTO'
+          - $ref: '#/components/schemas/StandaloneContextDTO'
+          description: The context of creation the classroom slot.
+      required:
+      - startDate
+      - endDate
+      - reportedDuration
+      - selfRegistration
+      - virtual
+      - _id
+      - classroomId
+      - name
+      - location
+      - trainerIds
+      - mediaIds
+      - context
+    NotificationDTO:
+      title: Notification
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: True to send an update notification by email to registered learners, false otherwise.
+        message:
+          type: string
+          description: The message to include in the notification email, has no effect if `notification.enabled:false`.
+          minLength: 1
+    AttendanceDTO:
+      title: Attendance
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the attendance.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        userId:
+          type: string
+          description: The unique ID of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        firstName:
+          type: string
+          description: The first name of the user on the attendance sheet.
+          example: John
+        lastName:
+          type: string
+          description: The last name of the user on the attendance sheet.
+          example: Smith
+        status:
+          type: string
+          enum:
+          - absent
+          - attendancePending
+          - present
+          - signaturePending
+          description: The status of the user attendance.
+      required:
+      - _id
+      - userId
+      - firstName
+      - lastName
+      - status
+    InputAttendanceSheetDTO:
+      title: Input Attendance Sheet
+      type: object
+      properties:
+        name:
+          type: string
+          description: The title of the attendance sheet.
+          example: First day afternoon
+          minLength: 1
+      required:
+      - name
+    StandaloneContextDTO:
+      title: Standalone Context
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique identifier of the entity the classroom slot was created in. For instance the path session ID.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - standalone
+      required:
+      - _id
+      - type
+    PathContextDTO:
+      title: Path Context
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique identifier of the entity the classroom slot was created in. For instance the path session ID.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - path
+      required:
+      - _id
+      - type
+    RsvpDTO:
+      title: Rsvp
+      type: object
+      properties:
+        going:
+          type: boolean
+          description: The rsvp response for this registration.
+        lastUpdatedAt:
+          format: date-time
+          type: string
+          description: The date of rsvp last update for this registration, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - going
+      - lastUpdatedAt
+    PatchClassroomSlotDTO:
+      title: Patch Classroom Slot
+      type: object
+      properties:
+        name:
+          type: string
+          description: The title of the classroom slot.
+          example: My awesome classroom slot
+          minLength: 1
+        startDate:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot starts (must be before `endDate`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        endDate:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot ends (must be after `startDate`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        location:
+          type: string
+          description: The location of the classroom slot, being either a URL or a physical address.
+          example: https://meet.google.com/kdf-zkfz-hje
+          minLength: 1
+        maxCapacity:
+          type: number
+          description: The maximum number of registrations allowed in the slot. Learners won't be able to self-enroll on this slot if this number is reached.
+          example: 10
+        reportedDuration:
+          type: number
+          description: The reported duration of the slot, in hours.
+          example: 1
+        trainerIds:
+          maxItems: 20
+          description: The list of unique user IDs of trainers in charge of the slot (users must exist in the company).
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        timezone:
+          type: string
+          description: The timezone of the slot in the format `Continent[/Country]/City` defined by [TZ database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+          example: Europe/Paris
+          minLength: 1
+        virtual:
+          type: boolean
+          description: True when the slot is a virtual classroom, false otherwise.
+        notification:
+          description: The notification configuration.
+          allOf:
+          - $ref: '#/components/schemas/NotificationDTO'
+    InputClassroomSlotDTO:
+      title: Input Classroom Slot
+      type: object
+      properties:
+        startDate:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot starts (must be before `endDate`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        endDate:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot ends (must be after `startDate`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        reportedDuration:
+          type: number
+          description: The reported duration of the slot, in hours.
+          example: 1
+        selfRegistration:
+          oneOf:
+          - $ref: '#/components/schemas/DisabledSelfRegistrationDTO'
+          - $ref: '#/components/schemas/EnabledSelfRegistrationDTO'
+          description: The self registration settings of the classroom slots.
+        virtual:
+          type: boolean
+          description: True when the slot is a virtual classroom, false otherwise.
+        maxCapacity:
+          type: number
+          description: The maximum number of registrations allowed in the slot. Learners won't be able to self-enroll on this slot if this number is reached.
+          example: 10
+        name:
+          type: string
+          description: The title of the classroom slot.
+          example: My awesome classroom slot
+          minLength: 1
+        context:
+          description: The path session context of the classroom slot.
+          allOf:
+          - $ref: '#/components/schemas/PathContextDTO'
+        location:
+          type: string
+          description: The location of the classroom slot, being either a URL or a physical address.
+          example: https://meet.google.com/kdf-zkfz-hje
+          minLength: 1
+        trainerIds:
+          maxItems: 20
+          description: The list of unique user IDs of trainers in charge of the slot (users must exist in the company).
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        mediaIds:
+          maxItems: 20
+          description: The list of medias unique identifiers linked to the classroom slot.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        timezone:
+          type: string
+          description: The timezone of the slot in the format `Continent[/Country]/City` defined by [TZ database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+          example: Europe/Paris
+          minLength: 1
+      required:
+      - startDate
+      - endDate
+      - reportedDuration
+      - selfRegistration
+      - virtual
+      - name
+      - context
+      - location
+    SlotRegistrationWithClassroomSlotIdDTO:
+      title: Slot Registration With Classroom Slot Id
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the classroom slot registration.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        archivedAt:
+          format: date-time
+          type: string
+          description: The date and time when the slot registration was archived from the path session, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        userId:
+          type: string
+          description: The unique ID of the registered user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        attendanceDuration:
+          type: number
+          description: If the classroom is setup through a webinar integration, contains the reported duration of the attendance in milliseconds.
+          example: 60
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the slot registration has been created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        hasAttended:
+          type: boolean
+          description: The attendance status of the registration.
+        modifiedAt:
+          format: date-time
+          type: string
+          description: The date and time when the slot registration has been modified, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        pathId:
+          type: string
+          description: The ID of the path in which this registration was made (if any).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        rsvp:
+          description: The rsvp for this registration.
+          allOf:
+          - $ref: '#/components/schemas/RsvpDTO'
+        status:
+          type: string
+          enum:
+          - archived
+          - published
+          description: The status of the slot registration.
+        classroomSlotId:
+          type: string
+          description: The unique ID of the classroom slot.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - _id
+      - userId
+      - status
+      - classroomSlotId
+    PatchClassroomDTO:
+      title: Patch Classroom
+      type: object
+      properties:
+        name:
+          type: string
+          description: The title of the classroom.
+          example: Security Conference
+          minLength: 1
+        mediaIds:
+          maxItems: 20
+          description: The list of unique IDs of the medias assigned to this classroom. These attachments will be sent by email to registered learners.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        message:
+          type: string
+          nullable: true
+          description: Complementary information about the classroom. This information will be sent by email to registered learners.
+          example: Be sure to have read all the attachments before the conference.
+          minLength: 1
+        trainingObjective:
+          type: string
+          nullable: true
+          description: The training objective of the classroom.
+          example: Learn the security rules of the company.
+          minLength: 1
+    ProgramContextDTO:
+      title: Program Context
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique identifier of the entity the classroom slot was created in. For instance the path session ID.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - program
+      required:
+      - _id
+      - type
+    ClassroomDTO:
+      title: Classroom
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The unique ID of the creation group of the classroom.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        _id:
+          type: string
+          description: The unique ID of the classroom.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        createdAt:
+          format: date-time
+          type: string
+          description: The date at which the classroom was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        name:
+          type: string
+          description: The title of the classroom.
+          example: Security Conference
+        mediaIds:
+          maxItems: 20
+          description: The list of unique IDs of the medias assigned to this classroom. These attachments will be sent by email to registered learners.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        message:
+          type: string
+          description: Complementary information about the classroom. This information will be sent by email to registered learners.
+          example: Be sure to have read all the attachments before the conference.
+        modifiedAt:
+          format: date-time
+          type: string
+          description: The date at which the classroom was last modified, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        trainingObjective:
+          type: string
+          description: The training objective of the classroom.
+          example: Learn the security rules of the company.
+      required:
+      - groupId
+      - _id
+      - name
+      - mediaIds
+    InputRsvpDTO:
+      title: Input Rsvp
+      type: object
+      properties:
+        going:
+          type: boolean
+          description: The rsvp response for this registration.
+      required:
+      - going
+    PersonalizedFields:
+      title: Personalized Fields
+      type: object
+      properties:
+        organizationName:
+          type: string
+          description: The name of your organization.
+          example: 360Learning
+          minLength: 1
+        organizationLogoId:
+          type: string
+          description: The unique id of the logo of your organization as a media of type image.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+    EnabledSelfRegistrationDTO:
+      title: Enabled Self Registration
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: True if self-registration enabled for this classroom slot, false otherwise.
+        cutoffDate:
+          format: date-time
+          type: string
+          description: 'The cutoff date for self-registrations (only if `selfRegistration.enabled: true`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).'
+      required:
+      - enabled
+      - cutoffDate
+    ClassroomSlotWaitlistRequestDTO:
+      title: Classroom Slot Waitlist Request
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The ID of the user who made the waitlist request.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        requestedAt:
+          format: date-time
+          type: string
+          description: The date and time when the addition to the waitlist was requested, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - userId
+      - requestedAt
+    DisabledSelfRegistrationDTO:
+      title: Disabled Self Registration
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: True if self-registration enabled for this classroom slot, false otherwise.
+        cutoffDate:
+          format: date-time
+          type: string
+          description: 'The cutoff date for self-registrations (only if `selfRegistration.enabled: true`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).'
+      required:
+      - enabled
+    InputClassroomDTO:
+      title: Input Classroom
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The unique ID of the creation group of the classroom.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The title of the classroom.
+          example: Security Conference
+          minLength: 1
+        mediaIds:
+          maxItems: 20
+          description: The list of unique IDs of the medias assigned to this classroom. These attachments will be sent by email to registered learners.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        message:
+          type: string
+          description: Complementary information about the classroom. This information will be sent by email to registered learners.
+          example: Be sure to have read all the attachments before the conference.
+          minLength: 1
+        trainingObjective:
+          type: string
+          description: The training objective of the classroom.
+          example: Learn the security rules of the company.
+          minLength: 1
+      required:
+      - groupId
+      - name
+    PatchSlotRegistrationDTO:
+      title: Patch Slot Registration
+      type: object
+      properties:
+        rsvp:
+          nullable: true
+          description: The rsvp for this registration.
+          allOf:
+          - $ref: '#/components/schemas/InputRsvpDTO'
+    SlotRegistrationDTO:
+      title: Slot Registration
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the classroom slot registration.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        archivedAt:
+          format: date-time
+          type: string
+          description: The date and time when the slot registration was archived from the path session, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        userId:
+          type: string
+          description: The unique ID of the registered user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        attendanceDuration:
+          type: number
+          description: If the classroom is setup through a webinar integration, contains the reported duration of the attendance in milliseconds.
+          example: 60
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the slot registration has been created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        hasAttended:
+          type: boolean
+          description: The attendance status of the registration.
+        modifiedAt:
+          format: date-time
+          type: string
+          description: The date and time when the slot registration has been modified, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        pathId:
+          type: string
+          description: The ID of the path in which this registration was made (if any).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        rsvp:
+          description: The rsvp for this registration.
+          allOf:
+          - $ref: '#/components/schemas/RsvpDTO'
+        status:
+          type: string
+          enum:
+          - archived
+          - published
+          description: The status of the slot registration.
+      required:
+      - _id
+      - userId
+      - status
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows: {}
+      description: 'Use the token from the authentication endpoint in the Authorization header.
+
+
+        Example: `Authorization: Bearer <token>`'

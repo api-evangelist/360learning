@@ -1,0 +1,633 @@
+openapi: 3.1.0
+info:
+  title: Bulk Authentication Custom Links API
+  description: ''
+  version: 1.0.0
+  contact: {}
+servers:
+- url: https://app.360learning.com
+  description: Production EU
+- url: https://app.us.360learning.com
+  description: Production US
+tags:
+- name: Custom Links
+paths:
+  /api/v2/custom-links:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `customLinks:write`.
+
+
+        Creates a custom link.'
+      operationId: v2.customLinks.CreateCustomLinkController_createCustomLink
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputCustomLinkDTO'
+      responses:
+        '201':
+          description: Returns the created custom link.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomLinkDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `name` is already used by another custom link.
+                  title: Name Already Used
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - nameAlreadyUsed
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `order` is already used by another custom link.
+                  title: Order Already Used
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - orderAlreadyUsed
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `type` is already used by another custom link.
+                  title: Type Already Used
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - typeAlreadyUsed
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Create a custom link
+      tags:
+      - Custom Links
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `customLinks:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 1,000 custom links. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all custom links.'
+      operationId: v2.customLinks.GetCustomLinksByCompanyController_getCustomLinksByCompany
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      responses:
+        '200':
+          description: Returns one page of 1000 custom links.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomLinkDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List custom links
+      tags:
+      - Custom Links
+  /api/v2/custom-links/{customLinkId}:
+    delete:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `customLinks:write`.
+
+
+        Deletes the custom link.'
+      operationId: v2.customLinks.DeleteCustomLinkController_deleteCustomLink
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: customLinkId
+        required: true
+        in: path
+        description: The unique ID of the custom link.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `customLinkId` does not match any existing custom link.
+          content:
+            application/json:
+              schema:
+                title: Custom Link Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - customLinkNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Delete a custom link
+      tags:
+      - Custom Links
+    put:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `customLinks:write`.
+
+
+        Replaces the custom link with the provided data. Fields not included in the payload are removed.'
+      operationId: v2.customLinks.ReplaceCustomLinkController_replaceCustomLink
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: customLinkId
+        required: true
+        in: path
+        description: The unique ID of the custom link.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputCustomLinkDTO'
+      responses:
+        '200':
+          description: Returns the updated custom link.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomLinkDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `name` is already used by another custom link.
+                  title: Name Already Used
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - nameAlreadyUsed
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `order` is already used by another custom link.
+                  title: Order Already Used
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - orderAlreadyUsed
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `type` is already used by another custom link.
+                  title: Type Already Used
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - typeAlreadyUsed
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `customLinkId` does not match any existing custom link.
+          content:
+            application/json:
+              schema:
+                title: Custom Link Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - customLinkNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Replace a custom link
+      tags:
+      - Custom Links
+components:
+  schemas:
+    CustomLinkDTO:
+      title: Custom Link
+      type: object
+      properties:
+        name:
+          type: string
+          description: The title displayed on the custom link.
+          example: Portal managers
+        order:
+          type: integer
+          minimum: 0
+          description: The numeric display order (ascending). Links are arranged horizontally from left to right and wrap to the next line as needed.
+          example: 3
+        type:
+          type: string
+          description: The unique identifier associated to your custom link. This information is not displayed to learners on the platform.
+          example: Manager Link FR
+        iconName:
+          type: string
+          enum:
+          - agenda
+          - absence
+          - certificate
+          - convention
+          - default
+          - inbox
+          - survey
+          description: The type of icon used on the custom link. By default, the link icon will be used.
+          example: inbox
+        _id:
+          type: string
+          description: The ID of the custom link.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - name
+      - order
+      - type
+      - _id
+    InputCustomLinkDTO:
+      title: Input Custom Link
+      type: object
+      properties:
+        name:
+          type: string
+          description: The title displayed on the custom link.
+          example: Portal managers
+        order:
+          type: integer
+          minimum: 0
+          description: The numeric display order (ascending). Links are arranged horizontally from left to right and wrap to the next line as needed.
+          example: 3
+        type:
+          type: string
+          description: The unique identifier associated to your custom link. This information is not displayed to learners on the platform.
+          example: Manager Link FR
+        iconName:
+          type: string
+          enum:
+          - agenda
+          - absence
+          - certificate
+          - convention
+          - default
+          - inbox
+          - survey
+          description: The type of icon used on the custom link. By default, the link icon will be used.
+          example: inbox
+      required:
+      - name
+      - order
+      - type
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows: {}
+      description: 'Use the token from the authentication endpoint in the Authorization header.
+
+
+        Example: `Authorization: Bearer <token>`'

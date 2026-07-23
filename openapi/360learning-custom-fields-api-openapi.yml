@@ -1,0 +1,1065 @@
+openapi: 3.1.0
+info:
+  title: Bulk Authentication Custom Fields API
+  description: ''
+  version: 1.0.0
+  contact: {}
+servers:
+- url: https://app.360learning.com
+  description: Production EU
+- url: https://app.us.360learning.com
+  description: Production US
+tags:
+- name: Custom Fields
+paths:
+  /api/v2/custom-fields:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `customFields:write`.
+
+
+        Creates a custom field.'
+      operationId: v2.customFields.CreateCustomFieldController_createCustomField
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputCustomFieldDTO'
+      responses:
+        '201':
+          description: Returns the created custom field.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomFieldDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The company has reached the maximum number of custom fields for this collection.
+                  title: Custom Field Limit Reached
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - customFieldLimitReached
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The name of the custom field should not be empty.
+                  title: Invalid Name
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalidName
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The name of the custom field is already taken.
+                  title: Name Already Taken
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - nameAlreadyTaken
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: This target type is not yet enabled for custom fields.
+                  title: Custom Fields Target Type Not Enabled
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - customFieldsTargetTypeNotEnabled
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Create a custom field
+      tags:
+      - Custom Fields
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `customFields:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 1,000 custom fields. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all custom fields in your platform.'
+      operationId: v2.customFields.GetCustomFieldsController_getCustomFields
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: name
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **name** property with LHS bracket notation.
+
+
+          Expected value format is a string.'
+        schema:
+          properties:
+            eq:
+              type: string
+              description: Filter on values equal to the given one
+              example: loremIpsum
+            ne:
+              type: string
+              description: Filter on values not equal to the given one
+              example: loremIpsum
+            in:
+              type: array
+              description: Filter on values including the given ones
+              items:
+                type: string
+                example: loremIpsum
+            nin:
+              type: array
+              description: Filter on values excluding the given ones
+              items:
+                type: string
+                example: loremIpsum
+      - name: targetType
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **targetType** property with LHS bracket notation.
+
+
+          Expected value format is a string (`users`, `contents`).'
+        schema:
+          properties:
+            eq:
+              type: string
+              description: Filter on values equal to the given one
+              example: users
+              enum:
+              - users
+              - contents
+            ne:
+              type: string
+              description: Filter on values not equal to the given one
+              example: users
+              enum:
+              - users
+              - contents
+            in:
+              type: array
+              description: Filter on values including the given ones
+              items:
+                type: string
+                example: users
+                enum:
+                - users
+                - contents
+            nin:
+              type: array
+              description: Filter on values excluding the given ones
+              items:
+                type: string
+                example: users
+                enum:
+                - users
+                - contents
+      - name: type
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **type** property with LHS bracket notation.
+
+
+          Expected value format is a string (`string`, `date`).'
+        schema:
+          properties:
+            eq:
+              type: string
+              description: Filter on values equal to the given one
+              example: string
+              enum:
+              - string
+              - date
+            ne:
+              type: string
+              description: Filter on values not equal to the given one
+              example: string
+              enum:
+              - string
+              - date
+            in:
+              type: array
+              description: Filter on values including the given ones
+              items:
+                type: string
+                example: string
+                enum:
+                - string
+                - date
+            nin:
+              type: array
+              description: Filter on values excluding the given ones
+              items:
+                type: string
+                example: string
+                enum:
+                - string
+                - date
+      responses:
+        '200':
+          description: Returns one page of 1000 custom fields.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomFieldDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all custom fields
+      tags:
+      - Custom Fields
+  /api/v2/custom-fields/{customFieldId}:
+    delete:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `customFields:write`.
+
+
+        Deletes a specific custom field given its unique ID.'
+      operationId: v2.customFields.DeleteCustomFieldController_deleteCustomField
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: customFieldId
+        required: true
+        in: path
+        description: The unique ID of the custom field.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '204':
+          description: Deletes a specific custom field.
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `customFieldId` does not correspond to any existing custom field.
+          content:
+            application/json:
+              schema:
+                title: Custom Field Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - customFieldNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Delete a custom field
+      tags:
+      - Custom Fields
+    patch:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `customFields:write`.
+
+
+        Edits specific fields of an existing custom field. Fields not included in the request payload remain unchanged.'
+      operationId: v2.customFields.UpdateCustomFieldController_updateCustomField
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: customFieldId
+        required: true
+        in: path
+        description: The unique ID of the custom field.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomFieldBody'
+      responses:
+        '200':
+          description: Returns the updated custom field.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomFieldDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The name of the custom field should not be empty.
+                  title: Invalid Name
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalidName
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The name of the custom field is already taken.
+                  title: Name Already Taken
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - nameAlreadyTaken
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `customFieldId` does not correspond to any existing custom field.
+          content:
+            application/json:
+              schema:
+                title: Custom Field Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - customFieldNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Edit a custom field
+      tags:
+      - Custom Fields
+  /api/v2/custom-fields/{customFieldId}/authorized-values:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `customFields:read`.
+
+
+        Lists all authorized values for the given custom field.'
+      operationId: v2.customFields.GetAuthorizedValuesController_getAuthorizedValues
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: customFieldId
+        required: true
+        in: path
+        description: The unique ID of the custom field.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns all authorized values for the given custom field.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: array
+                  title: date type
+                  items:
+                    type: string
+                    format: date
+                    example: '2024-06-30'
+                  description: The date format is `YYYY-MM-DD` (ISO 8601 in Coordinated Universal Time (UTC)).
+                - type: array
+                  title: string type
+                  items:
+                    type: string
+                    example: Marketing
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `customFieldId` does not correspond to any existing custom field.
+          content:
+            application/json:
+              schema:
+                title: Custom Field Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - customFieldNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all authorized values
+      tags:
+      - Custom Fields
+    put:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `customFields:write`.
+
+
+        Replaces all authorized values in the given custom field with the provided ones. Values not included are removed.'
+      operationId: v2.customFields.ReplaceAuthorizedValuesController_replaceAuthorizedValues
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: customFieldId
+        required: true
+        in: path
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceAuthorizedValuesDTO'
+      responses:
+        '200':
+          description: Returns the updated authorized values.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: array
+                  title: date type
+                  items:
+                    type: string
+                    format: date
+                    example: '2024-06-30'
+                  description: The date format is `YYYY-MM-DD` (ISO 8601 in Coordinated Universal Time (UTC)).
+                - type: array
+                  title: string type
+                  items:
+                    type: string
+                    example: Marketing
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: Some existing custom fields values are not listed in the given authorized values.
+                  title: Custom Field Values Conflict
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - customFieldValuesConflict
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: Some given authorized values do not match with the given custom field's type.
+                  title: Authorized Values Type Mismatch
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - authorizedValuesTypeMismatch
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `customFieldId` does not correspond to any existing custom field.
+          content:
+            application/json:
+              schema:
+                title: Custom Field Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - customFieldNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Replace all authorized values
+      tags:
+      - Custom Fields
+components:
+  schemas:
+    CustomFieldDTO:
+      title: Custom Field
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the custom field.
+          example: Department
+        targetType:
+          type: string
+          enum:
+          - users
+          - contents
+          description: The resource type to which the custom field is linked.
+        type:
+          type: string
+          enum:
+          - string
+          - date
+          description: The type of the custom field.
+        _id:
+          type: string
+          description: The unique ID of the custom field.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - name
+      - targetType
+      - type
+      - _id
+    UpdateCustomFieldBody:
+      title: Update Custom Field Body
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the custom field.
+          example: Department
+      required:
+      - name
+    ReplaceAuthorizedValuesDTO:
+      title: Replace Authorized Values
+      type: object
+      properties:
+        authorizedValues:
+          oneOf:
+          - type: array
+            title: date type
+            items:
+              type: string
+              format: date
+              example: '2024-06-30'
+            description: Use date values if the given custom field has a date type. The expected format is `YYYY-MM-DD` (ISO 8601 in Coordinated Universal Time (UTC)).
+          - type: array
+            title: string type
+            items:
+              type: string
+              example: Marketing
+            description: Use string values if the given custom field has a string type.
+          maxItems: 300
+          description: The new authorized values for the given custom fields. A custom field can have at most 300 authorized values.
+      required:
+      - authorizedValues
+    InputCustomFieldDTO:
+      title: Input Custom Field
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the custom field.
+          example: Department
+        targetType:
+          type: string
+          enum:
+          - users
+          - contents
+          description: The resource type to which the custom field is linked.
+        type:
+          type: string
+          enum:
+          - string
+          - date
+          description: The type of the custom field.
+      required:
+      - name
+      - targetType
+      - type
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows: {}
+      description: 'Use the token from the authentication endpoint in the Authorization header.
+
+
+        Example: `Authorization: Bearer <token>`'

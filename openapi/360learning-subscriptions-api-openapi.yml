@@ -1,0 +1,1892 @@
+openapi: 3.1.0
+info:
+  title: Bulk Authentication Subscriptions API
+  description: ''
+  version: 1.0.0
+  contact: {}
+servers:
+- url: https://app.360learning.com
+  description: Production EU
+- url: https://app.us.360learning.com
+  description: Production US
+tags:
+- name: Subscriptions
+paths:
+  /api/v2/bulk/notifications/subscriptions:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `subscriptions:bulk`.
+
+
+        > 🚜
+
+        >
+
+        > This endpoint processes up to 20,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+
+
+        Creates multiple email subscription events. Upon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation.'
+      operationId: v2.bulk.subscriptions.CreateSubscriptionEventsController_createSubscriptionEvents
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSubscriptionEventsBody'
+      responses:
+        '202':
+          description: The operation is successfully created.
+          headers:
+            Location:
+              schema:
+                type: string
+              description: 'The URL to retrieve the status of the bulk operation using its operation ID.
+
+
+                Example: `https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011`.'
+              example: https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The input of a bulk operation must be an array.
+                  title: Invalid Input
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalidInput
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The input array size exceeds the maximum limit of 20,000 objects.
+                  title: Input Too Long
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - inputTooLong
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: The maximum number of concurrent operations has been reached.
+          content:
+            application/json:
+              schema:
+                title: Bulk Operations Concurrency Limit Reached
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - bulkOperationsConcurrencyLimitReached
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '503':
+          description: The bulk API is temporarily disabled.
+          content:
+            application/json:
+              schema:
+                title: Bulk API Disabled
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - bulkAPIDisabled
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Create email subscription events
+      tags:
+      - Subscriptions
+  /api/v2/webhooks/subscriptions:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `webhooks:write`.
+
+
+        Creates a webhook subscription.'
+      operationId: v2.webhook.subscriptions.CreateSubscriptionController_createSubscription
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaseSubscriptionDTO'
+      responses:
+        '201':
+          description: Returns the created webhook subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: A subscription already exists for this event type and URL.
+                  title: Subscription Already Exists
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - subscriptionAlreadyExists
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The provided URL is unreachable.
+                  title: Url Unreachable
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - urlUnreachable
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The maximum number of subscriptions for this event type has been reached.
+                  title: Subscriptions Limit Reached
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - subscriptionsLimitReached
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Create a webhook subscription
+      tags:
+      - Subscriptions
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `webhooks:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 2,000 webhook subscriptions. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all webhook subscriptions in your platform.'
+      operationId: v2.webhook.subscriptions.GetSubscriptionsController_getSubscriptions
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: eventType
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **eventType** property with LHS bracket notation.
+
+
+          Expected value format is a string (`bulk.operation.created`, `bulk.operation.ended`, `course.attempt.closed`, `group.created`, `group.deleted`, `group.updated`, `path.archived`, `path.created`, `path.deleted`, `path.session.added`, `path.session.removed`, `path.session.classroom.slot.users.unregistered.full`, `path.session.classroom.slot.waitlist.closed`, `path.session.classroom.slot.waitlist.opened`, `path.session.classroom.slot.waitlist.user.joined`, `path.session.user.status.updated`, `path.session.users.enrolled`, `path.session.users.unenrolled`, `path.updated`, `user.activated`, `user.assessment.corrected`, `user.certificate.awarded`, `user.created`, `user.deleted`, `user.invited`, `user.reactivated`, `user.updated`, `xapi.started`, `xapi`).'
+        schema:
+          properties:
+            eq:
+              type: string
+              description: Filter on values equal to the given one
+              example: bulk.operation.created
+              enum:
+              - bulk.operation.created
+              - bulk.operation.ended
+              - course.attempt.closed
+              - group.created
+              - group.deleted
+              - group.updated
+              - path.archived
+              - path.created
+              - path.deleted
+              - path.session.added
+              - path.session.removed
+              - path.session.classroom.slot.users.unregistered.full
+              - path.session.classroom.slot.waitlist.closed
+              - path.session.classroom.slot.waitlist.opened
+              - path.session.classroom.slot.waitlist.user.joined
+              - path.session.user.status.updated
+              - path.session.users.enrolled
+              - path.session.users.unenrolled
+              - path.updated
+              - user.activated
+              - user.assessment.corrected
+              - user.certificate.awarded
+              - user.created
+              - user.deleted
+              - user.invited
+              - user.reactivated
+              - user.updated
+              - xapi.started
+              - xapi
+            ne:
+              type: string
+              description: Filter on values not equal to the given one
+              example: bulk.operation.created
+              enum:
+              - bulk.operation.created
+              - bulk.operation.ended
+              - course.attempt.closed
+              - group.created
+              - group.deleted
+              - group.updated
+              - path.archived
+              - path.created
+              - path.deleted
+              - path.session.added
+              - path.session.removed
+              - path.session.classroom.slot.users.unregistered.full
+              - path.session.classroom.slot.waitlist.closed
+              - path.session.classroom.slot.waitlist.opened
+              - path.session.classroom.slot.waitlist.user.joined
+              - path.session.user.status.updated
+              - path.session.users.enrolled
+              - path.session.users.unenrolled
+              - path.updated
+              - user.activated
+              - user.assessment.corrected
+              - user.certificate.awarded
+              - user.created
+              - user.deleted
+              - user.invited
+              - user.reactivated
+              - user.updated
+              - xapi.started
+              - xapi
+            in:
+              type: array
+              description: Filter on values including the given ones
+              items:
+                type: string
+                example: bulk.operation.created
+                enum:
+                - bulk.operation.created
+                - bulk.operation.ended
+                - course.attempt.closed
+                - group.created
+                - group.deleted
+                - group.updated
+                - path.archived
+                - path.created
+                - path.deleted
+                - path.session.added
+                - path.session.removed
+                - path.session.classroom.slot.users.unregistered.full
+                - path.session.classroom.slot.waitlist.closed
+                - path.session.classroom.slot.waitlist.opened
+                - path.session.classroom.slot.waitlist.user.joined
+                - path.session.user.status.updated
+                - path.session.users.enrolled
+                - path.session.users.unenrolled
+                - path.updated
+                - user.activated
+                - user.assessment.corrected
+                - user.certificate.awarded
+                - user.created
+                - user.deleted
+                - user.invited
+                - user.reactivated
+                - user.updated
+                - xapi.started
+                - xapi
+            nin:
+              type: array
+              description: Filter on values excluding the given ones
+              items:
+                type: string
+                example: bulk.operation.created
+                enum:
+                - bulk.operation.created
+                - bulk.operation.ended
+                - course.attempt.closed
+                - group.created
+                - group.deleted
+                - group.updated
+                - path.archived
+                - path.created
+                - path.deleted
+                - path.session.added
+                - path.session.removed
+                - path.session.classroom.slot.users.unregistered.full
+                - path.session.classroom.slot.waitlist.closed
+                - path.session.classroom.slot.waitlist.opened
+                - path.session.classroom.slot.waitlist.user.joined
+                - path.session.user.status.updated
+                - path.session.users.enrolled
+                - path.session.users.unenrolled
+                - path.updated
+                - user.activated
+                - user.assessment.corrected
+                - user.certificate.awarded
+                - user.created
+                - user.deleted
+                - user.invited
+                - user.reactivated
+                - user.updated
+                - xapi.started
+                - xapi
+      responses:
+        '200':
+          description: Returns one page of 2000 webhook subscriptions.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubscriptionDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all webhook subscriptions
+      tags:
+      - Subscriptions
+  /api/v2/webhooks/subscriptions/{subscriptionId}:
+    delete:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `webhooks:write`.
+
+
+        Deletes a specific webhook subscription given its unique ID.'
+      operationId: v2.webhook.subscriptions.DeleteSubscriptionController_deleteSubscription
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: subscriptionId
+        required: true
+        in: path
+        description: The unique ID of the webhook subscription.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '204':
+          description: Deletes a specific webhook subscription.
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `subscriptionId` does not correspond to any existing subscription.
+          content:
+            application/json:
+              schema:
+                title: Subscription Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - subscriptionNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Delete a webhook subscription
+      tags:
+      - Subscriptions
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `webhooks:read`.
+
+
+        Retrieves the details of a specific webhook subscription with the provided subscription ID.'
+      operationId: v2.webhook.subscriptions.GetSubscriptionController_getSubscription
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: subscriptionId
+        required: true
+        in: path
+        description: The unique ID of the webhook subscription.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns the details of the webhook subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `subscriptionId` does not correspond to any existing subscription.
+          content:
+            application/json:
+              schema:
+                title: Subscription Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - subscriptionNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Retrieve a webhook subscription
+      tags:
+      - Subscriptions
+    patch:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `webhooks:write`.
+
+
+        Edits specific fields of an existing webhook subscription. Fields not included in the request payload remain unchanged.'
+      operationId: v2.webhook.subscriptions.UpdateSubscriptionController_updateSubscription
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: subscriptionId
+        required: true
+        in: path
+        description: The unique ID of the webhook subscription.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchSubscriptionDTO'
+      responses:
+        '200':
+          description: Returns the updated webhook subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: A subscription already exists for this event type and URL.
+                  title: Subscription Already Exists
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - subscriptionAlreadyExists
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The provided URL is unreachable.
+                  title: Url Unreachable
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - urlUnreachable
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `subscriptionId` does not correspond to any existing subscription.
+          content:
+            application/json:
+              schema:
+                title: Subscription Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - subscriptionNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Edit a webhook subscription
+      tags:
+      - Subscriptions
+  /api/v2/webhooks/subscriptions/{subscriptionId}/events:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `webhooks:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 250 webhook events. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all events for a given webhook subscription.'
+      operationId: v2.webhook.subscriptions.GetEventsController_getEvents
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: subscriptionId
+        required: true
+        in: path
+        description: The unique ID of the webhook subscription.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: createdAt
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **createdAt** property with LHS bracket notation.
+
+
+          Expected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0.'
+        schema:
+          properties:
+            lt:
+              type: string
+              format: date-time
+              description: Filter on dates lower than the given one
+              example: '2020-01-01T10:30:26.000Z'
+            gte:
+              type: string
+              format: date-time
+              description: Filter on dates greater than or equal the given one
+              example: '2020-01-01T10:30:26.000Z'
+      - name: status
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **status** property with LHS bracket notation.
+
+
+          Expected value format is a string (`delivered`, `failed`, `pending`, `sending`).'
+        schema:
+          properties:
+            eq:
+              type: string
+              description: Filter on values equal to the given one
+              example: delivered
+              enum:
+              - delivered
+              - failed
+              - pending
+              - sending
+      responses:
+        '200':
+          description: Returns one page of 250 webhook events.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `subscriptionId` does not correspond to any existing subscription.
+          content:
+            application/json:
+              schema:
+                title: Subscription Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - subscriptionNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all events for a webhook subscription
+      tags:
+      - Subscriptions
+  /api/v2/webhooks/subscriptions/{subscriptionId}/secrets:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `webhookSecrets:read`.
+
+
+        Retrieves the details of the signing secret associated with the provided webhook subscription ID.'
+      operationId: v2.webhook.subscriptions.GetSigningSecretController_getSigningSecret
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: subscriptionId
+        required: true
+        in: path
+        description: The unique ID of the webhook subscription.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns the value of the current signing secret of the webhook subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SigningSecretDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `subscriptionId` does not correspond to any existing subscription.
+          content:
+            application/json:
+              schema:
+                title: Subscription Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - subscriptionNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Retrieve the signing secret of a webhook subscription
+      tags:
+      - Subscriptions
+  /api/v2/webhooks/subscriptions/{subscriptionId}/events/retry-failure:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `webhooks:write`.
+
+
+        Retries all failed webhook events for a subscription within the specified timeframe (maximum 3 days per request). Events are retained for 90 days and can be retried in multiple requests.'
+      operationId: v2.webhook.subscriptions.RetryEventFailuresController_retryEventFailures
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: subscriptionId
+        required: true
+        in: path
+        description: The unique ID of the webhook subscription.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetryEventsDTO'
+      responses:
+        '204':
+          description: Retries the failed webhook events for the given webhook subscription and the given timeframe.
+        '400':
+          description: The given `startDate` and `endDate` are invalid. The retry timeframe is limited to 3 days and the `endDate` must be after the `startDate`.
+          content:
+            application/json:
+              schema:
+                title: Invalid Retry Timeframe
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalidRetryTimeframe
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `subscriptionId` does not correspond to any active subscription.
+          content:
+            application/json:
+              schema:
+                title: Active Subscription Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - activeSubscriptionNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Retry the failed webhook events of a webhook subscription
+      tags:
+      - Subscriptions
+  /api/v2/webhooks/subscriptions/{subscriptionId}/events/retry-success:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `webhooks:write`.
+
+
+        Retries all successful webhook events for a subscription within the specified timeframe (maximum 3 days per request). Events are retained for 90 days and can be retried in multiple requests.'
+      operationId: v2.webhook.subscriptions.RetryEventSuccessesController_retryEventSuccesses
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: subscriptionId
+        required: true
+        in: path
+        description: The unique ID of the webhook subscription.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetryEventsDTO'
+      responses:
+        '204':
+          description: Retries the successful webhook events for the given webhook subscription and the given timeframe.
+        '400':
+          description: The given `startDate` and `endDate` are invalid. The retry timeframe is limited to 3 days and the `endDate` must be after the `startDate`.
+          content:
+            application/json:
+              schema:
+                title: Invalid Retry Timeframe
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalidRetryTimeframe
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `subscriptionId` does not correspond to any active subscription.
+          content:
+            application/json:
+              schema:
+                title: Active Subscription Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - activeSubscriptionNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Retry the successful webhook events of a webhook subscription
+      tags:
+      - Subscriptions
+  /api/v2/webhooks/subscriptions/{subscriptionId}/secrets/rotate:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `webhookSecrets:write`.
+
+
+        Rotates the signing secret for the given webhook subscription. In addition to the new signature, the events will also be signed with the legacy secret for 24 hours.'
+      operationId: v2.webhook.subscriptions.RotateSigningSecretController_rotateSigningSecret
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: subscriptionId
+        required: true
+        in: path
+        description: The unique ID of the webhook subscription.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '201':
+          description: Returns the new signing secret of the webhook subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SigningSecretDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `subscriptionId` does not correspond to any existing subscription.
+          content:
+            application/json:
+              schema:
+                title: Subscription Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - subscriptionNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Rotate the signing secret of a webhook subscription
+      tags:
+      - Subscriptions
+components:
+  schemas:
+    RetryEventsDTO:
+      title: Retry Events
+      type: object
+      properties:
+        startDate:
+          format: date-time
+          type: string
+          description: The date from which the events should be retried, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        endDate:
+          format: date-time
+          type: string
+          description: The date until which the events should be retried, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - startDate
+      - endDate
+    SubscriptionDTO:
+      title: Subscription
+      type: object
+      properties:
+        eventType:
+          type: string
+          enum:
+          - bulk.operation.created
+          - bulk.operation.ended
+          - course.attempt.closed
+          - group.created
+          - group.deleted
+          - group.updated
+          - path.archived
+          - path.created
+          - path.deleted
+          - path.session.added
+          - path.session.removed
+          - path.session.classroom.slot.users.unregistered.full
+          - path.session.classroom.slot.waitlist.closed
+          - path.session.classroom.slot.waitlist.opened
+          - path.session.classroom.slot.waitlist.user.joined
+          - path.session.user.status.updated
+          - path.session.users.enrolled
+          - path.session.users.unenrolled
+          - path.updated
+          - user.activated
+          - user.assessment.corrected
+          - user.certificate.awarded
+          - user.created
+          - user.deleted
+          - user.invited
+          - user.reactivated
+          - user.updated
+          - xapi.started
+          - xapi
+          description: The type of event that should be managed by this webhook subscription.
+        name:
+          type: string
+          description: The name of the webhook subscription.
+          example: HRIS system subscription
+          minLength: 1
+        url:
+          type: string
+          description: The URL where the events are sent for this webhook subscription.
+          example: https://example.com/webhook
+          minLength: 1
+        _id:
+          type: string
+          description: The unique ID of the webhook subscription.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          description: 'The status of the webhook subscription. Options are:
+
+            - `active`: events are sent to your endpoint.
+
+            - `inactive`: events are not sent to your endpoint.'
+      required:
+      - eventType
+      - name
+      - url
+      - _id
+      - status
+    EventDTO:
+      title: Event
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the webhook event. It corresponds to the header value **webhook-id** in the webhook event request delivered to your endpoint.
+          example: msg_1srOrx2ZWZBpBUvZwXKQmoEYga2r
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the webhook event was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        status:
+          type: string
+          enum:
+          - delivered
+          - failed
+          - pending
+          - sending
+          description: 'The status of the webhook event. Options are:
+
+            - `delivered`: The event was successfully delivered.
+
+            - `failed`: The event failed to be delivered after all the retries.
+
+            - `pending`: The event delivery process is not yet started.
+
+            - `sending`: The event delivery is in progress following the retry schedule.'
+        payload:
+          type: object
+          description: The payload sent in the webhook event.
+      required:
+      - _id
+      - createdAt
+      - status
+      - payload
+    SigningSecretDTO:
+      title: Signing Secret
+      type: object
+      properties:
+        secret:
+          type: string
+          description: The signing secret of the webhook subscription. You can use this secret to verify the authenticity of the received events.
+          example: password123
+          minLength: 1
+      required:
+      - secret
+    PatchSubscriptionDTO:
+      title: Patch Subscription
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the webhook subscription.
+          example: HRIS system subscription
+          minLength: 1
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          description: 'The status of the webhook subscription. Options are:
+
+            - `active`: events are sent to your endpoint.
+
+            - `inactive`: events are not sent to your endpoint.'
+        url:
+          type: string
+          description: The URL where the events are sent for this webhook subscription.
+          example: https://example.com/webhook
+          minLength: 1
+    BaseSubscriptionDTO:
+      title: Base Subscription
+      type: object
+      properties:
+        eventType:
+          type: string
+          enum:
+          - bulk.operation.created
+          - bulk.operation.ended
+          - course.attempt.closed
+          - group.created
+          - group.deleted
+          - group.updated
+          - path.archived
+          - path.created
+          - path.deleted
+          - path.session.added
+          - path.session.removed
+          - path.session.classroom.slot.users.unregistered.full
+          - path.session.classroom.slot.waitlist.closed
+          - path.session.classroom.slot.waitlist.opened
+          - path.session.classroom.slot.waitlist.user.joined
+          - path.session.user.status.updated
+          - path.session.users.enrolled
+          - path.session.users.unenrolled
+          - path.updated
+          - user.activated
+          - user.assessment.corrected
+          - user.certificate.awarded
+          - user.created
+          - user.deleted
+          - user.invited
+          - user.reactivated
+          - user.updated
+          - xapi.started
+          - xapi
+          description: The type of event that should be managed by this webhook subscription.
+        name:
+          type: string
+          description: The name of the webhook subscription.
+          example: HRIS system subscription
+          minLength: 1
+        url:
+          type: string
+          description: The URL where the events are sent for this webhook subscription.
+          example: https://example.com/webhook
+          minLength: 1
+      required:
+      - eventType
+      - name
+      - url
+    CreateSubscriptionEventsBody:
+      title: Create Subscription Events Body
+      type: object
+      properties:
+        input:
+          description: An array of email subscription events for users.
+          maxItems: 20000
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionEventDTO'
+      required:
+      - input
+    SubscriptionEventDTO:
+      title: Subscription Event
+      type: object
+      properties:
+        mail:
+          type: string
+          description: The email address of the user.
+          example: john.smith@yopmail.com
+          minLength: 1
+        type:
+          type: string
+          enum:
+          - activation
+          - deactivation
+          description: The type of subscription event to create.
+      required:
+      - mail
+      - type
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows: {}
+      description: 'Use the token from the authentication endpoint in the Authorization header.
+
+
+        Example: `Authorization: Bearer <token>`'

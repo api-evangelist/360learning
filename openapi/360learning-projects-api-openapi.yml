@@ -1,0 +1,151 @@
+openapi: 3.1.0
+info:
+  title: Bulk Authentication Projects API
+  description: ''
+  version: 1.0.0
+  contact: {}
+servers:
+- url: https://app.360learning.com
+  description: Production EU
+- url: https://app.us.360learning.com
+  description: Production US
+tags:
+- name: Projects
+paths:
+  /api/v2/projects:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `projects:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 500 projects. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all live projects in your platform.'
+      operationId: v2.projects.GetProjectsController_getProjects
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      responses:
+        '200':
+          description: Returns one page of 500 projects.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all projects
+      tags:
+      - Projects
+components:
+  schemas:
+    ProjectDTO:
+      title: Project
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the project.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The name of the project.
+          example: Customer Onboarding
+        completed:
+          type: boolean
+          description: True if the project is completed.
+        groupId:
+          type: string
+          description: The unique ID of the group the project belongs to.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - _id
+      - name
+      - completed
+      - groupId
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows: {}
+      description: 'Use the token from the authentication endpoint in the Authorization header.
+
+
+        Example: `Authorization: Bearer <token>`'

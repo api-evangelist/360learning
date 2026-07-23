@@ -1,0 +1,25 @@
+generated: '2026-07-17'
+method: searched
+source: https://360learning.readme.io/docs/introduction
+versioning:
+  scheme: header + uri-path
+  header: 360-api-version
+  current: v2.0
+  path_prefix: /api/v2
+  docs: https://360learning.readme.io/docs/authentication
+deprecation:
+  policy: >-
+    API v1 is deprecated. It remains functional with limited maintenance
+    (critical bug fixes and security patches only) until mid-2027; all new
+    integrations should use API v2. API v1 credentials are not compatible with
+    API v2.
+  deprecated_version: v1
+  deprecated_docs: https://api.360learning.com/
+  sunset_target: 'mid-2027'
+sla:
+  url: null
+status_page: https://status.360learning.com
+changelog: https://360learning.readme.io/changelog
+support:
+  docs: https://support.360learning.com/
+deprecated_operations: []

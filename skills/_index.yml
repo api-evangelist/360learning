@@ -1,0 +1,16 @@
+generated: '2026-07-17'
+method: generated
+source: openapi/360learning-*.json + conventions/errors artifacts
+skills:
+- file: 360learning-provision-learner.md
+  name: Provision a learner and add them to a group
+  api: openapi/360learning-core-api.json
+  operations: [v2.users.CreateUserController_createUser, v2.users.ActivateUserController_activateUser, v2.groups.GetGroupsController_getGroups, v2.bulk.groups.AddUsersToGroupsController_addUsersToGroups]
+- file: 360learning-subscribe-webhooks.md
+  name: Subscribe to platform events via webhooks
+  api: openapi/360learning-webhook-api.json
+  operations: [v2.webhook.subscriptions.CreateSubscriptionController_createSubscription, v2.webhook.subscriptions.GetSigningSecretController_getSigningSecret, v2.webhook.subscriptions.GetEventsController_getEvents, v2.webhook.subscriptions.RetryEventFailuresController_retryEventFailures]
+- file: 360learning-schedule-classroom.md
+  name: Schedule a classroom and register learners
+  api: openapi/360learning-core-api.json
+  operations: [v2.classrooms.CreateClassroomController_createClassroom, v2.classrooms.CreateClassroomSlotController_createClassroomSlot, v2.classrooms.AddSlotRegistrationController_addSlotRegistration, v2.classrooms.CreateAttendanceSheetController_createAttendanceSheet]

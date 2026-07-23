@@ -1,0 +1,922 @@
+openapi: 3.1.0
+info:
+  title: Bulk Authentication External IDs API
+  description: ''
+  version: 1.0.0
+  contact: {}
+servers:
+- url: https://app.360learning.com
+  description: Production EU
+- url: https://app.us.360learning.com
+  description: Production US
+tags:
+- name: External IDs
+paths:
+  /api/v2/external-ids:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `externalIds:write`.
+
+
+        Creates an external ID mapping.'
+      operationId: v2.externalIds.CreateExternalIdController_createExternalId
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputExternalIdDTO'
+      responses:
+        '201':
+          description: Returns the created external ID mapping.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalIdDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: A mapping already exists for the given resource on this platform.
+                  title: Mapping Already Exists
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - mappingAlreadyExists
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The platform is one of the reserved ones.
+                  title: Reserved Platform Name
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - reservedPlatformName
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The value is already used with another resource.
+                  title: Value Already Used
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - valueAlreadyUsed
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The targeted resource does not exist.
+          content:
+            application/json:
+              schema:
+                title: Resource Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - resourceNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Create an ID mapping
+      tags:
+      - External IDs
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `externalIds:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 5,000 external IDs. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all external ID mappings that link resources together.'
+      operationId: v2.externalIds.GetExternalIdsController_getExternalIds
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: platform
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **platform** property with LHS bracket notation.
+
+
+          Expected value format is a string.'
+        schema:
+          properties:
+            eq:
+              type: string
+              description: Filter on values equal to the given one
+              example: loremIpsum
+            ne:
+              type: string
+              description: Filter on values not equal to the given one
+              example: loremIpsum
+            in:
+              type: array
+              description: Filter on values including the given ones
+              items:
+                type: string
+                example: loremIpsum
+            nin:
+              type: array
+              description: Filter on values excluding the given ones
+              items:
+                type: string
+                example: loremIpsum
+      - name: type
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **type** property with LHS bracket notation.
+
+
+          Expected value format is a string (`attempt`, `classroom`, `classroomAttendance`, `classroomAttendanceSheet`, `classroomSlot`, `classroomSlotRegistration`, `course`, `group`, `learningNeed`, `path`, `pathEnrollment`, `pathSession`, `pathTracking`, `registrationRequest`, `user`).'
+        schema:
+          properties:
+            eq:
+              type: string
+              description: Filter on values equal to the given one
+              example: attempt
+              enum:
+              - attempt
+              - classroom
+              - classroomAttendance
+              - classroomAttendanceSheet
+              - classroomSlot
+              - classroomSlotRegistration
+              - course
+              - group
+              - learningNeed
+              - path
+              - pathEnrollment
+              - pathSession
+              - pathTracking
+              - registrationRequest
+              - user
+            ne:
+              type: string
+              description: Filter on values not equal to the given one
+              example: attempt
+              enum:
+              - attempt
+              - classroom
+              - classroomAttendance
+              - classroomAttendanceSheet
+              - classroomSlot
+              - classroomSlotRegistration
+              - course
+              - group
+              - learningNeed
+              - path
+              - pathEnrollment
+              - pathSession
+              - pathTracking
+              - registrationRequest
+              - user
+            in:
+              type: array
+              description: Filter on values including the given ones
+              items:
+                type: string
+                example: attempt
+                enum:
+                - attempt
+                - classroom
+                - classroomAttendance
+                - classroomAttendanceSheet
+                - classroomSlot
+                - classroomSlotRegistration
+                - course
+                - group
+                - learningNeed
+                - path
+                - pathEnrollment
+                - pathSession
+                - pathTracking
+                - registrationRequest
+                - user
+            nin:
+              type: array
+              description: Filter on values excluding the given ones
+              items:
+                type: string
+                example: attempt
+                enum:
+                - attempt
+                - classroom
+                - classroomAttendance
+                - classroomAttendanceSheet
+                - classroomSlot
+                - classroomSlotRegistration
+                - course
+                - group
+                - learningNeed
+                - path
+                - pathEnrollment
+                - pathSession
+                - pathTracking
+                - registrationRequest
+                - user
+      - name: value
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **value** property with LHS bracket notation.
+
+
+          Expected value format is a string.'
+        schema:
+          properties:
+            eq:
+              type: string
+              description: Filter on values equal to the given one
+              example: loremIpsum
+            ne:
+              type: string
+              description: Filter on values not equal to the given one
+              example: loremIpsum
+            in:
+              type: array
+              description: Filter on values including the given ones
+              items:
+                type: string
+                example: loremIpsum
+            nin:
+              type: array
+              description: Filter on values excluding the given ones
+              items:
+                type: string
+                example: loremIpsum
+      - name: targetId
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **targetId** property with LHS bracket notation.
+
+
+          Expected value format is a valid ID (24 digits or letters).'
+        schema:
+          properties:
+            eq:
+              type: string
+              format: ObjectId
+              pattern: ^[a-fA-F0-9]{24}$
+              description: Filter on values equal to the given one
+              example: 507f1f77bcf86cd799439011
+            ne:
+              type: string
+              format: ObjectId
+              pattern: ^[a-fA-F0-9]{24}$
+              description: Filter on values not equal to the given one
+              example: 507f1f77bcf86cd799439011
+            in:
+              type: array
+              description: Filter on values including the given ones
+              items:
+                type: string
+                format: ObjectId
+                pattern: ^[a-fA-F0-9]{24}$
+                example: 507f1f77bcf86cd799439011
+            nin:
+              type: array
+              description: Filter on values excluding the given ones
+              items:
+                type: string
+                format: ObjectId
+                pattern: ^[a-fA-F0-9]{24}$
+                example: 507f1f77bcf86cd799439011
+      responses:
+        '200':
+          description: Returns one page of 5000 external IDs.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExternalIdDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all ID mappings
+      tags:
+      - External IDs
+  /api/v2/external-ids/{mappingId}:
+    delete:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `externalIds:write`.
+
+
+        Deletes a specific external ID mapping given its unique ID.'
+      operationId: v2.externalIds.DeleteExternalIdController_deleteExternalId
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: mappingId
+        required: true
+        in: path
+        description: The unique ID that identifies the resources mapping.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '204':
+          description: Deletes a specific external ID mapping.
+        '400':
+          description: The platform is one of the reserved ones.
+          content:
+            application/json:
+              schema:
+                title: Reserved Platform Name
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - reservedPlatformName
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `mappingId` does not correspond to any existing mapping.
+          content:
+            application/json:
+              schema:
+                title: Mapping Id Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - mappingIdNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Delete an ID mapping
+      tags:
+      - External IDs
+    put:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `externalIds:write`.
+
+
+        Replaces an existing external ID mapping with the provided data.'
+      operationId: v2.externalIds.UpdateExternalIdController_updateExternalId
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: mappingId
+        required: true
+        in: path
+        description: The unique ID that identifies the resources mapping.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputExternalIdDTO'
+      responses:
+        '200':
+          description: Returns the updated external ID mapping.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalIdDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The platform is one of the reserved ones.
+                  title: Reserved Platform Name
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - reservedPlatformName
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The target already has an external ID on this platform.
+                  title: Target Already Mapped
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - targetAlreadyMapped
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The value is already used with another resource.
+                  title: Value Already Used
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - valueAlreadyUsed
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `mappingId` does not correspond to any existing mapping.
+                  title: Mapping Id Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - mappingIdNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The targeted resource does not exist.
+                  title: Resource Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - resourceNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Replace an ID mapping
+      tags:
+      - External IDs
+components:
+  schemas:
+    InputExternalIdDTO:
+      title: Input External Id
+      type: object
+      properties:
+        platform:
+          type: string
+          description: The name of the platform where the external ID comes from.
+          example: external catalog
+          minLength: 1
+        targetId:
+          type: string
+          description: The resource ID to which the external ID is linked.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        targetType:
+          type: string
+          enum:
+          - attempt
+          - classroom
+          - classroomAttendance
+          - classroomAttendanceSheet
+          - classroomSlot
+          - classroomSlotRegistration
+          - course
+          - group
+          - learningNeed
+          - path
+          - pathEnrollment
+          - pathSession
+          - pathTracking
+          - registrationRequest
+          - user
+          description: The resource type to which the external ID is linked.
+          example: course
+        value:
+          type: string
+          description: The value of the external ID.
+          example: 945628-01
+          minLength: 1
+      required:
+      - platform
+      - targetId
+      - targetType
+      - value
+    ExternalIdDTO:
+      title: External Id
+      type: object
+      properties:
+        platform:
+          type: string
+          description: The name of the platform where the external ID comes from.
+          example: external catalog
+          minLength: 1
+        targetId:
+          type: string
+          description: The resource ID to which the external ID is linked.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        targetType:
+          type: string
+          enum:
+          - attempt
+          - classroom
+          - classroomAttendance
+          - classroomAttendanceSheet
+          - classroomSlot
+          - classroomSlotRegistration
+          - course
+          - group
+          - learningNeed
+          - path
+          - pathEnrollment
+          - pathSession
+          - pathTracking
+          - registrationRequest
+          - user
+          description: The resource type to which the external ID is linked.
+          example: course
+        value:
+          type: string
+          description: The value of the external ID.
+          example: 945628-01
+          minLength: 1
+        _id:
+          type: string
+          description: The unique ID that identifies the resources mapping.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - platform
+      - targetId
+      - targetType
+      - value
+      - _id
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows: {}
+      description: 'Use the token from the authentication endpoint in the Authorization header.
+
+
+        Example: `Authorization: Bearer <token>`'

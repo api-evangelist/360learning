@@ -1,0 +1,4865 @@
+openapi: 3.1.0
+info:
+  title: Bulk Authentication Users API
+  description: ''
+  version: 1.0.0
+  contact: {}
+servers:
+- url: https://app.360learning.com
+  description: Production EU
+- url: https://app.us.360learning.com
+  description: Production US
+tags:
+- name: Users
+paths:
+  /api/v2/users/{userId}/activate:
+    put:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:write`.
+
+
+        Activates a specific user given its unique ID.'
+      operationId: v2.users.ActivateUserController_activateUser
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns the activated user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '400':
+          description: The given `userId` corresponds to a deleted user. Recreate the user first (using `POST /api/v2/users`) and then activate it.
+          content:
+            application/json:
+              schema:
+                title: User Deleted
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userDeleted
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `userId` does not correspond to any existing user.
+          content:
+            application/json:
+              schema:
+                title: User Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Activate a user
+      tags:
+      - Users
+  /api/v2/users/{userId}/managers/{managerId}:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:write`.
+
+
+        Adds a manager to a user.'
+      operationId: v2.users.AddManagerController_addManager
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user the manager will be added to.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: managerId
+        required: true
+        in: path
+        description: The unique ID of the manager to be added.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '204':
+          description: Adds a manager to a user.
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `userId` corresponds to a deleted user.
+                  title: User Deleted
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userDeleted
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `managerId` corresponds to a deleted user.
+                  title: Manager Deleted
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - managerDeleted
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `userId` does not correspond to any existing user.
+                  title: User Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `managerId` does not correspond to any existing user.
+                  title: Manager Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - managerNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Add a manager to a user
+      tags:
+      - Users
+    delete:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:write`.
+
+
+        Removes a manager from a user.'
+      operationId: v2.users.DeleteManagerController_deleteManager
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user the manager will be removed from.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: managerId
+        required: true
+        in: path
+        description: The unique ID of the manager to be removed.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '204':
+          description: Removes a manager from a user.
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `userId` corresponds to a deleted user.
+                  title: User Deleted
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userDeleted
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The user corresponding to the given `userId` has no manager corresponding to the given `managerId`.
+                  title: Manager Not Assigned To User
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - managerNotAssignedToUser
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `userId` does not correspond to any existing user.
+                  title: User Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `managerId` does not correspond to any existing user.
+                  title: Manager Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - managerNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Remove a manager from a user
+      tags:
+      - Users
+  /api/v2/users/{userId}/custom-links:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:write`.
+
+
+        Creates a custom user link for the given user.'
+      operationId: v2.users.CreateCustomUserLinkController_createCustomUserLink
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomUserLinkRequestBody'
+      responses:
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given user does not correspond to any existing and non-deleted user.
+                  title: User Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `customLinkId` does not match any existing custom link.
+                  title: Custom Link Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - customLinkNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '409':
+          description: The given `customLinkId` is already used by the given user.
+          content:
+            application/json:
+              schema:
+                title: Custom Link Already Used
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - customLinkAlreadyUsed
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Create a custom user link
+      tags:
+      - Users
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 1,000 custom links. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all custom user links for a given user.'
+      operationId: v2.users.GetCustomUserLinksController_getCustomUserLinks
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns one page of 1000 custom links.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserCustomLinkDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given user does not correspond to any existing and non-deleted user.
+          content:
+            application/json:
+              schema:
+                title: User Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all custom user links for a user
+      tags:
+      - Users
+  /api/v2/users:
+    post:
+      description: "> \U0001F511\n>\n> Required OAuth scope: `users:write`.\n\nCreates a new user account with the invited status. If a user with the same 'mail' or 'username' was previously deleted, this operation will restore their account to an invited status. \n\n If 'mail' is provided, the user receives an invitation email upon creation to activate their account, along with other emails. The account can also be activated via the 'Activate a user' endpoint. If 'sendInvitationEmail' is set to false, the user will not receive the invitation email, but may still receive other emails."
+      operationId: v2.users.CreateUserController_createUser
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: sendInvitationEmail
+        required: false
+        in: query
+        description: If true (or not provided), the invitation email is sent to the created user. If false, the invitation email is not sent.
+        schema:
+          enum:
+          - 'true'
+          - 'false'
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputUserDTO'
+      responses:
+        '200':
+          description: Returns the previously deleted user, who has been successfully restored to an invited status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '201':
+          description: Returns newly created invited user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The `analyst` group role is not available in this company.
+                  title: Analyst Unavailable
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - analystUnavailable
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given deactivation date must be set to a future date.
+                  title: Deactivation Date Invalid
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - deactivationDateInvalid
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: Mail and username match a different user each.
+                  title: Login Identifier Multiple Users Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - loginIdentifierMultipleUsersFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given mail is invalid.
+                  title: Mail Invalid
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - mailInvalid
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given input must contain a `mail` or a `username`.
+                  title: Mail And Username Undefined
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - mailAndUsernameUndefined
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given mail is already used.
+                  title: Mail Already Used
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - mailAlreadyUsed
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given mail is already used too many times.
+                  title: Mail Used Too Many Times
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - mailUsedTooManyTimes
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The user is not a member of the `primaryGroupId` group.
+                  title: Not Member Of Primary Group
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - notMemberOfPrimaryGroup
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given username is already used.
+                  title: Username Already Used
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - usernameAlreadyUsed
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The use of username for login is not allowed by your company.
+                  title: Username Not Allowed
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - usernameNotAllowed
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `groupId` does not correspond to any existing group.
+          content:
+            application/json:
+              schema:
+                title: Group Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - groupNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Create an invited user
+      tags:
+      - Users
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 500 users. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all users in your platform.'
+      operationId: v2.users.GetUsersController_getUsers
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: mail
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **mail** property with LHS bracket notation.
+
+
+          Expected value format is a string.'
+        schema:
+          properties:
+            eq:
+              type: string
+              description: Filter on values equal to the given one
+              example: loremIpsum
+            ne:
+              type: string
+              description: Filter on values not equal to the given one
+              example: loremIpsum
+            in:
+              type: array
+              description: Filter on values including the given ones
+              items:
+                type: string
+                example: loremIpsum
+            nin:
+              type: array
+              description: Filter on values excluding the given ones
+              items:
+                type: string
+                example: loremIpsum
+      - name: username
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **username** property with LHS bracket notation.
+
+
+          Expected value format is a string.'
+        schema:
+          properties:
+            eq:
+              type: string
+              description: Filter on values equal to the given one
+              example: loremIpsum
+            ne:
+              type: string
+              description: Filter on values not equal to the given one
+              example: loremIpsum
+            in:
+              type: array
+              description: Filter on values including the given ones
+              items:
+                type: string
+                example: loremIpsum
+            nin:
+              type: array
+              description: Filter on values excluding the given ones
+              items:
+                type: string
+                example: loremIpsum
+      - name: status
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **status** property with LHS bracket notation.
+
+
+          Expected value format is a string (`active`, `invited`, `deleted`).'
+        schema:
+          properties:
+            eq:
+              type: string
+              description: Filter on values equal to the given one
+              example: active
+              enum:
+              - active
+              - invited
+              - deleted
+            ne:
+              type: string
+              description: Filter on values not equal to the given one
+              example: active
+              enum:
+              - active
+              - invited
+              - deleted
+      responses:
+        '200':
+          description: Returns one page of 500 users.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all users
+      tags:
+      - Users
+  /api/v2/users/{userId}/certificates:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:write`.
+
+
+        Imports a certificate for a specific user given its unique ID.'
+      operationId: v2.users.CreateUserCertificateController_createUserCertificate
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InputExternalCertificateDTO'
+      responses:
+        '201':
+          description: Returns the created user's certificate.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputUserExternalCertificateDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The certificate to import for this user already exists.
+                  title: Certificate Already Imported
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - CertificateAlreadyImported
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The delivery date cannot be in the future.
+                  title: Delivery Date In Future
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - deliveryDateInFuture
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The expiry date cannot be before the delivery date.
+                  title: Expiry Date Before Delivery Date
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - expiryDateBeforeDeliveryDate
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The expiry date cannot be set if the related certificate outline has a validity period.
+                  title: Unexpected Expiry Date
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - unexpectedExpiryDate
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `certificateOutlineId` does not correspond to any existing certificate outline.
+                  title: Certificate Outline Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - certificateOutlineNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given user does not correspond to any existing and non-deleted user.
+                  title: User Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Import a certificate
+      tags:
+      - Users
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 1,000 certificates. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all certificates in your platform for a given user.'
+      operationId: v2.users.GetUserCertificatesController_getUserCertificates
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: deliveryDate
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **deliveryDate** property with LHS bracket notation.
+
+
+          Expected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0.'
+        schema:
+          properties:
+            lt:
+              type: string
+              format: date-time
+              description: Filter on dates lower than the given one
+              example: '2020-01-01T10:30:26.000Z'
+            gte:
+              type: string
+              format: date-time
+              description: Filter on dates greater than or equal the given one
+              example: '2020-01-01T10:30:26.000Z'
+      - name: expirationDate
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **expirationDate** property with LHS bracket notation.
+
+
+          Expected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0.'
+        schema:
+          properties:
+            lt:
+              type: string
+              format: date-time
+              description: Filter on dates lower than the given one
+              example: '2020-01-01T10:30:26.000Z'
+            gte:
+              type: string
+              format: date-time
+              description: Filter on dates greater than or equal the given one
+              example: '2020-01-01T10:30:26.000Z'
+      responses:
+        '200':
+          description: Returns one page of 1000 certificates.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                  - $ref: '#/components/schemas/OutputUserExternalCertificateDTO'
+                  - $ref: '#/components/schemas/OutputUserPathCertificateDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `userId` does not correspond to any existing user.
+          content:
+            application/json:
+              schema:
+                title: User Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all certificates for a user
+      tags:
+      - Users
+  /api/v2/users/{userId}/custom-links/{customUserLinkId}:
+    delete:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:write`.
+
+
+        Deletes a specific custom user link given its unique ID.'
+      operationId: v2.users.DeleteCustomUserLinkController_deleteCustomUserLink
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: customUserLinkId
+        required: true
+        in: path
+        description: The unique ID of the custom user link to be deleted.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '204':
+          description: Deletes a specific custom user link.
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given user does not correspond to any existing and non-deleted user.
+                  title: User Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `customUserLinkId` does not match any existing custom user link for this user.
+                  title: Custom User Link Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - customUserLinkNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Delete a custom user link
+      tags:
+      - Users
+    put:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:write`.
+
+
+        Replaces the custom user link with the provided data.'
+      operationId: v2.users.UpdateCustomUserLinkController_updateCustomUserLink
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: customUserLinkId
+        required: true
+        in: path
+        description: The unique ID of the custom user link to be updated.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomUserLinkRequestBody'
+      responses:
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `userId` does not correspond to any existing user.
+                  title: User Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `customUserLinkId` does not match any existing custom user link for this user.
+                  title: Custom User Link Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - customUserLinkNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `customLinkId` does not match any existing custom link.
+                  title: Custom Link Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - customLinkNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '409':
+          description: The given `customLinkId` is already used by the given user.
+          content:
+            application/json:
+              schema:
+                title: Custom Link Already Used
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - customLinkAlreadyUsed
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Replace custom user links
+      tags:
+      - Users
+  /api/v2/users/{userId}:
+    delete:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:write`.
+
+
+        Deletes a specific user given its unique ID.'
+      operationId: v2.users.DeleteUserController_deleteUser
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '204':
+          description: Deletes a specific user.
+        '400':
+          description: The given `userId` corresponds to the company owner and cannot be deleted.
+          content:
+            application/json:
+              schema:
+                title: User Is Company Owner
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userIsCompanyOwner
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `userId` does not correspond to any existing user.
+          content:
+            application/json:
+              schema:
+                title: User Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Delete a user
+      tags:
+      - Users
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:read`.
+
+
+        Retrieves the profile details of a specific user with their given ID.'
+      operationId: v2.users.GetUserController_getUser
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns the profile details of the user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `userId` does not correspond to any existing user.
+          content:
+            application/json:
+              schema:
+                title: User Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Retrieve a user
+      tags:
+      - Users
+    patch:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:write`.
+
+
+        Edits specific fields of an existing user. Fields not included in the request payload remain unchanged.'
+      operationId: v2.users.UpdateUserController_updateUser
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserDTO'
+      responses:
+        '200':
+          description: Returns the updated user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given deactivation date must be set to a future date.
+                  title: Deactivation Date Invalid
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - deactivationDateInvalid
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given media ID does not correspond to any existing image media.
+                  title: Media Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - mediaNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The field `toBeDeactivatedAt` cannot be updated on a deleted user.
+                  title: Invalid Update On Deleted User
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalidUpdateOnDeletedUser
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given mail is invalid.
+                  title: Mail Invalid
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - mailInvalid
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given mail is already used.
+                  title: Mail Already Used
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - mailAlreadyUsed
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The user is not a member of the `primaryGroupId` group.
+                  title: Not Member Of Primary Group
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - notMemberOfPrimaryGroup
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given username is already used.
+                  title: Username Already Used
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - usernameAlreadyUsed
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The use of username for login is not allowed by your company.
+                  title: Username Not Allowed
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - usernameNotAllowed
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: Proceeding with this request would make this user have no valid identifier (mail, username).
+                  title: User Should Have At Least One Valid Identifier
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userShouldHaveAtLeastOneValidIdentifier
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: Updating the deactivation date of the platform owner is not allowed.
+                  title: Owner Deactivation Not Allowed
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - ownerDeactivationNotAllowed
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `userId` does not correspond to any existing user.
+          content:
+            application/json:
+              schema:
+                title: User Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Edit a user
+      tags:
+      - Users
+  /api/v2/users/{userId}/managers:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 1,000 manager IDs. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all the manager IDs for a given user.'
+      operationId: v2.users.GetManagersController_getManagers
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns one page of 1000 manager IDs.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: ObjectId
+                  example: 507f1f77bcf86cd799439011
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `userId` does not correspond to any existing user.
+          content:
+            application/json:
+              schema:
+                title: User Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all manager IDs for a user
+      tags:
+      - Users
+  /api/v2/users/{userId}/subordinates:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 1,000 subordinate IDs. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all the subordinate IDs for a given user.'
+      operationId: v2.users.GetSubordinatesController_getSubordinates
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns one page of 1000 subordinate IDs.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: ObjectId
+                  example: 507f1f77bcf86cd799439011
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `userId` does not correspond to any existing user.
+          content:
+            application/json:
+              schema:
+                title: User Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all subordinate IDs for a user
+      tags:
+      - Users
+  /api/v2/users/{userId}/custom-fields/values:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:read`.
+
+
+        Lists all custom field values for a given user.'
+      operationId: v2.users.GetUserCustomFieldValuesController_getUserCustomFieldValues
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns all custom field values for the given user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomFieldValueDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `userId` does not correspond to any existing user.
+          content:
+            application/json:
+              schema:
+                title: User Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all custom field values for a user
+      tags:
+      - Users
+    put:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:write`.
+
+
+        Replaces a user custom fields values given its unique ID.'
+      operationId: v2.users.UpdateUserCustomFieldValuesController_updateUserCustomFieldValues
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserCustomFieldValuesBody'
+      responses:
+        '200':
+          description: Returns the updated user custom values.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomFieldValueDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given body has a `customField` with an unauthorized value.
+                  title: Unauthorized Value
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - unauthorizedValue
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given body has a `customField` with invalid value type.
+                  title: Wrong Type Value
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - wrongTypeValue
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given body has multiple values for a single `customField`.
+                  title: Multiple Values For Single Custom Field
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - multipleValuesForSingleCustomField
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `userId` does not correspond to any existing user.
+                  title: User Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `customFieldId` does not correspond to any existing custom field.
+                  title: Custom Field Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - customFieldNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Replace a user custom fields values
+      tags:
+      - Users
+  /api/v2/users/{userId}/certificates/{certificateId}/pdf:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:read`.
+
+
+        Retrieves a certificate PDF file given the user ID and certificate ID.'
+      operationId: v2.users.GetUserCertificateAsPdfController_getUserCertificateAsPdf
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: certificateId
+        required: true
+        in: path
+        description: The unique ID of the certificate.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: PDF file of the certificate.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `certificateId` does not correspond to any existing certificate.
+                  title: Certificate Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - certificateNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `userId` does not correspond to any existing user.
+                  title: User Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Retrieve a certificate PDF file
+      tags:
+      - Users
+  /api/v2/users/{userId}/roles:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 1,000 user membership. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all the memberships, sorted per group, of a specific user.'
+      operationId: v2.users.GetUserRolesInGroupsController_getUserRolesInGroups
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns one page of 1000 user membership.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Membership'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `userId` does not correspond to any existing user.
+          content:
+            application/json:
+              schema:
+                title: User Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all memberships of a user
+      tags:
+      - Users
+  /api/v2/users/{userId}/pseudonymize:
+    put:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:write`.
+
+
+        Removes all personal information from a previously deleted user. The first name, last name, email, and username are replaced with random, irreversible alphanumeric strings. Custom field values are deleted permanently. The user ID remains unchanged, so this is not full GDPR anonymization. If ''deleteExternalIds'' is set to true, the user''s external identifiers are deleted.'
+      operationId: v2.users.PseudonymizeUserController_pseudonymizeUser
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: deleteExternalIds
+        required: false
+        in: query
+        description: If true, user's external identifiers (identifier mappings for third-party platforms) are deleted. If false (or not provided), they are kept.
+        schema:
+          enum:
+          - 'true'
+          - 'false'
+          type: string
+      responses:
+        '200':
+          description: Returns the pseudonymized user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '400':
+          description: The given `userId` does not correspond to a deleted user.
+          content:
+            application/json:
+              schema:
+                title: User Not Deleted
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userNotDeleted
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `userId` does not correspond to any existing user.
+          content:
+            application/json:
+              schema:
+                title: User Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Pseudonymize user
+      tags:
+      - Users
+  /api/v2/users/{userId}/password:
+    put:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:write`.
+
+
+        Replaces the password of a user with the provided data. If ''passwordMustBeChanged'' is set to true, the user will be forced to change their password on the next login.'
+      operationId: v2.users.ReplacePasswordController_replacePassword
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplacePasswordBody'
+      responses:
+        '204':
+          description: Replaces the password of a user with the provided data.
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `userId` corresponds to a deleted user.
+                  title: User Deleted
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userDeleted
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given password does not meet the password restrictions set by your company.
+                  title: Password Invalid
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - passwordInvalid
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `userId` does not correspond to any existing user.
+          content:
+            application/json:
+              schema:
+                title: User Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Replace the password of a user
+      tags:
+      - Users
+  /api/v2/users/{userId}/certificates/privacy-level:
+    patch:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:write`.
+
+
+        Updates the privacy level of the specified certificates belonging to the given user.'
+      operationId: v2.users.UpdateUserCertificatesPrivacyLevelController_updateUserCertificatesPrivacyLevel
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserCertificatesPrivacyLevelBody'
+      responses:
+        '200':
+          description: Successfully updated the privacy level of the certificates.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyResponse'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The requested certificate privacy level is not allowed by the company settings.
+                  title: Privacy Level Not Allowed By Company Settings
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - privacyLevelNotAllowedByCompanySettings
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: Too many certificates to update.
+                  title: Too Many Certificates To Update
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - tooManyCertificatesToUpdate
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `userId` does not correspond to any existing user.
+                  title: User Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `certificateId` does not correspond to any existing certificate.
+                  title: Certificate Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - certificateNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Update certificates privacy level
+      tags:
+      - Users
+  /api/v2/users/{userId}/media:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:write`.
+
+
+        Uploads a profile image to a user.'
+      operationId: v2.users.UploadUserMediaController_uploadUserMedia
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UploadUserMediaBodyDTO'
+      responses:
+        '200':
+          description: Returns the updated user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '400':
+          description: The provided file is not a valid image or exceeds size limits.
+          content:
+            application/json:
+              schema:
+                title: Invalid File
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalidFile
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `userId` does not correspond to any existing user.
+          content:
+            application/json:
+              schema:
+                title: User Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Upload user media
+      tags:
+      - Users
+  /api/v2/uaa/users/me:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `users:read`.
+
+
+        Retrieves the profile details of the authenticated user. This user-authorized endpoint can only be used with a token issued for a specific user. Refer to the [Create an access token](doc:authentication#step-1-create-an-access-token) documentation for more information.'
+      operationId: v2.users.GetProfileController_getProfile
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      responses:
+        '200':
+          description: Returns the profile details of the user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The client does not have access rights to the content.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given access token does not have the required OAuth scope to execute the request.
+                  title: Invalid Scope
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalid_scope
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: Authenticated user does not have rights to perform the requested operation.
+                  title: User Not Authorized
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userNotAuthorized
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Retrieve my profile
+      tags:
+      - Users
+components:
+  schemas:
+    ReplacePasswordBody:
+      title: Replace Password Body
+      type: object
+      properties:
+        password:
+          type: string
+          description: 'The new password of the given user. The new password must be at least 8 characters long and it might be subject to company based rules. Example: ''password'' : ''my_s3cret.PAssw0rd''.'
+        passwordMustBeChanged:
+          type: boolean
+          description: True if the user must change their password when first logging into the platform; false otherwise.
+      required:
+      - password
+      - passwordMustBeChanged
+    UserDTO:
+      title: User
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        mail:
+          type: string
+          description: The email address of the user.
+          example: john.smith@yopmail.com
+          minLength: 1
+        username:
+          type: string
+          description: The username that can be used to log in if the company allows it.
+          example: johnsmith
+          minLength: 1
+        status:
+          type: string
+          enum:
+          - active
+          - invited
+          - deleted
+          description: The status of the user.
+        lang:
+          type: string
+          enum:
+          - bg
+          - cs
+          - da
+          - de
+          - el
+          - en
+          - es
+          - fi
+          - fr
+          - hr
+          - ht_HT
+          - hu
+          - id
+          - it
+          - ja
+          - kar_MM
+          - ko
+          - lt
+          - mh_MH
+          - nl
+          - nl_BE
+          - 'no'
+          - pl
+          - pt
+          - ro
+          - ru
+          - rw_RW
+          - sk
+          - sl
+          - so_SO
+          - sv
+          - sw_KE
+          - th
+          - ti_ET
+          - tr
+          - uk
+          - zh
+          - vi
+          description: The default language of the user, in a bigram format (en, fr, de, etc.).
+        firstName:
+          type: string
+          description: The first name of the user.
+          example: John
+          minLength: 1
+        lastName:
+          type: string
+          description: The last name of the user.
+          example: Smith
+          minLength: 1
+        job:
+          type: string
+          description: The role title of the user.
+          example: Engineer
+          minLength: 1
+        organization:
+          type: string
+          description: The organization that the user belongs to.
+          example: 360Learning
+          minLength: 1
+        phone:
+          type: string
+          description: The phone number of the user.
+          example: '+33123456789'
+          minLength: 1
+        custom:
+          type: string
+          description: The value of the **Additional information** field in the user’s profile. This is not the value of the custom fields associated with the user.
+          example: Half-time worker
+          minLength: 1
+        deletedAt:
+          description: The list of dates and times when the user’s profile was soft deleted, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+          type: array
+          items:
+            format: date-time
+            type: string
+        primaryGroupId:
+          type: string
+          description: The unique ID of the primary group of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        reactivatedAt:
+          description: The list of dates and times when the user’s profile was reactivated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+          type: array
+          items:
+            format: date-time
+            type: string
+        lastLoginDate:
+          format: date-time
+          type: string
+          description: The date and time when the user last logged in, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        toBeDeactivatedAt:
+          format: date-time
+          type: string
+          description: The date and time when the user will be deactivated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        profileImageId:
+          type: string
+          description: The unique ID of the profile image of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - _id
+      - status
+      - lang
+    CustomFieldValueDTO:
+      title: Custom Field Value
+      type: object
+      properties:
+        customFieldId:
+          type: string
+          description: The unique ID of the custom field.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - string
+          - date
+          description: The type of the custom field.
+        value:
+          oneOf:
+          - type: string
+            title: string type
+            description: The custom field string value.
+            minLength: 1
+            example: US
+          - type: string
+            title: date type
+            format: date-time
+            description: The custom field date value is in the `YYYY-MM-DD` (ISO 8601 in Coordinated Universal Time (UTC)).
+            minLength: 1
+            example: '2025-01-27'
+          description: The value assigned to the target for this custom field.
+      required:
+      - customFieldId
+      - type
+      - value
+    UploadUserMediaBodyDTO:
+      title: Upload User Media Body
+      type: object
+      properties:
+        profileImage:
+          type: string
+          format: binary
+          description: 'The user profile image file. Recommended size: 256px × 256px. Maximum file size: 10MB. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
+      required:
+      - profileImage
+    InputUserDTO:
+      title: Input User
+      type: object
+      properties:
+        mail:
+          type: string
+          description: The email address of the user. If not given, username must be given.
+          example: john.smith@yopmail.com
+          minLength: 1
+        username:
+          type: string
+          description: The username that can be used to log in if the company allows it. If not given, mail must be given.
+          example: johnsmith
+          minLength: 1
+        membership:
+          description: The initial group membership of the user.
+          allOf:
+          - $ref: '#/components/schemas/MembershipDTO'
+        primaryGroupId:
+          type: string
+          description: The unique ID of the primary group of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        custom:
+          type: string
+          description: The value of the **Additional information** field in the user’s profile. This is not the value of the custom fields associated with the user.
+          example: Half-time worker
+          minLength: 1
+        firstName:
+          type: string
+          description: The first name of the user.
+          example: John
+          minLength: 1
+        lastName:
+          type: string
+          description: The last name of the user.
+          example: Smith
+          minLength: 1
+        job:
+          type: string
+          description: The role title of the user.
+          example: Boss
+          minLength: 1
+        lang:
+          type: string
+          enum:
+          - bg
+          - cs
+          - da
+          - de
+          - el
+          - en
+          - es
+          - fi
+          - fr
+          - hr
+          - ht_HT
+          - hu
+          - id
+          - it
+          - ja
+          - kar_MM
+          - ko
+          - lt
+          - mh_MH
+          - nl
+          - nl_BE
+          - 'no'
+          - pl
+          - pt
+          - ro
+          - ru
+          - rw_RW
+          - sk
+          - sl
+          - so_SO
+          - sv
+          - sw_KE
+          - th
+          - ti_ET
+          - tr
+          - uk
+          - zh
+          - vi
+          description: 'The default language of the user, in a bigram format (en, fr, de, etc.). Default: `en`.'
+        organization:
+          type: string
+          description: The organization that the user belongs to.
+          example: 360Learning
+          minLength: 1
+        phone:
+          type: string
+          description: The phone number of the user.
+          example: '+33123456789'
+          minLength: 1
+        toBeDeactivatedAt:
+          format: date-time
+          type: string
+          description: The date and time when the user will be deactivated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - membership
+    InputExternalCertificateDTO:
+      title: Input External Certificate
+      type: object
+      properties:
+        deliveryDate:
+          format: date-time
+          type: string
+          description: The delivery date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        expirationDate:
+          format: date-time
+          type: string
+          description: The expiration date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        title:
+          type: string
+          description: The title of the certificate outline in the platform (internal name of the certificate).
+          example: Certificate of Completion
+        certificateOutlineId:
+          type: string
+          description: The unique ID of the outline of the certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        file:
+          type: string
+          format: binary
+          description: The file to upload, in the `application/pdf` format.
+      required:
+      - deliveryDate
+      - title
+      - file
+    UpdateUserDTO:
+      title: Update User
+      type: object
+      properties:
+        firstName:
+          type: string
+          nullable: true
+          description: The first name of the user.
+          example: John
+          minLength: 1
+        lastName:
+          type: string
+          nullable: true
+          description: The last name of the user.
+          example: Smith
+          minLength: 1
+        phone:
+          type: string
+          nullable: true
+          description: The phone number of the user.
+          example: '+33123456789'
+          minLength: 1
+        job:
+          type: string
+          nullable: true
+          description: The role title of the user.
+          example: Architect
+          minLength: 1
+        organization:
+          type: string
+          nullable: true
+          description: The organization that the user belongs to.
+          example: 360Learning
+          minLength: 1
+        custom:
+          type: string
+          nullable: true
+          description: The value of the **Additional information** field in the user’s profile. This is not the value of the custom fields associated with the user.
+          example: Half-time worker
+          minLength: 1
+        lang:
+          type: string
+          enum:
+          - bg
+          - cs
+          - da
+          - de
+          - el
+          - en
+          - es
+          - fi
+          - fr
+          - hr
+          - ht_HT
+          - hu
+          - id
+          - it
+          - ja
+          - kar_MM
+          - ko
+          - lt
+          - mh_MH
+          - nl
+          - nl_BE
+          - 'no'
+          - pl
+          - pt
+          - ro
+          - ru
+          - rw_RW
+          - sk
+          - sl
+          - so_SO
+          - sv
+          - sw_KE
+          - th
+          - ti_ET
+          - tr
+          - uk
+          - zh
+          - vi
+          description: The default language of the user, in a bigram format (en, fr, de, etc.).
+        toBeDeactivatedAt:
+          format: date-time
+          type: string
+          nullable: true
+          description: The date and time when the user will be deactivated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)). Note that this parameter cannot be set on a user that is already deactivated.
+          example: '2024-09-10T23:00:00.000Z'
+        mail:
+          type: string
+          nullable: true
+          description: The email address of the user. Must not correspond to an existing user in the company.
+          example: john.smith@yopmail.com
+          minLength: 1
+        primaryGroupId:
+          type: string
+          nullable: true
+          description: The unique ID of the primary group of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        username:
+          type: string
+          nullable: true
+          description: 'The username that can be used to log in if the company allows it. Options are: lowercase letters, numbers, and the following special characters: _ - . + # ! $ % & '' * / = ? ^ ` { | } ~.'
+          example: johnsmith
+          minLength: 1
+        profileImageId:
+          type: string
+          nullable: true
+          description: 'The unique ID of the media to use as the user''s profile image. Set to null to remove the current image. Recommended size: 256px × 256px.'
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+    UpdateUserCertificatesPrivacyLevelBody:
+      title: Update User Certificates Privacy Level Body
+      type: object
+      properties:
+        certificateIds:
+          description: The unique IDs of the certificates.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        isPublic:
+          type: boolean
+          description: The privacy level value of the certificates.
+      required:
+      - certificateIds
+      - isPublic
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      properties: {}
+    MembershipDTO:
+      title: Membership
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The unique ID of the group the user is a member of.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        role:
+          type: string
+          enum:
+          - admin
+          - analyst
+          - editor
+          - coach
+          - contributor
+          - learner
+          - userAdmin
+          description: The role of the user in the group.
+      required:
+      - groupId
+      - role
+    Membership:
+      title: Membership
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The unique ID of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        role:
+          type: string
+          enum:
+          - admin
+          - analyst
+          - editor
+          - coach
+          - contributor
+          - learner
+          - owner
+          - userAdmin
+          description: The role that the user has in the group.
+      required:
+      - groupId
+      - role
+    UpdateUserCustomFieldValuesBody:
+      title: Update User Custom Field Values Body
+      type: object
+      properties:
+        customValues:
+          maxItems: 300
+          description: The list of customValues to replace the existing ones.
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldValueDTO'
+      required:
+      - customValues
+    OutputUserPathCertificateDTO:
+      title: Output User Path Certificate
+      type: object
+      properties:
+        deliveryDate:
+          format: date-time
+          type: string
+          description: The delivery date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        expirationDate:
+          format: date-time
+          type: string
+          description: The expiration date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        title:
+          type: string
+          description: The title of the certificate outline in the platform (internal name of the certificate).
+          example: Certificate of Completion
+        _id:
+          type: string
+          description: The unique ID of the user certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        validityPeriod:
+          type: number
+          description: The length of time, in months, for which the certificate is valid.
+        certificateOutlineId:
+          type: string
+          description: The unique ID of the outline of the received certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        pathId:
+          type: string
+          description: The unique ID of the path, in which the certificate was delivered.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        pathName:
+          type: string
+          description: The name of the path, in which the certificate was delivered.
+          example: Employees Onboarding
+        pathSessionId:
+          type: string
+          description: The unique ID of the path session, in which the certificate was delivered.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - path
+          description: The type of the certificate in the platform.
+          example: path
+      required:
+      - deliveryDate
+      - title
+      - _id
+      - certificateOutlineId
+      - pathId
+      - pathSessionId
+      - type
+    OutputUserExternalCertificateDTO:
+      title: Output User External Certificate
+      type: object
+      properties:
+        deliveryDate:
+          format: date-time
+          type: string
+          description: The delivery date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        expirationDate:
+          format: date-time
+          type: string
+          description: The expiration date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        title:
+          type: string
+          description: The title of the certificate outline in the platform (internal name of the certificate).
+          example: Certificate of Completion
+        _id:
+          type: string
+          description: The unique ID of the user certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        validityPeriod:
+          type: number
+          description: The length of time, in months, for which the certificate is valid.
+        certificateOutlineId:
+          type: string
+          description: The unique ID of the outline of the certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - external
+          description: The type of the certificate in the platform.
+          example: external
+      required:
+      - deliveryDate
+      - title
+      - _id
+      - type
+    UserCustomLinkDTO:
+      title: User Custom Link
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the custom user link.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        customLinkId:
+          type: string
+          description: The unique ID of the custom link.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        url:
+          type: string
+          description: The url of the custom link.
+          example: https://360learning.com
+      required:
+      - _id
+      - customLinkId
+      - url
+    UpdateCustomUserLinkRequestBody:
+      title: Update Custom User Link Request Body
+      type: object
+      properties:
+        customLinkId:
+          type: string
+          description: The unique ID of the custom link.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        url:
+          type: string
+          description: The URL of the custom user link.
+          example: https://360learning.com
+      required:
+      - customLinkId
+      - url
+    CreateCustomUserLinkRequestBody:
+      title: Create Custom User Link Request Body
+      type: object
+      properties:
+        customLinkId:
+          type: string
+          description: The unique ID of the custom link.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        url:
+          type: string
+          description: The URL of the custom user link.
+          example: https://360learning.com
+      required:
+      - customLinkId
+      - url
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows: {}
+      description: 'Use the token from the authentication endpoint in the Authorization header.
+
+
+        Example: `Authorization: Bearer <token>`'

@@ -1,0 +1,3911 @@
+openapi: 3.1.0
+info:
+  title: Bulk Authentication Groups API
+  description: ''
+  version: 1.0.0
+  contact: {}
+servers:
+- url: https://app.360learning.com
+  description: Production EU
+- url: https://app.us.360learning.com
+  description: Production US
+tags:
+- name: Groups
+paths:
+  /api/v2/bulk/groups/catalog:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:bulk`.
+
+
+        > 🚜
+
+        >
+
+        > This endpoint processes up to 20,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+
+
+        Adds multiple content IDs of a given type to groups catalogs. Upon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation.'
+      operationId: v2.bulk.groups.AddContentsToGroupsCatalogController_addContentsToGroupsCatalog
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddContentsToGroupsCatalogBody'
+      responses:
+        '202':
+          description: The operation is successfully created.
+          headers:
+            Location:
+              schema:
+                type: string
+              description: 'The URL to retrieve the status of the bulk operation using its operation ID.
+
+
+                Example: `https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011`.'
+              example: https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The input of a bulk operation must be an array.
+                  title: Invalid Input
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalidInput
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The input array size exceeds the maximum limit of 20,000 objects.
+                  title: Input Too Long
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - inputTooLong
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: The maximum number of concurrent operations has been reached.
+          content:
+            application/json:
+              schema:
+                title: Bulk Operations Concurrency Limit Reached
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - bulkOperationsConcurrencyLimitReached
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '503':
+          description: The bulk API is temporarily disabled.
+          content:
+            application/json:
+              schema:
+                title: Bulk API Disabled
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - bulkAPIDisabled
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Add content to catalogs
+      tags:
+      - Groups
+    delete:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:bulk`.
+
+
+        > 🚜
+
+        >
+
+        > This endpoint processes up to 20,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+
+
+        Removes multiple content IDs of a given type from groups catalogs. Upon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation.'
+      operationId: v2.bulk.groups.RemoveContentsFromGroupsCatalogController_removeContentsFromGroupsCatalog
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveContentsFromGroupsCatalogBody'
+      responses:
+        '202':
+          description: The operation is successfully created.
+          headers:
+            Location:
+              schema:
+                type: string
+              description: 'The URL to retrieve the status of the bulk operation using its operation ID.
+
+
+                Example: `https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011`.'
+              example: https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The input of a bulk operation must be an array.
+                  title: Invalid Input
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalidInput
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The input array size exceeds the maximum limit of 20,000 objects.
+                  title: Input Too Long
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - inputTooLong
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: The maximum number of concurrent operations has been reached.
+          content:
+            application/json:
+              schema:
+                title: Bulk Operations Concurrency Limit Reached
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - bulkOperationsConcurrencyLimitReached
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '503':
+          description: The bulk API is temporarily disabled.
+          content:
+            application/json:
+              schema:
+                title: Bulk API Disabled
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - bulkAPIDisabled
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Remove content from catalogs
+      tags:
+      - Groups
+  /api/v2/bulk/groups/library:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:bulk`.
+
+
+        > 🚜
+
+        >
+
+        > This endpoint processes up to 20,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+
+
+        Adds multiple content IDs of a given type to groups libraries. Upon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation.'
+      operationId: v2.bulk.groups.AddContentsToGroupsLibraryController_addContentsToGroupsLibrary
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddContentsToGroupsLibraryBody'
+      responses:
+        '202':
+          description: The operation is successfully created.
+          headers:
+            Location:
+              schema:
+                type: string
+              description: 'The URL to retrieve the status of the bulk operation using its operation ID.
+
+
+                Example: `https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011`.'
+              example: https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The input of a bulk operation must be an array.
+                  title: Invalid Input
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalidInput
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The input array size exceeds the maximum limit of 20,000 objects.
+                  title: Input Too Long
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - inputTooLong
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: The maximum number of concurrent operations has been reached.
+          content:
+            application/json:
+              schema:
+                title: Bulk Operations Concurrency Limit Reached
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - bulkOperationsConcurrencyLimitReached
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '503':
+          description: The bulk API is temporarily disabled.
+          content:
+            application/json:
+              schema:
+                title: Bulk API Disabled
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - bulkAPIDisabled
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Add content to libraries
+      tags:
+      - Groups
+    delete:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:bulk`.
+
+
+        > 🚜
+
+        >
+
+        > This endpoint processes up to 20,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+
+
+        Removes multiple content IDs of a given type from groups libraries. Upon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation.'
+      operationId: v2.bulk.groups.RemoveContentsFromGroupsLibraryController_removeContentsFromGroupsLibrary
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveContentsFromGroupsLibraryBody'
+      responses:
+        '202':
+          description: The operation is successfully created.
+          headers:
+            Location:
+              schema:
+                type: string
+              description: 'The URL to retrieve the status of the bulk operation using its operation ID.
+
+
+                Example: `https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011`.'
+              example: https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The input of a bulk operation must be an array.
+                  title: Invalid Input
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalidInput
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The input array size exceeds the maximum limit of 20,000 objects.
+                  title: Input Too Long
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - inputTooLong
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: The maximum number of concurrent operations has been reached.
+          content:
+            application/json:
+              schema:
+                title: Bulk Operations Concurrency Limit Reached
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - bulkOperationsConcurrencyLimitReached
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '503':
+          description: The bulk API is temporarily disabled.
+          content:
+            application/json:
+              schema:
+                title: Bulk API Disabled
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - bulkAPIDisabled
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Remove content from libraries
+      tags:
+      - Groups
+  /api/v2/bulk/groups/memberships:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:bulk`.
+
+
+        > 🚜
+
+        >
+
+        > This endpoint processes up to 20,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+
+
+        Adds multiple users to groups with their assigned roles. Upon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation.'
+      operationId: v2.bulk.groups.AddUsersToGroupsController_addUsersToGroups
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddUsersToGroupsBody'
+      responses:
+        '202':
+          description: The operation is successfully created.
+          headers:
+            Location:
+              schema:
+                type: string
+              description: 'The URL to retrieve the status of the bulk operation using its operation ID.
+
+
+                Example: `https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011`.'
+              example: https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The input of a bulk operation must be an array.
+                  title: Invalid Input
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalidInput
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The input array size exceeds the maximum limit of 20,000 objects.
+                  title: Input Too Long
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - inputTooLong
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: The maximum number of concurrent operations has been reached.
+          content:
+            application/json:
+              schema:
+                title: Bulk Operations Concurrency Limit Reached
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - bulkOperationsConcurrencyLimitReached
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '503':
+          description: The bulk API is temporarily disabled.
+          content:
+            application/json:
+              schema:
+                title: Bulk API Disabled
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - bulkAPIDisabled
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Add users to groups
+      tags:
+      - Groups
+    delete:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:bulk`.
+
+
+        > 🚜
+
+        >
+
+        > This endpoint processes up to 20,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+
+
+        Removes multiple users from groups with their assigned roles. The `learner` role is also removed from all public subgroups down to first private excluded. Upon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation.'
+      operationId: v2.bulk.groups.RemoveUsersFromGroupsController_removeUsersFromGroups
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveUsersFromGroupsBody'
+      responses:
+        '202':
+          description: The operation is successfully created.
+          headers:
+            Location:
+              schema:
+                type: string
+              description: 'The URL to retrieve the status of the bulk operation using its operation ID.
+
+
+                Example: `https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011`.'
+              example: https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The input of a bulk operation must be an array.
+                  title: Invalid Input
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalidInput
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The input array size exceeds the maximum limit of 20,000 objects.
+                  title: Input Too Long
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - inputTooLong
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: The maximum number of concurrent operations has been reached.
+          content:
+            application/json:
+              schema:
+                title: Bulk Operations Concurrency Limit Reached
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - bulkOperationsConcurrencyLimitReached
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '503':
+          description: The bulk API is temporarily disabled.
+          content:
+            application/json:
+              schema:
+                title: Bulk API Disabled
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - bulkAPIDisabled
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Remove users from groups
+      tags:
+      - Groups
+  /api/v2/bulk/groups:
+    delete:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:bulk`.
+
+
+        > 🚜
+
+        >
+
+        > This endpoint processes up to 2,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+
+
+        Deletes multiple groups. It also deletes descendant groups and their contents. Upon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation.'
+      operationId: v2.bulk.groups.DeleteGroupsController_deleteGroups
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteGroupsBody'
+      responses:
+        '202':
+          description: The operation is successfully created.
+          headers:
+            Location:
+              schema:
+                type: string
+              description: 'The URL to retrieve the status of the bulk operation using its operation ID.
+
+
+                Example: `https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011`.'
+              example: https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The input of a bulk operation must be an array.
+                  title: Invalid Input
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalidInput
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The input array size exceeds the maximum limit of 2,000 objects.
+                  title: Input Too Long
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - inputTooLong
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: The maximum number of concurrent operations has been reached.
+          content:
+            application/json:
+              schema:
+                title: Bulk Operations Concurrency Limit Reached
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - bulkOperationsConcurrencyLimitReached
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '503':
+          description: The bulk API is temporarily disabled.
+          content:
+            application/json:
+              schema:
+                title: Bulk API Disabled
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - bulkAPIDisabled
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Delete groups
+      tags:
+      - Groups
+  /api/v2/groups/{groupId}/{role}/{userId}:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:write`.
+
+
+        Adds the given role to the given user in the given group.'
+      operationId: v2.groups.AddUserRoleToGroupController_addUserRoleToGroup
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: groupId
+        required: true
+        in: path
+        description: The unique ID of the group.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: role
+        required: true
+        in: path
+        description: The role to add to the user.
+        schema:
+          enum:
+          - admin
+          - analyst
+          - coach
+          - contributor
+          - editor
+          - learner
+          - user-admin
+          type: string
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '204':
+          description: Adds the given role to the given user in the given group.
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The `analyst` group role is not available in this company.
+                  title: Analyst Unavailable
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - analystUnavailable
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `userId` corresponds to a deleted user.
+                  title: User Deleted
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userDeleted
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `groupId` does not correspond to any existing group.
+                  title: Group Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - groupNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `userId` does not correspond to any existing user.
+                  title: User Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Add a user's role
+      tags:
+      - Groups
+    delete:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:write`.
+
+
+        Removes the given role from the given user in the given group. The `learner` role is also removed from all public subgroups down to first private excluded.'
+      operationId: v2.groups.RemoveUserRoleFromGroupController_removeUserRoleFromGroup
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: groupId
+        required: true
+        in: path
+        description: The unique ID of the group.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: role
+        required: true
+        in: path
+        description: The role to withdraw from the user.
+        schema:
+          enum:
+          - admin
+          - analyst
+          - coach
+          - contributor
+          - editor
+          - learner
+          - user-admin
+          type: string
+      - name: userId
+        required: true
+        in: path
+        description: The unique ID of the user.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '204':
+          description: Removes the given role from the given user in the given group.
+        '400':
+          description: The `analyst` group role is not available in this company.
+          content:
+            application/json:
+              schema:
+                title: Analyst Unavailable
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - analystUnavailable
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `groupId` does not correspond to any existing group.
+                  title: Group Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - groupNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `userId` does not correspond to any existing user with this role in this group.
+                  title: User Not Found In Group
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userNotFoundInGroup
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Remove a user's role
+      tags:
+      - Groups
+  /api/v2/groups:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:write`.
+
+
+        Creates a new group.'
+      operationId: v2.groups.CreateGroupController_createGroup
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputGroupDTO'
+      responses:
+        '201':
+          description: Returns the created group.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given media ID does not correspond to any existing image media.
+                  title: Media Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - mediaNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The maximum number of groups has been reached.
+                  title: Max Groups Limit Reached
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - maxGroupsLimitReached
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The custom URL cannot be set on a public group.
+                  title: No Custom Url On Public Group
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - noCustomUrlOnPublicGroup
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The imprint cannot be set on a public group.
+                  title: No Imprint On Public Group
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - noImprintOnPublicGroup
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The moderation charter cannot be set on a public group.
+                  title: No Moderation Charter On Public Group
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - noModerationCharterOnPublicGroup
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The privacy policy cannot be set on a public group.
+                  title: No Privacy Policy On Public Group
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - noPrivacyPolicyOnPublicGroup
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The subdomain cannot be set on a public group.
+                  title: No Subdomain On Public Group
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - noSubdomainOnPublicGroup
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The terms of use cannot be set on a public group.
+                  title: No Terms Of Use On Public Group
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - noTermsOfUseOnPublicGroup
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: This subdomain is not available.
+                  title: Subdomain Unavailable
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - subdomainUnavailable
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `parentId` doesn't correspond to any existing group.
+          content:
+            application/json:
+              schema:
+                title: Parent Group Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - parentGroupNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Create a group
+      tags:
+      - Groups
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 500 groups. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all groups in your platform.'
+      operationId: v2.groups.GetGroupsController_getGroups
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      responses:
+        '200':
+          description: Returns one page of 500 groups.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GroupDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all groups
+      tags:
+      - Groups
+  /api/v2/groups/{groupId}:
+    delete:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:write`.
+
+
+        Deletes a group given its unique ID.'
+      operationId: v2.groups.DeleteGroupController_deleteGroup
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: groupId
+        required: true
+        in: path
+        description: The unique ID of the group.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '204':
+          description: Deletes a specific group.
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `groupId` corresponds to the root group and cannot be deleted.
+                  title: Group Is Root
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - groupIsRoot
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `groupId` or one of its descendants has active integrations or lti connectors and cannot be deleted.
+                  title: Has Active Integrations Or Lti Connectors
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - hasActiveIntegrationsOrLtiConnectors
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `groupId` does not correspond to any existing group.
+          content:
+            application/json:
+              schema:
+                title: Group Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - groupNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Delete a group
+      tags:
+      - Groups
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:read`.
+
+
+        Retrieves information about a group given its ID.'
+      operationId: v2.groups.GetGroupController_getGroup
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: groupId
+        required: true
+        in: path
+        description: The unique ID of the group.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns the information about the given group.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `groupId` does not correspond to any existing group.
+          content:
+            application/json:
+              schema:
+                title: Group Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - groupNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Retrieve a group
+      tags:
+      - Groups
+    patch:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:write`.
+
+
+        Edits specific fields of an existing group. Fields not included in the request payload remain unchanged.'
+      operationId: v2.groups.UpdateGroupController_updateGroup
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: groupId
+        required: true
+        in: path
+        description: The unique ID of the group.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchGroupDTO'
+      responses:
+        '200':
+          description: Returns the updated group.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given media ID does not correspond to any existing image media.
+                  title: Media Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - mediaNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The custom URL cannot be set on a public group.
+                  title: No Custom Url On Public Group
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - noCustomUrlOnPublicGroup
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The imprint cannot be set on a public group.
+                  title: No Imprint On Public Group
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - noImprintOnPublicGroup
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The moderation charter cannot be set on a public group.
+                  title: No Moderation Charter On Public Group
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - noModerationCharterOnPublicGroup
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The privacy policy cannot be set on a public group.
+                  title: No Privacy Policy On Public Group
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - noPrivacyPolicyOnPublicGroup
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The subdomain cannot be set on a public group.
+                  title: No Subdomain On Public Group
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - noSubdomainOnPublicGroup
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The terms of use cannot be set on a public group.
+                  title: No Terms Of Use On Public Group
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - noTermsOfUseOnPublicGroup
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The parent group cannot be the group itself or one of its descendants.
+                  title: Parent Group Not Descendant Or Self
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - parentGroupNotDescendantOrSelf
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The root group cannot be public.
+                  title: Root Group Not Public
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - rootGroupNotPublic
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: This subdomain is not available.
+                  title: Subdomain Unavailable
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - subdomainUnavailable
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `groupId` does not correspond to any existing group.
+                  title: Group Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - groupNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `parentId` doesn't correspond to any existing group.
+                  title: Parent Group Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - parentGroupNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Edit a group
+      tags:
+      - Groups
+  /api/v2/groups/{groupId}/roles:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 1,000 memberships. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all the memberships, sorted per user, of a specific group.'
+      operationId: v2.groups.GetGroupMembersController_getGroupMembers
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: groupId
+        required: true
+        in: path
+        description: The unique ID of the group.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns one page of 1000 memberships.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserRole'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `groupId` does not correspond to any existing group.
+          content:
+            application/json:
+              schema:
+                title: Group Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - groupNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all memberships in a group
+      tags:
+      - Groups
+  /api/v2/groups/{groupId}/catalog/{contentType}-ids:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 10,000 unique content IDs. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all content IDs of a given type shared in the group catalog.'
+      operationId: v2.groups.GetCatalogContentIdsController_getCatalogContentIds
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: groupId
+        required: true
+        in: path
+        description: The unique ID of the group.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: contentType
+        required: true
+        in: path
+        description: The type of content IDs to retrieve.
+        schema:
+          enum:
+          - path-session
+          - course
+          type: string
+      responses:
+        '200':
+          description: Returns one page of 10000 unique content IDs.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: ObjectId
+                  example: 507f1f77bcf86cd799439011
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `groupId` does not correspond to any existing group.
+          content:
+            application/json:
+              schema:
+                title: Group Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - groupNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all content IDs in a group catalog
+      tags:
+      - Groups
+  /api/v2/groups/{groupId}/library/{contentType}-ids:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 10,000 unique content IDs. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all content IDs of a given type shared in the group library.'
+      operationId: v2.groups.GetLibraryContentIdsController_getLibraryContentIds
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: groupId
+        required: true
+        in: path
+        description: The unique ID of the group.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      - name: contentType
+        required: true
+        in: path
+        description: The type of content IDs to retrieve.
+        schema:
+          enum:
+          - path
+          - course
+          type: string
+      responses:
+        '200':
+          description: Returns one page of 10000 unique content IDs.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: ObjectId
+                  example: 507f1f77bcf86cd799439011
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `groupId` does not correspond to any existing group.
+          content:
+            application/json:
+              schema:
+                title: Group Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - groupNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all content IDs in a group library
+      tags:
+      - Groups
+  /api/v2/groups/{groupId}/media:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:write`.
+
+
+        Uploads media files (banner, background, favicon, logo) to a group. At least one file must be provided.'
+      operationId: v2.groups.UploadGroupMediaController_uploadGroupMedia
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: groupId
+        required: true
+        in: path
+        description: The unique ID of the group.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UploadGroupMediaBodyDTO'
+      responses:
+        '200':
+          description: Returns the updated group.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupDTO'
+        '400':
+          description: At least one media file must be provided (banner, background, favicon, or logo).
+          content:
+            application/json:
+              schema:
+                title: No Files Provided
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - noFilesProvided
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `groupId` does not correspond to any existing group.
+                  title: Group Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - groupNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: At least one of the given users does not correspond to any existing and non-deleted user.
+                  title: Users Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - usersNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Upload group media
+      tags:
+      - Groups
+  /api/v2/groups/{groupId}/branding:
+    patch:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `groups:write`.
+
+
+        Sets the branding for a group. Branding is automatically inherited by all subgroups unless a subgroup defines its own branding. If the Extended Training package is not enabled on your platform, only the root group’s branding can be updated. Fields not included in the request payload remain unchanged.'
+      operationId: v2.groups.UpsertGroupCustomizationColorsController_upsertGroupCustomizationColors
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: groupId
+        required: true
+        in: path
+        description: The unique ID of the group.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchBrandCustomizationDTO'
+      responses:
+        '200':
+          description: Returns the updated group branding.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrandCustomizationDTO'
+        '400':
+          description: The extended training package is not enabled.
+          content:
+            application/json:
+              schema:
+                title: Extended Training Solution Not Enabled
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - extendedTrainingSolutionNotEnabled
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `groupId` does not correspond to any existing group.
+          content:
+            application/json:
+              schema:
+                title: Group Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - groupNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Set group branding
+      tags:
+      - Groups
+components:
+  schemas:
+    LibraryDTO:
+      title: Library
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The unique ID of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        contentType:
+          type: string
+          enum:
+          - path
+          - course
+          description: The type of the content.
+        contentId:
+          type: string
+          description: The unique ID of the content.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - groupId
+      - contentType
+      - contentId
+    CatalogDTO:
+      title: Catalog
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The unique ID of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        contentType:
+          type: string
+          enum:
+          - path-session
+          - course
+          description: The type of the content.
+        contentId:
+          type: string
+          description: The unique ID of the content.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - groupId
+      - contentType
+      - contentId
+    AddContentsToGroupsCatalogBody:
+      title: Add Contents To Groups Catalog Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for adding content to a group catalog.
+          maxItems: 20000
+          type: array
+          items:
+            $ref: '#/components/schemas/CatalogDTO'
+      required:
+      - input
+    PatchGroupDTO:
+      title: Patch Group
+      type: object
+      properties:
+        custom:
+          type: string
+          nullable: true
+          description: A custom field to store information available only in the **General settings** of the group, the CSV exports, and the API. This information is not displayed to learners on the platform.
+          example: Unit 102
+          minLength: 1
+        name:
+          type: string
+          description: The name of the group.
+          example: Marketing Team
+          minLength: 1
+        public:
+          type: boolean
+          description: True if the group is public; false if the group is private.
+        parentId:
+          type: string
+          description: The unique ID of the parent group. It must not be the updated group or one of its descendants.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        bannerImageId:
+          type: string
+          nullable: true
+          description: The banner image of the group. Ensure that given media is an image with the proper size (at least 980px wide and 370px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        backgroundImageId:
+          type: string
+          nullable: true
+          description: The background image of the group. Ensure that given media is an image with the proper size (at least 760px wide and 880px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        faviconImageId:
+          type: string
+          nullable: true
+          description: The favicon image of the group. Ensure that given media is an image with the proper size (less than 500px wide and 500px high and more than 16px wide and 16px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        logoImageId:
+          type: string
+          nullable: true
+          description: The logo image of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        subdomain:
+          type: string
+          nullable: true
+          minLength: 3
+          maxLength: 255
+          pattern: ^[a-z0-9][a-z0-9-]*$
+          description: The subdomain of the group.
+        url:
+          type: string
+          nullable: true
+          description: The custom url of the group.
+        privacyPolicy:
+          nullable: true
+          description: The privacy policy of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        moderationCharter:
+          nullable: true
+          description: The moderation charter of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        termsOfUse:
+          nullable: true
+          description: The terms of use of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        imprint:
+          nullable: true
+          description: The imprint of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+    RemoveUsersFromGroupsBody:
+      title: Remove Users From Groups Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for removing a user from a group.
+          maxItems: 20000
+          type: array
+          items:
+            $ref: '#/components/schemas/MembershipDeletionDTO'
+      required:
+      - input
+    MembershipDeletionDTO:
+      title: Membership Deletion
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user to be removed from the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        groupId:
+          type: string
+          description: The unique ID of the group from which the user will be removed.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        role:
+          type: string
+          enum:
+          - admin
+          - analyst
+          - editor
+          - coach
+          - contributor
+          - learner
+          - userAdmin
+          description: The role assigned to the user within the group.
+      required:
+      - userId
+      - groupId
+      - role
+    InputGroupDTO:
+      title: Input Group
+      type: object
+      properties:
+        privacyPolicy:
+          description: The privacy policy of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        moderationCharter:
+          description: The moderation charter of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        termsOfUse:
+          description: The terms of use of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        imprint:
+          description: The imprint of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        bannerImageId:
+          type: string
+          description: The banner image of the group. Ensure that given media is an image with the proper size (at least 980px wide and 370px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        backgroundImageId:
+          type: string
+          description: The background image of the group. Ensure that given media is an image with the proper size (at least 760px wide and 880px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        faviconImageId:
+          type: string
+          description: The favicon image of the group. Ensure that given media is an image with the proper size (less than 500px wide and 500px high and more than 16px wide and 16px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        logoImageId:
+          type: string
+          description: The logo image of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        subdomain:
+          type: string
+          minLength: 3
+          maxLength: 255
+          pattern: ^[a-z0-9][a-z0-9-]*$
+          description: The subdomain of the group.
+          example: company-subdomain
+        url:
+          type: string
+          description: The custom url of the group. The given URL must resolve on the same address as 360learning.com.
+          example: company-domain.com
+        name:
+          type: string
+          description: The name of the group.
+          example: Engineering Team
+          minLength: 1
+        custom:
+          type: string
+          description: A custom field to store information available only in the **General settings** of the group, the CSV exports, and the API. This information is not displayed to learners on the platform.
+          example: Unit 101
+          minLength: 1
+        public:
+          type: boolean
+          description: True if the group is public; false if the group is private.
+        parentId:
+          type: string
+          description: The unique ID of the parent group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - name
+      - public
+      - parentId
+    RemoveContentsFromGroupsCatalogBody:
+      title: Remove Contents From Groups Catalog Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for removing content from a group catalog.
+          maxItems: 20000
+          type: array
+          items:
+            $ref: '#/components/schemas/CatalogDTO'
+      required:
+      - input
+    UserRole:
+      title: User Role
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        role:
+          type: string
+          enum:
+          - admin
+          - analyst
+          - editor
+          - coach
+          - contributor
+          - learner
+          - owner
+          - userAdmin
+          description: The role of the group member.
+      required:
+      - userId
+      - role
+    PolicyDTO:
+      title: Policy
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL of the policy document.
+          example: https://example.com/policy
+          minLength: 1
+        explicitConsent:
+          type: boolean
+          description: When true, user must provide explicit consent at first login. Ignored for imprint. Default is false.
+      required:
+      - url
+    BrandCustomizationDTO:
+      title: Brand Customization
+      type: object
+      properties:
+        colors:
+          description: The updated colors of the group.
+          allOf:
+          - $ref: '#/components/schemas/BrandCustomizationColorsDTO'
+    MembershipAdditionDTO:
+      title: Membership Addition
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user to be added to the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        groupId:
+          type: string
+          description: The unique ID of the group to which the user will be added.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        role:
+          type: string
+          enum:
+          - admin
+          - analyst
+          - editor
+          - coach
+          - contributor
+          - learner
+          - userAdmin
+          description: The role assigned to the user within the group.
+      required:
+      - userId
+      - groupId
+      - role
+    UploadGroupMediaBodyDTO:
+      title: Upload Group Media Body
+      type: object
+      properties:
+        authorId:
+          type: string
+          description: The unique ID of the user performing the upload. Must be a non-deleted user in the company.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        banner:
+          type: string
+          format: binary
+          description: 'The banner image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
+        background:
+          type: string
+          format: binary
+          description: 'The background image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
+        favicon:
+          type: string
+          format: binary
+          description: 'The favicon image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp, image/x-icon, image/vnd.microsoft.icon.'
+        logo:
+          type: string
+          format: binary
+          description: 'The logo image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
+      required:
+      - authorId
+    DeleteGroupDTO:
+      title: Delete Group
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The unique ID of the group to delete.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - groupId
+    AddUsersToGroupsBody:
+      title: Add Users To Groups Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for adding a user to a group.
+          maxItems: 20000
+          type: array
+          items:
+            $ref: '#/components/schemas/MembershipAdditionDTO'
+      required:
+      - input
+    RemoveContentsFromGroupsLibraryBody:
+      title: Remove Contents From Groups Library Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for removing content from a group library.
+          maxItems: 20000
+          type: array
+          items:
+            $ref: '#/components/schemas/LibraryDTO'
+      required:
+      - input
+    GroupDTO:
+      title: Group
+      type: object
+      properties:
+        privacyPolicy:
+          description: The privacy policy of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        moderationCharter:
+          description: The moderation charter of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        termsOfUse:
+          description: The terms of use of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        imprint:
+          description: The imprint of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        bannerImageId:
+          type: string
+          description: The banner image of the group. Ensure that given media is an image with the proper size (at least 980px wide and 370px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        backgroundImageId:
+          type: string
+          description: The background image of the group. Ensure that given media is an image with the proper size (at least 760px wide and 880px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        faviconImageId:
+          type: string
+          description: The favicon image of the group. Ensure that given media is an image with the proper size (less than 500px wide and 500px high and more than 16px wide and 16px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        logoImageId:
+          type: string
+          description: The logo image of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        subdomain:
+          type: string
+          minLength: 3
+          maxLength: 255
+          pattern: ^[a-z0-9][a-z0-9-]*$
+          description: The subdomain of the group.
+          example: company-subdomain
+        url:
+          type: string
+          description: The custom url of the group. The given URL must resolve on the same address as 360learning.com.
+          example: company-domain.com
+        _id:
+          type: string
+          description: The unique ID of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The name of the group.
+          example: Engineering Team
+        custom:
+          type: string
+          description: A custom field to store information available only in the **General settings** of the group, the CSV exports, and the API. This information is not displayed to learners on the platform.
+          example: Unit 101
+        public:
+          type: boolean
+          description: True if the group is public; false if the group is private.
+        parentId:
+          type: string
+          description: The unique ID of the parent group. Not defined for the root group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - _id
+      - name
+      - public
+    PatchBrandCustomizationDTO:
+      title: Patch Brand Customization
+      type: object
+      properties:
+        colors:
+          nullable: true
+          description: The branding colors of the group.
+          allOf:
+          - $ref: '#/components/schemas/PatchBrandCustomizationColorsDTO'
+    DeleteGroupsBody:
+      title: Delete Groups Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for the group to be deleted.
+          maxItems: 2000
+          type: array
+          items:
+            $ref: '#/components/schemas/DeleteGroupDTO'
+      required:
+      - input
+    AddContentsToGroupsLibraryBody:
+      title: Add Contents To Groups Library Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for adding content to a group library.
+          maxItems: 20000
+          type: array
+          items:
+            $ref: '#/components/schemas/LibraryDTO'
+      required:
+      - input
+    BrandCustomizationColorsDTO:
+      title: Brand Customization Colors
+      type: object
+      properties:
+        primary:
+          type: string
+          description: 'The Main color used for buttons, links, navigation highlights, etc. (on the platform and emails), in hexadecimal format. Default: #0a47c2.'
+          example: '#0a1b2c'
+        menuBackground:
+          type: string
+          description: 'The color used for the platform background, in hexadecimal format. Default: #ffffff.'
+          example: '#0a1b2c'
+        myWorkBackground:
+          type: string
+          description: 'The color used for my work background, in hexadecimal format. Default: #f7f4ee.'
+          example: '#0a1b2c'
+        platformBackground:
+          type: string
+          description: 'The color used for the left bar background, in hexadecimal format. Default: #ffffff.'
+          example: '#0a1b2c'
+    PatchBrandCustomizationColorsDTO:
+      title: Patch Brand Customization Colors
+      type: object
+      properties:
+        primary:
+          type: string
+          nullable: true
+          description: 'The Main color used for buttons, links, navigation highlights, etc. (on the platform and emails), in hexadecimal format. Default: #0a47c2.'
+          example: '#0a1b2c'
+        menuBackground:
+          type: string
+          nullable: true
+          description: 'The color used for the platform background, in hexadecimal format. Default: #ffffff.'
+          example: '#0a1b2c'
+        myWorkBackground:
+          type: string
+          nullable: true
+          description: 'The color used for my work background, in hexadecimal format. Default: #f7f4ee.'
+          example: '#0a1b2c'
+        platformBackground:
+          type: string
+          nullable: true
+          description: 'The color used for the left bar background, in hexadecimal format. Default: #ffffff.'
+          example: '#0a1b2c'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows: {}
+      description: 'Use the token from the authentication endpoint in the Authorization header.
+
+
+        Example: `Authorization: Bearer <token>`'

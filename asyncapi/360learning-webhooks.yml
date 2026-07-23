@@ -1,0 +1,44 @@
+generated: '2026-07-17'
+method: searched
+source: https://360learning.readme.io/docs/webhooks
+type: Webhooks
+transport: HTTP POST to subscriber URL
+docs:
+  overview: https://360learning.readme.io/docs/webhooks
+  subscriptions: https://360learning.readme.io/docs/subscriptions
+  payload: https://360learning.readme.io/docs/event-payload-and-headers
+  signature: https://360learning.readme.io/docs/security-and-signature-verification
+  retry: https://360learning.readme.io/docs/retry-logic
+  testing: https://360learning.readme.io/docs/testing-webhooks
+management_api: openapi/360learning-webhook-api.json
+event_naming: resource.action
+security:
+  signature_verification: true
+  signing_secret: per-subscription (rotatable via /webhooks/subscriptions/{id}/secrets/rotate)
+delivery:
+  method: HTTP POST
+  retries: true
+  near_real_time: true
+subscription_scopes: [webhooks:read, webhooks:write, webhookSecrets:read, webhookSecrets:write]
+events:
+- user.created
+- user.updated
+- user.deleted
+- user.activated
+- user.reactivated
+- user.invited
+- user.assessment.corrected
+- user.certificate.awarded
+- group.created
+- group.updated
+- group.deleted
+- path.created
+- path.updated
+- path.deleted
+- path.archived
+- path.session.added
+- path.session.removed
+- course.attempt.closed
+- xapi.started
+- bulk.operation.created
+- bulk.operation.ended

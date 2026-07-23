@@ -1,0 +1,24 @@
+generated: '2026-07-17'
+method: searched
+source: https://360learning.readme.io/changelog
+scheme: date-based bi-weekly releases (ReadMe changelog)
+url: https://360learning.readme.io/changelog
+current_version: '2026-07-16'
+notes: >-
+  360Learning publishes a dated changelog for API v2 on its ReadMe developer
+  portal, released on a roughly bi-weekly cadence. The changelog index lists
+  release dates; individual entries detail added/changed endpoints. Only the
+  recent release-date window is captured here (titles are the release dates).
+entries:
+- date: '2026-07-16'
+- date: '2026-07-08'
+- date: '2026-06-03'
+- date: '2026-05-13'
+- date: '2026-04-22'
+- date: '2026-04-01'
+- date: '2026-03-11'
+- date: '2026-02-18'
+- date: '2026-01-28'
+- date: '2026-01-07'
+- date: '2025-12-17'
+- date: '2025-11-26'

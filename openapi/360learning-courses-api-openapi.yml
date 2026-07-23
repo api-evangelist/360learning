@@ -1,0 +1,3123 @@
+openapi: 3.1.0
+info:
+  title: Bulk Authentication Courses API
+  description: ''
+  version: 1.0.0
+  contact: {}
+servers:
+- url: https://app.360learning.com
+  description: Production EU
+- url: https://app.us.360learning.com
+  description: Production US
+tags:
+- name: Courses
+paths:
+  /api/v2/courses/{courseId}/archive:
+    put:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `courses:write`.
+
+
+        Archives or restores a course. Archiving a course doesn''t remove it from paths where it is included. It simply prevents the course from being added to new paths. The archived course will still be accessible in existing paths, but it will be hidden from search results. Statistics are kept and not deleted.'
+      operationId: v2.courses.ArchiveOrUnarchiveCourseController_archiveOrUnarchiveCourse
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: courseId
+        required: true
+        in: path
+        description: The unique ID of the course.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveCourseBody'
+      responses:
+        '200':
+          description: Returns the updated course.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseDTO'
+        '400':
+          description: The external course is linked to an inactive integration.
+          content:
+            application/json:
+              schema:
+                title: Integration Inactive
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - integrationInactive
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `courseId` does not correspond to any existing course.
+          content:
+            application/json:
+              schema:
+                title: Course Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - courseNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Archive or restore a course
+      tags:
+      - Courses
+  /api/v2/courses/elearning-standard:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `courses:write`.
+
+
+        Creates a new eLearning standard (SCORM, AICC, xAPI, ...) course with the provided eLearning standard file. This endpoint should not be used to create native 360Learning courses.
+
+
+        This endpoint has a specific rate limit of 1 request per second.'
+      operationId: v2.courses.CreateELearningStandardCourseController_createELearningStandardCourse
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateELearningStandardCourseBody'
+      responses:
+        '201':
+          description: Returns the created course.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given course duration is not a positive integer within the allowed range.
+                  title: Invalid Course Duration
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalidCourseDuration
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given zip file cannot be processed.
+                  title: Invalid File
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalidFile
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The main author is present in the co-authors list.
+                  title: Main Author As Co Author
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - mainAuthorAsCoAuthor
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: Rustici is not enabled.
+                  title: Rustici Not Enabled
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - rusticiNotEnabled
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The user `userId` does not correspond to an editor in the company.
+                  title: User Is Not An Editor
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userIsNotAnEditor
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `groupId` does not correspond to any existing group.
+                  title: Group Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - groupNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: At least one of the given users does not correspond to any existing and non-deleted user.
+                  title: Users Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - usersNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: The client has sent too many requests in a short amount of time. This endpoint has a specific rate limit of 1 requests per second.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Create an eLearning standard course
+      tags:
+      - Courses
+  /api/v2/courses/generate-from-prompt:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `courses:internal`.
+
+
+        Triggers the generation of a course from a text prompt. This is an internal-only endpoint restricted to demo platforms. The course generation happens asynchronously, and you will receive an email notification when it completes. Retrieve the generated course using GET /courses sorted by created_at.'
+      operationId: v2.courses.GenerateFromPromptController_generateFromPrompt
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateFromPromptBody'
+      responses:
+        '200':
+          description: The course generation has been successfully triggered. The course will be created asynchronously.
+        '400':
+          description: The user `userId` does not correspond to an editor in the company.
+          content:
+            application/json:
+              schema:
+                title: User Is Not An Editor
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - userIsNotAnEditor
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `groupId` does not correspond to any existing group.
+          content:
+            application/json:
+              schema:
+                title: Group Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - groupNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Generate a course from a prompt (internal only)
+      tags:
+      - Courses
+  /api/v2/courses/stats:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `courseStats:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 500 courses attempts statistics. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all courses statistics in your platform.'
+      operationId: v2.courses.GetAllCourseStatsController_getAllCourseStats
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: completedAt
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **completedAt** property with LHS bracket notation.
+
+
+          Expected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0.'
+        schema:
+          properties:
+            lt:
+              type: string
+              format: date-time
+              description: Filter on dates lower than the given one
+              example: '2020-01-01T10:30:26.000Z'
+            gte:
+              type: string
+              format: date-time
+              description: Filter on dates greater than or equal the given one
+              example: '2020-01-01T10:30:26.000Z'
+      - name: courseId
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **courseId** property with LHS bracket notation.
+
+
+          Expected value format is a valid ID (24 digits or letters).'
+        schema:
+          properties:
+            eq:
+              type: string
+              format: ObjectId
+              pattern: ^[a-fA-F0-9]{24}$
+              description: Filter on values equal to the given one
+              example: 507f1f77bcf86cd799439011
+            ne:
+              type: string
+              format: ObjectId
+              pattern: ^[a-fA-F0-9]{24}$
+              description: Filter on values not equal to the given one
+              example: 507f1f77bcf86cd799439011
+            in:
+              type: array
+              description: Filter on values including the given ones
+              items:
+                type: string
+                format: ObjectId
+                pattern: ^[a-fA-F0-9]{24}$
+                example: 507f1f77bcf86cd799439011
+            nin:
+              type: array
+              description: Filter on values excluding the given ones
+              items:
+                type: string
+                format: ObjectId
+                pattern: ^[a-fA-F0-9]{24}$
+                example: 507f1f77bcf86cd799439011
+      - name: userId
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **userId** property with LHS bracket notation.
+
+
+          Expected value format is a valid ID (24 digits or letters).'
+        schema:
+          properties:
+            eq:
+              type: string
+              format: ObjectId
+              pattern: ^[a-fA-F0-9]{24}$
+              description: Filter on values equal to the given one
+              example: 507f1f77bcf86cd799439011
+            ne:
+              type: string
+              format: ObjectId
+              pattern: ^[a-fA-F0-9]{24}$
+              description: Filter on values not equal to the given one
+              example: 507f1f77bcf86cd799439011
+            in:
+              type: array
+              description: Filter on values including the given ones
+              items:
+                type: string
+                format: ObjectId
+                pattern: ^[a-fA-F0-9]{24}$
+                example: 507f1f77bcf86cd799439011
+            nin:
+              type: array
+              description: Filter on values excluding the given ones
+              items:
+                type: string
+                format: ObjectId
+                pattern: ^[a-fA-F0-9]{24}$
+                example: 507f1f77bcf86cd799439011
+      responses:
+        '200':
+          description: Returns one page of 500 courses attempts statistics.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseStatDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all courses statistics
+      tags:
+      - Courses
+  /api/v2/courses/{courseId}:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `courses:read`.
+
+
+        Retrieves the details of a specific course with the provided course ID.'
+      operationId: v2.courses.GetCourseController_getCourse
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: courseId
+        required: true
+        in: path
+        description: The unique ID of the course.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns the details of the given course.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `courseId` does not correspond to any existing course.
+          content:
+            application/json:
+              schema:
+                title: Course Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - courseNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Retrieve a course
+      tags:
+      - Courses
+  /api/v2/courses/{courseId}/custom-fields/values:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `courses:read`.
+
+
+        Lists all custom field values in a given course.'
+      operationId: v2.courses.GetCourseCustomFieldValuesController_getCourseCustomFieldValues
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: courseId
+        required: true
+        in: path
+        description: The unique ID of the course.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns all custom field values for the given course.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomFieldValueDTO'
+        '400':
+          description: Course custom fields are not enabled.
+          content:
+            application/json:
+              schema:
+                title: Course Custom Fields Not Enabled
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - courseCustomFieldsNotEnabled
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `courseId` does not correspond to any existing course.
+          content:
+            application/json:
+              schema:
+                title: Course Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - courseNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all custom field values for a course
+      tags:
+      - Courses
+    put:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `courses:write`.
+
+
+        Replaces all custom field values in the given course with the provided ones. Values not included are removed.'
+      operationId: v2.courses.UpdateCourseCustomFieldValuesController_updateCourseCustomFieldValues
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: courseId
+        required: true
+        in: path
+        description: The unique ID of the course.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCourseCustomFieldValuesBody'
+      responses:
+        '200':
+          description: Returns the updated course custom field values.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomFieldValueDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given body has a `customField` with an unauthorized value.
+                  title: Unauthorized Value
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - unauthorizedValue
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given body has a `customField` with invalid value type.
+                  title: Wrong Type Value
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - wrongTypeValue
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given body has multiple values for a single `customField`.
+                  title: Multiple Values For Single Custom Field
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - multipleValuesForSingleCustomField
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: Course custom fields are not enabled.
+                  title: Course Custom Fields Not Enabled
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - courseCustomFieldsNotEnabled
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `courseId` does not correspond to any existing course.
+                  title: Course Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - courseNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `customFieldId` does not correspond to any existing custom field.
+                  title: Custom Field Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - customFieldNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Replace all custom field values for a course
+      tags:
+      - Courses
+  /api/v2/courses:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `courses:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 500 courses. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all courses in your platform.'
+      operationId: v2.courses.GetCoursesController_getCourses
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: createdAt
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **createdAt** property with LHS bracket notation.
+
+
+          Expected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0.'
+        schema:
+          properties:
+            lt:
+              type: string
+              format: date-time
+              description: Filter on dates lower than the given one
+              example: '2020-01-01T10:30:26.000Z'
+            gte:
+              type: string
+              format: date-time
+              description: Filter on dates greater than or equal the given one
+              example: '2020-01-01T10:30:26.000Z'
+      - name: modifiedAt
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **modifiedAt** property with LHS bracket notation.
+
+
+          Expected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0.'
+        schema:
+          properties:
+            lt:
+              type: string
+              format: date-time
+              description: Filter on dates lower than the given one
+              example: '2020-01-01T10:30:26.000Z'
+            gte:
+              type: string
+              format: date-time
+              description: Filter on dates greater than or equal the given one
+              example: '2020-01-01T10:30:26.000Z'
+      - name: status
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **status** property with LHS bracket notation.
+
+
+          Expected value format is a string (`archived`, `deleted`, `published`).'
+        schema:
+          properties:
+            eq:
+              type: string
+              description: Filter on values equal to the given one
+              example: archived
+              enum:
+              - archived
+              - deleted
+              - published
+      - name: type
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **type** property with LHS bracket notation.
+
+
+          Expected value format is a string (`elearning standard`, `external`, `native`).'
+        schema:
+          properties:
+            eq:
+              type: string
+              description: Filter on values equal to the given one
+              example: elearning standard
+              enum:
+              - elearning standard
+              - external
+              - native
+      - name: authorId
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **authorId** property with LHS bracket notation.
+
+
+          Expected value format is a valid ID (24 digits or letters).'
+        schema:
+          properties:
+            eq:
+              type: string
+              format: ObjectId
+              pattern: ^[a-fA-F0-9]{24}$
+              description: Filter on values equal to the given one
+              example: 507f1f77bcf86cd799439011
+      - name: groupId
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **groupId** property with LHS bracket notation.
+
+
+          Expected value format is a valid ID (24 digits or letters).'
+        schema:
+          properties:
+            eq:
+              type: string
+              format: ObjectId
+              pattern: ^[a-fA-F0-9]{24}$
+              description: Filter on values equal to the given one
+              example: 507f1f77bcf86cd799439011
+      - name: originalAuthorId
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **originalAuthorId** property with LHS bracket notation.
+
+
+          Expected value format is a valid ID (24 digits or letters).'
+        schema:
+          properties:
+            eq:
+              type: string
+              format: ObjectId
+              pattern: ^[a-fA-F0-9]{24}$
+              description: Filter on values equal to the given one
+              example: 507f1f77bcf86cd799439011
+      - name: tagIds
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **tagIds** property with LHS bracket notation.
+
+
+          Expected value format is a valid ID (24 digits or letters).'
+        schema:
+          properties:
+            in:
+              type: array
+              description: Filter on values including the given ones
+              items:
+                type: string
+                format: ObjectId
+                pattern: ^[a-fA-F0-9]{24}$
+                example: 507f1f77bcf86cd799439011
+      - name: coAuthorIds
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **coAuthorIds** property with LHS bracket notation.
+
+
+          Expected value format is a valid ID (24 digits or letters).'
+        schema:
+          properties:
+            in:
+              type: array
+              description: Filter on values including the given ones
+              items:
+                type: string
+                format: ObjectId
+                pattern: ^[a-fA-F0-9]{24}$
+                example: 507f1f77bcf86cd799439011
+      - name: sourceLang
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **sourceLang** property with LHS bracket notation.
+
+
+          Expected value format is a string (`bg`, `cs`, `da`, `de`, `el`, `en`, `es`, `fi`, `fr`, `hr`, `ht_HT`, `hu`, `id`, `it`, `ja`, `kar_MM`, `ko`, `lt`, `mh_MH`, `nl`, `nl_BE`, `no`, `pl`, `pt`, `ro`, `ru`, `rw_RW`, `sk`, `sl`, `so_SO`, `sv`, `sw_KE`, `th`, `ti_ET`, `tr`, `uk`, `zh`, `am_ET`, `bn`, `bs`, `ca`, `cy`, `en_CA`, `en_GB`, `es_AR`, `es_MX`, `et`, `fr_CA`, `gu`, `he_IL`, `hy`, `kk`, `km`, `lo`, `lv`, `mi`, `mn_MN`, `mr`, `ms`, `my_MM`, `nn_NO`, `or`, `pa`, `pt_BR`, `pt_MZ`, `rn_BI`, `si`, `ta`, `te`, `tl_PH`, `ur`, `uz`, `yo_NG`, `zh_tw`, `el`, `hi`, `sr`, `ar`, `vi`, `zh_HANT`).'
+        schema:
+          properties:
+            eq:
+              type: string
+              description: Filter on values equal to the given one
+              example: bg
+              enum:
+              - bg
+              - cs
+              - da
+              - de
+              - el
+              - en
+              - es
+              - fi
+              - fr
+              - hr
+              - ht_HT
+              - hu
+              - id
+              - it
+              - ja
+              - kar_MM
+              - ko
+              - lt
+              - mh_MH
+              - nl
+              - nl_BE
+              - 'no'
+              - pl
+              - pt
+              - ro
+              - ru
+              - rw_RW
+              - sk
+              - sl
+              - so_SO
+              - sv
+              - sw_KE
+              - th
+              - ti_ET
+              - tr
+              - uk
+              - zh
+              - am_ET
+              - bn
+              - bs
+              - ca
+              - cy
+              - en_CA
+              - en_GB
+              - es_AR
+              - es_MX
+              - et
+              - fr_CA
+              - gu
+              - he_IL
+              - hy
+              - kk
+              - km
+              - lo
+              - lv
+              - mi
+              - mn_MN
+              - mr
+              - ms
+              - my_MM
+              - nn_NO
+              - or
+              - pa
+              - pt_BR
+              - pt_MZ
+              - rn_BI
+              - si
+              - ta
+              - te
+              - tl_PH
+              - ur
+              - uz
+              - yo_NG
+              - zh_tw
+              - el
+              - hi
+              - sr
+              - ar
+              - vi
+              - zh_HANT
+            in:
+              type: array
+              description: Filter on values including the given ones
+              items:
+                type: string
+                example: bg
+                enum:
+                - bg
+                - cs
+                - da
+                - de
+                - el
+                - en
+                - es
+                - fi
+                - fr
+                - hr
+                - ht_HT
+                - hu
+                - id
+                - it
+                - ja
+                - kar_MM
+                - ko
+                - lt
+                - mh_MH
+                - nl
+                - nl_BE
+                - 'no'
+                - pl
+                - pt
+                - ro
+                - ru
+                - rw_RW
+                - sk
+                - sl
+                - so_SO
+                - sv
+                - sw_KE
+                - th
+                - ti_ET
+                - tr
+                - uk
+                - zh
+                - am_ET
+                - bn
+                - bs
+                - ca
+                - cy
+                - en_CA
+                - en_GB
+                - es_AR
+                - es_MX
+                - et
+                - fr_CA
+                - gu
+                - he_IL
+                - hy
+                - kk
+                - km
+                - lo
+                - lv
+                - mi
+                - mn_MN
+                - mr
+                - ms
+                - my_MM
+                - nn_NO
+                - or
+                - pa
+                - pt_BR
+                - pt_MZ
+                - rn_BI
+                - si
+                - ta
+                - te
+                - tl_PH
+                - ur
+                - uz
+                - yo_NG
+                - zh_tw
+                - el
+                - hi
+                - sr
+                - ar
+                - vi
+                - zh_HANT
+      - name: collaborativeLearning
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **collaborativeLearning** property with LHS bracket notation.
+
+
+          Expected value format is a boolean (`true` or `false`).'
+        schema:
+          properties:
+            eq:
+              type: boolean
+              description: Filter on values equal to the given one
+              example: 'true'
+      responses:
+        '200':
+          description: Returns one page of 500 courses.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseDTO'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all courses
+      tags:
+      - Courses
+  /api/v2/courses/{courseId}/tags:
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `tags:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 500 tags. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all unique tags of the given course.'
+      operationId: v2.courses.GetCourseTagsController_getTags
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: courseId
+        required: true
+        in: path
+        description: The unique ID of the course.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns one page of 500 tags.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TagIdWithSource'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `courseId` does not correspond to any existing course.
+          content:
+            application/json:
+              schema:
+                title: Course Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - courseNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all tags in a course
+      tags:
+      - Courses
+    put:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `courses:write`.
+
+
+        Replaces all tags in the given course with the provided ones. Tags not included are removed.'
+      operationId: v2.courses.UpdateTagsController_updateTags
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: courseId
+        required: true
+        in: path
+        description: The unique ID of the course.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCourseTagsBody'
+      responses:
+        '200':
+          description: Returns the new tags IDs linked to the course.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: ObjectId
+                  example: 507f1f77bcf86cd799439011
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `courseId` does not correspond to any existing course.
+                  title: Course Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - courseNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: At least one of the given `tagIds` does not correspond to any existing tag.
+                  title: Tag Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - tagNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Replace all tags in a course
+      tags:
+      - Courses
+  /api/v2/courses/elearning-standard/{courseId}:
+    patch:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `courses:write`.
+
+
+        Edits specific fields of an existing eLearning standard (SCORM, AICC, xAPI, ...) course. Fields not included in the request payload remain unchanged. This endpoint should not be used to edit native 360Learning courses.
+
+
+        This endpoint has a specific rate limit of 1 request per second.'
+      operationId: v2.courses.UpdateELearningStandardCourseController_updateELearningStandardCourse
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: courseId
+        required: true
+        in: path
+        description: The unique ID of the course.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateELearningStandardCourseBody'
+      responses:
+        '200':
+          description: Returns the updated course.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseDTO'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `courseId` does not correspond to an eLearning standard course.
+                  title: Course Not Estd
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - courseNotEstd
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given course duration is not a positive integer within the allowed range.
+                  title: Invalid Course Duration
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalidCourseDuration
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given zip file cannot be processed.
+                  title: Invalid File
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - invalidFile
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The main author is present in the co-authors list.
+                  title: Main Author As Co Author
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - mainAuthorAsCoAuthor
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The user `userId` does not correspond to an editor in the company.
+                  title: User Is Not An Editor
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - userIsNotAnEditor
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: The given `courseId` does not correspond to any existing course.
+                  title: Course Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - courseNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: The given `groupId` does not correspond to any existing group.
+                  title: Group Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - groupNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+                - description: At least one of the given users does not correspond to any existing and non-deleted user.
+                  title: Users Not Found
+                  type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          enum:
+                          - usersNotFound
+                        message:
+                          type: string
+                          example: A human-readable message to help with debugging.
+                      required:
+                      - code
+                      - message
+                  required:
+                  - error
+        '429':
+          description: The client has sent too many requests in a short amount of time. This endpoint has a specific rate limit of 1 requests per second.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Edit an eLearning standard course
+      tags:
+      - Courses
+components:
+  schemas:
+    CourseDTO:
+      title: Course
+      type: object
+      properties:
+        name:
+          type: string
+          description: The title of the course.
+          example: Employee Onboarding
+          minLength: 1
+        sourceLang:
+          type: string
+          enum:
+          - bg
+          - cs
+          - da
+          - de
+          - el
+          - en
+          - es
+          - fi
+          - fr
+          - hr
+          - ht_HT
+          - hu
+          - id
+          - it
+          - ja
+          - kar_MM
+          - ko
+          - lt
+          - mh_MH
+          - nl
+          - nl_BE
+          - 'no'
+          - pl
+          - pt
+          - ro
+          - ru
+          - rw_RW
+          - sk
+          - sl
+          - so_SO
+          - sv
+          - sw_KE
+          - th
+          - ti_ET
+          - tr
+          - uk
+          - zh
+          - am_ET
+          - bn
+          - bs
+          - ca
+          - cy
+          - en_CA
+          - en_GB
+          - es_AR
+          - es_MX
+          - et
+          - fr_CA
+          - gu
+          - he_IL
+          - hy
+          - kk
+          - km
+          - lo
+          - lv
+          - mi
+          - mn_MN
+          - mr
+          - ms
+          - my_MM
+          - nn_NO
+          - or
+          - pa
+          - pt_BR
+          - pt_MZ
+          - rn_BI
+          - si
+          - ta
+          - te
+          - tl_PH
+          - ur
+          - uz
+          - yo_NG
+          - zh_tw
+          - el
+          - hi
+          - sr
+          - ar
+          - vi
+          - zh_HANT
+          description: The language in which the course is created.
+        authorId:
+          type: string
+          description: The unique ID of the author of the course.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        groupId:
+          type: string
+          description: The unique ID of the group where the course was created.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        coAuthorIds:
+          description: The list of unique IDs of the co-authors of the course.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        description:
+          type: string
+          description: The description of the course.
+          example: This course will teach you how to onboard a new employee!
+        duration:
+          type: number
+          description: An estimate of the time required to complete the course. The expected value is a number of minutes.
+        _id:
+          type: string
+          description: The unique ID of the course.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the course was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        defaultLang:
+          type: string
+          enum:
+          - bg
+          - cs
+          - da
+          - de
+          - el
+          - en
+          - es
+          - fi
+          - fr
+          - hr
+          - ht_HT
+          - hu
+          - id
+          - it
+          - ja
+          - kar_MM
+          - ko
+          - lt
+          - mh_MH
+          - nl
+          - nl_BE
+          - 'no'
+          - pl
+          - pt
+          - ro
+          - ru
+          - rw_RW
+          - sk
+          - sl
+          - so_SO
+          - sv
+          - sw_KE
+          - th
+          - ti_ET
+          - tr
+          - uk
+          - zh
+          - am_ET
+          - bn
+          - bs
+          - ca
+          - cy
+          - en_CA
+          - en_GB
+          - es_AR
+          - es_MX
+          - et
+          - fr_CA
+          - gu
+          - he_IL
+          - hy
+          - kk
+          - km
+          - lo
+          - lv
+          - mi
+          - mn_MN
+          - mr
+          - ms
+          - my_MM
+          - nn_NO
+          - or
+          - pa
+          - pt_BR
+          - pt_MZ
+          - rn_BI
+          - si
+          - ta
+          - te
+          - tl_PH
+          - ur
+          - uz
+          - yo_NG
+          - zh_tw
+          - el
+          - hi
+          - sr
+          - ar
+          - vi
+          - zh_HANT
+          description: The language in which the course is displayed when the learner’s profile language is not available.
+        modifiedAt:
+          format: date-time
+          type: string
+          description: The date and time when the course was last updated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)). Note that when translations are updated or when the course is archived/restored, its modification date does not change.
+        status:
+          type: string
+          enum:
+          - archived
+          - deleted
+          - published
+          description: The status of the course.
+        translations:
+          description: The different translations available for the course.
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseTranslationDTO'
+        type:
+          type: string
+          enum:
+          - elearning standard
+          - external
+          - native
+          description: The type of the course.
+        externalPlatform:
+          type: string
+          description: The external platform where the course comes from. It is only set if the course has the `external` type.
+          example: Udemy
+        currentVersionNumber:
+          type: integer
+          description: The current version of the course (most recent release).
+        collaborativeLearning:
+          type: boolean
+          description: A boolean indicating whether collaborative learning is enabled or not.
+      required:
+      - name
+      - sourceLang
+      - authorId
+      - groupId
+      - coAuthorIds
+      - _id
+      - createdAt
+      - defaultLang
+      - modifiedAt
+      - status
+      - translations
+      - type
+    CourseTranslationDTO:
+      title: Course Translation
+      type: object
+      properties:
+        lang:
+          type: string
+          enum:
+          - bg
+          - cs
+          - da
+          - de
+          - el
+          - en
+          - es
+          - fi
+          - fr
+          - hr
+          - ht_HT
+          - hu
+          - id
+          - it
+          - ja
+          - kar_MM
+          - ko
+          - lt
+          - mh_MH
+          - nl
+          - nl_BE
+          - 'no'
+          - pl
+          - pt
+          - ro
+          - ru
+          - rw_RW
+          - sk
+          - sl
+          - so_SO
+          - sv
+          - sw_KE
+          - th
+          - ti_ET
+          - tr
+          - uk
+          - zh
+          - am_ET
+          - bn
+          - bs
+          - ca
+          - cy
+          - en_CA
+          - en_GB
+          - es_AR
+          - es_MX
+          - et
+          - fr_CA
+          - gu
+          - he_IL
+          - hy
+          - kk
+          - km
+          - lo
+          - lv
+          - mi
+          - mn_MN
+          - mr
+          - ms
+          - my_MM
+          - nn_NO
+          - or
+          - pa
+          - pt_BR
+          - pt_MZ
+          - rn_BI
+          - si
+          - ta
+          - te
+          - tl_PH
+          - ur
+          - uz
+          - yo_NG
+          - zh_tw
+          - el
+          - hi
+          - sr
+          - ar
+          - vi
+          - zh_HANT
+          description: The language of the translation.
+          example: fr
+        published:
+          type: boolean
+          description: True if the translation is available to users in this language; false otherwise.
+        translatorIds:
+          description: The list of unique IDs of the translators assigned to this language.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        translatedFields:
+          description: The translations of the course fields for this language.
+          allOf:
+          - $ref: '#/components/schemas/CourseTranslatedFields'
+      required:
+      - lang
+      - published
+      - translatorIds
+      - translatedFields
+    ArchiveCourseBody:
+      title: Archive Course Body
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: If true, archives the course. If false, restores the course.
+      required:
+      - archived
+    CustomFieldValueDTO:
+      title: Custom Field Value
+      type: object
+      properties:
+        customFieldId:
+          type: string
+          description: The unique ID of the custom field.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - string
+          - date
+          description: The type of the custom field.
+        value:
+          oneOf:
+          - type: string
+            title: string type
+            description: The custom field string value.
+            minLength: 1
+            example: US
+          - type: string
+            title: date type
+            format: date-time
+            description: The custom field date value is in the `YYYY-MM-DD` (ISO 8601 in Coordinated Universal Time (UTC)).
+            minLength: 1
+            example: '2025-01-27'
+          description: The value assigned to the target for this custom field.
+      required:
+      - customFieldId
+      - type
+      - value
+    CourseStatDTO:
+      title: Course Stat
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the attempt.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        versionNumber:
+          type: integer
+          description: The version number of the course the learner attempted.
+        lang:
+          type: string
+          enum:
+          - bg
+          - cs
+          - da
+          - de
+          - el
+          - en
+          - es
+          - fi
+          - fr
+          - hr
+          - ht_HT
+          - hu
+          - id
+          - it
+          - ja
+          - kar_MM
+          - ko
+          - lt
+          - mh_MH
+          - nl
+          - nl_BE
+          - 'no'
+          - pl
+          - pt
+          - ro
+          - ru
+          - rw_RW
+          - sk
+          - sl
+          - so_SO
+          - sv
+          - sw_KE
+          - th
+          - ti_ET
+          - tr
+          - uk
+          - zh
+          - am_ET
+          - bn
+          - bs
+          - ca
+          - cy
+          - en_CA
+          - en_GB
+          - es_AR
+          - es_MX
+          - et
+          - fr_CA
+          - gu
+          - he_IL
+          - hy
+          - kk
+          - km
+          - lo
+          - lv
+          - mi
+          - mn_MN
+          - mr
+          - ms
+          - my_MM
+          - nn_NO
+          - or
+          - pa
+          - pt_BR
+          - pt_MZ
+          - rn_BI
+          - si
+          - ta
+          - te
+          - tl_PH
+          - ur
+          - uz
+          - yo_NG
+          - zh_tw
+          - el
+          - hi
+          - sr
+          - ar
+          - vi
+          - zh_HANT
+          description: The language of the course the learner attempted.
+        firstActivityAt:
+          format: date-time
+          type: string
+          description: The date and time of the first activity of the user on the course attempt, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        lastActivityAt:
+          format: date-time
+          type: string
+          description: The date and time of the last activity of the user on the course attempt, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        timeSpent:
+          type: number
+          description: The time spent by the user in the course attempt in milliseconds.
+        progress:
+          type: integer
+          description: The completion rate of the user as a percentage.
+          minimum: 0
+          maximum: 100
+        score:
+          type: integer
+          description: The score obtained by the user as a percentage.
+          minimum: 0
+          maximum: 100
+        completedAt:
+          format: date-time
+          type: string
+          description: The date and time when the attempt was completed, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        pathId:
+          type: string
+          description: The unique ID of the path if the course is played in the path context.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        pathSessionId:
+          type: string
+          description: The unique ID of the path session if the course is played in the path context.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        courseId:
+          type: string
+          description: The unique ID of the course.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        userId:
+          type: string
+          description: The unique ID of the user having performed this attempt.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - _id
+      - lang
+      - timeSpent
+      - progress
+      - courseId
+      - userId
+    UpdateCourseCustomFieldValuesBody:
+      title: Update Course Custom Field Values Body
+      type: object
+      properties:
+        customValues:
+          maxItems: 300
+          description: The list of custom field values to replace the existing ones.
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldValueDTO'
+      required:
+      - customValues
+    CreateELearningStandardCourseBody:
+      title: Create E Learning Standard Course Body
+      type: object
+      properties:
+        name:
+          type: string
+          description: The title of the course.
+          example: Employee Onboarding
+          minLength: 1
+        sourceLang:
+          type: string
+          enum:
+          - bg
+          - cs
+          - da
+          - de
+          - el
+          - en
+          - es
+          - fi
+          - fr
+          - hr
+          - ht_HT
+          - hu
+          - id
+          - it
+          - ja
+          - kar_MM
+          - ko
+          - lt
+          - mh_MH
+          - nl
+          - nl_BE
+          - 'no'
+          - pl
+          - pt
+          - ro
+          - ru
+          - rw_RW
+          - sk
+          - sl
+          - so_SO
+          - sv
+          - sw_KE
+          - th
+          - ti_ET
+          - tr
+          - uk
+          - zh
+          - am_ET
+          - bn
+          - bs
+          - ca
+          - cy
+          - en_CA
+          - en_GB
+          - es_AR
+          - es_MX
+          - et
+          - fr_CA
+          - gu
+          - he_IL
+          - hy
+          - kk
+          - km
+          - lo
+          - lv
+          - mi
+          - mn_MN
+          - mr
+          - ms
+          - my_MM
+          - nn_NO
+          - or
+          - pa
+          - pt_BR
+          - pt_MZ
+          - rn_BI
+          - si
+          - ta
+          - te
+          - tl_PH
+          - ur
+          - uz
+          - yo_NG
+          - zh_tw
+          - el
+          - hi
+          - sr
+          - ar
+          - vi
+          - zh_HANT
+          description: The language in which the course is created.
+        authorId:
+          type: string
+          description: The unique ID of the author of the course.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        groupId:
+          type: string
+          description: The unique ID of the group where the course was created.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        coAuthorIds:
+          description: The list of unique IDs of the co-authors of the course.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        description:
+          type: string
+          description: The description of the course.
+          example: This course will teach you how to onboard a new employee!
+        duration:
+          type: string
+          description: An estimate of the time required to complete the course. The expected value is a number of minutes.
+        estdFile:
+          type: string
+          format: binary
+          description: 'The eLearning standard package file to use as the course content. Supported media types: application/x-zip-compressed, application/zip.'
+        coverPicture:
+          type: string
+          format: binary
+          description: 'The picture file to be used as the course cover picture. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
+      required:
+      - name
+      - sourceLang
+      - authorId
+      - groupId
+      - estdFile
+    TagIdWithSource:
+      title: Tag Id With Source
+      type: object
+      properties:
+        tagId:
+          type: string
+          description: The unique ID of the tag.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        source:
+          type: string
+          enum:
+          - native
+          - integration
+          description: 'The source of the tag.
+
+            - `native`: The tag has been manually added by an admin or created through the API.
+
+            - `integration`: The tag has been synced from an external source.'
+      required:
+      - tagId
+      - source
+    GenerateFromPromptBody:
+      title: Generate From Prompt Body
+      type: object
+      properties:
+        prompt:
+          type: string
+          description: The prompt to use for generating the course.
+          example: Create a course on how to learn a new language effectively
+          minLength: 1
+        authorId:
+          type: string
+          description: The unique ID of the author of the course.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        groupId:
+          type: string
+          description: The unique ID of the group where the course will be created.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - prompt
+      - authorId
+    UpdateELearningStandardCourseBody:
+      title: Update E Learning Standard Course Body
+      type: object
+      properties:
+        name:
+          type: string
+          description: The title of the course.
+          example: Employee Onboarding
+          minLength: 1
+        sourceLang:
+          type: string
+          enum:
+          - bg
+          - cs
+          - da
+          - de
+          - el
+          - en
+          - es
+          - fi
+          - fr
+          - hr
+          - ht_HT
+          - hu
+          - id
+          - it
+          - ja
+          - kar_MM
+          - ko
+          - lt
+          - mh_MH
+          - nl
+          - nl_BE
+          - 'no'
+          - pl
+          - pt
+          - ro
+          - ru
+          - rw_RW
+          - sk
+          - sl
+          - so_SO
+          - sv
+          - sw_KE
+          - th
+          - ti_ET
+          - tr
+          - uk
+          - zh
+          - am_ET
+          - bn
+          - bs
+          - ca
+          - cy
+          - en_CA
+          - en_GB
+          - es_AR
+          - es_MX
+          - et
+          - fr_CA
+          - gu
+          - he_IL
+          - hy
+          - kk
+          - km
+          - lo
+          - lv
+          - mi
+          - mn_MN
+          - mr
+          - ms
+          - my_MM
+          - nn_NO
+          - or
+          - pa
+          - pt_BR
+          - pt_MZ
+          - rn_BI
+          - si
+          - ta
+          - te
+          - tl_PH
+          - ur
+          - uz
+          - yo_NG
+          - zh_tw
+          - el
+          - hi
+          - sr
+          - ar
+          - vi
+          - zh_HANT
+          description: The language in which the course is created.
+        authorId:
+          type: string
+          description: The unique ID of the author of the course.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        groupId:
+          type: string
+          description: The unique ID of the group that will own the course.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        coAuthorIds:
+          description: The list of unique IDs of the co-authors of the course.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        description:
+          type: string
+          description: The description of the course.
+          example: This course will teach you how to onboard a new employee!
+        duration:
+          type: string
+          description: An estimate of the time required to complete the course. The expected value is a number of minutes.
+        estdFile:
+          type: string
+          format: binary
+          description: 'The eLearning standard package file to use as the course content. Supported media types: application/x-zip-compressed, application/zip.'
+        coverPicture:
+          type: string
+          format: binary
+          description: 'The picture file to be used as the course cover picture. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
+    CourseTranslatedFields:
+      title: Course Translated Fields
+      type: object
+      properties:
+        name:
+          type: string
+          description: The translation of the field `name` for this language.
+          example: Accueil des employés
+        description:
+          type: string
+          description: The translation of the field `description` for this language.
+          example: Ce module vous apprend à intégrer un nouveau collaborateur !
+    UpdateCourseTagsBody:
+      title: Update Course Tags Body
+      type: object
+      properties:
+        tagIds:
+          maxItems: 100
+          description: The new tag IDs linked to the given course.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - tagIds
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows: {}
+      description: 'Use the token from the authentication endpoint in the Authorization header.
+
+
+        Example: `Authorization: Bearer <token>`'

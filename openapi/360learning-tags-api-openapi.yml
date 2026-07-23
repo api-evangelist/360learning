@@ -1,0 +1,690 @@
+openapi: 3.1.0
+info:
+  title: Bulk Authentication Tags API
+  description: ''
+  version: 1.0.0
+  contact: {}
+servers:
+- url: https://app.360learning.com
+  description: Production EU
+- url: https://app.us.360learning.com
+  description: Production US
+tags:
+- name: Tags
+paths:
+  /api/v2/tags:
+    post:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `tags:write`.
+
+
+        Creates a tag with the given properties.'
+      operationId: v2.tags.CreateTagController_createTag
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagUpdatableFields'
+      responses:
+        '201':
+          description: Returns the created tag.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagDTO'
+        '400':
+          description: The given tag name belongs to another tag.
+          content:
+            application/json:
+              schema:
+                title: Tag Name Not Available
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - tagNameNotAvailable
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Create a tag
+      tags:
+      - Tags
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `tags:read`.
+
+
+        > 📖
+
+        >
+
+        > This endpoint is paginated with a page size of 5,000 tags. For more information, see the [Pagination guide](doc:pagination).
+
+
+        Lists all tags in your platform.'
+      operationId: v2.tags.GetTagsController_getTags
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: isMain
+        required: false
+        in: query
+        style: deepObject
+        explode: true
+        description: 'Filter on **isMain** property with LHS bracket notation.
+
+
+          Expected value format is a boolean (`true` or `false`).'
+        schema:
+          properties:
+            eq:
+              type: boolean
+              description: Filter on values equal to the given one
+              example: 'true'
+      responses:
+        '200':
+          description: Returns one page of 5000 tags.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: 'URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).
+
+
+                ⚠️ Only included if there is another page of results.'
+              example: <my/resource/url>; rel="next"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TagDTOWithSource'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: List all tags
+      tags:
+      - Tags
+  /api/v2/tags/{tagId}:
+    delete:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `tags:write`.
+
+
+        Deletes a specific tag given its unique ID.'
+      operationId: v2.tags.DeleteTagController_deleteTag
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: tagId
+        required: true
+        in: path
+        description: The unique ID of the tag.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '204':
+          description: Deletes a specific tag.
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `tagId` does not correspond to any existing tag.
+          content:
+            application/json:
+              schema:
+                title: Tag Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - tagNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Delete a tag
+      tags:
+      - Tags
+    get:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `tags:read`.
+
+
+        Retrieves a tag given its ID.'
+      operationId: v2.tags.GetTagController_getTag
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: tagId
+        required: true
+        in: path
+        description: The unique ID of the tag.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      responses:
+        '200':
+          description: Returns the details of the given tag.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagDTOWithSource'
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `tagId` does not correspond to any existing tag.
+          content:
+            application/json:
+              schema:
+                title: Tag Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - tagNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Retrieve a tag
+      tags:
+      - Tags
+    put:
+      description: '> 🔑
+
+        >
+
+        > Required OAuth scope: `tags:write`.
+
+
+        Replaces an existing tag with the provided data. Fields not included in the payload remain unchanged.'
+      operationId: v2.tags.UpdateTagController_updateTag
+      parameters:
+      - name: 360-api-version
+        in: header
+        description: The version of the API.
+        required: true
+        schema:
+          type: string
+          enum:
+          - v2.0
+      - name: tagId
+        required: true
+        in: path
+        description: The unique ID of the tag.
+        schema:
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+          example: 507f1f77bcf86cd799439011
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagUpdatableFields'
+      responses:
+        '200':
+          description: Update the tag.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagDTO'
+        '400':
+          description: The given tag name belongs to another tag.
+          content:
+            application/json:
+              schema:
+                title: Tag Name Not Available
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - tagNameNotAvailable
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '401':
+          description: The given access token is either missing, invalid, has expired, or has been revoked.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - invalid_token
+                required:
+                - error
+        '403':
+          description: The given access token does not have the required OAuth scope to execute the request.
+          content:
+            application/json:
+              schema:
+                title: Invalid Scope
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - invalid_scope
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: The given `tagId` does not correspond to any existing tag.
+          content:
+            application/json:
+              schema:
+                title: Tag Not Found
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        enum:
+                        - tagNotFound
+                      message:
+                        type: string
+                        example: A human-readable message to help with debugging.
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '429':
+          description: 'The client has sent too many requests in a short amount of time. '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - tooManyRequests
+                required:
+                - error
+      security:
+      - oauth2: []
+      summary: Replace a tag
+      tags:
+      - Tags
+components:
+  schemas:
+    TagDTOWithSource:
+      title: Tag DTO With Source
+      type: object
+      properties:
+        isMain:
+          type: boolean
+          description: True if the tag is to be set as a main tag; false otherwise.
+        _id:
+          type: string
+          description: The unique ID of the tag.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The name of the tag.
+          example: Onboarding
+        externalId:
+          type: string
+          description: The external identifier of the tag if it is being synced from outer resources.
+          example: 1743_ab
+        source:
+          type: string
+          enum:
+          - native
+          - integration
+          description: 'The source of the tag.
+
+            - `native`: The tag has been manually added by an admin or created through the API.
+
+            - `integration`: The tag has been synced from an external source.'
+      required:
+      - isMain
+      - _id
+      - name
+      - source
+    TagUpdatableFields:
+      title: Tag Updatable Fields
+      type: object
+      properties:
+        isMain:
+          type: boolean
+          description: True if the tag is to be set as a main tag; false otherwise.
+        name:
+          type: string
+          description: The name of the tag.
+          example: Onboarding
+          minLength: 1
+        externalId:
+          type: string
+          description: The external identifier of the tag if it is being synced from outer resources.
+          example: 1743_ab
+          minLength: 1
+      required:
+      - isMain
+      - name
+    TagDTO:
+      title: Tag
+      type: object
+      properties:
+        isMain:
+          type: boolean
+          description: True if the tag is to be set as a main tag; false otherwise.
+        _id:
+          type: string
+          description: The unique ID of the tag.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The name of the tag.
+          example: Onboarding
+        externalId:
+          type: string
+          description: The external identifier of the tag if it is being synced from outer resources.
+          example: 1743_ab
+      required:
+      - isMain
+      - _id
+      - name
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows: {}
+      description: 'Use the token from the authentication endpoint in the Authorization header.
+
+
+        Example: `Authorization: Bearer <token>`'

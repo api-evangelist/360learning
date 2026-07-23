@@ -1,0 +1,72 @@
+generated: '2026-07-17'
+method: searched
+source: https://360learning.readme.io/docs
+docs:
+  authentication: https://360learning.readme.io/docs/authentication
+  pagination: https://360learning.readme.io/docs/pagination
+  errors: https://360learning.readme.io/docs/errors
+  scopes: https://360learning.readme.io/docs/oauth-scopes
+authentication:
+  style: oauth2-client-credentials
+  header: 'Authorization: Bearer <token>'
+  token_ttl_seconds: 3600
+  ref: authentication/360learning-authentication.yml
+versioning:
+  style: header
+  header: 360-api-version
+  current: v2.0
+  required: true
+  note: >-
+    Every API v2 request must carry the `360-api-version: v2.0` header. The API
+    surface itself is versioned as v2 in the URL path (/api/v2/...). Legacy v1 is
+    deprecated.
+  ref: lifecycle/360learning-lifecycle.yml
+pagination:
+  style: cursor
+  mechanism: Link-header
+  response_header: Link
+  format: '<URL>; rel="next"'
+  cursor_param: next
+  direction: forward-only
+  note: >-
+    List endpoints return a `Link` header with rel="next" carrying an encoded
+    `next` cursor that preserves the original query filters. Only the next page
+    is retrievable (no previous/last). Page size varies per endpoint (e.g. 500
+    courses, 500 classrooms, 3000 attendance sheets).
+idempotency:
+  supported: false
+  note: >-
+    360Learning API v2 does not document an idempotency-key header or an
+    Idempotency-Key parameter in its OpenAPI. Bulk operations are the mechanism
+    for batching writes.
+filtering:
+  supported: true
+  style: bracketed-operators
+  example: 'status[eq]=published'
+  docs: https://360learning.readme.io/docs/filtering
+rate_limiting:
+  signaled: true
+  status_code: 429
+  docs: https://360learning.readme.io/docs/rate-limiting-errors
+  note: Rate-limited requests return HTTP 429. Dedicated rate-limiting-errors guide.
+error_envelope:
+  format: json
+  fields:
+  - code
+  - message
+  code_style: camelCase
+  examples:
+  - '{"code": "userNotFound", "message": "..."}'
+  special_cases: >-
+    Some errors (authentication, scope, rate-limit) instead return a single
+    `error` field (e.g. "error": "invalid_scope").
+  ref: errors/360learning-problem-types.yml
+bulk_operations:
+  supported: true
+  note: >-
+    Dedicated Bulk API executes multiple actions in a single request; results
+    are retrieved asynchronously via bulk operation endpoints and can emit
+    bulk.operation.created / bulk.operation.ended webhook events.
+regions:
+- {name: Production EU, url: https://app.360learning.com}
+- {name: Production US, url: https://app.us.360learning.com}

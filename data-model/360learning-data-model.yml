@@ -1,0 +1,60 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/360learning-core-api.json ($ref graph + id-reference fields + resource paths)
+notes: >-
+  Entity-relationship graph derived from the API v2 Core, Bulk and Webhook
+  OpenAPI documents (paths, schema $refs, and *Id reference fields). 360Learning
+  is a collaborative learning platform (LMS); the core domain is users/groups
+  learning through courses and paths, with instructor-led classrooms.
+entities:
+- name: User
+  resource: /api/v2/users
+  description: A learner or admin on the platform.
+- name: Group
+  resource: /api/v2/groups
+  description: An organizational grouping of users (audience for content).
+- name: Course
+  resource: /api/v2/courses
+  description: A learning course; unit of content with statistics.
+- name: Path
+  resource: /api/v2/paths
+  description: A learning path stitching courses/sessions into a program.
+- name: Classroom
+  resource: /api/v2/classrooms
+  description: An instructor-led (virtual or physical) training container.
+- name: ClassroomSlot
+  resource: /api/v2/classroom-slots
+  description: A scheduled session of a classroom with registrations and attendance.
+- name: AttendanceSheet
+  resource: /api/v2/classrooms/.../attendance-sheets
+  description: Attendance record for a classroom slot.
+- name: CertificateOutline
+  resource: /api/v2/certificate-outlines
+  description: Template for certificates awarded to users.
+- name: Skill
+  resource: /api/v2/skills
+  description: Skills taxonomy (skills, jobs, powers, libraries).
+- name: Tag
+  resource: /api/v2/tags
+  description: Classification tags applied to courses.
+- name: CustomField
+  resource: /api/v2/custom-fields
+  description: Custom metadata fields on platform objects.
+- name: WebhookSubscription
+  resource: /api/v2/webhooks/subscriptions
+  description: A webhook subscription bound to an event type + endpoint URL.
+- name: BulkOperation
+  resource: /api/v2/bulk
+  description: An asynchronous batch job over users/groups/etc.
+relationships:
+- {from: Group, to: User, type: has_many, via: userId}
+- {from: Path, to: Course, type: has_many, via: courseId}
+- {from: Path, to: PathSession, type: has_many, via: session}
+- {from: Classroom, to: ClassroomSlot, type: has_many, via: classroomId}
+- {from: ClassroomSlot, to: User, type: has_many, via: registration (userId)}
+- {from: ClassroomSlot, to: AttendanceSheet, type: has_many, via: slotId}
+- {from: Course, to: Tag, type: has_many, via: tag}
+- {from: User, to: CertificateOutline, type: belongs_to, via: certificateId}
+- {from: Course, to: CourseStats, type: has_one, via: courseId}
+- {from: Path, to: PathStats, type: has_one, via: pathId}
+- {from: WebhookSubscription, to: Event, type: has_many, via: subscriptionId}

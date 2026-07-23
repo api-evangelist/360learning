@@ -1,0 +1,16 @@
+generated: '2026-07-17'
+method: searched
+source: npm registry search + https://360learning.readme.io/docs
+notes: >-
+  360Learning does not publish a first-party API v2 client SDK; the docs
+  recommend importing the OpenAPI into a client (Postman/Bruno) and calling the
+  API directly with curl. The only registry hit is a third-party community
+  wrapper for the older API, marked official:false.
+packages:
+- language: javascript
+  registry: npm
+  name: api-360learning
+  url: https://www.npmjs.com/package/api-360learning
+  install: npm install api-360learning
+  official: false
+  note: Community-maintained wrapper (publisher vlemaitre), not maintained by 360Learning.
