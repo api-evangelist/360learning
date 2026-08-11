@@ -220,6 +220,8 @@ apis:
   - type: OpenAPI
     url: openapi/360learning-users-api-openapi.yml
 common:
+- type: Overlay
+  url: overlays/360learning-bulk-overlay.yaml
 - type: Website
   url: https://360learning.com/
 - type: DeveloperPortal
