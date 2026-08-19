@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bulk Authentication Certificate Outlines API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Certificate Outlines",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all certificate outlines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/certificate-outlines",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **createdAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **groupId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `certificateOutlines:read`.\n\nLists all certificate outlines in your platform."
+        },
+        {
+          "info": {
+            "name": "Create certificate outline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/certificate-outlines",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `certificateOutlines:write`.\n\nCreates a new certificate outline in your platform."
+        },
+        {
+          "info": {
+            "name": "Edit a certificate outline",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.360learning.com/api/v2/certificate-outlines/:certificateOutlineId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "certificateOutlineId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the certificate outline."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `certificateOutlines:write`.\n\nEdits specific fields of an existing certificate outline. Fields not included in the request payload remain unchanged."
+        },
+        {
+          "info": {
+            "name": "Delete a certificate outline",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/certificate-outlines/:certificateOutlineId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "certificateOutlineId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the certificate outline."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `certificateOutlines:write`.\n\nDeletes a specific certificate outline given its unique ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

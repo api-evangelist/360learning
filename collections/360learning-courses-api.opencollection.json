@@ -1,0 +1,373 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bulk Authentication Courses API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Courses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Archive or restore a course",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/courses/:courseId/archive",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the course."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `courses:write`.\n\nArchives or restores a course. Archiving a course doesn't remove it from paths where it is included. It simply prevents the course from being added to new paths. The archived course will still be accessible in existing paths, but it will be hidden from search results. Statistics are kept and not deleted."
+        },
+        {
+          "info": {
+            "name": "Create an eLearning standard course",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/courses/elearning-standard",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `courses:write`.\n\nCreates a new eLearning standard (SCORM, AICC, xAPI, ...) course with the provided eLearning standard file. This endpoint should not be used to create native 360Learning courses.\n\nThis endpoint has a specific rate limit of 1 request per second."
+        },
+        {
+          "info": {
+            "name": "Generate a course from a prompt (internal only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/courses/generate-from-prompt",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `courses:internal`.\n\nTriggers the generation of a course from a text prompt. This is an internal-only endpoint restricted to demo platforms. The course generation happens asynchronously, and you will receive an email notification when it completes. Retrieve the generated course using GET /courses sorted by created_at."
+        },
+        {
+          "info": {
+            "name": "List all courses statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/courses/stats",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "completedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **completedAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **courseId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **userId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `courseStats:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 500 courses attempts statistics. For more information, see the [Pagination guide](doc:pagination).\n\nLists all courses statistics in your platform."
+        },
+        {
+          "info": {
+            "name": "Retrieve a course",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/courses/:courseId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the course."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `courses:read`.\n\nRetrieves the details of a specific course with the provided course ID."
+        },
+        {
+          "info": {
+            "name": "List all custom field values for a course",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/courses/:courseId/custom-fields/values",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the course."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `courses:read`.\n\nLists all custom field values in a given course."
+        },
+        {
+          "info": {
+            "name": "Replace all custom field values for a course",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/courses/:courseId/custom-fields/values",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the course."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `courses:write`.\n\nReplaces all custom field values in the given course with the provided ones. Values not included are removed."
+        },
+        {
+          "info": {
+            "name": "List all courses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/courses",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **createdAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "modifiedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **modifiedAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **status** property with LHS bracket notation.\n\nExpected value format is a string (`archived`, `deleted`, `published`)."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **type** property with LHS bracket notation.\n\nExpected value format is a string (`elearning standard`, `external`, `native`)."
+              },
+              {
+                "name": "authorId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **authorId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              },
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **groupId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              },
+              {
+                "name": "originalAuthorId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **originalAuthorId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              },
+              {
+                "name": "tagIds",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **tagIds** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              },
+              {
+                "name": "coAuthorIds",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **coAuthorIds** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              },
+              {
+                "name": "sourceLang",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **sourceLang** property with LHS bracket notation.\n\nExpected value format is a string (`bg`, `cs`, `da`, `de`, `el`, `en`, `es`, `fi`, `fr`, `hr`, `ht_HT`, `hu`, `id`, `it`, `ja`, `kar_MM`, `ko`, `lt`, `mh_MH`, `nl`, `nl_BE`, `no`, `pl`, `pt`, `ro`, `ru`, `rw_RW`, `sk`, `sl`, `so_SO`, `sv`, `sw_KE`, `th`, `ti_ET`, `tr`, `uk`, `zh`, `am_ET`, `bn`, `bs`, `ca`, `cy`, `en_CA`, `en_GB`, `es_AR`, `es_MX`, `et`, `fr_CA`, `gu`, `he_IL`, `hy`, `kk`, `km`, `lo`, `lv`, `mi`, `mn_MN`, `mr`, `ms`, `my_MM`, `nn_NO`, `or`, `pa`, `pt_BR`, `pt_MZ`, `rn_BI`, `si`, `ta`, `te`, `tl_PH`, `ur`, `uz`, `yo_NG`, `zh_tw`, `el`, `hi`, `sr`, `ar`, `vi`, `zh_HANT`)."
+              },
+              {
+                "name": "collaborativeLearning",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **collaborativeLearning** property with LHS bracket notation.\n\nExpected value format is a boolean (`true` or `false`)."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `courses:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 500 courses. For more information, see the [Pagination guide](doc:pagination).\n\nLists all courses in your platform."
+        },
+        {
+          "info": {
+            "name": "List all tags in a course",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/courses/:courseId/tags",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the course."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `tags:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 500 tags. For more information, see the [Pagination guide](doc:pagination).\n\nLists all unique tags of the given course."
+        },
+        {
+          "info": {
+            "name": "Replace all tags in a course",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/courses/:courseId/tags",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the course."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `courses:write`.\n\nReplaces all tags in the given course with the provided ones. Tags not included are removed."
+        },
+        {
+          "info": {
+            "name": "Edit an eLearning standard course",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.360learning.com/api/v2/courses/elearning-standard/:courseId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the course."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `courses:write`.\n\nEdits specific fields of an existing eLearning standard (SCORM, AICC, xAPI, ...) course. Fields not included in the request payload remain unchanged. This endpoint should not be used to edit native 360Learning courses.\n\nThis endpoint has a specific rate limit of 1 request per second."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

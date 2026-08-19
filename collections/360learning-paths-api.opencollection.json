@@ -1,0 +1,917 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bulk Authentication Paths API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Paths",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/paths/sessions",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **createdAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "modifiedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **modifiedAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **startDate** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **endDate** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **sessionId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              },
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **pathId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 500 path sessions. For more information, see the [Pagination guide](doc:pagination).\n\nLists all path sessions in your platform. This endpoint does not return path session translations. To retrieve translations, use the [Retrieve a path session](/reference/v2pathsgetpathsessioncontroller_getpathsession) endpoint or the [List all sessions in a path](/reference/v2pathsgetpathsessionscontroller_getp"
+        },
+        {
+          "info": {
+            "name": "List all user statistics for all paths",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/paths/stats",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **status** property with LHS bracket notation.\n\nExpected value format is a string (`archived`, `published`)."
+              },
+              {
+                "name": "completedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **completedAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **pathId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **userId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `pathStats:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 2,000 path user statistics. For more information, see the [Pagination guide](doc:pagination).\n\nLists all user statistics for paths in the platform."
+        },
+        {
+          "info": {
+            "name": "Add tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/paths/add-tokens",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `tokens:write`.\n\nAdd tokens to a specific group for a given path."
+        },
+        {
+          "info": {
+            "name": "Archive or restore a path",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/archive",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:write`.\n\nArchives or restores a path."
+        },
+        {
+          "info": {
+            "name": "List all paths",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/paths",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **createdAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "modifiedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **modifiedAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **status** property with LHS bracket notation.\n\nExpected value format is a string (`archived`, `published`)."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 200 paths. For more information, see the [Pagination guide](doc:pagination).\n\nLists all paths in your platform."
+        },
+        {
+          "info": {
+            "name": "Create a path",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/paths",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:write`.\n\nCreates a new path in the platform."
+        },
+        {
+          "info": {
+            "name": "List all sessions in a path",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/sessions",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              },
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **createdAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "modifiedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **modifiedAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **startDate** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **endDate** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 100 path sessions. For more information, see the [Pagination guide](doc:pagination).\n\nLists all sessions in a given path."
+        },
+        {
+          "info": {
+            "name": "Create a path session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/sessions",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:write`.\n\nCreates a path session for the given path."
+        },
+        {
+          "info": {
+            "name": "Retrieve a path",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:read`.\n\nRetrieves information about a path given its ID."
+        },
+        {
+          "info": {
+            "name": "Edit a path",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:write`.\n\nEdits specific fields of an existing path. Fields not included in the request payload remain unchanged."
+        },
+        {
+          "info": {
+            "name": "Delete a path",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:write`.\n\nDeletes a path given the path ID."
+        },
+        {
+          "info": {
+            "name": "Retrieve a path session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/sessions/:sessionId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path session."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:read`.\n\nRetrieves information about the path session given the path ID and session ID."
+        },
+        {
+          "info": {
+            "name": "Edit a path session",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/sessions/:sessionId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path session."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:write`.\n\nEdits specific fields of an existing path session. Fields not included in the request payload remain unchanged."
+        },
+        {
+          "info": {
+            "name": "Delete a path session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/sessions/:sessionId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path session."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:write`.\n\nDeletes a path session given the path ID and session ID."
+        },
+        {
+          "info": {
+            "name": "Archive a self-enrolled learner from a path session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/sessions/:sessionId/self-enrollments/:userId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path session."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the learner."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:write`.\n\nArchives the self-enrollment of a learner in a path session. Learners enrolled through the Audience Builder are rejected — unassign those by updating the session audience with `PUT /audiences` and `excludedLearners`."
+        },
+        {
+          "info": {
+            "name": "List all enrollments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/enrollments",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **status** property with LHS bracket notation.\n\nExpected value format is a string (`archived`, `published`)."
+              },
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **createdAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "modifiedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **modifiedAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **sessionId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 5,000 enrollments. For more information, see the [Pagination guide](doc:pagination).\n\nLists all enrollments for the given path."
+        },
+        {
+          "info": {
+            "name": "List all custom field values for a session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/sessions/:sessionId/custom-fields/values",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path session."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:read`.\n\nLists all custom field values in a given session."
+        },
+        {
+          "info": {
+            "name": "Replace all custom fields values for a path session",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/sessions/:sessionId/custom-fields/values",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path session."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:write`.\n\nReplaces all custom field values in the given path session with the provided ones. Values not included are removed."
+        },
+        {
+          "info": {
+            "name": "List all tags in a path",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/tags",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `tags:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 500 tags. For more information, see the [Pagination guide](doc:pagination).\n\nLists all unique tag IDs of the given path."
+        },
+        {
+          "info": {
+            "name": "Replace all tags in a path",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/tags",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `tags:write`.\n\nReplaces all tags in the given path with the provided onces. Tags not included are removed."
+        },
+        {
+          "info": {
+            "name": "Retrieve a path session audience",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/sessions/:sessionId/audiences",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path session."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:read`.\n\nRetrieves information about the path session audience given the path ID and session ID."
+        },
+        {
+          "info": {
+            "name": "Replace an audience for a path session",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/sessions/:sessionId/audiences",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path session."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:write`.\n\nReplaces the audience in the given path and session with the provided one. Audience not included is removed."
+        },
+        {
+          "info": {
+            "name": "Retrieve metrics for a path session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/sessions/:sessionId/user-statuses",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path session."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `pathStats:read`.\n\nRetrieves aggregated metrics for a given path session, including counts of users by session status and total certificates issued."
+        },
+        {
+          "info": {
+            "name": "List all user statistics for a path session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/sessions/:sessionId/user-stats",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path session."
+              },
+              {
+                "name": "completedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **completedAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **userId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `pathStats:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 2,000 user statistics. For more information, see the [Pagination guide](doc:pagination).\n\nLists all user statistics for the given path session."
+        },
+        {
+          "info": {
+            "name": "Edit a child path session",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/child-sessions/:childSessionId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              },
+              {
+                "name": "childSessionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path session."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:write`.\n\nEdits a child path session given its unique ID and path."
+        },
+        {
+          "info": {
+            "name": "Replace all translations for a path",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/translations",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:write`.\n\nReplaces all translations in the given path with the provided ones. Translations not included are removed."
+        },
+        {
+          "info": {
+            "name": "Replace all steps",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/paths/:pathId/steps",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pathId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the path."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `paths:write`.\n\nReplaces all steps in the given path with the provided ones. Steps not included are removed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,304 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bulk Authentication Skills API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Skills",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add skill reviews",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/bulk/skills/reviews",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `skillsPowers:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nAdds multiple skill reviews.\n- Reviews are related to three kind of actions: 'skill added', 'skill assessed', 'skill deleted'.\n- In the 'skill assessed' case, the assessment is automatically validated if the assessor is a manager of the user.\n\nUpon submission, the request is queued. Use the provid"
+        },
+        {
+          "info": {
+            "name": "Upsert jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/bulk/skills/jobs",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `skillsJobs:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nAdds or replaces multiple jobs based on the given `externalId`.\n- If a provided `externalId` matches an existing job, the job is replaced with the new data.\n- If no match is found, a new job is created.\n\nUpon submission, the request is queued. Use the provided URL in the response header to check the"
+        },
+        {
+          "info": {
+            "name": "Delete jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/bulk/skills/jobs",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `skillsJobs:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nDeletes jobs based on the given `externalId`.\n\nUpon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation."
+        },
+        {
+          "info": {
+            "name": "Upsert libraries",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/bulk/skills/libraries",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `skillsLibraries:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nAdds or replaces multiple libraries based on the given `externalId`.\n- If a provided `externalId` matches an existing library, the library is replaced with the new data.\n- If no match is found, a new library is created.\n\nUpon submission, the request is queued. Use the provided URL in the respon"
+        },
+        {
+          "info": {
+            "name": "Delete libraries",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/bulk/skills/libraries",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `skillsLibraries:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nDeletes libraries based on the given `externalId`.\n\nUpon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation."
+        },
+        {
+          "info": {
+            "name": "Upsert skills",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/bulk/skills",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `skills:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nAdds or replaces multiple skills based on the given `externalId`.\n- If a provided `externalId` matches an existing skill, the skill is replaced with the new data.\n- If no match is found, a new skill is created.\n\nUpon submission, the request is queued. Use the provided URL in the response header to check"
+        },
+        {
+          "info": {
+            "name": "Delete skills",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/bulk/skills",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `skills:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nDeletes skills based on the given `externalId`.\n\nUpon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation."
+        },
+        {
+          "info": {
+            "name": "Replace jobs skills",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/bulk/skills/jobs-skills",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `skillsJobSkills:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nReplaces jobs skills based on the given `jobId`.\n- All skills of each job will be replaced by the provided ones. For each job, a maximum of 100 skills is allowed.\n\nUpon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation."
+        },
+        {
+          "info": {
+            "name": "Replace users jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/bulk/skills/users/jobs",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `skillsJobs:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nReplaces users jobs based on the given `userId`.\n- All jobs of each users will be replaced by the provided ones. For each user, a maximum of 100 jobs is allowed.\n\nUpon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation."
+        },
+        {
+          "info": {
+            "name": "List all the powers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/skills/powers",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "skillId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **skillId** property with LHS bracket notation.\n\nExpected value format is a string."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **status** property with LHS bracket notation.\n\nExpected value format is a string (`toAssess`, `pendingValidation`, `validated`)."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **userId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `skillsPowers:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 500 powers. For more information, see the [Pagination guide](doc:pagination).\n\nLists all the powers."
+        },
+        {
+          "info": {
+            "name": "List all skills",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/skills",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **status** property with LHS bracket notation.\n\nExpected value format is a string (`archived`, `published`)."
+              },
+              {
+                "name": "updatedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **updatedAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `skills:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 500 skills. For more information, see the [Pagination guide](doc:pagination).\n\nLists all skills in your platform."
+        },
+        {
+          "info": {
+            "name": "Replace all jobs for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/skills/users/:userId/jobs",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of a user."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `skillsJobs:write`.\n\nReplaces all jobs for the given user with the provided ones. Jobs not included are removed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

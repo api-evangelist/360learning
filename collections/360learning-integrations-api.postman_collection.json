@@ -1,0 +1,3889 @@
+{
+  "item": [
+    {
+      "id": "b631152c-9859-4d91-9418-81fdef91a547",
+      "name": "Integrations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "99f98af6-d619-4c7c-9f6e-916bb9595536",
+          "name": "Archive external courses",
+          "request": {
+            "name": "Archive external courses",
+            "description": {
+              "content": "> 🔑\n>\n> Required OAuth scope: `integrations:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 1,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nArchives multiple external courses in bulk based on the provided integration ID.\n\nUpon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "bulk",
+                "integrations",
+                ":integrationId",
+                "courses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "integrationId",
+                  "description": "(Required) The unique ID of the integration."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The version of the API.",
+                "key": "360-api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": [\n    {\n      \"externalId\": \"<string>\"\n    },\n    {\n      \"externalId\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "da77c831-8088-4426-ba9f-e15771d5985a",
+              "name": "The operation is successfully created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "courses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"externalId\": \"l3ssup3rh3r0s\"\n    },\n    {\n      \"externalId\": \"l3ssup3rh3r0s\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The URL to retrieve the status of the bulk operation using its operation ID.\n\nExample: `https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011`.",
+                  "key": "Location",
+                  "value": "https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "89adbe4a-2102-4d7c-b6c6-0360bbb21412",
+              "name": "The server cannot or will not process the request due to something that is perceived to be a client error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "courses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"externalId\": \"l3ssup3rh3r0s\"\n    },\n    {\n      \"externalId\": \"l3ssup3rh3r0s\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalidInput\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cdfcc222-9a05-4013-9999-5d116dd68f1a",
+              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "courses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"externalId\": \"l3ssup3rh3r0s\"\n    },\n    {\n      \"externalId\": \"l3ssup3rh3r0s\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06ae0824-5beb-495a-a00b-03e33bf95d05",
+              "name": "The given access token does not have the required OAuth scope to execute the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "courses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"externalId\": \"l3ssup3rh3r0s\"\n    },\n    {\n      \"externalId\": \"l3ssup3rh3r0s\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea187059-869a-4627-9138-4423e1315d0f",
+              "name": "The given `integrationId` does not correspond to any existing integration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "courses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"externalId\": \"l3ssup3rh3r0s\"\n    },\n    {\n      \"externalId\": \"l3ssup3rh3r0s\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"integrationNotFound\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54165f9e-82ff-4e0a-8a6e-b96906f8f702",
+              "name": "The maximum number of concurrent operations has been reached.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "courses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"externalId\": \"l3ssup3rh3r0s\"\n    },\n    {\n      \"externalId\": \"l3ssup3rh3r0s\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"bulkOperationsConcurrencyLimitReached\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec19d6df-64c3-470f-9d98-89bb0b78c36d",
+              "name": "The bulk API is temporarily disabled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "courses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"externalId\": \"l3ssup3rh3r0s\"\n    },\n    {\n      \"externalId\": \"l3ssup3rh3r0s\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"bulkAPIDisabled\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8548707f-58fc-45a5-951f-5426b6e77521",
+          "name": "Upsert external courses",
+          "request": {
+            "name": "Upsert external courses",
+            "description": {
+              "content": "> 🔑\n>\n> Required OAuth scope: `integrations:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nAdds or replaces multiple external courses based on the given `integrationId` and the courses's `externalId`.\n- If a provided `externalId` matches an existing external course, the course is replaced with the new data.\n- If no match is found, a new course is created and added to the group catalog and library.\n\nUpon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "bulk",
+                "integrations",
+                ":integrationId",
+                "courses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "integrationId",
+                  "description": "(Required) The unique ID of the integration."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The version of the API.",
+                "key": "360-api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": [\n    {\n      \"defaultLang\": \"<string>\",\n      \"externalId\": \"<string>\",\n      \"launchUrl\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sources\": [\n        {\n          \"name\": \"<string>\",\n          \"logoUrl\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"logoUrl\": \"<string>\"\n        }\n      ],\n      \"subjects\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contentType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"difficultyLevel\": \"<string>\",\n      \"duration\": \"<integer>\",\n      \"imageUrl\": \"<string>\",\n      \"mobileLaunchUrl\": \"<string>\",\n      \"authorId\": \"<ObjectId>\",\n      \"translations\": [\n        {\n          \"lang\": \"<string>\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lang\": \"<string>\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"defaultLang\": \"<string>\",\n      \"externalId\": \"<string>\",\n      \"launchUrl\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sources\": [\n        {\n          \"name\": \"<string>\",\n          \"logoUrl\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"logoUrl\": \"<string>\"\n        }\n      ],\n      \"subjects\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contentType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"difficultyLevel\": \"<string>\",\n      \"duration\": \"<integer>\",\n      \"imageUrl\": \"<string>\",\n      \"mobileLaunchUrl\": \"<string>\",\n      \"authorId\": \"<ObjectId>\",\n      \"translations\": [\n        {\n          \"lang\": \"<string>\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lang\": \"<string>\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "50fee036-9f57-4cf9-acc6-b1dc4e9e8779",
+              "name": "The operation is successfully created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "courses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"defaultLang\": \"nl\",\n      \"externalId\": \"l3ssup3rh3r0s\",\n      \"launchUrl\": \"https://player.mylearningplatform.com/launch/l3ssup3rh3r0s\",\n      \"name\": \"Machine Learning Crash Course\",\n      \"sources\": [\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        },\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        }\n      ],\n      \"subjects\": [\n        \"Machine Learning\",\n        \"IT\"\n      ],\n      \"contentType\": \"channel\",\n      \"description\": \"Learn the basics of machine learning.\",\n      \"difficultyLevel\": \"intermediate\",\n      \"duration\": 45,\n      \"imageUrl\": \"https://player.mylearningplatform.com/image/l3ssup3rh3r0s\",\n      \"mobileLaunchUrl\": \"https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s\",\n      \"authorId\": \"507f1f77bcf86cd799439011\",\n      \"translations\": [\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"defaultLang\": \"no\",\n      \"externalId\": \"l3ssup3rh3r0s\",\n      \"launchUrl\": \"https://player.mylearningplatform.com/launch/l3ssup3rh3r0s\",\n      \"name\": \"Machine Learning Crash Course\",\n      \"sources\": [\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        },\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        }\n      ],\n      \"subjects\": [\n        \"Machine Learning\",\n        \"IT\"\n      ],\n      \"contentType\": \"roleplay\",\n      \"description\": \"Learn the basics of machine learning.\",\n      \"difficultyLevel\": \"intermediate\",\n      \"duration\": 45,\n      \"imageUrl\": \"https://player.mylearningplatform.com/image/l3ssup3rh3r0s\",\n      \"mobileLaunchUrl\": \"https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s\",\n      \"authorId\": \"507f1f77bcf86cd799439011\",\n      \"translations\": [\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The URL to retrieve the status of the bulk operation using its operation ID.\n\nExample: `https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011`.",
+                  "key": "Location",
+                  "value": "https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f83500b6-073d-4abc-b6d2-a4f8717fb0e3",
+              "name": "The server cannot or will not process the request due to something that is perceived to be a client error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "courses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"defaultLang\": \"nl\",\n      \"externalId\": \"l3ssup3rh3r0s\",\n      \"launchUrl\": \"https://player.mylearningplatform.com/launch/l3ssup3rh3r0s\",\n      \"name\": \"Machine Learning Crash Course\",\n      \"sources\": [\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        },\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        }\n      ],\n      \"subjects\": [\n        \"Machine Learning\",\n        \"IT\"\n      ],\n      \"contentType\": \"channel\",\n      \"description\": \"Learn the basics of machine learning.\",\n      \"difficultyLevel\": \"intermediate\",\n      \"duration\": 45,\n      \"imageUrl\": \"https://player.mylearningplatform.com/image/l3ssup3rh3r0s\",\n      \"mobileLaunchUrl\": \"https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s\",\n      \"authorId\": \"507f1f77bcf86cd799439011\",\n      \"translations\": [\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"defaultLang\": \"no\",\n      \"externalId\": \"l3ssup3rh3r0s\",\n      \"launchUrl\": \"https://player.mylearningplatform.com/launch/l3ssup3rh3r0s\",\n      \"name\": \"Machine Learning Crash Course\",\n      \"sources\": [\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        },\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        }\n      ],\n      \"subjects\": [\n        \"Machine Learning\",\n        \"IT\"\n      ],\n      \"contentType\": \"roleplay\",\n      \"description\": \"Learn the basics of machine learning.\",\n      \"difficultyLevel\": \"intermediate\",\n      \"duration\": 45,\n      \"imageUrl\": \"https://player.mylearningplatform.com/image/l3ssup3rh3r0s\",\n      \"mobileLaunchUrl\": \"https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s\",\n      \"authorId\": \"507f1f77bcf86cd799439011\",\n      \"translations\": [\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalidInput\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10efa398-bc3d-42aa-8b3a-e31ff2f2e180",
+              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "courses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"defaultLang\": \"nl\",\n      \"externalId\": \"l3ssup3rh3r0s\",\n      \"launchUrl\": \"https://player.mylearningplatform.com/launch/l3ssup3rh3r0s\",\n      \"name\": \"Machine Learning Crash Course\",\n      \"sources\": [\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        },\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        }\n      ],\n      \"subjects\": [\n        \"Machine Learning\",\n        \"IT\"\n      ],\n      \"contentType\": \"channel\",\n      \"description\": \"Learn the basics of machine learning.\",\n      \"difficultyLevel\": \"intermediate\",\n      \"duration\": 45,\n      \"imageUrl\": \"https://player.mylearningplatform.com/image/l3ssup3rh3r0s\",\n      \"mobileLaunchUrl\": \"https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s\",\n      \"authorId\": \"507f1f77bcf86cd799439011\",\n      \"translations\": [\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"defaultLang\": \"no\",\n      \"externalId\": \"l3ssup3rh3r0s\",\n      \"launchUrl\": \"https://player.mylearningplatform.com/launch/l3ssup3rh3r0s\",\n      \"name\": \"Machine Learning Crash Course\",\n      \"sources\": [\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        },\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        }\n      ],\n      \"subjects\": [\n        \"Machine Learning\",\n        \"IT\"\n      ],\n      \"contentType\": \"roleplay\",\n      \"description\": \"Learn the basics of machine learning.\",\n      \"difficultyLevel\": \"intermediate\",\n      \"duration\": 45,\n      \"imageUrl\": \"https://player.mylearningplatform.com/image/l3ssup3rh3r0s\",\n      \"mobileLaunchUrl\": \"https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s\",\n      \"authorId\": \"507f1f77bcf86cd799439011\",\n      \"translations\": [\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "613ac2e5-04ce-490c-abd0-9b7afef010f8",
+              "name": "The given access token does not have the required OAuth scope to execute the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "courses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"defaultLang\": \"nl\",\n      \"externalId\": \"l3ssup3rh3r0s\",\n      \"launchUrl\": \"https://player.mylearningplatform.com/launch/l3ssup3rh3r0s\",\n      \"name\": \"Machine Learning Crash Course\",\n      \"sources\": [\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        },\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        }\n      ],\n      \"subjects\": [\n        \"Machine Learning\",\n        \"IT\"\n      ],\n      \"contentType\": \"channel\",\n      \"description\": \"Learn the basics of machine learning.\",\n      \"difficultyLevel\": \"intermediate\",\n      \"duration\": 45,\n      \"imageUrl\": \"https://player.mylearningplatform.com/image/l3ssup3rh3r0s\",\n      \"mobileLaunchUrl\": \"https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s\",\n      \"authorId\": \"507f1f77bcf86cd799439011\",\n      \"translations\": [\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"defaultLang\": \"no\",\n      \"externalId\": \"l3ssup3rh3r0s\",\n      \"launchUrl\": \"https://player.mylearningplatform.com/launch/l3ssup3rh3r0s\",\n      \"name\": \"Machine Learning Crash Course\",\n      \"sources\": [\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        },\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        }\n      ],\n      \"subjects\": [\n        \"Machine Learning\",\n        \"IT\"\n      ],\n      \"contentType\": \"roleplay\",\n      \"description\": \"Learn the basics of machine learning.\",\n      \"difficultyLevel\": \"intermediate\",\n      \"duration\": 45,\n      \"imageUrl\": \"https://player.mylearningplatform.com/image/l3ssup3rh3r0s\",\n      \"mobileLaunchUrl\": \"https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s\",\n      \"authorId\": \"507f1f77bcf86cd799439011\",\n      \"translations\": [\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcc172cb-410b-483e-aed9-b91a9932c6cf",
+              "name": "The given `integrationId` does not correspond to any existing integration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "courses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"defaultLang\": \"nl\",\n      \"externalId\": \"l3ssup3rh3r0s\",\n      \"launchUrl\": \"https://player.mylearningplatform.com/launch/l3ssup3rh3r0s\",\n      \"name\": \"Machine Learning Crash Course\",\n      \"sources\": [\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        },\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        }\n      ],\n      \"subjects\": [\n        \"Machine Learning\",\n        \"IT\"\n      ],\n      \"contentType\": \"channel\",\n      \"description\": \"Learn the basics of machine learning.\",\n      \"difficultyLevel\": \"intermediate\",\n      \"duration\": 45,\n      \"imageUrl\": \"https://player.mylearningplatform.com/image/l3ssup3rh3r0s\",\n      \"mobileLaunchUrl\": \"https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s\",\n      \"authorId\": \"507f1f77bcf86cd799439011\",\n      \"translations\": [\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"defaultLang\": \"no\",\n      \"externalId\": \"l3ssup3rh3r0s\",\n      \"launchUrl\": \"https://player.mylearningplatform.com/launch/l3ssup3rh3r0s\",\n      \"name\": \"Machine Learning Crash Course\",\n      \"sources\": [\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        },\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        }\n      ],\n      \"subjects\": [\n        \"Machine Learning\",\n        \"IT\"\n      ],\n      \"contentType\": \"roleplay\",\n      \"description\": \"Learn the basics of machine learning.\",\n      \"difficultyLevel\": \"intermediate\",\n      \"duration\": 45,\n      \"imageUrl\": \"https://player.mylearningplatform.com/image/l3ssup3rh3r0s\",\n      \"mobileLaunchUrl\": \"https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s\",\n      \"authorId\": \"507f1f77bcf86cd799439011\",\n      \"translations\": [\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"integrationNotFound\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77f0b95d-e8c8-420d-95d1-303890a11337",
+              "name": "The maximum number of concurrent operations has been reached.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "courses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"defaultLang\": \"nl\",\n      \"externalId\": \"l3ssup3rh3r0s\",\n      \"launchUrl\": \"https://player.mylearningplatform.com/launch/l3ssup3rh3r0s\",\n      \"name\": \"Machine Learning Crash Course\",\n      \"sources\": [\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        },\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        }\n      ],\n      \"subjects\": [\n        \"Machine Learning\",\n        \"IT\"\n      ],\n      \"contentType\": \"channel\",\n      \"description\": \"Learn the basics of machine learning.\",\n      \"difficultyLevel\": \"intermediate\",\n      \"duration\": 45,\n      \"imageUrl\": \"https://player.mylearningplatform.com/image/l3ssup3rh3r0s\",\n      \"mobileLaunchUrl\": \"https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s\",\n      \"authorId\": \"507f1f77bcf86cd799439011\",\n      \"translations\": [\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"defaultLang\": \"no\",\n      \"externalId\": \"l3ssup3rh3r0s\",\n      \"launchUrl\": \"https://player.mylearningplatform.com/launch/l3ssup3rh3r0s\",\n      \"name\": \"Machine Learning Crash Course\",\n      \"sources\": [\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        },\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        }\n      ],\n      \"subjects\": [\n        \"Machine Learning\",\n        \"IT\"\n      ],\n      \"contentType\": \"roleplay\",\n      \"description\": \"Learn the basics of machine learning.\",\n      \"difficultyLevel\": \"intermediate\",\n      \"duration\": 45,\n      \"imageUrl\": \"https://player.mylearningplatform.com/image/l3ssup3rh3r0s\",\n      \"mobileLaunchUrl\": \"https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s\",\n      \"authorId\": \"507f1f77bcf86cd799439011\",\n      \"translations\": [\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"bulkOperationsConcurrencyLimitReached\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cdac88ac-612d-44f8-96e0-3f649decd04d",
+              "name": "The bulk API is temporarily disabled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "courses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"defaultLang\": \"nl\",\n      \"externalId\": \"l3ssup3rh3r0s\",\n      \"launchUrl\": \"https://player.mylearningplatform.com/launch/l3ssup3rh3r0s\",\n      \"name\": \"Machine Learning Crash Course\",\n      \"sources\": [\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        },\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        }\n      ],\n      \"subjects\": [\n        \"Machine Learning\",\n        \"IT\"\n      ],\n      \"contentType\": \"channel\",\n      \"description\": \"Learn the basics of machine learning.\",\n      \"difficultyLevel\": \"intermediate\",\n      \"duration\": 45,\n      \"imageUrl\": \"https://player.mylearningplatform.com/image/l3ssup3rh3r0s\",\n      \"mobileLaunchUrl\": \"https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s\",\n      \"authorId\": \"507f1f77bcf86cd799439011\",\n      \"translations\": [\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"defaultLang\": \"no\",\n      \"externalId\": \"l3ssup3rh3r0s\",\n      \"launchUrl\": \"https://player.mylearningplatform.com/launch/l3ssup3rh3r0s\",\n      \"name\": \"Machine Learning Crash Course\",\n      \"sources\": [\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        },\n        {\n          \"name\": \"Wikipedia\",\n          \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n        }\n      ],\n      \"subjects\": [\n        \"Machine Learning\",\n        \"IT\"\n      ],\n      \"contentType\": \"roleplay\",\n      \"description\": \"Learn the basics of machine learning.\",\n      \"difficultyLevel\": \"intermediate\",\n      \"duration\": 45,\n      \"imageUrl\": \"https://player.mylearningplatform.com/image/l3ssup3rh3r0s\",\n      \"mobileLaunchUrl\": \"https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s\",\n      \"authorId\": \"507f1f77bcf86cd799439011\",\n      \"translations\": [\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lang\": \"fr\",\n          \"translatedFields\": {\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"launchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mobileLaunchUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subjects\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"bulkAPIDisabled\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "efd613ec-27dd-4507-aede-b729e0b1356a",
+          "name": "Import integration statistics",
+          "request": {
+            "name": "Import integration statistics",
+            "description": {
+              "content": "> 🔑\n>\n> Required OAuth scope: `integrations:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nImports multiple integration statistics in bulk based on the provided `integrationId`.\nThis endpoint will:\n- Create a new attempt if any of the following is true: `forceNew` is set to `true`; no attempt currently exists for the course and user; or `firstActivityAt` is later than the `lastActivityAt` or `completedAt` of all existing attempts.\n- Update existing non-completed attempts if `firstActivityAt` is earlier than the `lastActivityAt` or `completedAt` of those attempts.\n\nUpon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "bulk",
+                "integrations",
+                ":integrationId",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "integrationId",
+                  "description": "(Required) The unique ID of the integration."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The version of the API.",
+                "key": "360-api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": [\n    {\n      \"courseIdentifier\": {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"userIdentifier\": {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"progress\": \"<number>\",\n      \"timeSpent\": \"<number>\",\n      \"firstActivityAt\": \"<dateTime>\",\n      \"lastActivityAt\": \"<dateTime>\",\n      \"forceNew\": \"<boolean>\",\n      \"lang\": \"<string>\",\n      \"score\": \"<number>\",\n      \"result\": \"<string>\"\n    },\n    {\n      \"courseIdentifier\": {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"userIdentifier\": {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"progress\": \"<number>\",\n      \"timeSpent\": \"<number>\",\n      \"firstActivityAt\": \"<dateTime>\",\n      \"lastActivityAt\": \"<dateTime>\",\n      \"forceNew\": \"<boolean>\",\n      \"lang\": \"<string>\",\n      \"score\": \"<number>\",\n      \"result\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "721dc747-cef1-4551-86a4-4db24cabfb51",
+              "name": "The operation is successfully created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"courseIdentifier\": {\n        \"type\": \"externalId\",\n        \"value\": \"l3ssup3rh3r0s\"\n      },\n      \"userIdentifier\": {\n        \"type\": \"mail\",\n        \"value\": \"j.doe@hotmail.com\"\n      },\n      \"progress\": 100,\n      \"timeSpent\": 3600000,\n      \"firstActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"lastActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"forceNew\": true,\n      \"lang\": \"fr\",\n      \"score\": 90,\n      \"result\": \"success\"\n    },\n    {\n      \"courseIdentifier\": {\n        \"type\": \"internalId\",\n        \"value\": \"l3ssup3rh3r0s\"\n      },\n      \"userIdentifier\": {\n        \"type\": \"mail\",\n        \"value\": \"j.doe@hotmail.com\"\n      },\n      \"progress\": 100,\n      \"timeSpent\": 3600000,\n      \"firstActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"lastActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"forceNew\": true,\n      \"lang\": \"fr\",\n      \"score\": 90,\n      \"result\": \"failed\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The URL to retrieve the status of the bulk operation using its operation ID.\n\nExample: `https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011`.",
+                  "key": "Location",
+                  "value": "https://app.360learning.com/api/v2/bulk/operations/507f1f77bcf86cd799439011"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0a663ccc-0fb3-4b72-9eb5-082b7445a7a3",
+              "name": "The server cannot or will not process the request due to something that is perceived to be a client error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"courseIdentifier\": {\n        \"type\": \"externalId\",\n        \"value\": \"l3ssup3rh3r0s\"\n      },\n      \"userIdentifier\": {\n        \"type\": \"mail\",\n        \"value\": \"j.doe@hotmail.com\"\n      },\n      \"progress\": 100,\n      \"timeSpent\": 3600000,\n      \"firstActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"lastActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"forceNew\": true,\n      \"lang\": \"fr\",\n      \"score\": 90,\n      \"result\": \"success\"\n    },\n    {\n      \"courseIdentifier\": {\n        \"type\": \"internalId\",\n        \"value\": \"l3ssup3rh3r0s\"\n      },\n      \"userIdentifier\": {\n        \"type\": \"mail\",\n        \"value\": \"j.doe@hotmail.com\"\n      },\n      \"progress\": 100,\n      \"timeSpent\": 3600000,\n      \"firstActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"lastActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"forceNew\": true,\n      \"lang\": \"fr\",\n      \"score\": 90,\n      \"result\": \"failed\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalidInput\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c63b504a-4db0-4826-8eb0-6739d4c96d54",
+              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"courseIdentifier\": {\n        \"type\": \"externalId\",\n        \"value\": \"l3ssup3rh3r0s\"\n      },\n      \"userIdentifier\": {\n        \"type\": \"mail\",\n        \"value\": \"j.doe@hotmail.com\"\n      },\n      \"progress\": 100,\n      \"timeSpent\": 3600000,\n      \"firstActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"lastActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"forceNew\": true,\n      \"lang\": \"fr\",\n      \"score\": 90,\n      \"result\": \"success\"\n    },\n    {\n      \"courseIdentifier\": {\n        \"type\": \"internalId\",\n        \"value\": \"l3ssup3rh3r0s\"\n      },\n      \"userIdentifier\": {\n        \"type\": \"mail\",\n        \"value\": \"j.doe@hotmail.com\"\n      },\n      \"progress\": 100,\n      \"timeSpent\": 3600000,\n      \"firstActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"lastActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"forceNew\": true,\n      \"lang\": \"fr\",\n      \"score\": 90,\n      \"result\": \"failed\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "390f0994-667f-4312-8d66-6b9d2d8d21c3",
+              "name": "The given access token does not have the required OAuth scope to execute the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"courseIdentifier\": {\n        \"type\": \"externalId\",\n        \"value\": \"l3ssup3rh3r0s\"\n      },\n      \"userIdentifier\": {\n        \"type\": \"mail\",\n        \"value\": \"j.doe@hotmail.com\"\n      },\n      \"progress\": 100,\n      \"timeSpent\": 3600000,\n      \"firstActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"lastActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"forceNew\": true,\n      \"lang\": \"fr\",\n      \"score\": 90,\n      \"result\": \"success\"\n    },\n    {\n      \"courseIdentifier\": {\n        \"type\": \"internalId\",\n        \"value\": \"l3ssup3rh3r0s\"\n      },\n      \"userIdentifier\": {\n        \"type\": \"mail\",\n        \"value\": \"j.doe@hotmail.com\"\n      },\n      \"progress\": 100,\n      \"timeSpent\": 3600000,\n      \"firstActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"lastActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"forceNew\": true,\n      \"lang\": \"fr\",\n      \"score\": 90,\n      \"result\": \"failed\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59801863-4d60-4ff0-9a4f-3ebef6a46b59",
+              "name": "The given `integrationId` does not correspond to any existing integration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"courseIdentifier\": {\n        \"type\": \"externalId\",\n        \"value\": \"l3ssup3rh3r0s\"\n      },\n      \"userIdentifier\": {\n        \"type\": \"mail\",\n        \"value\": \"j.doe@hotmail.com\"\n      },\n      \"progress\": 100,\n      \"timeSpent\": 3600000,\n      \"firstActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"lastActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"forceNew\": true,\n      \"lang\": \"fr\",\n      \"score\": 90,\n      \"result\": \"success\"\n    },\n    {\n      \"courseIdentifier\": {\n        \"type\": \"internalId\",\n        \"value\": \"l3ssup3rh3r0s\"\n      },\n      \"userIdentifier\": {\n        \"type\": \"mail\",\n        \"value\": \"j.doe@hotmail.com\"\n      },\n      \"progress\": 100,\n      \"timeSpent\": 3600000,\n      \"firstActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"lastActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"forceNew\": true,\n      \"lang\": \"fr\",\n      \"score\": 90,\n      \"result\": \"failed\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"integrationNotFound\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f7a3a0f-197b-4ba0-818b-2a3f024b0f29",
+              "name": "The maximum number of concurrent operations has been reached.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"courseIdentifier\": {\n        \"type\": \"externalId\",\n        \"value\": \"l3ssup3rh3r0s\"\n      },\n      \"userIdentifier\": {\n        \"type\": \"mail\",\n        \"value\": \"j.doe@hotmail.com\"\n      },\n      \"progress\": 100,\n      \"timeSpent\": 3600000,\n      \"firstActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"lastActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"forceNew\": true,\n      \"lang\": \"fr\",\n      \"score\": 90,\n      \"result\": \"success\"\n    },\n    {\n      \"courseIdentifier\": {\n        \"type\": \"internalId\",\n        \"value\": \"l3ssup3rh3r0s\"\n      },\n      \"userIdentifier\": {\n        \"type\": \"mail\",\n        \"value\": \"j.doe@hotmail.com\"\n      },\n      \"progress\": 100,\n      \"timeSpent\": 3600000,\n      \"firstActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"lastActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"forceNew\": true,\n      \"lang\": \"fr\",\n      \"score\": 90,\n      \"result\": \"failed\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"bulkOperationsConcurrencyLimitReached\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf42775f-86f2-4c90-9984-e515495caa8d",
+              "name": "The bulk API is temporarily disabled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "integrations",
+                    ":integrationId",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"courseIdentifier\": {\n        \"type\": \"externalId\",\n        \"value\": \"l3ssup3rh3r0s\"\n      },\n      \"userIdentifier\": {\n        \"type\": \"mail\",\n        \"value\": \"j.doe@hotmail.com\"\n      },\n      \"progress\": 100,\n      \"timeSpent\": 3600000,\n      \"firstActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"lastActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"forceNew\": true,\n      \"lang\": \"fr\",\n      \"score\": 90,\n      \"result\": \"success\"\n    },\n    {\n      \"courseIdentifier\": {\n        \"type\": \"internalId\",\n        \"value\": \"l3ssup3rh3r0s\"\n      },\n      \"userIdentifier\": {\n        \"type\": \"mail\",\n        \"value\": \"j.doe@hotmail.com\"\n      },\n      \"progress\": 100,\n      \"timeSpent\": 3600000,\n      \"firstActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"lastActivityAt\": \"2025-07-08T22:00:00.000Z\",\n      \"forceNew\": true,\n      \"lang\": \"fr\",\n      \"score\": 90,\n      \"result\": \"failed\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"bulkAPIDisabled\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "030223e2-9906-423c-b1cb-841dd2a19e1c",
+          "name": "Create an integration configuration",
+          "request": {
+            "name": "Create an integration configuration",
+            "description": {
+              "content": "> 🔑\n>\n> Required OAuth scope: `integrations:write`.\n\nCreate an integration configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "integrations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The version of the API.",
+                "key": "360-api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"externalPlatform\": \"<string>\",\n  \"authorId\": \"<ObjectId>\",\n  \"groupId\": \"<ObjectId>\",\n  \"defaultCompletion\": \"<boolean>\",\n  \"defaultProgress\": \"<integer>\",\n  \"noGroupPropagation\": \"<boolean>\",\n  \"externalPlatformLogoUrl\": \"<string>\",\n  \"externalPlatformUnicolorLogoUrl\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2f480d7f-417e-4328-bd46-f7186029e6e2",
+              "name": "Returns the created integration configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalPlatform\": \"My Platform\",\n  \"authorId\": \"507f1f77bcf86cd799439011\",\n  \"groupId\": \"507f1f77bcf86cd799439011\",\n  \"defaultCompletion\": \"<boolean>\",\n  \"defaultProgress\": \"<integer>\",\n  \"noGroupPropagation\": \"<boolean>\",\n  \"externalPlatformLogoUrl\": \"<string>\",\n  \"externalPlatformUnicolorLogoUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"externalPlatform\": \"My Platform\",\n  \"authorId\": \"507f1f77bcf86cd799439011\",\n  \"groupId\": \"507f1f77bcf86cd799439011\",\n  \"_id\": \"507f1f77bcf86cd799439011\",\n  \"defaultCompletion\": false,\n  \"defaultProgress\": 68,\n  \"noGroupPropagation\": true,\n  \"externalPlatformLogoUrl\": \"string\",\n  \"externalPlatformUnicolorLogoUrl\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6335f866-0735-4de4-ac0d-fd530b7d0c95",
+              "name": "The server cannot or will not process the request due to something that is perceived to be a client error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalPlatform\": \"My Platform\",\n  \"authorId\": \"507f1f77bcf86cd799439011\",\n  \"groupId\": \"507f1f77bcf86cd799439011\",\n  \"defaultCompletion\": \"<boolean>\",\n  \"defaultProgress\": \"<integer>\",\n  \"noGroupPropagation\": \"<boolean>\",\n  \"externalPlatformLogoUrl\": \"<string>\",\n  \"externalPlatformUnicolorLogoUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"duplicateExternalPlatform\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c80765f-f8d0-46a0-a98f-06697abe4d52",
+              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalPlatform\": \"My Platform\",\n  \"authorId\": \"507f1f77bcf86cd799439011\",\n  \"groupId\": \"507f1f77bcf86cd799439011\",\n  \"defaultCompletion\": \"<boolean>\",\n  \"defaultProgress\": \"<integer>\",\n  \"noGroupPropagation\": \"<boolean>\",\n  \"externalPlatformLogoUrl\": \"<string>\",\n  \"externalPlatformUnicolorLogoUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27060c25-543a-4fce-85ce-d1e74f5cce07",
+              "name": "The given access token does not have the required OAuth scope to execute the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalPlatform\": \"My Platform\",\n  \"authorId\": \"507f1f77bcf86cd799439011\",\n  \"groupId\": \"507f1f77bcf86cd799439011\",\n  \"defaultCompletion\": \"<boolean>\",\n  \"defaultProgress\": \"<integer>\",\n  \"noGroupPropagation\": \"<boolean>\",\n  \"externalPlatformLogoUrl\": \"<string>\",\n  \"externalPlatformUnicolorLogoUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d739f02c-bb46-442f-bd10-92780e871582",
+              "name": "The server cannot find the requested resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalPlatform\": \"My Platform\",\n  \"authorId\": \"507f1f77bcf86cd799439011\",\n  \"groupId\": \"507f1f77bcf86cd799439011\",\n  \"defaultCompletion\": \"<boolean>\",\n  \"defaultProgress\": \"<integer>\",\n  \"noGroupPropagation\": \"<boolean>\",\n  \"externalPlatformLogoUrl\": \"<string>\",\n  \"externalPlatformUnicolorLogoUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"groupNotFound\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9c979fe-cb0a-407a-a193-a404fab71226",
+              "name": "The client has sent too many requests in a short amount of time. ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalPlatform\": \"My Platform\",\n  \"authorId\": \"507f1f77bcf86cd799439011\",\n  \"groupId\": \"507f1f77bcf86cd799439011\",\n  \"defaultCompletion\": \"<boolean>\",\n  \"defaultProgress\": \"<integer>\",\n  \"noGroupPropagation\": \"<boolean>\",\n  \"externalPlatformLogoUrl\": \"<string>\",\n  \"externalPlatformUnicolorLogoUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "734379e5-a7ec-40bd-922a-7948260fe10c",
+          "name": "List integration configurations",
+          "request": {
+            "name": "List integration configurations",
+            "description": {
+              "content": "> 🔑\n>\n> Required OAuth scope: `integrations:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 100 integration configurations. For more information, see the [Pagination guide](doc:pagination).\n\nLists all integration configurations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "integrations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "externalPlatform[eq]",
+                  "value": "<string>",
+                  "description": "Filter on **externalPlatform** property with LHS bracket notation.\n\nExpected value format is a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "externalPlatform[ne]",
+                  "value": "<string>",
+                  "description": "Filter on **externalPlatform** property with LHS bracket notation.\n\nExpected value format is a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "externalPlatform[in][0]",
+                  "value": "<string>",
+                  "description": "Filter on **externalPlatform** property with LHS bracket notation.\n\nExpected value format is a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "externalPlatform[in][1]",
+                  "value": "<string>",
+                  "description": "Filter on **externalPlatform** property with LHS bracket notation.\n\nExpected value format is a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "externalPlatform[nin][0]",
+                  "value": "<string>",
+                  "description": "Filter on **externalPlatform** property with LHS bracket notation.\n\nExpected value format is a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "externalPlatform[nin][1]",
+                  "value": "<string>",
+                  "description": "Filter on **externalPlatform** property with LHS bracket notation.\n\nExpected value format is a string."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The version of the API.",
+                "key": "360-api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": []
+            }
+          },
+          "response": [
+            {
+              "id": "9a5d2a0d-b21e-4353-b73a-8f7d8c5a69f6",
+              "name": "Returns one page of 100 integration configurations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "externalPlatform[eq]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[ne]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[in][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[in][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[nin][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[nin][1]",
+                      "value": "loremIpsum"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).\n\n⚠️ Only included if there is another page of results.",
+                  "key": "Link",
+                  "value": "<my/resource/url>; rel=\"next\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"externalPlatform\": \"My Platform\",\n    \"authorId\": \"507f1f77bcf86cd799439011\",\n    \"groupId\": \"507f1f77bcf86cd799439011\",\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"defaultCompletion\": false,\n    \"defaultProgress\": 35,\n    \"noGroupPropagation\": false,\n    \"externalPlatformLogoUrl\": \"string\",\n    \"externalPlatformUnicolorLogoUrl\": \"string\"\n  },\n  {\n    \"externalPlatform\": \"My Platform\",\n    \"authorId\": \"507f1f77bcf86cd799439011\",\n    \"groupId\": \"507f1f77bcf86cd799439011\",\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"defaultCompletion\": false,\n    \"defaultProgress\": 12,\n    \"noGroupPropagation\": true,\n    \"externalPlatformLogoUrl\": \"string\",\n    \"externalPlatformUnicolorLogoUrl\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f49a221d-72a7-4cd7-821f-5fa8dde85628",
+              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "externalPlatform[eq]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[ne]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[in][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[in][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[nin][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[nin][1]",
+                      "value": "loremIpsum"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b4a1cfd-1fea-4588-a754-98ab610b0ae2",
+              "name": "The given access token does not have the required OAuth scope to execute the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "externalPlatform[eq]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[ne]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[in][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[in][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[nin][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[nin][1]",
+                      "value": "loremIpsum"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "139587ad-afcb-4ee4-b8cc-5703f3594068",
+              "name": "The client has sent too many requests in a short amount of time. ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "externalPlatform[eq]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[ne]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[in][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[in][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[nin][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "externalPlatform[nin][1]",
+                      "value": "loremIpsum"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c1876ba-fbdf-49cf-aa1f-645f3b23fbd1",
+          "name": "Delete an integration configuration",
+          "request": {
+            "name": "Delete an integration configuration",
+            "description": {
+              "content": "> 🔑\n>\n> Required OAuth scope: `integrations:write`.\n\nDeletes a specific configuration given its unique ID and archives all its related content.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "integrations",
+                ":integrationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "integrationId",
+                  "description": "(Required) The unique ID of the integration."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The version of the API.",
+                "key": "360-api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": []
+            }
+          },
+          "response": [
+            {
+              "id": "64a0dc1c-8c65-41cc-b05f-04c0dbfddbba",
+              "name": "Deletes a specific integration configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "78f85404-f288-4890-82fb-61daebfe4dce",
+              "name": "The platform is one of the reserved ones.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"reservedPlatformName\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "122c8823-69d4-4e14-b60b-34f01608a827",
+              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f12dad08-a596-4584-a8e5-e85f9a537567",
+              "name": "The given access token does not have the required OAuth scope to execute the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf80bccb-e965-4d10-a8d2-97230ff37048",
+              "name": "The given `integrationId` does not correspond to any existing integration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"integrationNotFound\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1c8de42-0825-49a9-9a7e-73047d0097a0",
+              "name": "The client has sent too many requests in a short amount of time. ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3def0e9-2d11-43f6-aea8-ff59590583f1",
+          "name": "Edit an integration configuration",
+          "request": {
+            "name": "Edit an integration configuration",
+            "description": {
+              "content": "> 🔑\n>\n> Required OAuth scope: `integrations:write`.\n\nEdits specific fields of an existing integration configuration. Fields not included in the request payload remain unchanged.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "integrations",
+                ":integrationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "integrationId",
+                  "description": "(Required) The unique ID of the integration."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The version of the API.",
+                "key": "360-api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"defaultCompletion\": \"<boolean>\",\n  \"defaultProgress\": \"<integer>\",\n  \"noGroupPropagation\": \"<boolean>\",\n  \"externalPlatformLogoUrl\": \"<string>\",\n  \"externalPlatformUnicolorLogoUrl\": \"<string>\",\n  \"externalPlatform\": \"<string>\",\n  \"authorId\": \"<ObjectId>\",\n  \"groupId\": \"<ObjectId>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4ef43cd4-c980-46ee-a4cb-20ad055503a7",
+              "name": "Returns the updated integration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"defaultCompletion\": \"<boolean>\",\n  \"defaultProgress\": \"<integer>\",\n  \"noGroupPropagation\": \"<boolean>\",\n  \"externalPlatformLogoUrl\": \"<string>\",\n  \"externalPlatformUnicolorLogoUrl\": \"<string>\",\n  \"externalPlatform\": \"My Platform\",\n  \"authorId\": \"507f1f77bcf86cd799439011\",\n  \"groupId\": \"507f1f77bcf86cd799439011\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"externalPlatform\": \"My Platform\",\n  \"authorId\": \"507f1f77bcf86cd799439011\",\n  \"groupId\": \"507f1f77bcf86cd799439011\",\n  \"defaultCompletion\": true,\n  \"defaultProgress\": 48,\n  \"noGroupPropagation\": true,\n  \"externalPlatformLogoUrl\": \"string\",\n  \"externalPlatformUnicolorLogoUrl\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e672ca95-5cee-4a87-941e-6dcefe23694d",
+              "name": "The server cannot or will not process the request due to something that is perceived to be a client error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"defaultCompletion\": \"<boolean>\",\n  \"defaultProgress\": \"<integer>\",\n  \"noGroupPropagation\": \"<boolean>\",\n  \"externalPlatformLogoUrl\": \"<string>\",\n  \"externalPlatformUnicolorLogoUrl\": \"<string>\",\n  \"externalPlatform\": \"My Platform\",\n  \"authorId\": \"507f1f77bcf86cd799439011\",\n  \"groupId\": \"507f1f77bcf86cd799439011\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"duplicateExternalPlatform\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac408d5a-6cda-4607-90f1-897e4b01d60e",
+              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"defaultCompletion\": \"<boolean>\",\n  \"defaultProgress\": \"<integer>\",\n  \"noGroupPropagation\": \"<boolean>\",\n  \"externalPlatformLogoUrl\": \"<string>\",\n  \"externalPlatformUnicolorLogoUrl\": \"<string>\",\n  \"externalPlatform\": \"My Platform\",\n  \"authorId\": \"507f1f77bcf86cd799439011\",\n  \"groupId\": \"507f1f77bcf86cd799439011\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68cafc29-acbf-4cfd-9d6a-356eb1e16750",
+              "name": "The given access token does not have the required OAuth scope to execute the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"defaultCompletion\": \"<boolean>\",\n  \"defaultProgress\": \"<integer>\",\n  \"noGroupPropagation\": \"<boolean>\",\n  \"externalPlatformLogoUrl\": \"<string>\",\n  \"externalPlatformUnicolorLogoUrl\": \"<string>\",\n  \"externalPlatform\": \"My Platform\",\n  \"authorId\": \"507f1f77bcf86cd799439011\",\n  \"groupId\": \"507f1f77bcf86cd799439011\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d825d5b-dc9d-4051-95b3-573273466c21",
+              "name": "The server cannot find the requested resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"defaultCompletion\": \"<boolean>\",\n  \"defaultProgress\": \"<integer>\",\n  \"noGroupPropagation\": \"<boolean>\",\n  \"externalPlatformLogoUrl\": \"<string>\",\n  \"externalPlatformUnicolorLogoUrl\": \"<string>\",\n  \"externalPlatform\": \"My Platform\",\n  \"authorId\": \"507f1f77bcf86cd799439011\",\n  \"groupId\": \"507f1f77bcf86cd799439011\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"integrationNotFound\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88d35fa8-26ef-48ee-93e2-6f5fd88aadc2",
+              "name": "The client has sent too many requests in a short amount of time. ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"defaultCompletion\": \"<boolean>\",\n  \"defaultProgress\": \"<integer>\",\n  \"noGroupPropagation\": \"<boolean>\",\n  \"externalPlatformLogoUrl\": \"<string>\",\n  \"externalPlatformUnicolorLogoUrl\": \"<string>\",\n  \"externalPlatform\": \"My Platform\",\n  \"authorId\": \"507f1f77bcf86cd799439011\",\n  \"groupId\": \"507f1f77bcf86cd799439011\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b91b231-a3b2-4d43-925e-aa746c664895",
+          "name": "Retrieve an external course",
+          "request": {
+            "name": "Retrieve an external course",
+            "description": {
+              "content": "> 🔑\n>\n> Required OAuth scope: `integrations:read`.\n\nRetrieves the details of a specific course with the provided external platform course ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "integrations",
+                ":integrationId",
+                "courses",
+                ":externalId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "integrationId",
+                  "description": "(Required) The unique ID of the integration the course has been imported for."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "externalId",
+                  "description": "(Required) The unique external ID of the course."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The version of the API.",
+                "key": "360-api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": []
+            }
+          },
+          "response": [
+            {
+              "id": "0e0b1592-b489-49f3-925d-3e91aa7a2c89",
+              "name": "Returns the details of the given external course.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId",
+                    "courses",
+                    ":externalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration the course has been imported for."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalId",
+                      "description": "(Required) The unique external ID of the course."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"defaultLang\": \"id\",\n  \"externalId\": \"l3ssup3rh3r0s\",\n  \"launchUrl\": \"https://player.mylearningplatform.com/launch/l3ssup3rh3r0s\",\n  \"name\": \"Machine Learning Crash Course\",\n  \"sources\": [\n    {\n      \"name\": \"Wikipedia\",\n      \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n    },\n    {\n      \"name\": \"Wikipedia\",\n      \"logoUrl\": \"https://en.wikipedia.org/static/images/icons/wikipedia.png\"\n    }\n  ],\n  \"subjects\": [\n    \"Machine Learning\",\n    \"IT\"\n  ],\n  \"authorId\": \"507f1f77bcf86cd799439011\",\n  \"courseId\": \"507f1f77bcf86cd799439011\",\n  \"translations\": [\n    {\n      \"lang\": \"fr\",\n      \"translatedFields\": {\n        \"description\": \"Apprenez les bases de l'apprentissage automatique.\",\n        \"launchUrl\": \"https://player.mylearningplatform.com/launch/l3ssup3rh3r0s/fr\",\n        \"mobileLaunchUrl\": \"https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s/fr\",\n        \"name\": \"Cours intensif sur l'apprentissage automatique\",\n        \"subjects\": [\n          \"Apprentissage automatique\",\n          \"TI\"\n        ]\n      }\n    },\n    {\n      \"lang\": \"fr\",\n      \"translatedFields\": {\n        \"description\": \"Apprenez les bases de l'apprentissage automatique.\",\n        \"launchUrl\": \"https://player.mylearningplatform.com/launch/l3ssup3rh3r0s/fr\",\n        \"mobileLaunchUrl\": \"https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s/fr\",\n        \"name\": \"Cours intensif sur l'apprentissage automatique\",\n        \"subjects\": [\n          \"Apprentissage automatique\",\n          \"TI\"\n        ]\n      }\n    }\n  ],\n  \"contentType\": \"assessment\",\n  \"description\": \"Learn the basics of machine learning.\",\n  \"difficultyLevel\": \"beginner\",\n  \"duration\": 45,\n  \"imageUrl\": \"https://player.mylearningplatform.com/image/l3ssup3rh3r0s\",\n  \"mobileLaunchUrl\": \"https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "577cee98-14f2-454a-9db4-a654224dcab7",
+              "name": "The given `externalId` does not belong to the given integration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId",
+                    "courses",
+                    ":externalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration the course has been imported for."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalId",
+                      "description": "(Required) The unique external ID of the course."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"courseNotBelongToIntegration\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c43e6bcc-3014-4436-86e5-78b9b77d5381",
+              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId",
+                    "courses",
+                    ":externalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration the course has been imported for."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalId",
+                      "description": "(Required) The unique external ID of the course."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88aa0216-c191-48d3-8a9f-a6e4a64f0cd8",
+              "name": "The given access token does not have the required OAuth scope to execute the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId",
+                    "courses",
+                    ":externalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration the course has been imported for."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalId",
+                      "description": "(Required) The unique external ID of the course."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "daa67a51-b56c-4080-ba69-d72e69340abf",
+              "name": "The given `integrationId` does not correspond to any existing integration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId",
+                    "courses",
+                    ":externalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration the course has been imported for."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalId",
+                      "description": "(Required) The unique external ID of the course."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"integrationNotFound\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18c1b0ad-512a-43c1-b10c-480dec4505b4",
+              "name": "The client has sent too many requests in a short amount of time. ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "integrations",
+                    ":integrationId",
+                    "courses",
+                    ":externalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "integrationId",
+                      "description": "(Required) The unique ID of the integration the course has been imported for."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalId",
+                      "description": "(Required) The unique external ID of the course."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.360learning.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "61c8cc5a-1cfb-4fc8-afdb-8f7a8f48078c",
+    "name": "Bulk Authentication Integrations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bulk Authentication Operations API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a bulk operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/bulk/operations/:bulkOperationId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bulkOperationId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the bulk operation."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `bulkOperations:read`.\n\nRetrieves a bulk operation with its given ID."
+        },
+        {
+          "info": {
+            "name": "Retrieve a bulk operation result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/bulk/operations/:bulkOperationId/results",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bulkOperationId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the bulk operation."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `bulkOperations:read`.\n\nRetrieves a completed or erroneous bulk operation result given its unique ID."
+        },
+        {
+          "info": {
+            "name": "List all bulk operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/bulk/operations",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **createdAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **status** property with LHS bracket notation.\n\nExpected value format is a string (`pending`, `queued`, `running`, `completed`, `error`)."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **type** property with LHS bracket notation.\n\nExpected value format is a string (`addContentsToGroupsCatalog`, `addContentsToGroupsLibrary`, `addSkillReviews`, `addUsersToGroups`, `archiveExternalCourses`, `deleteSkills`, `createGroups`, `createSubscriptionEvents`, `deleteGroups`, `deleteJobs`, `deleteLibraries`, `importExternalCourses`, `importExternalStatistics`, `removeContentsFromGroupsCatalog`, `removeContentsFromGroupsLibrary`, `removeUsersFromGroups`, `replaceJobsSkills`, `replaceUsersJobs`, `upsertJobs`, `upsertLibraries`, `upsertSkills`)."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `bulkOperations:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 20 bulk operations. For more information, see the [Pagination guide](doc:pagination).\n\nLists all bulk operations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,309 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bulk Authentication Subscriptions API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create email subscription events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/bulk/notifications/subscriptions",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `subscriptions:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 20,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nCreates multiple email subscription events. Upon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation."
+        },
+        {
+          "info": {
+            "name": "List all webhook subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/webhooks/subscriptions",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "eventType",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **eventType** property with LHS bracket notation.\n\nExpected value format is a string (`bulk.operation.created`, `bulk.operation.ended`, `course.attempt.closed`, `group.created`, `group.deleted`, `group.updated`, `path.archived`, `path.created`, `path.deleted`, `path.session.added`, `path.session.removed`, `path.session.classroom.slot.users.unregistered.full`, `path.session.classroom.slot.waitlist.closed`, `path.session.classroom.slot.waitlist.opened`, `path.session.classroom.slot.waitlist.user.joined`, `path.session.user.status.updated`, `path.session.users.enrolled`, `path.session.users.unenrolled`, `path.updated`, `user.activated`, `user.assessment.corrected`, `user.certificate.awarded`, `user.created`, `user.deleted`, `user.invited`, `user.reactivated`, `user.updated`, `xapi.started`, `xapi`)."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `webhooks:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 2,000 webhook subscriptions. For more information, see the [Pagination guide](doc:pagination).\n\nLists all webhook subscriptions in your platform."
+        },
+        {
+          "info": {
+            "name": "Create a webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/webhooks/subscriptions",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `webhooks:write`.\n\nCreates a webhook subscription."
+        },
+        {
+          "info": {
+            "name": "Retrieve a webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/webhooks/subscriptions/:subscriptionId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the webhook subscription."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `webhooks:read`.\n\nRetrieves the details of a specific webhook subscription with the provided subscription ID."
+        },
+        {
+          "info": {
+            "name": "Edit a webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.360learning.com/api/v2/webhooks/subscriptions/:subscriptionId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the webhook subscription."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `webhooks:write`.\n\nEdits specific fields of an existing webhook subscription. Fields not included in the request payload remain unchanged."
+        },
+        {
+          "info": {
+            "name": "Delete a webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/webhooks/subscriptions/:subscriptionId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the webhook subscription."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `webhooks:write`.\n\nDeletes a specific webhook subscription given its unique ID."
+        },
+        {
+          "info": {
+            "name": "List all events for a webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/webhooks/subscriptions/:subscriptionId/events",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the webhook subscription."
+              },
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **createdAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **status** property with LHS bracket notation.\n\nExpected value format is a string (`delivered`, `failed`, `pending`, `sending`)."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `webhooks:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 250 webhook events. For more information, see the [Pagination guide](doc:pagination).\n\nLists all events for a given webhook subscription."
+        },
+        {
+          "info": {
+            "name": "Retrieve the signing secret of a webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/webhooks/subscriptions/:subscriptionId/secrets",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the webhook subscription."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `webhookSecrets:read`.\n\nRetrieves the details of the signing secret associated with the provided webhook subscription ID."
+        },
+        {
+          "info": {
+            "name": "Retry the failed webhook events of a webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/webhooks/subscriptions/:subscriptionId/events/retry-failure",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the webhook subscription."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `webhooks:write`.\n\nRetries all failed webhook events for a subscription within the specified timeframe (maximum 3 days per request). Events are retained for 90 days and can be retried in multiple requests."
+        },
+        {
+          "info": {
+            "name": "Retry the successful webhook events of a webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/webhooks/subscriptions/:subscriptionId/events/retry-success",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the webhook subscription."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `webhooks:write`.\n\nRetries all successful webhook events for a subscription within the specified timeframe (maximum 3 days per request). Events are retained for 90 days and can be retried in multiple requests."
+        },
+        {
+          "info": {
+            "name": "Rotate the signing secret of a webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/webhooks/subscriptions/:subscriptionId/secrets/rotate",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the webhook subscription."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `webhookSecrets:write`.\n\nRotates the signing secret for the given webhook subscription. In addition to the new signature, the events will also be signed with the legacy secret for 24 hours."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

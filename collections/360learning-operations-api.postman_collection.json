@@ -1,0 +1,1176 @@
+{
+  "item": [
+    {
+      "id": "56a59f58-843b-4690-80ba-707190a6a281",
+      "name": "Operations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0cfbcf20-c292-49d4-ae84-97050723b356",
+          "name": "Retrieve a bulk operation",
+          "request": {
+            "name": "Retrieve a bulk operation",
+            "description": {
+              "content": "> 🔑\n>\n> Required OAuth scope: `bulkOperations:read`.\n\nRetrieves a bulk operation with its given ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "bulk",
+                "operations",
+                ":bulkOperationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "bulkOperationId",
+                  "description": "(Required) The unique ID of the bulk operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The version of the API.",
+                "key": "360-api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": []
+            }
+          },
+          "response": [
+            {
+              "id": "a4cdd84c-cbbb-474e-accd-fc430050b24f",
+              "name": "Returns the requested bulk operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "operations",
+                    ":bulkOperationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "bulkOperationId",
+                      "description": "(Required) The unique ID of the bulk operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"507f1f77bcf86cd799439011\",\n  \"type\": \"replaceJobsSkills\",\n  \"createdAt\": \"2015-01-18T04:36:40.491Z\",\n  \"status\": \"pending\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a54a33d0-e335-4e25-9107-0f554f87ac14",
+              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "operations",
+                    ":bulkOperationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "bulkOperationId",
+                      "description": "(Required) The unique ID of the bulk operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35620508-7734-4a53-a959-18403b00af2c",
+              "name": "The given access token does not have the required OAuth scope to execute the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "operations",
+                    ":bulkOperationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "bulkOperationId",
+                      "description": "(Required) The unique ID of the bulk operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7c93590-0f2b-46fb-be06-b939a8416c42",
+              "name": "The given `bulkOperationId` does not correspond to any existing bulk operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "operations",
+                    ":bulkOperationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "bulkOperationId",
+                      "description": "(Required) The unique ID of the bulk operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"bulkOperationNotFound\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "342de664-69a3-4075-9946-3cf1e3fb26d4",
+              "name": "The client has sent too many requests in a short amount of time. ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "operations",
+                    ":bulkOperationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "bulkOperationId",
+                      "description": "(Required) The unique ID of the bulk operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bccff31b-75c5-46f3-b4d3-147b3a20f62b",
+          "name": "Retrieve a bulk operation result",
+          "request": {
+            "name": "Retrieve a bulk operation result",
+            "description": {
+              "content": "> 🔑\n>\n> Required OAuth scope: `bulkOperations:read`.\n\nRetrieves a completed or erroneous bulk operation result given its unique ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "bulk",
+                "operations",
+                ":bulkOperationId",
+                "results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "bulkOperationId",
+                  "description": "(Required) The unique ID of the bulk operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The version of the API.",
+                "key": "360-api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": []
+            }
+          },
+          "response": [
+            {
+              "id": "a649be88-ce93-4b0c-b275-fbfaf0d308a6",
+              "name": "Returns the requested bulk operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "operations",
+                    ":bulkOperationId",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "bulkOperationId",
+                      "description": "(Required) The unique ID of the bulk operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"input\": {},\n    \"status\": \"success\",\n    \"resourceId\": \"ID123456\"\n  },\n  {\n    \"input\": {},\n    \"status\": \"success\",\n    \"resourceId\": \"ID123456\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f40d185b-5a82-4667-b2a3-5413a8466a9e",
+              "name": "The operation with the given `bulkOperationId` has not run yet.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "operations",
+                    ":bulkOperationId",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "bulkOperationId",
+                      "description": "(Required) The unique ID of the bulk operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"bulkOperationNotRun\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d7b35af-0e2f-4768-af6f-48ca97fe7f68",
+              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "operations",
+                    ":bulkOperationId",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "bulkOperationId",
+                      "description": "(Required) The unique ID of the bulk operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19eed59e-19ca-41e8-bac8-59fbf103814c",
+              "name": "The given access token does not have the required OAuth scope to execute the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "operations",
+                    ":bulkOperationId",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "bulkOperationId",
+                      "description": "(Required) The unique ID of the bulk operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a413d59c-d946-4461-844c-2b16bbea67cd",
+              "name": "The given `bulkOperationId` does not correspond to any existing bulk operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "operations",
+                    ":bulkOperationId",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "bulkOperationId",
+                      "description": "(Required) The unique ID of the bulk operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"bulkOperationNotFound\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3758c30d-3d13-4536-8cb9-d9d957eefdd7",
+              "name": "The client has sent too many requests in a short amount of time. ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "operations",
+                    ":bulkOperationId",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "bulkOperationId",
+                      "description": "(Required) The unique ID of the bulk operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ebfc1b32-e440-4e29-8b49-ab64aa70fe55",
+          "name": "List all bulk operations",
+          "request": {
+            "name": "List all bulk operations",
+            "description": {
+              "content": "> 🔑\n>\n> Required OAuth scope: `bulkOperations:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 20 bulk operations. For more information, see the [Pagination guide](doc:pagination).\n\nLists all bulk operations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "bulk",
+                "operations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "createdAt[lt]",
+                  "value": "<dateTime>",
+                  "description": "Filter on **createdAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+                },
+                {
+                  "disabled": false,
+                  "key": "createdAt[gte]",
+                  "value": "<dateTime>",
+                  "description": "Filter on **createdAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+                },
+                {
+                  "disabled": false,
+                  "key": "status[eq]",
+                  "value": "<string>",
+                  "description": "Filter on **status** property with LHS bracket notation.\n\nExpected value format is a string (`pending`, `queued`, `running`, `completed`, `error`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "type[eq]",
+                  "value": "<string>",
+                  "description": "Filter on **type** property with LHS bracket notation.\n\nExpected value format is a string (`addContentsToGroupsCatalog`, `addContentsToGroupsLibrary`, `addSkillReviews`, `addUsersToGroups`, `archiveExternalCourses`, `deleteSkills`, `createGroups`, `createSubscriptionEvents`, `deleteGroups`, `deleteJobs`, `deleteLibraries`, `importExternalCourses`, `importExternalStatistics`, `removeContentsFromGroupsCatalog`, `removeContentsFromGroupsLibrary`, `removeUsersFromGroups`, `replaceJobsSkills`, `replaceUsersJobs`, `upsertJobs`, `upsertLibraries`, `upsertSkills`)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The version of the API.",
+                "key": "360-api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": []
+            }
+          },
+          "response": [
+            {
+              "id": "e759a410-a03d-4bce-af4f-57870591396f",
+              "name": "Returns one page of 20 bulk operations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "createdAt[lt]",
+                      "value": "2020-01-01T10:30:26.000Z"
+                    },
+                    {
+                      "key": "createdAt[gte]",
+                      "value": "2020-01-01T10:30:26.000Z"
+                    },
+                    {
+                      "key": "status[eq]",
+                      "value": "pending"
+                    },
+                    {
+                      "key": "type[eq]",
+                      "value": "addContentsToGroupsCatalog"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).\n\n⚠️ Only included if there is another page of results.",
+                  "key": "Link",
+                  "value": "<my/resource/url>; rel=\"next\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"type\": \"importExternalCourses\",\n    \"createdAt\": \"2006-12-23T04:54:49.049Z\",\n    \"status\": \"pending\"\n  },\n  {\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"type\": \"archiveExternalCourses\",\n    \"createdAt\": \"1969-07-25T16:32:07.561Z\",\n    \"status\": \"pending\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed1e9f18-3c0f-4c6c-b5cd-8881e0b13d6f",
+              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "createdAt[lt]",
+                      "value": "2020-01-01T10:30:26.000Z"
+                    },
+                    {
+                      "key": "createdAt[gte]",
+                      "value": "2020-01-01T10:30:26.000Z"
+                    },
+                    {
+                      "key": "status[eq]",
+                      "value": "pending"
+                    },
+                    {
+                      "key": "type[eq]",
+                      "value": "addContentsToGroupsCatalog"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5cd7173-9512-4ea8-ad8c-3ce7885466a9",
+              "name": "The given access token does not have the required OAuth scope to execute the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "createdAt[lt]",
+                      "value": "2020-01-01T10:30:26.000Z"
+                    },
+                    {
+                      "key": "createdAt[gte]",
+                      "value": "2020-01-01T10:30:26.000Z"
+                    },
+                    {
+                      "key": "status[eq]",
+                      "value": "pending"
+                    },
+                    {
+                      "key": "type[eq]",
+                      "value": "addContentsToGroupsCatalog"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "064b4b16-7981-4403-aa29-6ecdc39f8579",
+              "name": "The client has sent too many requests in a short amount of time. ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "bulk",
+                    "operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "createdAt[lt]",
+                      "value": "2020-01-01T10:30:26.000Z"
+                    },
+                    {
+                      "key": "createdAt[gte]",
+                      "value": "2020-01-01T10:30:26.000Z"
+                    },
+                    {
+                      "key": "status[eq]",
+                      "value": "pending"
+                    },
+                    {
+                      "key": "type[eq]",
+                      "value": "addContentsToGroupsCatalog"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.360learning.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a520ae0a-d644-4711-8eb0-d9742fc42a5e",
+    "name": "Bulk Authentication Operations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bulk Authentication Projects API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/projects",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `projects:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 500 projects. For more information, see the [Pagination guide](doc:pagination).\n\nLists all live projects in your platform."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

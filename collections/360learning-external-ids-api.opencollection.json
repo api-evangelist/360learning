@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bulk Authentication External IDs API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "External IDs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all ID mappings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/external-ids",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "platform",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **platform** property with LHS bracket notation.\n\nExpected value format is a string."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **type** property with LHS bracket notation.\n\nExpected value format is a string (`attempt`, `classroom`, `classroomAttendance`, `classroomAttendanceSheet`, `classroomSlot`, `classroomSlotRegistration`, `course`, `group`, `learningNeed`, `path`, `pathEnrollment`, `pathSession`, `pathTracking`, `registrationRequest`, `user`)."
+              },
+              {
+                "name": "value",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **value** property with LHS bracket notation.\n\nExpected value format is a string."
+              },
+              {
+                "name": "targetId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **targetId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `externalIds:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 5,000 external IDs. For more information, see the [Pagination guide](doc:pagination).\n\nLists all external ID mappings that link resources together."
+        },
+        {
+          "info": {
+            "name": "Create an ID mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/external-ids",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `externalIds:write`.\n\nCreates an external ID mapping."
+        },
+        {
+          "info": {
+            "name": "Replace an ID mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/external-ids/:mappingId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "mappingId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID that identifies the resources mapping."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `externalIds:write`.\n\nReplaces an existing external ID mapping with the provided data."
+        },
+        {
+          "info": {
+            "name": "Delete an ID mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/external-ids/:mappingId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "mappingId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID that identifies the resources mapping."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `externalIds:write`.\n\nDeletes a specific external ID mapping given its unique ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

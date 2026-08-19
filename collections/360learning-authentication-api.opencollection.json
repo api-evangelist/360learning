@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bulk Authentication API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/oauth2/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an OAuth access token using the `client_id` and `client_secret` credentials. Once generated, the token authorizes access to the 360Learning API v2 resources for 1 hour. It must be included in the `Authorization` header of each request as `Bearer`."
+        },
+        {
+          "info": {
+            "name": "Create an access token for plugin (backend)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/plugin/oauth2/backend-token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an OAuth access token using the `client_id` and `client_secret` credentials. Once generated, the token authorizes access to the 360Learning API v2 resources for 1 hour. It must be included in the `Authorization` header of each request as `Bearer`."
+        },
+        {
+          "info": {
+            "name": "Create an access token for plugin (client)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/plugin/oauth2/client-token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an OAuth access token. Once generated, the token authorizes access to the 360Learning API v2 resources for 1 hour. It must be included in the `Authorization` header of each request as `Bearer`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

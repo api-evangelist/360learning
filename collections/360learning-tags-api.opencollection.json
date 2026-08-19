@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bulk Authentication Tags API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/tags",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "isMain",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **isMain** property with LHS bracket notation.\n\nExpected value format is a boolean (`true` or `false`)."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `tags:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 5,000 tags. For more information, see the [Pagination guide](doc:pagination).\n\nLists all tags in your platform."
+        },
+        {
+          "info": {
+            "name": "Create a tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/tags",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `tags:write`.\n\nCreates a tag with the given properties."
+        },
+        {
+          "info": {
+            "name": "Retrieve a tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/tags/:tagId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the tag."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `tags:read`.\n\nRetrieves a tag given its ID."
+        },
+        {
+          "info": {
+            "name": "Replace a tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/tags/:tagId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the tag."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `tags:write`.\n\nReplaces an existing tag with the provided data. Fields not included in the payload remain unchanged."
+        },
+        {
+          "info": {
+            "name": "Delete a tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/tags/:tagId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the tag."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `tags:write`.\n\nDeletes a specific tag given its unique ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

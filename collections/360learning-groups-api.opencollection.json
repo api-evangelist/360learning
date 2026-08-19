@@ -1,0 +1,501 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bulk Authentication Groups API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add content to catalogs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/bulk/groups/catalog",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 20,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nAdds multiple content IDs of a given type to groups catalogs. Upon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation."
+        },
+        {
+          "info": {
+            "name": "Remove content from catalogs",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/bulk/groups/catalog",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 20,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nRemoves multiple content IDs of a given type from groups catalogs. Upon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation."
+        },
+        {
+          "info": {
+            "name": "Add content to libraries",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/bulk/groups/library",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 20,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nAdds multiple content IDs of a given type to groups libraries. Upon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation."
+        },
+        {
+          "info": {
+            "name": "Remove content from libraries",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/bulk/groups/library",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 20,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nRemoves multiple content IDs of a given type from groups libraries. Upon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation."
+        },
+        {
+          "info": {
+            "name": "Add users to groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/bulk/groups/memberships",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 20,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nAdds multiple users to groups with their assigned roles. Upon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation."
+        },
+        {
+          "info": {
+            "name": "Remove users from groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/bulk/groups/memberships",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 20,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nRemoves multiple users from groups with their assigned roles. The `learner` role is also removed from all public subgroups down to first private excluded. Upon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation."
+        },
+        {
+          "info": {
+            "name": "Delete groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/bulk/groups",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 2,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nDeletes multiple groups. It also deletes descendant groups and their contents. Upon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation."
+        },
+        {
+          "info": {
+            "name": "Add a user's role",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/groups/:groupId/:role/:userId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the group."
+              },
+              {
+                "name": "role",
+                "value": "",
+                "type": "path",
+                "description": "The role to add to the user."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:write`.\n\nAdds the given role to the given user in the given group."
+        },
+        {
+          "info": {
+            "name": "Remove a user's role",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/groups/:groupId/:role/:userId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the group."
+              },
+              {
+                "name": "role",
+                "value": "",
+                "type": "path",
+                "description": "The role to withdraw from the user."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:write`.\n\nRemoves the given role from the given user in the given group. The `learner` role is also removed from all public subgroups down to first private excluded."
+        },
+        {
+          "info": {
+            "name": "List all groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/groups",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 500 groups. For more information, see the [Pagination guide](doc:pagination).\n\nLists all groups in your platform."
+        },
+        {
+          "info": {
+            "name": "Create a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/groups",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:write`.\n\nCreates a new group."
+        },
+        {
+          "info": {
+            "name": "Retrieve a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/groups/:groupId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the group."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:read`.\n\nRetrieves information about a group given its ID."
+        },
+        {
+          "info": {
+            "name": "Edit a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.360learning.com/api/v2/groups/:groupId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:write`.\n\nEdits specific fields of an existing group. Fields not included in the request payload remain unchanged."
+        },
+        {
+          "info": {
+            "name": "Delete a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/groups/:groupId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the group."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:write`.\n\nDeletes a group given its unique ID."
+        },
+        {
+          "info": {
+            "name": "List all memberships in a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/groups/:groupId/roles",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the group."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 1,000 memberships. For more information, see the [Pagination guide](doc:pagination).\n\nLists all the memberships, sorted per user, of a specific group."
+        },
+        {
+          "info": {
+            "name": "List all content IDs in a group catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/groups/:groupId/catalog/:contentType-ids",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the group."
+              },
+              {
+                "name": "contentType",
+                "value": "",
+                "type": "path",
+                "description": "The type of content IDs to retrieve."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 10,000 unique content IDs. For more information, see the [Pagination guide](doc:pagination).\n\nLists all content IDs of a given type shared in the group catalog."
+        },
+        {
+          "info": {
+            "name": "List all content IDs in a group library",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/groups/:groupId/library/:contentType-ids",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the group."
+              },
+              {
+                "name": "contentType",
+                "value": "",
+                "type": "path",
+                "description": "The type of content IDs to retrieve."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 10,000 unique content IDs. For more information, see the [Pagination guide](doc:pagination).\n\nLists all content IDs of a given type shared in the group library."
+        },
+        {
+          "info": {
+            "name": "Upload group media",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/groups/:groupId/media",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the group."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:write`.\n\nUploads media files (banner, background, favicon, logo) to a group. At least one file must be provided."
+        },
+        {
+          "info": {
+            "name": "Set group branding",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.360learning.com/api/v2/groups/:groupId/branding",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `groups:write`.\n\nSets the branding for a group. Branding is automatically inherited by all subgroups unless a subgroup defines its own branding. If the Extended Training package is not enabled on your platform, only the root group’s branding can be updated. Fields not included in the request payload remain unchanged."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

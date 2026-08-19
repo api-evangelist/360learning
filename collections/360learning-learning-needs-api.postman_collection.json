@@ -1,0 +1,288 @@
+{
+  "item": [
+    {
+      "id": "a5a040f7-1e2f-408a-a97b-06e554772b9f",
+      "name": "Learning Needs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "27ada0cb-0ddb-443d-9953-1aa95f2911a0",
+          "name": "List all learning needs",
+          "request": {
+            "name": "List all learning needs",
+            "description": {
+              "content": "> 🔑\n>\n> Required OAuth scope: `learningNeeds:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 500 learning needs. For more information, see the [Pagination guide](doc:pagination).\n\nLists all learning needs in your platform.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "learning-needs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The version of the API.",
+                "key": "360-api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": []
+            }
+          },
+          "response": [
+            {
+              "id": "3f6dcf1e-5ace-462f-97e5-e17f01dd50ac",
+              "name": "Returns one page of 500 learning needs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "learning-needs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).\n\n⚠️ Only included if there is another page of results.",
+                  "key": "Link",
+                  "value": "<my/resource/url>; rel=\"next\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"groupId\": \"507f1f77bcf86cd799439011\",\n    \"name\": \"Cross-Cultural Communication\",\n    \"status\": \"exploring\",\n    \"createdAt\": \"1977-07-07T00:21:08.023Z\",\n    \"authorId\": \"507f1f77bcf86cd799439011\",\n    \"questions\": [\n      {\n        \"title\": \"What is the problem that creating this training would solve?\",\n        \"answer\": \"It would strengthen the ties between the US and French Staff.\"\n      },\n      {\n        \"title\": \"What is the problem that creating this training would solve?\",\n        \"answer\": \"It would strengthen the ties between the US and French Staff.\"\n      }\n    ],\n    \"suggestedExpertIds\": [\n      \"507f1f77bcf86cd799439011\"\n    ],\n    \"volunteerIds\": [\n      \"507f1f77bcf86cd799439011\"\n    ]\n  },\n  {\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"groupId\": \"507f1f77bcf86cd799439011\",\n    \"name\": \"Cross-Cultural Communication\",\n    \"status\": \"projectOngoing\",\n    \"createdAt\": \"1955-12-24T19:55:13.820Z\",\n    \"authorId\": \"507f1f77bcf86cd799439011\",\n    \"questions\": [\n      {\n        \"title\": \"What is the problem that creating this training would solve?\",\n        \"answer\": \"It would strengthen the ties between the US and French Staff.\"\n      },\n      {\n        \"title\": \"What is the problem that creating this training would solve?\",\n        \"answer\": \"It would strengthen the ties between the US and French Staff.\"\n      }\n    ],\n    \"suggestedExpertIds\": [\n      \"507f1f77bcf86cd799439011\"\n    ],\n    \"volunteerIds\": [\n      \"507f1f77bcf86cd799439011\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "425f0f2c-2d99-4245-aff2-ff9d24864b96",
+              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "learning-needs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "579c0976-f385-484a-99f1-cc02db6eae3e",
+              "name": "The given access token does not have the required OAuth scope to execute the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "learning-needs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42cf3757-b0ac-4fa5-b13f-b7e85cb626d3",
+              "name": "The client has sent too many requests in a short amount of time. ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "learning-needs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.360learning.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "578217ec-b7e7-4827-ac88-fabbc9274a5c",
+    "name": "Bulk Authentication Learning Needs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

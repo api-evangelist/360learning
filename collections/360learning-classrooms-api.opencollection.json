@@ -1,0 +1,646 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bulk Authentication Classrooms API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Classrooms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all classrooms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/classrooms",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **groupId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              },
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **createdAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "modifiedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **modifiedAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `classrooms:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 500 classrooms. For more information, see the [Pagination guide](doc:pagination).\n\nLists all classrooms in your platform."
+        },
+        {
+          "info": {
+            "name": "Create a classroom",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/classrooms",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `classrooms:write`.\n\nCreates a classroom."
+        },
+        {
+          "info": {
+            "name": "Retrieve a classroom",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/classrooms/:classroomId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "classroomId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `classrooms:read`.\n\nRetrieves information about a classroom given its ID."
+        },
+        {
+          "info": {
+            "name": "Edit a classroom",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.360learning.com/api/v2/classrooms/:classroomId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "classroomId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `classrooms:write`.\n\nEdits specific fields of an existing classroom. Fields not included in the request payload remain unchanged."
+        },
+        {
+          "info": {
+            "name": "List all registrations in a classroom",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/classrooms/:classroomId/registrations",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "classroomId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `classrooms:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 2,000 slot registrations. For more information, see the [Pagination guide](doc:pagination).\n\nLists all users registered to any slot in the given classroom."
+        },
+        {
+          "info": {
+            "name": "List all slots in a classroom",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/classrooms/:classroomId/slots",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "classroomId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom."
+              },
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **createdAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "modifiedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **modifiedAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `classrooms:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 100 classroom slots. For more information, see the [Pagination guide](doc:pagination).\n\nLists all slots in a given classroom."
+        },
+        {
+          "info": {
+            "name": "Add a slot to a classroom",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/classrooms/:classroomId/slots",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "classroomId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `classrooms:write`.\n\nAdds a slot to a given classroom."
+        },
+        {
+          "info": {
+            "name": "Edit a classroom slot",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.360learning.com/api/v2/classrooms/:classroomId/slots/:classroomSlotId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "classroomId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom."
+              },
+              {
+                "name": "classroomSlotId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom slot."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `classrooms:write`.\n\nEdits specific fields of an existing classroom slot. Fields not included in the request payload remain unchanged."
+        },
+        {
+          "info": {
+            "name": "Remove a slot from a classroom",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/classrooms/:classroomId/slots/:classroomSlotId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "classroomId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom."
+              },
+              {
+                "name": "classroomSlotId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom slot."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `classrooms:write`.\n\nRemoves a slot from a classroom based on the provided slot ID."
+        },
+        {
+          "info": {
+            "name": "List all attendance sheets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/classroom-slots/:classroomSlotId/attendance-sheets",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "classroomSlotId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom slot."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `attendanceSheets:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 3,000 attendance sheets. For more information, see the [Pagination guide](doc:pagination).\n\nLists all attendance sheets in your platform for the given classroom slot."
+        },
+        {
+          "info": {
+            "name": "Create an attendance sheet",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/classroom-slots/:classroomSlotId/attendance-sheets",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "classroomSlotId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom slot."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `attendanceSheets:write`.\n\nCreates an attendance sheet for the given classroom slot."
+        },
+        {
+          "info": {
+            "name": "Replace an attendance sheet",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/classroom-slots/:classroomSlotId/attendance-sheets/:attendanceSheetId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "classroomSlotId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom slot."
+              },
+              {
+                "name": "attendanceSheetId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the attendance sheet."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `attendanceSheets:write`.\n\nReplaces the attendance sheet in the given classroom slot."
+        },
+        {
+          "info": {
+            "name": "Delete an attendance sheet",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/classroom-slots/:classroomSlotId/attendance-sheets/:attendanceSheetId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "attendanceSheetId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the attendance sheet."
+              },
+              {
+                "name": "classroomSlotId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom slot."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `attendanceSheets:write`.\n\nDeletes a specific attendance sheet given its unique ID."
+        },
+        {
+          "info": {
+            "name": "List all attendances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/classroom-slots/:classroomSlotId/attendance-sheets/:attendanceSheetId/attendances",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "classroomSlotId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom slot."
+              },
+              {
+                "name": "attendanceSheetId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the attendance sheet."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `attendanceSheets:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 3,000 attendances. For more information, see the [Pagination guide](doc:pagination).\n\nLists all attendances in your platform for the given classroom slot and attendance sheet."
+        },
+        {
+          "info": {
+            "name": "List all waitlist requests in a classroom slot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/classroom-slots/:classroomSlotId/waitlist",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "classroomSlotId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom slot."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `classrooms:read`.\n\nLists all waitlist requests in a given classroom slot."
+        },
+        {
+          "info": {
+            "name": "Add a user to a classroom slot waitlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/classroom-slots/:classroomSlotId/waitlist/:userId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "classroomSlotId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom slot."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `classrooms:write`.\n\nAdds a user to the waitlist of a given classroom slot."
+        },
+        {
+          "info": {
+            "name": "Remove a user from a classroom slot waitlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/classroom-slots/:classroomSlotId/waitlist/:userId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "classroomSlotId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom slot."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `classrooms:write`.\n\nRemoves a user from the waitlist of a given classroom slot."
+        },
+        {
+          "info": {
+            "name": "Register a user to a classroom slot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/classroom-slots/:classroomSlotId/registrations/:userId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "classroomSlotId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom slot."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `classrooms:write`.\n\nRegisters a user to a classroom slot based on the provided classroom slot ID and user ID."
+        },
+        {
+          "info": {
+            "name": "List all registrations in a classroom slot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/classroom-slots/:classroomSlotId/registrations",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "classroomSlotId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom slot."
+              },
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **createdAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "hasAttended",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **hasAttended** property with LHS bracket notation.\n\nExpected value format is a boolean (`true` or `false`)."
+              },
+              {
+                "name": "modifiedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **modifiedAt** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **userId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **status** property with LHS bracket notation.\n\nExpected value format is a string (`archived`, `published`)."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `classrooms:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 2,000 slot registrations. For more information, see the [Pagination guide](doc:pagination).\n\nLists all users registered to a given classroom slot."
+        },
+        {
+          "info": {
+            "name": "Edit a classroom slot registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.360learning.com/api/v2/classroom-slots/:classroomSlotId/registrations/:slotRegistrationId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "classroomSlotId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the classroom slot."
+              },
+              {
+                "name": "slotRegistrationId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the slot registration."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `classrooms:write`.\n\nEdits specific fields of an existing classroom slot registration. Fields not included in the request payload remain unchanged."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

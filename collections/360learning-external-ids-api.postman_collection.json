@@ -1,0 +1,2121 @@
+{
+  "item": [
+    {
+      "id": "a0299136-6f88-4739-bb0d-786de38b1019",
+      "name": "External IDs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "18f01e00-8d67-433f-a7b8-8459d361a921",
+          "name": "Create an ID mapping",
+          "request": {
+            "name": "Create an ID mapping",
+            "description": {
+              "content": "> 🔑\n>\n> Required OAuth scope: `externalIds:write`.\n\nCreates an external ID mapping.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "external-ids"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The version of the API.",
+                "key": "360-api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"platform\": \"<string>\",\n  \"targetId\": \"<ObjectId>\",\n  \"targetType\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d155ce80-0886-4149-a3ff-86873ed9820b",
+              "name": "Returns the created external ID mapping.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"platform\": \"external catalog\",\n  \"targetId\": \"507f1f77bcf86cd799439011\",\n  \"targetType\": \"course\",\n  \"value\": \"945628-01\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"platform\": \"external catalog\",\n  \"targetId\": \"507f1f77bcf86cd799439011\",\n  \"targetType\": \"course\",\n  \"value\": \"945628-01\",\n  \"_id\": \"507f1f77bcf86cd799439011\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a1a50df-51f8-4e0d-a66b-f1dcbe944537",
+              "name": "The server cannot or will not process the request due to something that is perceived to be a client error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"platform\": \"external catalog\",\n  \"targetId\": \"507f1f77bcf86cd799439011\",\n  \"targetType\": \"course\",\n  \"value\": \"945628-01\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"mappingAlreadyExists\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd299492-0437-4af8-9f1d-6055164e734c",
+              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"platform\": \"external catalog\",\n  \"targetId\": \"507f1f77bcf86cd799439011\",\n  \"targetType\": \"course\",\n  \"value\": \"945628-01\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a65bfb1-570d-4a75-8cbe-a428e1ea1a34",
+              "name": "The given access token does not have the required OAuth scope to execute the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"platform\": \"external catalog\",\n  \"targetId\": \"507f1f77bcf86cd799439011\",\n  \"targetType\": \"course\",\n  \"value\": \"945628-01\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "052698c9-3f36-483e-bc48-b5abc064658a",
+              "name": "The targeted resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"platform\": \"external catalog\",\n  \"targetId\": \"507f1f77bcf86cd799439011\",\n  \"targetType\": \"course\",\n  \"value\": \"945628-01\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"resourceNotFound\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb885471-5e05-4fac-9087-4f251bfae5b3",
+              "name": "The client has sent too many requests in a short amount of time. ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"platform\": \"external catalog\",\n  \"targetId\": \"507f1f77bcf86cd799439011\",\n  \"targetType\": \"course\",\n  \"value\": \"945628-01\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9fa02745-31fb-4e0a-8d37-710c9f52f1ae",
+          "name": "List all ID mappings",
+          "request": {
+            "name": "List all ID mappings",
+            "description": {
+              "content": "> 🔑\n>\n> Required OAuth scope: `externalIds:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 5,000 external IDs. For more information, see the [Pagination guide](doc:pagination).\n\nLists all external ID mappings that link resources together.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "external-ids"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "platform[eq]",
+                  "value": "<string>",
+                  "description": "Filter on **platform** property with LHS bracket notation.\n\nExpected value format is a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "platform[ne]",
+                  "value": "<string>",
+                  "description": "Filter on **platform** property with LHS bracket notation.\n\nExpected value format is a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "platform[in][0]",
+                  "value": "<string>",
+                  "description": "Filter on **platform** property with LHS bracket notation.\n\nExpected value format is a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "platform[in][1]",
+                  "value": "<string>",
+                  "description": "Filter on **platform** property with LHS bracket notation.\n\nExpected value format is a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "platform[nin][0]",
+                  "value": "<string>",
+                  "description": "Filter on **platform** property with LHS bracket notation.\n\nExpected value format is a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "platform[nin][1]",
+                  "value": "<string>",
+                  "description": "Filter on **platform** property with LHS bracket notation.\n\nExpected value format is a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "type[eq]",
+                  "value": "<string>",
+                  "description": "Filter on **type** property with LHS bracket notation.\n\nExpected value format is a string (`attempt`, `classroom`, `classroomAttendance`, `classroomAttendanceSheet`, `classroomSlot`, `classroomSlotRegistration`, `course`, `group`, `learningNeed`, `path`, `pathEnrollment`, `pathSession`, `pathTracking`, `registrationRequest`, `user`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "type[ne]",
+                  "value": "<string>",
+                  "description": "Filter on **type** property with LHS bracket notation.\n\nExpected value format is a string (`attempt`, `classroom`, `classroomAttendance`, `classroomAttendanceSheet`, `classroomSlot`, `classroomSlotRegistration`, `course`, `group`, `learningNeed`, `path`, `pathEnrollment`, `pathSession`, `pathTracking`, `registrationRequest`, `user`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "type[in][0]",
+                  "value": "<string>",
+                  "description": "Filter on **type** property with LHS bracket notation.\n\nExpected value format is a string (`attempt`, `classroom`, `classroomAttendance`, `classroomAttendanceSheet`, `classroomSlot`, `classroomSlotRegistration`, `course`, `group`, `learningNeed`, `path`, `pathEnrollment`, `pathSession`, `pathTracking`, `registrationRequest`, `user`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "type[in][1]",
+                  "value": "<string>",
+                  "description": "Filter on **type** property with LHS bracket notation.\n\nExpected value format is a string (`attempt`, `classroom`, `classroomAttendance`, `classroomAttendanceSheet`, `classroomSlot`, `classroomSlotRegistration`, `course`, `group`, `learningNeed`, `path`, `pathEnrollment`, `pathSession`, `pathTracking`, `registrationRequest`, `user`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "type[nin][0]",
+                  "value": "<string>",
+                  "description": "Filter on **type** property with LHS bracket notation.\n\nExpected value format is a string (`attempt`, `classroom`, `classroomAttendance`, `classroomAttendanceSheet`, `classroomSlot`, `classroomSlotRegistration`, `course`, `group`, `learningNeed`, `path`, `pathEnrollment`, `pathSession`, `pathTracking`, `registrationRequest`, `user`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "type[nin][1]",
+                  "value": "<string>",
+                  "description": "Filter on **type** property with LHS bracket notation.\n\nExpected value format is a string (`attempt`, `classroom`, `classroomAttendance`, `classroomAttendanceSheet`, `classroomSlot`, `classroomSlotRegistration`, `course`, `group`, `learningNeed`, `path`, `pathEnrollment`, `pathSession`, `pathTracking`, `registrationRequest`, `user`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "value[eq]",
+                  "value": "<string>",
+                  "description": "Filter on **value** property with LHS bracket notation.\n\nExpected value format is a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "value[ne]",
+                  "value": "<string>",
+                  "description": "Filter on **value** property with LHS bracket notation.\n\nExpected value format is a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "value[in][0]",
+                  "value": "<string>",
+                  "description": "Filter on **value** property with LHS bracket notation.\n\nExpected value format is a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "value[in][1]",
+                  "value": "<string>",
+                  "description": "Filter on **value** property with LHS bracket notation.\n\nExpected value format is a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "value[nin][0]",
+                  "value": "<string>",
+                  "description": "Filter on **value** property with LHS bracket notation.\n\nExpected value format is a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "value[nin][1]",
+                  "value": "<string>",
+                  "description": "Filter on **value** property with LHS bracket notation.\n\nExpected value format is a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "targetId[eq]",
+                  "value": "<ObjectId>",
+                  "description": "Filter on **targetId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+                },
+                {
+                  "disabled": false,
+                  "key": "targetId[ne]",
+                  "value": "<ObjectId>",
+                  "description": "Filter on **targetId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+                },
+                {
+                  "disabled": false,
+                  "key": "targetId[in][0]",
+                  "value": "<ObjectId>",
+                  "description": "Filter on **targetId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+                },
+                {
+                  "disabled": false,
+                  "key": "targetId[in][1]",
+                  "value": "<ObjectId>",
+                  "description": "Filter on **targetId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+                },
+                {
+                  "disabled": false,
+                  "key": "targetId[nin][0]",
+                  "value": "<ObjectId>",
+                  "description": "Filter on **targetId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+                },
+                {
+                  "disabled": false,
+                  "key": "targetId[nin][1]",
+                  "value": "<ObjectId>",
+                  "description": "Filter on **targetId** property with LHS bracket notation.\n\nExpected value format is a valid ID (24 digits or letters)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The version of the API.",
+                "key": "360-api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": []
+            }
+          },
+          "response": [
+            {
+              "id": "6bb29a84-78c4-4dbd-b183-ebb1a53c8e39",
+              "name": "Returns one page of 5000 external IDs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "platform[eq]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[ne]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[in][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[in][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[nin][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[nin][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "type[eq]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[ne]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[in][0]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[in][1]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[nin][0]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[nin][1]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "value[eq]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[ne]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[in][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[in][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[nin][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[nin][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "targetId[eq]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[ne]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[in][0]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[in][1]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[nin][0]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[nin][1]",
+                      "value": "507f1f77bcf86cd799439011"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).\n\n⚠️ Only included if there is another page of results.",
+                  "key": "Link",
+                  "value": "<my/resource/url>; rel=\"next\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"platform\": \"external catalog\",\n    \"targetId\": \"507f1f77bcf86cd799439011\",\n    \"targetType\": \"course\",\n    \"value\": \"945628-01\",\n    \"_id\": \"507f1f77bcf86cd799439011\"\n  },\n  {\n    \"platform\": \"external catalog\",\n    \"targetId\": \"507f1f77bcf86cd799439011\",\n    \"targetType\": \"course\",\n    \"value\": \"945628-01\",\n    \"_id\": \"507f1f77bcf86cd799439011\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9de6a5b-e901-4bca-b420-f4e4593c13d1",
+              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "platform[eq]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[ne]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[in][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[in][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[nin][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[nin][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "type[eq]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[ne]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[in][0]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[in][1]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[nin][0]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[nin][1]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "value[eq]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[ne]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[in][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[in][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[nin][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[nin][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "targetId[eq]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[ne]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[in][0]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[in][1]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[nin][0]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[nin][1]",
+                      "value": "507f1f77bcf86cd799439011"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f885fce6-db8d-4a01-923e-6c59f20f1a98",
+              "name": "The given access token does not have the required OAuth scope to execute the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "platform[eq]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[ne]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[in][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[in][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[nin][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[nin][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "type[eq]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[ne]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[in][0]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[in][1]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[nin][0]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[nin][1]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "value[eq]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[ne]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[in][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[in][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[nin][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[nin][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "targetId[eq]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[ne]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[in][0]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[in][1]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[nin][0]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[nin][1]",
+                      "value": "507f1f77bcf86cd799439011"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c19dfbde-dbe0-4896-8cb3-064b2cfa6591",
+              "name": "The client has sent too many requests in a short amount of time. ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "platform[eq]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[ne]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[in][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[in][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[nin][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "platform[nin][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "type[eq]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[ne]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[in][0]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[in][1]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[nin][0]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "type[nin][1]",
+                      "value": "attempt"
+                    },
+                    {
+                      "key": "value[eq]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[ne]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[in][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[in][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[nin][0]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "value[nin][1]",
+                      "value": "loremIpsum"
+                    },
+                    {
+                      "key": "targetId[eq]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[ne]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[in][0]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[in][1]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[nin][0]",
+                      "value": "507f1f77bcf86cd799439011"
+                    },
+                    {
+                      "key": "targetId[nin][1]",
+                      "value": "507f1f77bcf86cd799439011"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "616f5363-2a89-41b6-abd6-296cf28f7821",
+          "name": "Delete an ID mapping",
+          "request": {
+            "name": "Delete an ID mapping",
+            "description": {
+              "content": "> 🔑\n>\n> Required OAuth scope: `externalIds:write`.\n\nDeletes a specific external ID mapping given its unique ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "external-ids",
+                ":mappingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "mappingId",
+                  "description": "(Required) The unique ID that identifies the resources mapping."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The version of the API.",
+                "key": "360-api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": []
+            }
+          },
+          "response": [
+            {
+              "id": "bb02edcf-f62c-43dd-a190-e2a74621fe46",
+              "name": "Deletes a specific external ID mapping.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids",
+                    ":mappingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "mappingId",
+                      "description": "(Required) The unique ID that identifies the resources mapping."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "752f1c08-76d5-4c15-9c13-4e81d5fc1053",
+              "name": "The platform is one of the reserved ones.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids",
+                    ":mappingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "mappingId",
+                      "description": "(Required) The unique ID that identifies the resources mapping."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"reservedPlatformName\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a04c7fd4-5810-4060-88c6-4b08dd74ade8",
+              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids",
+                    ":mappingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "mappingId",
+                      "description": "(Required) The unique ID that identifies the resources mapping."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48829e18-a6ed-46a4-94f0-9fb6a6e7dd3d",
+              "name": "The given access token does not have the required OAuth scope to execute the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids",
+                    ":mappingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "mappingId",
+                      "description": "(Required) The unique ID that identifies the resources mapping."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e68c27e-533e-4078-a346-ba3cd2b7bd7e",
+              "name": "The given `mappingId` does not correspond to any existing mapping.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids",
+                    ":mappingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "mappingId",
+                      "description": "(Required) The unique ID that identifies the resources mapping."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"mappingIdNotFound\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d8dc069-ea2f-4b8c-8b1d-66313e6323b3",
+              "name": "The client has sent too many requests in a short amount of time. ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids",
+                    ":mappingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "mappingId",
+                      "description": "(Required) The unique ID that identifies the resources mapping."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a95b329-175f-4fd4-a87c-8c8fa56680b3",
+          "name": "Replace an ID mapping",
+          "request": {
+            "name": "Replace an ID mapping",
+            "description": {
+              "content": "> 🔑\n>\n> Required OAuth scope: `externalIds:write`.\n\nReplaces an existing external ID mapping with the provided data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "external-ids",
+                ":mappingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "mappingId",
+                  "description": "(Required) The unique ID that identifies the resources mapping."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The version of the API.",
+                "key": "360-api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"platform\": \"<string>\",\n  \"targetId\": \"<ObjectId>\",\n  \"targetType\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9cf1476c-d7af-46d1-8269-8047b2e42b68",
+              "name": "Returns the updated external ID mapping.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids",
+                    ":mappingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "mappingId",
+                      "description": "(Required) The unique ID that identifies the resources mapping."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"platform\": \"external catalog\",\n  \"targetId\": \"507f1f77bcf86cd799439011\",\n  \"targetType\": \"course\",\n  \"value\": \"945628-01\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"platform\": \"external catalog\",\n  \"targetId\": \"507f1f77bcf86cd799439011\",\n  \"targetType\": \"course\",\n  \"value\": \"945628-01\",\n  \"_id\": \"507f1f77bcf86cd799439011\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e258b2c0-5f35-4771-b3bf-d39aa85ef7c4",
+              "name": "The server cannot or will not process the request due to something that is perceived to be a client error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids",
+                    ":mappingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "mappingId",
+                      "description": "(Required) The unique ID that identifies the resources mapping."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"platform\": \"external catalog\",\n  \"targetId\": \"507f1f77bcf86cd799439011\",\n  \"targetType\": \"course\",\n  \"value\": \"945628-01\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"reservedPlatformName\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2082ac6-f223-470b-b831-0832b2dc0795",
+              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids",
+                    ":mappingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "mappingId",
+                      "description": "(Required) The unique ID that identifies the resources mapping."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"platform\": \"external catalog\",\n  \"targetId\": \"507f1f77bcf86cd799439011\",\n  \"targetType\": \"course\",\n  \"value\": \"945628-01\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc12a77b-7bfd-4060-8692-d45736ee139f",
+              "name": "The given access token does not have the required OAuth scope to execute the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids",
+                    ":mappingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "mappingId",
+                      "description": "(Required) The unique ID that identifies the resources mapping."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"platform\": \"external catalog\",\n  \"targetId\": \"507f1f77bcf86cd799439011\",\n  \"targetType\": \"course\",\n  \"value\": \"945628-01\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e31b7df3-aadd-4c82-a20d-e4f543a65cf7",
+              "name": "The server cannot find the requested resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids",
+                    ":mappingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "mappingId",
+                      "description": "(Required) The unique ID that identifies the resources mapping."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"platform\": \"external catalog\",\n  \"targetId\": \"507f1f77bcf86cd799439011\",\n  \"targetType\": \"course\",\n  \"value\": \"945628-01\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"mappingIdNotFound\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "def87fc9-3d28-4323-a3fe-f0d31dd696f3",
+              "name": "The client has sent too many requests in a short amount of time. ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "external-ids",
+                    ":mappingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "mappingId",
+                      "description": "(Required) The unique ID that identifies the resources mapping."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the API.",
+                    "key": "360-api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"platform\": \"external catalog\",\n  \"targetId\": \"507f1f77bcf86cd799439011\",\n  \"targetType\": \"course\",\n  \"value\": \"945628-01\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.360learning.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f4540e43-1f5b-41d5-b5b1-b434ded686d6",
+    "name": "Bulk Authentication External IDs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

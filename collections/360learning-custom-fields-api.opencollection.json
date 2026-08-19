@@ -1,0 +1,183 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bulk Authentication Custom Fields API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Custom Fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all custom fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/custom-fields",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **name** property with LHS bracket notation.\n\nExpected value format is a string."
+              },
+              {
+                "name": "targetType",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **targetType** property with LHS bracket notation.\n\nExpected value format is a string (`users`, `contents`)."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **type** property with LHS bracket notation.\n\nExpected value format is a string (`string`, `date`)."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `customFields:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 1,000 custom fields. For more information, see the [Pagination guide](doc:pagination).\n\nLists all custom fields in your platform."
+        },
+        {
+          "info": {
+            "name": "Create a custom field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/custom-fields",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `customFields:write`.\n\nCreates a custom field."
+        },
+        {
+          "info": {
+            "name": "Edit a custom field",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.360learning.com/api/v2/custom-fields/:customFieldId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "customFieldId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the custom field."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `customFields:write`.\n\nEdits specific fields of an existing custom field. Fields not included in the request payload remain unchanged."
+        },
+        {
+          "info": {
+            "name": "Delete a custom field",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/custom-fields/:customFieldId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "customFieldId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the custom field."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `customFields:write`.\n\nDeletes a specific custom field given its unique ID."
+        },
+        {
+          "info": {
+            "name": "List all authorized values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/custom-fields/:customFieldId/authorized-values",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "customFieldId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the custom field."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `customFields:read`.\n\nLists all authorized values for the given custom field."
+        },
+        {
+          "info": {
+            "name": "Replace all authorized values",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/custom-fields/:customFieldId/authorized-values",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "customFieldId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `customFields:write`.\n\nReplaces all authorized values in the given custom field with the provided ones. Values not included are removed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bulk Authentication Learning Needs API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Learning Needs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all learning needs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/learning-needs",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `learningNeeds:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 500 learning needs. For more information, see the [Pagination guide](doc:pagination).\n\nLists all learning needs in your platform."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

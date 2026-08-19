@@ -1,0 +1,731 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bulk Authentication Users API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Activate a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/users/:userId/activate",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:write`.\n\nActivates a specific user given its unique ID."
+        },
+        {
+          "info": {
+            "name": "Add a manager to a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/users/:userId/managers/:managerId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user the manager will be added to."
+              },
+              {
+                "name": "managerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the manager to be added."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:write`.\n\nAdds a manager to a user."
+        },
+        {
+          "info": {
+            "name": "Remove a manager from a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/users/:userId/managers/:managerId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user the manager will be removed from."
+              },
+              {
+                "name": "managerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the manager to be removed."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:write`.\n\nRemoves a manager from a user."
+        },
+        {
+          "info": {
+            "name": "List all custom user links for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/users/:userId/custom-links",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 1,000 custom links. For more information, see the [Pagination guide](doc:pagination).\n\nLists all custom user links for a given user."
+        },
+        {
+          "info": {
+            "name": "Create a custom user link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/users/:userId/custom-links",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:write`.\n\nCreates a custom user link for the given user."
+        },
+        {
+          "info": {
+            "name": "List all users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/users",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "mail",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **mail** property with LHS bracket notation.\n\nExpected value format is a string."
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **username** property with LHS bracket notation.\n\nExpected value format is a string."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **status** property with LHS bracket notation.\n\nExpected value format is a string (`active`, `invited`, `deleted`)."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 500 users. For more information, see the [Pagination guide](doc:pagination).\n\nLists all users in your platform."
+        },
+        {
+          "info": {
+            "name": "Create an invited user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/users",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sendInvitationEmail",
+                "value": "",
+                "type": "query",
+                "description": "If true (or not provided), the invitation email is sent to the created user. If false, the invitation email is not sent."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:write`.\n\nCreates a new user account with the invited status. If a user with the same 'mail' or 'username' was previously deleted, this operation will restore their account to an invited status. \n\n If 'mail' is provided, the user receives an invitation email upon creation to activate their account, along with other emails. The account can also be activated via the 'Activate a user' endpoint. If 'sendInvitationEmail' is set to false, the user will not receive "
+        },
+        {
+          "info": {
+            "name": "List all certificates for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/users/:userId/certificates",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              },
+              {
+                "name": "deliveryDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **deliveryDate** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              },
+              {
+                "name": "expirationDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **expirationDate** property with LHS bracket notation.\n\nExpected value format is a date (YYYY-MM-DDThh:mm:ss.sssZ). The milliseconds are always set to 0."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 1,000 certificates. For more information, see the [Pagination guide](doc:pagination).\n\nLists all certificates in your platform for a given user."
+        },
+        {
+          "info": {
+            "name": "Import a certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/users/:userId/certificates",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:write`.\n\nImports a certificate for a specific user given its unique ID."
+        },
+        {
+          "info": {
+            "name": "Replace custom user links",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/users/:userId/custom-links/:customUserLinkId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              },
+              {
+                "name": "customUserLinkId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the custom user link to be updated."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:write`.\n\nReplaces the custom user link with the provided data."
+        },
+        {
+          "info": {
+            "name": "Delete a custom user link",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/users/:userId/custom-links/:customUserLinkId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              },
+              {
+                "name": "customUserLinkId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the custom user link to be deleted."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:write`.\n\nDeletes a specific custom user link given its unique ID."
+        },
+        {
+          "info": {
+            "name": "Retrieve a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/users/:userId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:read`.\n\nRetrieves the profile details of a specific user with their given ID."
+        },
+        {
+          "info": {
+            "name": "Edit a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.360learning.com/api/v2/users/:userId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:write`.\n\nEdits specific fields of an existing user. Fields not included in the request payload remain unchanged."
+        },
+        {
+          "info": {
+            "name": "Delete a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/users/:userId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:write`.\n\nDeletes a specific user given its unique ID."
+        },
+        {
+          "info": {
+            "name": "List all manager IDs for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/users/:userId/managers",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 1,000 manager IDs. For more information, see the [Pagination guide](doc:pagination).\n\nLists all the manager IDs for a given user."
+        },
+        {
+          "info": {
+            "name": "List all subordinate IDs for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/users/:userId/subordinates",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 1,000 subordinate IDs. For more information, see the [Pagination guide](doc:pagination).\n\nLists all the subordinate IDs for a given user."
+        },
+        {
+          "info": {
+            "name": "List all custom field values for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/users/:userId/custom-fields/values",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:read`.\n\nLists all custom field values for a given user."
+        },
+        {
+          "info": {
+            "name": "Replace a user custom fields values",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/users/:userId/custom-fields/values",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:write`.\n\nReplaces a user custom fields values given its unique ID."
+        },
+        {
+          "info": {
+            "name": "Retrieve a certificate PDF file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/users/:userId/certificates/:certificateId/pdf",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "certificateId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the certificate."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:read`.\n\nRetrieves a certificate PDF file given the user ID and certificate ID."
+        },
+        {
+          "info": {
+            "name": "List all memberships of a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/users/:userId/roles",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 1,000 user membership. For more information, see the [Pagination guide](doc:pagination).\n\nLists all the memberships, sorted per group, of a specific user."
+        },
+        {
+          "info": {
+            "name": "Pseudonymize user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/users/:userId/pseudonymize",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              },
+              {
+                "name": "deleteExternalIds",
+                "value": "",
+                "type": "query",
+                "description": "If true, user's external identifiers (identifier mappings for third-party platforms) are deleted. If false (or not provided), they are kept."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:write`.\n\nRemoves all personal information from a previously deleted user. The first name, last name, email, and username are replaced with random, irreversible alphanumeric strings. Custom field values are deleted permanently. The user ID remains unchanged, so this is not full GDPR anonymization. If 'deleteExternalIds' is set to true, the user's external identifiers are deleted."
+        },
+        {
+          "info": {
+            "name": "Replace the password of a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/users/:userId/password",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:write`.\n\nReplaces the password of a user with the provided data. If 'passwordMustBeChanged' is set to true, the user will be forced to change their password on the next login."
+        },
+        {
+          "info": {
+            "name": "Update certificates privacy level",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.360learning.com/api/v2/users/:userId/certificates/privacy-level",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:write`.\n\nUpdates the privacy level of the specified certificates belonging to the given user."
+        },
+        {
+          "info": {
+            "name": "Upload user media",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/users/:userId/media",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the user."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:write`.\n\nUploads a profile image to a user."
+        },
+        {
+          "info": {
+            "name": "Retrieve my profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/uaa/users/me",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `users:read`.\n\nRetrieves the profile details of the authenticated user. This user-authorized endpoint can only be used with a token issued for a specific user. Refer to the [Create an access token](doc:authentication#step-1-create-an-access-token) documentation for more information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

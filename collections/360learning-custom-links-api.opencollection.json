@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bulk Authentication Custom Links API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Custom Links",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List custom links",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/custom-links",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `customLinks:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 1,000 custom links. For more information, see the [Pagination guide](doc:pagination).\n\nLists all custom links."
+        },
+        {
+          "info": {
+            "name": "Create a custom link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/custom-links",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `customLinks:write`.\n\nCreates a custom link."
+        },
+        {
+          "info": {
+            "name": "Replace a custom link",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/custom-links/:customLinkId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "customLinkId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the custom link."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `customLinks:write`.\n\nReplaces the custom link with the provided data. Fields not included in the payload are removed."
+        },
+        {
+          "info": {
+            "name": "Delete a custom link",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/custom-links/:customLinkId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "customLinkId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the custom link."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `customLinks:write`.\n\nDeletes the custom link."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

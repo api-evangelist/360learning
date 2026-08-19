@@ -1,0 +1,236 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bulk Authentication Integrations API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upsert external courses",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.360learning.com/api/v2/bulk/integrations/:integrationId/courses",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the integration."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `integrations:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nAdds or replaces multiple external courses based on the given `integrationId` and the courses's `externalId`.\n- If a provided `externalId` matches an existing external course, the course is replaced with the new data.\n- If no match is found, a new course is created and added to the group catalog a"
+        },
+        {
+          "info": {
+            "name": "Archive external courses",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/bulk/integrations/:integrationId/courses",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the integration."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `integrations:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 1,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nArchives multiple external courses in bulk based on the provided integration ID.\n\nUpon submission, the request is queued. Use the provided URL in the response header to check the status of the bulk operation."
+        },
+        {
+          "info": {
+            "name": "Import integration statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/bulk/integrations/:integrationId/stats",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the integration."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `integrations:bulk`.\n\n> 🚜\n>\n> This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).\n\nImports multiple integration statistics in bulk based on the provided `integrationId`.\nThis endpoint will:\n- Create a new attempt if any of the following is true: `forceNew` is set to `true`; no attempt currently exists for the course and user; or `firstActivityAt` is later than the `lastActivityA"
+        },
+        {
+          "info": {
+            "name": "List integration configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/integrations",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "externalPlatform",
+                "value": "",
+                "type": "query",
+                "description": "Filter on **externalPlatform** property with LHS bracket notation.\n\nExpected value format is a string."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `integrations:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 100 integration configurations. For more information, see the [Pagination guide](doc:pagination).\n\nLists all integration configurations."
+        },
+        {
+          "info": {
+            "name": "Create an integration configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.360learning.com/api/v2/integrations",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `integrations:write`.\n\nCreate an integration configuration."
+        },
+        {
+          "info": {
+            "name": "Edit an integration configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.360learning.com/api/v2/integrations/:integrationId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the integration."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `integrations:write`.\n\nEdits specific fields of an existing integration configuration. Fields not included in the request payload remain unchanged."
+        },
+        {
+          "info": {
+            "name": "Delete an integration configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.360learning.com/api/v2/integrations/:integrationId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the integration."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `integrations:write`.\n\nDeletes a specific configuration given its unique ID and archives all its related content."
+        },
+        {
+          "info": {
+            "name": "Retrieve an external course",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.360learning.com/api/v2/integrations/:integrationId/courses/:externalId",
+            "headers": [
+              {
+                "name": "360-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the integration the course has been imported for."
+              },
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path",
+                "description": "The unique external ID of the course."
+              }
+            ]
+          },
+          "docs": "> 🔑\n>\n> Required OAuth scope: `integrations:read`.\n\nRetrieves the details of a specific course with the provided external platform course ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
