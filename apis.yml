@@ -35,6 +35,15 @@ created: '2026-07-17'
 modified: '2026-07-17'
 tags:
 - Company
+- EdTech
+- Learning Management System
+- E-Learning
+- Training
+- Collaborative Learning
+- HR Tech
+- Skills
+tags_raw:
+- Company
 - Edtech
 - Learning Management System
 - E-Learning
@@ -125,6 +134,8 @@ apis:
   humanURL: https://360learning.readme.io/reference
   baseURL: https://app.360learning.com/api/v2
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
@@ -135,6 +146,8 @@ apis:
   humanURL: https://360learning.readme.io/reference
   baseURL: https://app.360learning.com/api/v2
   tags:
+  - Integration
+  tags_raw:
   - Integrations
   properties:
   - type: OpenAPI
@@ -154,7 +167,8 @@ apis:
   description: The Operations API from 360Learning — 3 operation(s) for operations.
   humanURL: https://360learning.readme.io/reference
   baseURL: https://app.360learning.com/api/v2
-  tags:
+  tags: []
+  tags_raw:
   - Operations
   properties:
   - type: OpenAPI
@@ -175,6 +189,8 @@ apis:
   humanURL: https://360learning.readme.io/reference
   baseURL: https://app.360learning.com/api/v2
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -195,6 +211,8 @@ apis:
   humanURL: https://360learning.readme.io/reference
   baseURL: https://app.360learning.com/api/v2
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI
@@ -215,6 +233,8 @@ apis:
   humanURL: https://360learning.readme.io/reference
   baseURL: https://app.360learning.com/api/v2
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
