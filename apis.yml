@@ -312,6 +312,9 @@ apis:
   - type: OpenAPI
     url: openapi/360learning-xapi-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/360learning-capability-edges.yml
+  name: 360Learning Business Capability Map
 - type: Overlay
   url: overlays/360learning-bulk-overlay.yaml
 - type: Website

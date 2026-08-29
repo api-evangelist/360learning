@@ -1,0 +1,60 @@
+slug: 360learning
+provider: 360Learning
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Education
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Subscriptions
+  spec_file: 360learning-subscriptions-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.72
+  evidence: '''Create a webhook subscription'', ''Retrieve the signing secret of a webhook subscription'',
+    ''Retry the failed webhook events of a webhook subscription'''
+  reason: Despite the business-sounding tag, these operations are the lifecycle of outbound webhook/event
+    subscriptions with signing secrets and delivery retry — not commercial subscriptions. That matches
+    Webhook & Event Subscription Management on the developer-platform capability rather than any billing
+    capability.
+- tag: Classrooms
+  spec_file: 360learning-classrooms-api-openapi.yml
+  capability_id: BC-300.40
+  capability_id_l1: BC-300
+  capability_name: Learning & Development Management
+  confidence: 0.7
+  evidence: POST /api/v2/classrooms  Create a classroom; GET /api/v2/classrooms/{classroomId}/registrations  List
+    all registrations in a classroom; Create an attendance sheet
+  reason: Scheduling instructor-led classroom sessions with slots, registrations and attendance sheets
+    is delivery of training on an enterprise learning platform — Learning & Development Management. Not
+    an academic timetabling system, so the Education-specific teaching-operations capability is a weaker
+    fit.
+- tag: Courses
+  spec_file: 360learning-courses-api-openapi.yml
+  capability_id: BC-300.40
+  capability_id_l1: BC-300
+  capability_name: Learning & Development Management
+  confidence: 0.7
+  evidence: POST /api/v2/courses/elearning-standard  Create an eLearning standard course; GET /api/v2/courses/stats  List
+    all courses statistics
+  reason: Authoring, cataloguing and reporting on eLearning courses for employee/partner upskilling is
+    Learning & Development Management. Vendor is an enterprise LMS, not an academic curriculum system,
+    so the cross-industry L&D capability is the honest mapping.
+- tag: Paths
+  spec_file: 360learning-paths-api-openapi.yml
+  capability_id: BC-300.40
+  capability_id_l1: BC-300
+  capability_name: Learning & Development Management
+  confidence: 0.7
+  evidence: POST /api/v2/paths  Create a path; POST /api/v2/paths/{pathId}/sessions  Create a path session;
+    CourseStepDTO, ClassroomStepDTO
+  reason: Learning paths composed of course and classroom steps, with sessions and learner statistics,
+    are structured training programmes — Learning & Development Management for an enterprise LMS.
