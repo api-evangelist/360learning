@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Bulk Authentication External IDs API
+  title: Core External IDs API
   description: ''
   version: 1.0.0
   contact: {}
@@ -815,51 +815,6 @@ paths:
       - External IDs
 components:
   schemas:
-    InputExternalIdDTO:
-      title: Input External Id
-      type: object
-      properties:
-        platform:
-          type: string
-          description: The name of the platform where the external ID comes from.
-          example: external catalog
-          minLength: 1
-        targetId:
-          type: string
-          description: The resource ID to which the external ID is linked.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        targetType:
-          type: string
-          enum:
-          - attempt
-          - classroom
-          - classroomAttendance
-          - classroomAttendanceSheet
-          - classroomSlot
-          - classroomSlotRegistration
-          - course
-          - group
-          - learningNeed
-          - path
-          - pathEnrollment
-          - pathSession
-          - pathTracking
-          - registrationRequest
-          - user
-          description: The resource type to which the external ID is linked.
-          example: course
-        value:
-          type: string
-          description: The value of the external ID.
-          example: 945628-01
-          minLength: 1
-      required:
-      - platform
-      - targetId
-      - targetType
-      - value
     ExternalIdDTO:
       title: External Id
       type: object
@@ -912,6 +867,51 @@ components:
       - targetType
       - value
       - _id
+    InputExternalIdDTO:
+      title: Input External Id
+      type: object
+      properties:
+        platform:
+          type: string
+          description: The name of the platform where the external ID comes from.
+          example: external catalog
+          minLength: 1
+        targetId:
+          type: string
+          description: The resource ID to which the external ID is linked.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        targetType:
+          type: string
+          enum:
+          - attempt
+          - classroom
+          - classroomAttendance
+          - classroomAttendanceSheet
+          - classroomSlot
+          - classroomSlotRegistration
+          - course
+          - group
+          - learningNeed
+          - path
+          - pathEnrollment
+          - pathSession
+          - pathTracking
+          - registrationRequest
+          - user
+          description: The resource type to which the external ID is linked.
+          example: course
+        value:
+          type: string
+          description: The value of the external ID.
+          example: 945628-01
+          minLength: 1
+      required:
+      - platform
+      - targetId
+      - targetType
+      - value
   securitySchemes:
     oauth2:
       type: oauth2

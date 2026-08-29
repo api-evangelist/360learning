@@ -1,0 +1,1155 @@
+openapi: 3.2.0
+info:
+  title: Webhook Path API
+  description: ''
+  version: 1.0.0
+  contact: {}
+servers:
+- url: https://app.360learning.com
+  description: Production EU
+- url: https://app.us.360learning.com
+  description: Production US
+tags:
+- name: Path
+paths: {}
+webhooks:
+  path.session.user.status.updated:
+    post:
+      description: Sent to your endpoint when a learner's status in a path session changes. This event is emitted once per status transition (e.g. onTime → late, onTime → successful). It is also emitted the first time a status is computed for a learner after enrollment. Each status change results from a tracking recalculation triggered by learner activity or other platform processes — for example, when a session opens or when a mandatory step is added to a path. One recalculation may affect multiple learners at once, producing bursts of webhook events. See our Webhook processing best practices guide (https://360learning.readme.io/docs/webhooks-processing-best-practices).
+      operationId: webhook.path.session.user.status.updated
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - path.session.user.status.updated
+                  description: The type of the event.
+                  example: path.session.user.status.updated
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/UserPathSessionStatusUpdatedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Path session user status updated
+      tags:
+      - Path
+  path.updated:
+    post:
+      description: 'Sent to your endpoint when a path is updated on your platform. The payload''s changeType field identifies the type of change (one of: settings, authors, group, duration, certificate, requirements, or steps) so consumers can decide whether to react. New changeType values may be added in future releases — only match the values your integration handles.'
+      operationId: webhook.path.updated
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - path.updated
+                  description: The type of the event.
+                  example: path.updated
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/PathUpdatedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Path updated
+      tags:
+      - Path
+  path.session.users.unenrolled:
+    post:
+      description: Sent to your endpoint when users are unenrolled from a path session on your platform.
+      operationId: webhook.path.session.users.unenrolled
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - path.session.users.unenrolled
+                  description: The type of the event.
+                  example: path.session.users.unenrolled
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/PathSessionUsersUnenrolledDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Path session users unenrolled
+      tags:
+      - Path
+  path.session.users.enrolled:
+    post:
+      description: Sent to your endpoint when users are enrolled in a path session on your platform. Call the `List all enrollments` endpoint to get the updated list of enrolled users.
+      operationId: webhook.path.session.users.enrolled
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - path.session.users.enrolled
+                  description: The type of the event.
+                  example: path.session.users.enrolled
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/PathSessionUsersEnrolledDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Path session users enrolled
+      tags:
+      - Path
+  path.session.removed:
+    post:
+      description: Sent to your endpoint when a session is removed from a path. For paths with path steps, this event only fires for the top-level session, not for sessions removed within each path step. This event is not fired when a session is removed as part of a path deletion.
+      operationId: webhook.path.session.removed
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - path.session.removed
+                  description: The type of the event.
+                  example: path.session.removed
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/PathSessionRemovedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Path session removed
+      tags:
+      - Path
+  path.session.added:
+    post:
+      description: Sent to your endpoint when a session is added to a path. For paths with path steps, this event only fires for the top-level session, not for sessions created within each path step.
+      operationId: webhook.path.session.added
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - path.session.added
+                  description: The type of the event.
+                  example: path.session.added
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/PathSessionAddedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Path session added
+      tags:
+      - Path
+  path.deleted:
+    post:
+      description: Sent to your endpoint when a path is deleted in your platform.
+      operationId: webhook.path.deleted
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - path.deleted
+                  description: The type of the event.
+                  example: path.deleted
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/PathDeletedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Path deleted
+      tags:
+      - Path
+  path.created:
+    post:
+      description: Sent to your endpoint when a path is created in your platform.
+      operationId: webhook.path.created
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - path.created
+                  description: The type of the event.
+                  example: path.created
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/PathCreatedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Path created
+      tags:
+      - Path
+  path.archived:
+    post:
+      description: Sent to your endpoint when a path is archived in your platform.
+      operationId: webhook.path.archived
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - path.archived
+                  description: The type of the event.
+                  example: path.archived
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/PathArchivedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Path archived
+      tags:
+      - Path
+  path.session.classroom.slot.users.unregistered.full:
+    post:
+      description: Sent to your endpoint when a full classroom slot is left by learners.
+      operationId: webhook.path.session.classroom.slot.users.unregistered.full
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - path.session.classroom.slot.users.unregistered.full
+                  description: The type of the event.
+                  example: path.session.classroom.slot.users.unregistered.full
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/LearnersUnregisteredFullClassroomSlotDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Learners unregistered full classroom slot
+      tags:
+      - Path
+  path.session.classroom.slot.waitlist.user.joined:
+    post:
+      description: Sent to your endpoint when a learner joins a classroom slot waitlist within a path session.
+      operationId: webhook.path.session.classroom.slot.waitlist.user.joined
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - path.session.classroom.slot.waitlist.user.joined
+                  description: The type of the event.
+                  example: path.session.classroom.slot.waitlist.user.joined
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/LearnerJoinedClassroomSlotWaitlistDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Learner joined classroom slot waitlist
+      tags:
+      - Path
+  path.session.classroom.slot.waitlist.opened:
+    post:
+      description: Sent to your endpoint when a waitlist is added to a classroom slot.
+      operationId: webhook.path.session.classroom.slot.waitlist.opened
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - path.session.classroom.slot.waitlist.opened
+                  description: The type of the event.
+                  example: path.session.classroom.slot.waitlist.opened
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/ClassroomSlotWaitlistOpenedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Classroom slot waitlist opened
+      tags:
+      - Path
+  path.session.classroom.slot.waitlist.closed:
+    post:
+      description: Sent to your endpoint when a classroom slot's waitlist is closed.
+      operationId: webhook.path.session.classroom.slot.waitlist.closed
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - path.session.classroom.slot.waitlist.closed
+                  description: The type of the event.
+                  example: path.session.classroom.slot.waitlist.closed
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/ClassroomSlotWaitlistClosedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Classroom slot waitlist closed
+      tags:
+      - Path
+components:
+  schemas:
+    PathSessionUsersEnrolledDTO:
+      title: Path Session Users Enrolled
+      type: object
+      properties:
+        pathId:
+          type: string
+          description: The unique ID of the path.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        sessionId:
+          type: string
+          description: The unique ID of the path session.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        enrolledAt:
+          format: date-time
+          type: string
+          description: The date and time when the enrollment change occurred, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - pathId
+      - sessionId
+      - enrolledAt
+    PathArchivedDTO:
+      title: Path Archived
+      type: object
+      properties:
+        pathId:
+          type: string
+          description: The unique ID of the path.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        archivedAt:
+          format: date-time
+          type: string
+          description: The date and time when the path was archived, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        name:
+          type: string
+          description: The name of the path.
+          example: Employee Onboarding
+      required:
+      - pathId
+      - archivedAt
+      - name
+    ClassroomSlotWaitlistClosedDTO:
+      title: Classroom Slot Waitlist Closed
+      type: object
+      properties:
+        classroomSlotId:
+          type: string
+          description: The unique ID of the classroom slot.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        pathSessionId:
+          type: string
+          description: The unique ID of the path session.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        closedAt:
+          format: date-time
+          type: string
+          description: The date and time when the waitlist closed, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - classroomSlotId
+      - pathSessionId
+      - closedAt
+    LearnersUnregisteredFullClassroomSlotDTO:
+      title: Learners Unregistered Full Classroom Slot
+      type: object
+      properties:
+        classroomSlotId:
+          type: string
+          description: The unique ID of the classroom slot.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        learnerIds:
+          description: The unique IDs of the learners.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        pathSessionId:
+          type: string
+          description: The unique ID of the path session.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        leftAt:
+          format: date-time
+          type: string
+          description: The date and time when learners unregistered, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - classroomSlotId
+      - learnerIds
+      - pathSessionId
+      - leftAt
+    ClassroomSlotWaitlistOpenedDTO:
+      title: Classroom Slot Waitlist Opened
+      type: object
+      properties:
+        classroomSlotId:
+          type: string
+          description: The unique ID of the classroom slot.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        createdBy:
+          type: string
+          description: The unique ID of the user who added the waitlist to the slot.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        pathSessionId:
+          type: string
+          description: The unique ID of the path session.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        openedAt:
+          format: date-time
+          type: string
+          description: The date and time when the waitlist opened, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - classroomSlotId
+      - createdBy
+      - pathSessionId
+      - openedAt
+    PathDeletedDTO:
+      title: Path Deleted
+      type: object
+      properties:
+        pathId:
+          type: string
+          description: The unique ID of the path.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        deletedAt:
+          format: date-time
+          type: string
+          description: The date and time when the path was deleted, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        name:
+          type: string
+          description: The name of the path.
+          example: Employee Onboarding
+      required:
+      - pathId
+      - deletedAt
+      - name
+    PathCreatedDTO:
+      title: Path Created
+      type: object
+      properties:
+        pathId:
+          type: string
+          description: The unique ID of the path.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the path was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - pathId
+      - createdAt
+    LearnerJoinedClassroomSlotWaitlistDTO:
+      title: Learner Joined Classroom Slot Waitlist
+      type: object
+      properties:
+        classroomSlotId:
+          type: string
+          description: The unique ID of the classroom slot.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        learnerId:
+          type: string
+          description: The unique ID of the learner.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        pathSessionId:
+          type: string
+          description: The unique ID of the path session.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        joinedAt:
+          format: date-time
+          type: string
+          description: The date and time when the learner joined, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - classroomSlotId
+      - learnerId
+      - pathSessionId
+      - joinedAt
+    UserPathSessionStatusUpdatedDTO:
+      title: User Path Session Status Updated
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the learner.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        pathId:
+          type: string
+          description: The unique ID of the path.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        sessionId:
+          type: string
+          description: The unique ID of the path session.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        enrollmentId:
+          type: string
+          description: The unique ID of the enrollment.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        status:
+          type: string
+          enum:
+          - awaitingCorrection
+          - late
+          - notEnrolled
+          - notYetStarted
+          - onTime
+          - sessionNotOpened
+          - successful
+          - toRetake
+          - unsuccessful
+          description: The detailed status of the learner on the path session.
+        updatedAt:
+          format: date-time
+          type: string
+          description: The date and time when the status changed, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - userId
+      - pathId
+      - sessionId
+      - enrollmentId
+      - status
+      - updatedAt
+    PathSessionUsersUnenrolledDTO:
+      title: Path Session Users Unenrolled
+      type: object
+      properties:
+        pathId:
+          type: string
+          description: The unique ID of the path.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        sessionId:
+          type: string
+          description: The unique ID of the path session.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        unenrolledAt:
+          format: date-time
+          type: string
+          description: The date and time when the unenrollment occurred, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)). Equal to the `archivedAt` field on the unenrolled enrollments.
+      required:
+      - pathId
+      - sessionId
+      - unenrolledAt
+    PathSessionRemovedDTO:
+      title: Path Session Removed
+      type: object
+      properties:
+        pathId:
+          type: string
+          description: The unique ID of the path.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        sessionId:
+          type: string
+          description: The unique ID of the deleted session.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The name of the session.
+          example: January 2026
+          minLength: 1
+        deletedAt:
+          format: date-time
+          type: string
+          description: The date and time when the session was deleted, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - pathId
+      - sessionId
+      - name
+      - deletedAt
+    PathSessionAddedDTO:
+      title: Path Session Added
+      type: object
+      properties:
+        pathId:
+          type: string
+          description: The unique ID of the path.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        sessionId:
+          type: string
+          description: The unique ID of the session.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The name of the session.
+          example: January 2026
+          minLength: 1
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the session was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - pathId
+      - sessionId
+      - name
+      - createdAt
+    PathUpdatedDTO:
+      title: Path Updated
+      type: object
+      properties:
+        pathId:
+          type: string
+          description: The unique ID of the path.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The name of the path.
+          example: Employee Onboarding
+          minLength: 1
+        changeType:
+          type: string
+          enum:
+          - authors
+          - certificate
+          - duration
+          - group
+          - requirements
+          - settings
+          - steps
+          description: The type of change that triggered the event. New values may be added in future releases — only match the values your integration handles.
+        updatedAt:
+          format: date-time
+          type: string
+          description: The date and time when the path was updated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - pathId
+      - name
+      - changeType
+      - updatedAt
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows: {}
+      description: 'Use the token from the authentication endpoint in the Authorization header.
+
+
+        Example: `Authorization: Bearer <token>`'

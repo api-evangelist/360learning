@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Bulk Authentication Custom Fields API
+  title: Core Custom Fields API
   description: ''
   version: 1.0.0
   contact: {}
@@ -967,37 +967,6 @@ paths:
       - Custom Fields
 components:
   schemas:
-    CustomFieldDTO:
-      title: Custom Field
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the custom field.
-          example: Department
-        targetType:
-          type: string
-          enum:
-          - users
-          - contents
-          description: The resource type to which the custom field is linked.
-        type:
-          type: string
-          enum:
-          - string
-          - date
-          description: The type of the custom field.
-        _id:
-          type: string
-          description: The unique ID of the custom field.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-      required:
-      - name
-      - targetType
-      - type
-      - _id
     UpdateCustomFieldBody:
       title: Update Custom Field Body
       type: object
@@ -1031,6 +1000,37 @@ components:
           description: The new authorized values for the given custom fields. A custom field can have at most 300 authorized values.
       required:
       - authorizedValues
+    CustomFieldDTO:
+      title: Custom Field
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the custom field.
+          example: Department
+        targetType:
+          type: string
+          enum:
+          - users
+          - contents
+          description: The resource type to which the custom field is linked.
+        type:
+          type: string
+          enum:
+          - string
+          - date
+          description: The type of the custom field.
+        _id:
+          type: string
+          description: The unique ID of the custom field.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - name
+      - targetType
+      - type
+      - _id
     InputCustomFieldDTO:
       title: Input Custom Field
       type: object

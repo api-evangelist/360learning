@@ -251,6 +251,66 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/360learning-users-api-openapi.yml
+- aid: 360learning:360learning-bulk-api
+  name: 360Learning Bulk API
+  description: The Bulk API from 360Learning — 0 operation(s) for bulk.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Bulk
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-bulk-api-openapi.yml
+- aid: 360learning:360learning-course-api
+  name: 360Learning Course API
+  description: The Course API from 360Learning — 0 operation(s) for course.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Course
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-course-api-openapi.yml
+- aid: 360learning:360learning-group-api
+  name: 360Learning Group API
+  description: The Group API from 360Learning — 0 operation(s) for group.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Group
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-group-api-openapi.yml
+- aid: 360learning:360learning-path-api
+  name: 360Learning Path API
+  description: The Path API from 360Learning — 0 operation(s) for path.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Path
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-path-api-openapi.yml
+- aid: 360learning:360learning-user-api
+  name: 360Learning User API
+  description: The User API from 360Learning — 0 operation(s) for user.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-user-api-openapi.yml
+- aid: 360learning:360learning-xapi-api
+  name: 360Learning Xapi API
+  description: The Xapi API from 360Learning — 0 operation(s) for xapi.
+  humanURL: https://360learning.readme.io/reference
+  baseURL: https://app.360learning.com/api/v2
+  tags:
+  - Xapi
+  properties:
+  - type: OpenAPI
+    url: openapi/360learning-xapi-api-openapi.yml
 common:
 - type: Overlay
   url: overlays/360learning-bulk-overlay.yaml

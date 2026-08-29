@@ -1,0 +1,900 @@
+openapi: 3.2.0
+info:
+  title: Webhook User API
+  description: ''
+  version: 1.0.0
+  contact: {}
+servers:
+- url: https://app.360learning.com
+  description: Production EU
+- url: https://app.us.360learning.com
+  description: Production US
+tags:
+- name: User
+paths: {}
+webhooks:
+  user.updated:
+    post:
+      description: 'Sent to your endpoint when one or more of the following user properties are updated: mail, username, firstName, lastName, lang, custom, job, organization, phone, toBeDeactivatedAt, primaryGroupId.'
+      operationId: webhook.user.updated
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - user.updated
+                  description: The type of the event.
+                  example: user.updated
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/UserUpdatedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: User updated
+      tags:
+      - User
+  user.reactivated:
+    post:
+      description: Sent to your endpoint when a user is reactivated in your platform.
+      operationId: webhook.user.reactivated
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - user.reactivated
+                  description: The type of the event.
+                  example: user.reactivated
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/UserReactivatedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: User reactivated
+      tags:
+      - User
+  user.invited:
+    post:
+      description: Sent to your endpoint when a user is invited to your platform.
+      operationId: webhook.user.invited
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - user.invited
+                  description: The type of the event.
+                  example: user.invited
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/UserInvitedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: User invited
+      tags:
+      - User
+  user.deleted:
+    post:
+      description: Sent to your endpoint when a user is soft deleted from your platform.
+      operationId: webhook.user.deleted
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - user.deleted
+                  description: The type of the event.
+                  example: user.deleted
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/UserDeletedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: User deleted
+      tags:
+      - User
+  user.created:
+    post:
+      description: Sent to your endpoint when a user is created as active in your platform.
+      operationId: webhook.user.created
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - user.created
+                  description: The type of the event.
+                  example: user.created
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/UserCreatedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: User created
+      tags:
+      - User
+  user.certificate.awarded:
+    post:
+      description: Sent to your endpoint when a user certificate is awarded in your platform.
+      operationId: webhook.user.certificate.awarded
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - user.certificate.awarded
+                  description: The type of the event.
+                  example: user.certificate.awarded
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/CertificateAwardedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: User certificate awarded
+      tags:
+      - User
+  user.assessment.corrected:
+    post:
+      description: Sent to your endpoint when a user assessment in a path is corrected on your platform. The payload's success field indicates whether the user passed or failed.
+      operationId: webhook.user.assessment.corrected
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - user.assessment.corrected
+                  description: The type of the event.
+                  example: user.assessment.corrected
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/UserAssessmentCorrectedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: User assessment corrected
+      tags:
+      - User
+  user.activated:
+    post:
+      description: Sent to your endpoint when a user is activated for the first time in your platform.
+      operationId: webhook.user.activated
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - user.activated
+                  description: The type of the event.
+                  example: user.activated
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/UserActivatedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: User activated
+      tags:
+      - User
+components:
+  schemas:
+    UserInvitedDTO:
+      title: User Invited
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        firstName:
+          type: string
+          description: The first name of the user.
+          example: John
+          minLength: 1
+        lastName:
+          type: string
+          description: The last name of the user.
+          example: Smith
+          minLength: 1
+        mail:
+          type: string
+          description: The email address of the user.
+          example: john.smith@yopmail.com
+          minLength: 1
+        username:
+          type: string
+          description: The username that can be used to log in if the company allows it.
+          example: johnsmith
+          minLength: 1
+        createdFrom:
+          type: string
+          enum:
+          - selfRegistration
+          description: Present and set to `"selfRegistration"` if the user registered via the self-registration form. Absent otherwise.
+        invitedAt:
+          format: date-time
+          type: string
+          description: The date and time when the user was invited, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - userId
+      - invitedAt
+    UserAssessmentCorrectedDTO:
+      title: User Assessment Corrected
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user whose assessment was corrected.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        assessmentId:
+          type: string
+          description: The unique ID of the assessment definition.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The name of the assessment.
+          example: Final assessment
+        pathId:
+          type: string
+          description: The unique ID of the path the assessment belongs to.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        sessionId:
+          type: string
+          description: The unique ID of the path session in which the assessment was taken.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        enrollmentId:
+          type: string
+          description: The unique ID of the user's enrollment that the assessment is tied to. Distinguishes assessments across multiple enrollments of the same user in the same session.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        success:
+          type: boolean
+          description: Whether the user passed (`true`) or failed (`false`) the assessment.
+        score:
+          type: number
+          minimum: 0
+          maximum: 100
+          description: The score the user obtained, as a percentage between 0 and 100. Only present for scored assessments.
+          example: 87
+        correctedAt:
+          format: date-time
+          type: string
+          description: The date and time when the assessment was corrected, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - userId
+      - assessmentId
+      - name
+      - pathId
+      - sessionId
+      - enrollmentId
+      - success
+      - correctedAt
+    UserCreatedDTO:
+      title: User Created
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        firstName:
+          type: string
+          description: The first name of the user.
+          example: John
+          minLength: 1
+        lastName:
+          type: string
+          description: The last name of the user.
+          example: Smith
+          minLength: 1
+        mail:
+          type: string
+          description: The email address of the user.
+          example: john.smith@yopmail.com
+          minLength: 1
+        username:
+          type: string
+          description: The username that can be used to log in if the company allows it.
+          example: johnsmith
+          minLength: 1
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the user was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - userId
+      - createdAt
+    UserUpdatedDTO:
+      title: User Updated
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        firstName:
+          type: string
+          description: The first name of the user.
+          example: John
+          minLength: 1
+        lastName:
+          type: string
+          description: The last name of the user.
+          example: Smith
+          minLength: 1
+        mail:
+          type: string
+          description: The email address of the user.
+          example: john.smith@yopmail.com
+          minLength: 1
+        username:
+          type: string
+          description: The username that can be used to log in if the company allows it.
+          example: johnsmith
+          minLength: 1
+        updatedAt:
+          format: date-time
+          type: string
+          description: The date and time when the user was updated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        lang:
+          type: string
+          enum:
+          - bg
+          - cs
+          - da
+          - de
+          - el
+          - en
+          - es
+          - fi
+          - fr
+          - hr
+          - ht_HT
+          - hu
+          - id
+          - it
+          - ja
+          - kar_MM
+          - ko
+          - lt
+          - mh_MH
+          - nl
+          - nl_BE
+          - 'no'
+          - pl
+          - pt
+          - ro
+          - ru
+          - rw_RW
+          - sk
+          - sl
+          - so_SO
+          - sv
+          - sw_KE
+          - th
+          - ti_ET
+          - tr
+          - uk
+          - zh
+          - vi
+          description: The default language of the user, in a bigram format (en, fr, de, etc.).
+        custom:
+          type: string
+          description: The value of the **Additional information** field in the user's profile. This is not the value of the custom fields associated with the user.
+          example: Half-time worker
+          minLength: 1
+        job:
+          type: string
+          description: The role title of the user.
+          example: Software Engineer
+          minLength: 1
+        organization:
+          type: string
+          description: The organization that the user belongs to.
+          example: 360Learning
+          minLength: 1
+        phone:
+          type: string
+          description: The phone number of the user.
+          example: '+33123456789'
+          minLength: 1
+        toBeDeactivatedAt:
+          format: date-time
+          type: string
+          description: The date and time when the user will be deactivated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        primaryGroupId:
+          type: string
+          description: The unique ID of the primary group of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - userId
+      - updatedAt
+    UserActivatedDTO:
+      title: User Activated
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        firstName:
+          type: string
+          description: The first name of the user.
+          example: John
+          minLength: 1
+        lastName:
+          type: string
+          description: The last name of the user.
+          example: Smith
+          minLength: 1
+        mail:
+          type: string
+          description: The email address of the user.
+          example: john.smith@yopmail.com
+          minLength: 1
+        username:
+          type: string
+          description: The username that can be used to log in if the company allows it.
+          example: johnsmith
+          minLength: 1
+        createdFrom:
+          type: string
+          enum:
+          - selfRegistration
+          description: Present and set to `"selfRegistration"` if the user registered via the self-registration form. Absent otherwise.
+        firstActivatedAt:
+          format: date-time
+          type: string
+          description: The date and time when the user was activated for the first time, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - userId
+      - firstActivatedAt
+    UserDeletedDTO:
+      title: User Deleted
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        firstName:
+          type: string
+          description: The first name of the user.
+          example: John
+          minLength: 1
+        lastName:
+          type: string
+          description: The last name of the user.
+          example: Smith
+          minLength: 1
+        mail:
+          type: string
+          description: The email address of the user.
+          example: john.smith@yopmail.com
+          minLength: 1
+        username:
+          type: string
+          description: The username that can be used to log in if the company allows it.
+          example: johnsmith
+          minLength: 1
+        deletedAt:
+          format: date-time
+          type: string
+          description: The date and time when the user was soft deleted, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - userId
+      - deletedAt
+    UserReactivatedDTO:
+      title: User Reactivated
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        firstName:
+          type: string
+          description: The first name of the user.
+          example: John
+          minLength: 1
+        lastName:
+          type: string
+          description: The last name of the user.
+          example: Smith
+          minLength: 1
+        mail:
+          type: string
+          description: The email address of the user.
+          example: john.smith@yopmail.com
+          minLength: 1
+        username:
+          type: string
+          description: The username that can be used to log in if the company allows it.
+          example: johnsmith
+          minLength: 1
+        createdFrom:
+          type: string
+          enum:
+          - selfRegistration
+          description: Present and set to `"selfRegistration"` if the user registered via the self-registration form. Absent otherwise.
+        reactivatedAt:
+          format: date-time
+          type: string
+          description: The date and time when the user was reactivated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - userId
+      - reactivatedAt
+    CertificateAwardedDTO:
+      title: Certificate Awarded
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        certificateId:
+          type: string
+          description: The unique ID of the awarded certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        certificateOutlineId:
+          type: string
+          description: The unique ID of the certificate outline linked to the awarded certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        deliveryDate:
+          format: date-time
+          type: string
+          description: The date and time when the user obtained the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        pathId:
+          type: string
+          description: The unique ID of the completed path where the certificate was awarded.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        pathSessionId:
+          type: string
+          description: The unique ID of the completed path session where the certificate was awarded.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - userId
+      - certificateId
+      - deliveryDate
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows: {}
+      description: 'Use the token from the authentication endpoint in the Authorization header.
+
+
+        Example: `Authorization: Bearer <token>`'

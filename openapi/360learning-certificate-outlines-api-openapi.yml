@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Bulk Authentication Certificate Outlines API
+  title: Core Certificate Outlines API
   description: ''
   version: 1.0.0
   contact: {}
@@ -625,6 +625,93 @@ paths:
       - Certificate Outlines
 components:
   schemas:
+    CertificateOutlineResponseDTO:
+      title: Certificate Outline Response
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the certificate outline.
+          example: Certificate of Completion
+          minLength: 1
+        groupId:
+          type: string
+          description: The unique ID of the group this outline belongs to.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        _id:
+          type: string
+          description: The unique ID of the certificate outline.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the certificate outline was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - title
+      - groupId
+      - _id
+      - createdAt
+    InputCertificateOutlineDTO:
+      title: Input Certificate Outline
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the certificate outline.
+          example: Certificate of Completion
+          minLength: 1
+        groupId:
+          type: string
+          description: The unique ID of the group this outline belongs to.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        bodyHtml:
+          type: string
+          description: 'The content of the certificate outline. Can contain tags which will dynamically be replaced when delivering a certificate. Available tags are: [person_first_name], [person_last_name], [person_email], [person_organization], [authenticity_verification_url], [credits_acquired], [delivery_date], [path_session_title], [path_title], [reference_number], [score_reached], [start_date], [time_spent], [validity_period].'
+          example: '<p>This certificate ensures [person_first_name] [person_last_name] received a certificate on [path_title] <br> This certificate was delivered by Training Organization <br> Contact: training@organization.com </p>'
+          minLength: 1
+        authenticityVerificationUrlWording:
+          type: string
+          description: A wording to display the authenticity verification URL. If set, it needs to contain [authenticity_verification_url] tag.
+          example: 'You can also find this document on the Internet at the following address: [authenticity_verification_url]'
+        backgroundImageId:
+          type: string
+          description: The media unique ID of the background image for this outline.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        logoImageId:
+          type: string
+          description: The media unique ID of the logo to display at the top of the certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        referenceNumberWording:
+          type: string
+          description: A wording to display the reference number. If set, it needs to contain [reference_number] tag.
+          example: 'Reference number: [reference_number]'
+        subtitle:
+          type: string
+          description: The subtitle of the certificate outline.
+          example: Certificate topic
+          minLength: 1
+        validityPeriod:
+          type: integer
+          minimum: 1
+          description: Number of months of validity of the certificate.
+        validityPeriodWording:
+          type: string
+          description: A wording to display the validity period. If set, it needs to contain [validity_period] tag.
+          example: This certificate is valid for a period of [validity_period] months
+      required:
+      - title
+      - groupId
+      - bodyHtml
     PatchCertificateOutlineDTO:
       title: Patch Certificate Outline
       type: object
@@ -685,93 +772,6 @@ components:
           nullable: true
           description: A wording to display the validity period. If set, it needs to contain [validity_period] tag.
           example: This certificate is valid for a period of [validity_period] months
-    InputCertificateOutlineDTO:
-      title: Input Certificate Outline
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the certificate outline.
-          example: Certificate of Completion
-          minLength: 1
-        groupId:
-          type: string
-          description: The unique ID of the group this outline belongs to.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        bodyHtml:
-          type: string
-          description: 'The content of the certificate outline. Can contain tags which will dynamically be replaced when delivering a certificate. Available tags are: [person_first_name], [person_last_name], [person_email], [person_organization], [authenticity_verification_url], [credits_acquired], [delivery_date], [path_session_title], [path_title], [reference_number], [score_reached], [start_date], [time_spent], [validity_period].'
-          example: '<p>This certificate ensures [person_first_name] [person_last_name] received a certificate on [path_title] <br> This certificate was delivered by Training Organization <br> Contact: training@organization.com </p>'
-          minLength: 1
-        authenticityVerificationUrlWording:
-          type: string
-          description: A wording to display the authenticity verification URL. If set, it needs to contain [authenticity_verification_url] tag.
-          example: 'You can also find this document on the Internet at the following address: [authenticity_verification_url]'
-        backgroundImageId:
-          type: string
-          description: The media unique ID of the background image for this outline.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        logoImageId:
-          type: string
-          description: The media unique ID of the logo to display at the top of the certificate.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        referenceNumberWording:
-          type: string
-          description: A wording to display the reference number. If set, it needs to contain [reference_number] tag.
-          example: 'Reference number: [reference_number]'
-        subtitle:
-          type: string
-          description: The subtitle of the certificate outline.
-          example: Certificate topic
-          minLength: 1
-        validityPeriod:
-          type: integer
-          minimum: 1
-          description: Number of months of validity of the certificate.
-        validityPeriodWording:
-          type: string
-          description: A wording to display the validity period. If set, it needs to contain [validity_period] tag.
-          example: This certificate is valid for a period of [validity_period] months
-      required:
-      - title
-      - groupId
-      - bodyHtml
-    CertificateOutlineResponseDTO:
-      title: Certificate Outline Response
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the certificate outline.
-          example: Certificate of Completion
-          minLength: 1
-        groupId:
-          type: string
-          description: The unique ID of the group this outline belongs to.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        _id:
-          type: string
-          description: The unique ID of the certificate outline.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        createdAt:
-          format: date-time
-          type: string
-          description: The date and time when the certificate outline was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - title
-      - groupId
-      - _id
-      - createdAt
   securitySchemes:
     oauth2:
       type: oauth2

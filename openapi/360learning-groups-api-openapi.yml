@@ -1,9 +1,9 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Bulk Authentication Groups API
-  description: ''
+  title: 360learning Groups API
   version: 1.0.0
   contact: {}
+  description: 'Operations tagged Groups across 2 of this provider''s published API definitions: 360learning-bulk-api.json, 360learning-core-api.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://app.360learning.com
   description: Production EU
@@ -363,6 +363,11 @@ paths:
       summary: Remove content from catalogs
       tags:
       - Groups
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/bulk/groups/library:
     post:
       description: '> 🔑
@@ -714,6 +719,11 @@ paths:
       summary: Remove content from libraries
       tags:
       - Groups
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/bulk/groups/memberships:
     post:
       description: '> 🔑
@@ -1065,6 +1075,11 @@ paths:
       summary: Remove users from groups
       tags:
       - Groups
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/bulk/groups:
     delete:
       description: '> 🔑
@@ -1241,6 +1256,11 @@ paths:
       summary: Delete groups
       tags:
       - Groups
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/groups/{groupId}/{role}/{userId}:
     post:
       description: '> 🔑
@@ -1613,6 +1633,11 @@ paths:
       summary: Remove a user's role
       tags:
       - Groups
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/groups:
     post:
       description: '> 🔑
@@ -1998,6 +2023,11 @@ paths:
       summary: List all groups
       tags:
       - Groups
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/groups/{groupId}:
     delete:
       description: '> 🔑
@@ -2598,6 +2628,11 @@ paths:
       summary: Edit a group
       tags:
       - Groups
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/groups/{groupId}/roles:
     get:
       description: '> 🔑
@@ -2729,6 +2764,11 @@ paths:
       summary: List all memberships in a group
       tags:
       - Groups
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/groups/{groupId}/catalog/{contentType}-ids:
     get:
       description: '> 🔑
@@ -2871,6 +2911,11 @@ paths:
       summary: List all content IDs in a group catalog
       tags:
       - Groups
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/groups/{groupId}/library/{contentType}-ids:
     get:
       description: '> 🔑
@@ -3013,6 +3058,11 @@ paths:
       summary: List all content IDs in a group library
       tags:
       - Groups
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/groups/{groupId}/media:
     post:
       description: '> 🔑
@@ -3176,6 +3226,11 @@ paths:
       summary: Upload group media
       tags:
       - Groups
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/groups/{groupId}/branding:
     patch:
       description: '> 🔑
@@ -3318,34 +3373,68 @@ paths:
       summary: Set group branding
       tags:
       - Groups
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
 components:
   schemas:
-    LibraryDTO:
-      title: Library
+    MembershipAdditionDTO:
+      title: Membership Addition
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user to be added to the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        groupId:
+          type: string
+          description: The unique ID of the group to which the user will be added.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        role:
+          type: string
+          enum:
+          - admin
+          - analyst
+          - editor
+          - coach
+          - contributor
+          - learner
+          - userAdmin
+          description: The role assigned to the user within the group.
+      required:
+      - userId
+      - groupId
+      - role
+    DeleteGroupDTO:
+      title: Delete Group
       type: object
       properties:
         groupId:
           type: string
-          description: The unique ID of the group.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        contentType:
-          type: string
-          enum:
-          - path
-          - course
-          description: The type of the content.
-        contentId:
-          type: string
-          description: The unique ID of the content.
+          description: The unique ID of the group to delete.
           format: ObjectId
           example: 507f1f77bcf86cd799439011
           pattern: ^[a-fA-F0-9]{24}$
       required:
       - groupId
-      - contentType
-      - contentId
+    AddContentsToGroupsLibraryBody:
+      title: Add Contents To Groups Library Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for adding content to a group library.
+          maxItems: 20000
+          type: array
+          items:
+            $ref: '#/components/schemas/LibraryDTO'
+      required:
+      - input
     CatalogDTO:
       title: Catalog
       type: object
@@ -3372,6 +3461,54 @@ components:
       - groupId
       - contentType
       - contentId
+    DeleteGroupsBody:
+      title: Delete Groups Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for the group to be deleted.
+          maxItems: 2000
+          type: array
+          items:
+            $ref: '#/components/schemas/DeleteGroupDTO'
+      required:
+      - input
+    RemoveContentsFromGroupsLibraryBody:
+      title: Remove Contents From Groups Library Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for removing content from a group library.
+          maxItems: 20000
+          type: array
+          items:
+            $ref: '#/components/schemas/LibraryDTO'
+      required:
+      - input
+    AddUsersToGroupsBody:
+      title: Add Users To Groups Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for adding a user to a group.
+          maxItems: 20000
+          type: array
+          items:
+            $ref: '#/components/schemas/MembershipAdditionDTO'
+      required:
+      - input
+    RemoveUsersFromGroupsBody:
+      title: Remove Users From Groups Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for removing a user from a group.
+          maxItems: 20000
+          type: array
+          items:
+            $ref: '#/components/schemas/MembershipDeletionDTO'
+      required:
+      - input
     AddContentsToGroupsCatalogBody:
       title: Add Contents To Groups Catalog Body
       type: object
@@ -3384,6 +3521,339 @@ components:
             $ref: '#/components/schemas/CatalogDTO'
       required:
       - input
+    MembershipDeletionDTO:
+      title: Membership Deletion
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user to be removed from the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        groupId:
+          type: string
+          description: The unique ID of the group from which the user will be removed.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        role:
+          type: string
+          enum:
+          - admin
+          - analyst
+          - editor
+          - coach
+          - contributor
+          - learner
+          - userAdmin
+          description: The role assigned to the user within the group.
+      required:
+      - userId
+      - groupId
+      - role
+    RemoveContentsFromGroupsCatalogBody:
+      title: Remove Contents From Groups Catalog Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for removing content from a group catalog.
+          maxItems: 20000
+          type: array
+          items:
+            $ref: '#/components/schemas/CatalogDTO'
+      required:
+      - input
+    LibraryDTO:
+      title: Library
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The unique ID of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        contentType:
+          type: string
+          enum:
+          - path
+          - course
+          description: The type of the content.
+        contentId:
+          type: string
+          description: The unique ID of the content.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - groupId
+      - contentType
+      - contentId
+    BrandCustomizationDTO:
+      title: Brand Customization
+      type: object
+      properties:
+        colors:
+          description: The updated colors of the group.
+          allOf:
+          - $ref: '#/components/schemas/BrandCustomizationColorsDTO'
+    UploadGroupMediaBodyDTO:
+      title: Upload Group Media Body
+      type: object
+      properties:
+        authorId:
+          type: string
+          description: The unique ID of the user performing the upload. Must be a non-deleted user in the company.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        banner:
+          type: string
+          format: binary
+          description: 'The banner image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
+        background:
+          type: string
+          format: binary
+          description: 'The background image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
+        favicon:
+          type: string
+          format: binary
+          description: 'The favicon image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp, image/x-icon, image/vnd.microsoft.icon.'
+        logo:
+          type: string
+          format: binary
+          description: 'The logo image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
+      required:
+      - authorId
+    InputGroupDTO:
+      title: Input Group
+      type: object
+      properties:
+        privacyPolicy:
+          description: The privacy policy of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        moderationCharter:
+          description: The moderation charter of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        termsOfUse:
+          description: The terms of use of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        imprint:
+          description: The imprint of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        bannerImageId:
+          type: string
+          description: The banner image of the group. Ensure that given media is an image with the proper size (at least 980px wide and 370px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        backgroundImageId:
+          type: string
+          description: The background image of the group. Ensure that given media is an image with the proper size (at least 760px wide and 880px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        faviconImageId:
+          type: string
+          description: The favicon image of the group. Ensure that given media is an image with the proper size (less than 500px wide and 500px high and more than 16px wide and 16px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        logoImageId:
+          type: string
+          description: The logo image of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        subdomain:
+          type: string
+          minLength: 3
+          maxLength: 255
+          pattern: ^[a-z0-9][a-z0-9-]*$
+          description: The subdomain of the group.
+          example: company-subdomain
+        url:
+          type: string
+          description: The custom url of the group. The given URL must resolve on the same address as 360learning.com.
+          example: company-domain.com
+        name:
+          type: string
+          description: The name of the group.
+          example: Engineering Team
+          minLength: 1
+        custom:
+          type: string
+          description: A custom field to store information available only in the **General settings** of the group, the CSV exports, and the API. This information is not displayed to learners on the platform.
+          example: Unit 101
+          minLength: 1
+        public:
+          type: boolean
+          description: True if the group is public; false if the group is private.
+        parentId:
+          type: string
+          description: The unique ID of the parent group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - name
+      - public
+      - parentId
+    GroupDTO:
+      title: Group
+      type: object
+      properties:
+        privacyPolicy:
+          description: The privacy policy of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        moderationCharter:
+          description: The moderation charter of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        termsOfUse:
+          description: The terms of use of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        imprint:
+          description: The imprint of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        bannerImageId:
+          type: string
+          description: The banner image of the group. Ensure that given media is an image with the proper size (at least 980px wide and 370px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        backgroundImageId:
+          type: string
+          description: The background image of the group. Ensure that given media is an image with the proper size (at least 760px wide and 880px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        faviconImageId:
+          type: string
+          description: The favicon image of the group. Ensure that given media is an image with the proper size (less than 500px wide and 500px high and more than 16px wide and 16px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        logoImageId:
+          type: string
+          description: The logo image of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        subdomain:
+          type: string
+          minLength: 3
+          maxLength: 255
+          pattern: ^[a-z0-9][a-z0-9-]*$
+          description: The subdomain of the group.
+          example: company-subdomain
+        url:
+          type: string
+          description: The custom url of the group. The given URL must resolve on the same address as 360learning.com.
+          example: company-domain.com
+        _id:
+          type: string
+          description: The unique ID of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The name of the group.
+          example: Engineering Team
+        custom:
+          type: string
+          description: A custom field to store information available only in the **General settings** of the group, the CSV exports, and the API. This information is not displayed to learners on the platform.
+          example: Unit 101
+        public:
+          type: boolean
+          description: True if the group is public; false if the group is private.
+        parentId:
+          type: string
+          description: The unique ID of the parent group. Not defined for the root group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - _id
+      - name
+      - public
+    BrandCustomizationColorsDTO:
+      title: Brand Customization Colors
+      type: object
+      properties:
+        primary:
+          type: string
+          description: 'The Main color used for buttons, links, navigation highlights, etc. (on the platform and emails), in hexadecimal format. Default: #0a47c2.'
+          example: '#0a1b2c'
+        menuBackground:
+          type: string
+          description: 'The color used for the platform background, in hexadecimal format. Default: #ffffff.'
+          example: '#0a1b2c'
+        myWorkBackground:
+          type: string
+          description: 'The color used for my work background, in hexadecimal format. Default: #f7f4ee.'
+          example: '#0a1b2c'
+        platformBackground:
+          type: string
+          description: 'The color used for the left bar background, in hexadecimal format. Default: #ffffff.'
+          example: '#0a1b2c'
+    PatchBrandCustomizationDTO:
+      title: Patch Brand Customization
+      type: object
+      properties:
+        colors:
+          nullable: true
+          description: The branding colors of the group.
+          allOf:
+          - $ref: '#/components/schemas/PatchBrandCustomizationColorsDTO'
+    UserRole:
+      title: User Role
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        role:
+          type: string
+          enum:
+          - admin
+          - analyst
+          - editor
+          - coach
+          - contributor
+          - learner
+          - owner
+          - userAdmin
+          description: The role of the group member.
+      required:
+      - userId
+      - role
+    PolicyDTO:
+      title: Policy
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL of the policy document.
+          example: https://example.com/policy
+          minLength: 1
+        explicitConsent:
+          type: boolean
+          description: When true, user must provide explicit consent at first login. Ignored for imprint. Default is false.
+      required:
+      - url
     PatchGroupDTO:
       title: Patch Group
       type: object
@@ -3467,416 +3937,6 @@ components:
           description: The imprint of the group.
           allOf:
           - $ref: '#/components/schemas/PolicyDTO'
-    RemoveUsersFromGroupsBody:
-      title: Remove Users From Groups Body
-      type: object
-      properties:
-        input:
-          description: An array of objects, each specifying details for removing a user from a group.
-          maxItems: 20000
-          type: array
-          items:
-            $ref: '#/components/schemas/MembershipDeletionDTO'
-      required:
-      - input
-    MembershipDeletionDTO:
-      title: Membership Deletion
-      type: object
-      properties:
-        userId:
-          type: string
-          description: The unique ID of the user to be removed from the group.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        groupId:
-          type: string
-          description: The unique ID of the group from which the user will be removed.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        role:
-          type: string
-          enum:
-          - admin
-          - analyst
-          - editor
-          - coach
-          - contributor
-          - learner
-          - userAdmin
-          description: The role assigned to the user within the group.
-      required:
-      - userId
-      - groupId
-      - role
-    InputGroupDTO:
-      title: Input Group
-      type: object
-      properties:
-        privacyPolicy:
-          description: The privacy policy of the group.
-          allOf:
-          - $ref: '#/components/schemas/PolicyDTO'
-        moderationCharter:
-          description: The moderation charter of the group.
-          allOf:
-          - $ref: '#/components/schemas/PolicyDTO'
-        termsOfUse:
-          description: The terms of use of the group.
-          allOf:
-          - $ref: '#/components/schemas/PolicyDTO'
-        imprint:
-          description: The imprint of the group.
-          allOf:
-          - $ref: '#/components/schemas/PolicyDTO'
-        bannerImageId:
-          type: string
-          description: The banner image of the group. Ensure that given media is an image with the proper size (at least 980px wide and 370px high).
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        backgroundImageId:
-          type: string
-          description: The background image of the group. Ensure that given media is an image with the proper size (at least 760px wide and 880px high).
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        faviconImageId:
-          type: string
-          description: The favicon image of the group. Ensure that given media is an image with the proper size (less than 500px wide and 500px high and more than 16px wide and 16px high).
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        logoImageId:
-          type: string
-          description: The logo image of the group.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        subdomain:
-          type: string
-          minLength: 3
-          maxLength: 255
-          pattern: ^[a-z0-9][a-z0-9-]*$
-          description: The subdomain of the group.
-          example: company-subdomain
-        url:
-          type: string
-          description: The custom url of the group. The given URL must resolve on the same address as 360learning.com.
-          example: company-domain.com
-        name:
-          type: string
-          description: The name of the group.
-          example: Engineering Team
-          minLength: 1
-        custom:
-          type: string
-          description: A custom field to store information available only in the **General settings** of the group, the CSV exports, and the API. This information is not displayed to learners on the platform.
-          example: Unit 101
-          minLength: 1
-        public:
-          type: boolean
-          description: True if the group is public; false if the group is private.
-        parentId:
-          type: string
-          description: The unique ID of the parent group.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-      required:
-      - name
-      - public
-      - parentId
-    RemoveContentsFromGroupsCatalogBody:
-      title: Remove Contents From Groups Catalog Body
-      type: object
-      properties:
-        input:
-          description: An array of objects, each specifying details for removing content from a group catalog.
-          maxItems: 20000
-          type: array
-          items:
-            $ref: '#/components/schemas/CatalogDTO'
-      required:
-      - input
-    UserRole:
-      title: User Role
-      type: object
-      properties:
-        userId:
-          type: string
-          description: The unique ID of the user.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        role:
-          type: string
-          enum:
-          - admin
-          - analyst
-          - editor
-          - coach
-          - contributor
-          - learner
-          - owner
-          - userAdmin
-          description: The role of the group member.
-      required:
-      - userId
-      - role
-    PolicyDTO:
-      title: Policy
-      type: object
-      properties:
-        url:
-          type: string
-          description: The URL of the policy document.
-          example: https://example.com/policy
-          minLength: 1
-        explicitConsent:
-          type: boolean
-          description: When true, user must provide explicit consent at first login. Ignored for imprint. Default is false.
-      required:
-      - url
-    BrandCustomizationDTO:
-      title: Brand Customization
-      type: object
-      properties:
-        colors:
-          description: The updated colors of the group.
-          allOf:
-          - $ref: '#/components/schemas/BrandCustomizationColorsDTO'
-    MembershipAdditionDTO:
-      title: Membership Addition
-      type: object
-      properties:
-        userId:
-          type: string
-          description: The unique ID of the user to be added to the group.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        groupId:
-          type: string
-          description: The unique ID of the group to which the user will be added.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        role:
-          type: string
-          enum:
-          - admin
-          - analyst
-          - editor
-          - coach
-          - contributor
-          - learner
-          - userAdmin
-          description: The role assigned to the user within the group.
-      required:
-      - userId
-      - groupId
-      - role
-    UploadGroupMediaBodyDTO:
-      title: Upload Group Media Body
-      type: object
-      properties:
-        authorId:
-          type: string
-          description: The unique ID of the user performing the upload. Must be a non-deleted user in the company.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        banner:
-          type: string
-          format: binary
-          description: 'The banner image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
-        background:
-          type: string
-          format: binary
-          description: 'The background image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
-        favicon:
-          type: string
-          format: binary
-          description: 'The favicon image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp, image/x-icon, image/vnd.microsoft.icon.'
-        logo:
-          type: string
-          format: binary
-          description: 'The logo image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
-      required:
-      - authorId
-    DeleteGroupDTO:
-      title: Delete Group
-      type: object
-      properties:
-        groupId:
-          type: string
-          description: The unique ID of the group to delete.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-      required:
-      - groupId
-    AddUsersToGroupsBody:
-      title: Add Users To Groups Body
-      type: object
-      properties:
-        input:
-          description: An array of objects, each specifying details for adding a user to a group.
-          maxItems: 20000
-          type: array
-          items:
-            $ref: '#/components/schemas/MembershipAdditionDTO'
-      required:
-      - input
-    RemoveContentsFromGroupsLibraryBody:
-      title: Remove Contents From Groups Library Body
-      type: object
-      properties:
-        input:
-          description: An array of objects, each specifying details for removing content from a group library.
-          maxItems: 20000
-          type: array
-          items:
-            $ref: '#/components/schemas/LibraryDTO'
-      required:
-      - input
-    GroupDTO:
-      title: Group
-      type: object
-      properties:
-        privacyPolicy:
-          description: The privacy policy of the group.
-          allOf:
-          - $ref: '#/components/schemas/PolicyDTO'
-        moderationCharter:
-          description: The moderation charter of the group.
-          allOf:
-          - $ref: '#/components/schemas/PolicyDTO'
-        termsOfUse:
-          description: The terms of use of the group.
-          allOf:
-          - $ref: '#/components/schemas/PolicyDTO'
-        imprint:
-          description: The imprint of the group.
-          allOf:
-          - $ref: '#/components/schemas/PolicyDTO'
-        bannerImageId:
-          type: string
-          description: The banner image of the group. Ensure that given media is an image with the proper size (at least 980px wide and 370px high).
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        backgroundImageId:
-          type: string
-          description: The background image of the group. Ensure that given media is an image with the proper size (at least 760px wide and 880px high).
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        faviconImageId:
-          type: string
-          description: The favicon image of the group. Ensure that given media is an image with the proper size (less than 500px wide and 500px high and more than 16px wide and 16px high).
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        logoImageId:
-          type: string
-          description: The logo image of the group.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        subdomain:
-          type: string
-          minLength: 3
-          maxLength: 255
-          pattern: ^[a-z0-9][a-z0-9-]*$
-          description: The subdomain of the group.
-          example: company-subdomain
-        url:
-          type: string
-          description: The custom url of the group. The given URL must resolve on the same address as 360learning.com.
-          example: company-domain.com
-        _id:
-          type: string
-          description: The unique ID of the group.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        name:
-          type: string
-          description: The name of the group.
-          example: Engineering Team
-        custom:
-          type: string
-          description: A custom field to store information available only in the **General settings** of the group, the CSV exports, and the API. This information is not displayed to learners on the platform.
-          example: Unit 101
-        public:
-          type: boolean
-          description: True if the group is public; false if the group is private.
-        parentId:
-          type: string
-          description: The unique ID of the parent group. Not defined for the root group.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-      required:
-      - _id
-      - name
-      - public
-    PatchBrandCustomizationDTO:
-      title: Patch Brand Customization
-      type: object
-      properties:
-        colors:
-          nullable: true
-          description: The branding colors of the group.
-          allOf:
-          - $ref: '#/components/schemas/PatchBrandCustomizationColorsDTO'
-    DeleteGroupsBody:
-      title: Delete Groups Body
-      type: object
-      properties:
-        input:
-          description: An array of objects, each specifying details for the group to be deleted.
-          maxItems: 2000
-          type: array
-          items:
-            $ref: '#/components/schemas/DeleteGroupDTO'
-      required:
-      - input
-    AddContentsToGroupsLibraryBody:
-      title: Add Contents To Groups Library Body
-      type: object
-      properties:
-        input:
-          description: An array of objects, each specifying details for adding content to a group library.
-          maxItems: 20000
-          type: array
-          items:
-            $ref: '#/components/schemas/LibraryDTO'
-      required:
-      - input
-    BrandCustomizationColorsDTO:
-      title: Brand Customization Colors
-      type: object
-      properties:
-        primary:
-          type: string
-          description: 'The Main color used for buttons, links, navigation highlights, etc. (on the platform and emails), in hexadecimal format. Default: #0a47c2.'
-          example: '#0a1b2c'
-        menuBackground:
-          type: string
-          description: 'The color used for the platform background, in hexadecimal format. Default: #ffffff.'
-          example: '#0a1b2c'
-        myWorkBackground:
-          type: string
-          description: 'The color used for my work background, in hexadecimal format. Default: #f7f4ee.'
-          example: '#0a1b2c'
-        platformBackground:
-          type: string
-          description: 'The color used for the left bar background, in hexadecimal format. Default: #ffffff.'
-          example: '#0a1b2c'
     PatchBrandCustomizationColorsDTO:
       title: Patch Brand Customization Colors
       type: object
@@ -3909,3 +3969,6 @@ components:
 
 
         Example: `Authorization: Bearer <token>`'
+x-refined-from:
+- 360learning-bulk-api.json
+- 360learning-core-api.json

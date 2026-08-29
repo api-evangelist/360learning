@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Bulk Authentication Tags API
+  title: Core Tags API
   description: ''
   version: 1.0.0
   contact: {}
@@ -599,6 +599,31 @@ paths:
       - Tags
 components:
   schemas:
+    TagDTO:
+      title: Tag
+      type: object
+      properties:
+        isMain:
+          type: boolean
+          description: True if the tag is to be set as a main tag; false otherwise.
+        _id:
+          type: string
+          description: The unique ID of the tag.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The name of the tag.
+          example: Onboarding
+        externalId:
+          type: string
+          description: The external identifier of the tag if it is being synced from outer resources.
+          example: 1743_ab
+      required:
+      - isMain
+      - _id
+      - name
     TagDTOWithSource:
       title: Tag DTO With Source
       type: object
@@ -654,31 +679,6 @@ components:
           minLength: 1
       required:
       - isMain
-      - name
-    TagDTO:
-      title: Tag
-      type: object
-      properties:
-        isMain:
-          type: boolean
-          description: True if the tag is to be set as a main tag; false otherwise.
-        _id:
-          type: string
-          description: The unique ID of the tag.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        name:
-          type: string
-          description: The name of the tag.
-          example: Onboarding
-        externalId:
-          type: string
-          description: The external identifier of the tag if it is being synced from outer resources.
-          example: 1743_ab
-      required:
-      - isMain
-      - _id
       - name
   securitySchemes:
     oauth2:

@@ -1,0 +1,343 @@
+openapi: 3.2.0
+info:
+  title: Webhook Group API
+  description: ''
+  version: 1.0.0
+  contact: {}
+servers:
+- url: https://app.360learning.com
+  description: Production EU
+- url: https://app.us.360learning.com
+  description: Production US
+tags:
+- name: Group
+paths: {}
+webhooks:
+  group.updated:
+    post:
+      description: 'Sent to your endpoint when any of the following group fields are updated in your platform: public, parentId, name, custom, bannerImageId, backgroundImageId, faviconImageId, logoImageId, subdomain, url, moderationCharter, privacyPolicy, termsOfUse, or imprint.'
+      operationId: webhook.group.updated
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - group.updated
+                  description: The type of the event.
+                  example: group.updated
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/GroupUpdatedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Group updated
+      tags:
+      - Group
+  group.deleted:
+    post:
+      description: Sent to your endpoint when a group is deleted in your platform.
+      operationId: webhook.group.deleted
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - group.deleted
+                  description: The type of the event.
+                  example: group.deleted
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/GroupDeletedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Group deleted
+      tags:
+      - Group
+  group.created:
+    post:
+      description: Sent to your endpoint when a group is created in your platform.
+      operationId: webhook.group.created
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - group.created
+                  description: The type of the event.
+                  example: group.created
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/GroupCreatedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Group created
+      tags:
+      - Group
+components:
+  schemas:
+    GroupDeletedDTO:
+      title: Group Deleted
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The unique ID of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        deletedAt:
+          format: date-time
+          type: string
+          description: The date and time when the group was deleted, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        name:
+          type: string
+          description: The name of the group.
+      required:
+      - groupId
+      - deletedAt
+      - name
+    GroupUpdatedDTO:
+      title: Group Updated
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The unique ID of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        updatedAt:
+          format: date-time
+          type: string
+          description: The date and time when the group was updated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        name:
+          type: string
+          description: The name of the group.
+          example: Engineering Team
+          minLength: 1
+        public:
+          type: boolean
+          description: True if the group is public; false if the group is private.
+        parentId:
+          type: string
+          description: The unique ID of the parent group. Not defined for the root group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        custom:
+          type: string
+          description: A custom field to store information available only in the General settings of the group, the CSV exports, and the API.
+          example: Unit 101
+          minLength: 1
+        bannerImageId:
+          type: string
+          description: The banner image of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        backgroundImageId:
+          type: string
+          description: The background image of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        faviconImageId:
+          type: string
+          description: The favicon image of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        logoImageId:
+          type: string
+          description: The logo image of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        subdomain:
+          type: string
+          description: The subdomain of the group.
+          example: company-subdomain
+          minLength: 1
+        url:
+          type: string
+          description: The custom url of the group.
+          example: company-domain.com
+          minLength: 1
+        privacyPolicy:
+          description: The privacy policy of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        moderationCharter:
+          description: The moderation charter of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        termsOfUse:
+          description: The terms of use of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        imprint:
+          description: The imprint of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+      required:
+      - groupId
+      - updatedAt
+      - name
+      - public
+    PolicyDTO:
+      title: Policy
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL of the policy document.
+          example: https://example.com/policy
+          minLength: 1
+        explicitConsent:
+          type: boolean
+          description: When true, user must provide explicit consent at first login. Default is false.
+      required:
+      - url
+    GroupCreatedDTO:
+      title: Group Created
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The unique ID of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the group was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        name:
+          type: string
+          description: The name of the group.
+      required:
+      - groupId
+      - createdAt
+      - name
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows: {}
+      description: 'Use the token from the authentication endpoint in the Authorization header.
+
+
+        Example: `Authorization: Bearer <token>`'

@@ -1,9 +1,9 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Bulk Authentication API
-  description: ''
+  title: 360learning Authentication API
   version: 1.0.0
   contact: {}
+  description: 'Operations tagged Authentication across 2 of this provider''s published API definitions: 360learning-core-api.json, 360learning-plugin-api.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://app.360learning.com
   description: Production EU
@@ -82,6 +82,11 @@ paths:
       summary: Create an access token
       tags:
       - Authentication
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/plugin/oauth2/backend-token:
     post:
       description: Creates an OAuth access token using the `client_id` and `client_secret` credentials. Once generated, the token authorizes access to the 360Learning API v2 resources for 1 hour. It must be included in the `Authorization` header of each request as `Bearer`.
@@ -155,6 +160,11 @@ paths:
       summary: Create an access token for plugin (backend)
       tags:
       - Authentication
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/plugin/oauth2/client-token:
     post:
       description: Creates an OAuth access token. Once generated, the token authorizes access to the 360Learning API v2 resources for 1 hour. It must be included in the `Authorization` header of each request as `Bearer`.
@@ -218,6 +228,11 @@ paths:
       summary: Create an access token for plugin (client)
       tags:
       - Authentication
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
 components:
   schemas:
     GenerateTokenBody:
@@ -252,6 +267,27 @@ components:
       - grant_type
       - client_id
       - client_secret
+    GenerateTokenResponse:
+      title: Generate Token Response
+      type: object
+      properties:
+        token_type:
+          type: string
+          enum:
+          - Bearer
+          description: The type of the access token.
+        access_token:
+          type: string
+          description: The access token that authorizes access to API resources. Include the access token in the `Authorization` header of every request as `Bearer`.
+          example: eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJBaU1qdVNjLW9pelVYWHBZVnZWbDZrSklsb2FNWDNWYzZSdWp4QnlPX05FIn0
+        expires_in:
+          type: number
+          description: The lifetime of the access token in seconds.
+          example: '3600'
+      required:
+      - token_type
+      - access_token
+      - expires_in
     GeneratePluginClientTokenBody:
       title: Generate Plugin Client Token Body
       type: object
@@ -291,27 +327,6 @@ components:
       - client_secret
       - company_id
       - plugin_id
-    GenerateTokenResponse:
-      title: Generate Token Response
-      type: object
-      properties:
-        token_type:
-          type: string
-          enum:
-          - Bearer
-          description: The type of the access token.
-        access_token:
-          type: string
-          description: The access token that authorizes access to API resources. Include the access token in the `Authorization` header of every request as `Bearer`.
-          example: eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJBaU1qdVNjLW9pelVYWHBZVnZWbDZrSklsb2FNWDNWYzZSdWp4QnlPX05FIn0
-        expires_in:
-          type: number
-          description: The lifetime of the access token in seconds.
-          example: '3600'
-      required:
-      - token_type
-      - access_token
-      - expires_in
   securitySchemes:
     oauth2:
       type: oauth2
@@ -320,3 +335,6 @@ components:
 
 
         Example: `Authorization: Bearer <token>`'
+x-refined-from:
+- 360learning-core-api.json
+- 360learning-plugin-api.json

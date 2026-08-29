@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Bulk Authentication Custom Links API
+  title: Core Custom Links API
   description: ''
   version: 1.0.0
   contact: {}
@@ -550,6 +550,39 @@ paths:
       - Custom Links
 components:
   schemas:
+    InputCustomLinkDTO:
+      title: Input Custom Link
+      type: object
+      properties:
+        name:
+          type: string
+          description: The title displayed on the custom link.
+          example: Portal managers
+        order:
+          type: integer
+          minimum: 0
+          description: The numeric display order (ascending). Links are arranged horizontally from left to right and wrap to the next line as needed.
+          example: 3
+        type:
+          type: string
+          description: The unique identifier associated to your custom link. This information is not displayed to learners on the platform.
+          example: Manager Link FR
+        iconName:
+          type: string
+          enum:
+          - agenda
+          - absence
+          - certificate
+          - convention
+          - default
+          - inbox
+          - survey
+          description: The type of icon used on the custom link. By default, the link icon will be used.
+          example: inbox
+      required:
+      - name
+      - order
+      - type
     CustomLinkDTO:
       title: Custom Link
       type: object
@@ -590,39 +623,6 @@ components:
       - order
       - type
       - _id
-    InputCustomLinkDTO:
-      title: Input Custom Link
-      type: object
-      properties:
-        name:
-          type: string
-          description: The title displayed on the custom link.
-          example: Portal managers
-        order:
-          type: integer
-          minimum: 0
-          description: The numeric display order (ascending). Links are arranged horizontally from left to right and wrap to the next line as needed.
-          example: 3
-        type:
-          type: string
-          description: The unique identifier associated to your custom link. This information is not displayed to learners on the platform.
-          example: Manager Link FR
-        iconName:
-          type: string
-          enum:
-          - agenda
-          - absence
-          - certificate
-          - convention
-          - default
-          - inbox
-          - survey
-          description: The type of icon used on the custom link. By default, the link icon will be used.
-          example: inbox
-      required:
-      - name
-      - order
-      - type
   securitySchemes:
     oauth2:
       type: oauth2

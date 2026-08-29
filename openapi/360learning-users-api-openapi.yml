@@ -1,9 +1,9 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Bulk Authentication Users API
-  description: ''
+  title: 360learning Users API
   version: 1.0.0
   contact: {}
+  description: 'Operations tagged Users across 2 of this provider''s published API definitions: 360learning-core-api.json, 360learning-user-authorized-api.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://app.360learning.com
   description: Production EU
@@ -148,6 +148,11 @@ paths:
       summary: Activate a user
       tags:
       - Users
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/users/{userId}/managers/{managerId}:
     post:
       description: '> 🔑
@@ -513,6 +518,11 @@ paths:
       summary: Remove a manager from a user
       tags:
       - Users
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/users/{userId}/custom-links:
     post:
       description: '> 🔑
@@ -800,6 +810,11 @@ paths:
       summary: List all custom user links for a user
       tags:
       - Users
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/users:
     post:
       description: "> \U0001F511\n>\n> Required OAuth scope: `users:write`.\n\nCreates a new user account with the invited status. If a user with the same 'mail' or 'username' was previously deleted, this operation will restore their account to an invited status. \n\n If 'mail' is provided, the user receives an invitation email upon creation to activate their account, along with other emails. The account can also be activated via the 'Activate a user' endpoint. If 'sendInvitationEmail' is set to false, the user will not receive the invitation email, but may still receive other emails."
@@ -1301,6 +1316,11 @@ paths:
       summary: List all users
       tags:
       - Users
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/users/{userId}/certificates:
     post:
       description: '> 🔑
@@ -1697,6 +1717,11 @@ paths:
       summary: List all certificates for a user
       tags:
       - Users
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/users/{userId}/custom-links/{customUserLinkId}:
     delete:
       description: '> 🔑
@@ -2020,6 +2045,11 @@ paths:
       summary: Replace custom user links
       tags:
       - Users
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/users/{userId}:
     delete:
       description: '> 🔑
@@ -2578,6 +2608,11 @@ paths:
       summary: Edit a user
       tags:
       - Users
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/users/{userId}/managers:
     get:
       description: '> 🔑
@@ -2711,6 +2746,11 @@ paths:
       summary: List all manager IDs for a user
       tags:
       - Users
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/users/{userId}/subordinates:
     get:
       description: '> 🔑
@@ -2844,6 +2884,11 @@ paths:
       summary: List all subordinate IDs for a user
       tags:
       - Users
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/users/{userId}/custom-fields/values:
     get:
       description: '> 🔑
@@ -3163,6 +3208,11 @@ paths:
       summary: Replace a user custom fields values
       tags:
       - Users
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/users/{userId}/certificates/{certificateId}/pdf:
     get:
       description: '> 🔑
@@ -3307,6 +3357,11 @@ paths:
       summary: Retrieve a certificate PDF file
       tags:
       - Users
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/users/{userId}/roles:
     get:
       description: '> 🔑
@@ -3438,6 +3493,11 @@ paths:
       summary: List all memberships of a user
       tags:
       - Users
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/users/{userId}/pseudonymize:
     put:
       description: '> 🔑
@@ -3583,6 +3643,11 @@ paths:
       summary: Pseudonymize user
       tags:
       - Users
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/users/{userId}/password:
     put:
       description: '> 🔑
@@ -3742,6 +3807,11 @@ paths:
       summary: Replace the password of a user
       tags:
       - Users
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/users/{userId}/certificates/privacy-level:
     patch:
       description: '> 🔑
@@ -3926,6 +3996,11 @@ paths:
       summary: Update certificates privacy level
       tags:
       - Users
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/users/{userId}/media:
     post:
       description: '> 🔑
@@ -4068,6 +4143,11 @@ paths:
       summary: Upload user media
       tags:
       - Users
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
   /api/v2/uaa/users/me:
     get:
       description: '> 🔑
@@ -4170,8 +4250,101 @@ paths:
       summary: Retrieve my profile
       tags:
       - Users
+    servers:
+    - url: https://app.360learning.com
+      description: Production EU
+    - url: https://app.us.360learning.com
+      description: Production US
 components:
   schemas:
+    InputExternalCertificateDTO:
+      title: Input External Certificate
+      type: object
+      properties:
+        deliveryDate:
+          format: date-time
+          type: string
+          description: The delivery date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        expirationDate:
+          format: date-time
+          type: string
+          description: The expiration date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        title:
+          type: string
+          description: The title of the certificate outline in the platform (internal name of the certificate).
+          example: Certificate of Completion
+        certificateOutlineId:
+          type: string
+          description: The unique ID of the outline of the certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        file:
+          type: string
+          format: binary
+          description: The file to upload, in the `application/pdf` format.
+      required:
+      - deliveryDate
+      - title
+      - file
+    UserCustomLinkDTO:
+      title: User Custom Link
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the custom user link.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        customLinkId:
+          type: string
+          description: The unique ID of the custom link.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        url:
+          type: string
+          description: The url of the custom link.
+          example: https://360learning.com
+      required:
+      - _id
+      - customLinkId
+      - url
+    CustomFieldValueDTO:
+      title: Custom Field Value
+      type: object
+      properties:
+        customFieldId:
+          type: string
+          description: The unique ID of the custom field.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - string
+          - date
+          description: The type of the custom field.
+        value:
+          oneOf:
+          - type: string
+            title: string type
+            description: The custom field string value.
+            minLength: 1
+            example: US
+          - type: string
+            title: date type
+            format: date-time
+            description: The custom field date value is in the `YYYY-MM-DD` (ISO 8601 in Coordinated Universal Time (UTC)).
+            minLength: 1
+            example: '2025-01-27'
+          description: The value assigned to the target for this custom field.
+      required:
+      - customFieldId
+      - type
+      - value
     ReplacePasswordBody:
       title: Replace Password Body
       type: object
@@ -4185,6 +4358,424 @@ components:
       required:
       - password
       - passwordMustBeChanged
+    UpdateUserCustomFieldValuesBody:
+      title: Update User Custom Field Values Body
+      type: object
+      properties:
+        customValues:
+          maxItems: 300
+          description: The list of customValues to replace the existing ones.
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldValueDTO'
+      required:
+      - customValues
+    UpdateUserDTO:
+      title: Update User
+      type: object
+      properties:
+        firstName:
+          type: string
+          nullable: true
+          description: The first name of the user.
+          example: John
+          minLength: 1
+        lastName:
+          type: string
+          nullable: true
+          description: The last name of the user.
+          example: Smith
+          minLength: 1
+        phone:
+          type: string
+          nullable: true
+          description: The phone number of the user.
+          example: '+33123456789'
+          minLength: 1
+        job:
+          type: string
+          nullable: true
+          description: The role title of the user.
+          example: Architect
+          minLength: 1
+        organization:
+          type: string
+          nullable: true
+          description: The organization that the user belongs to.
+          example: 360Learning
+          minLength: 1
+        custom:
+          type: string
+          nullable: true
+          description: The value of the **Additional information** field in the user’s profile. This is not the value of the custom fields associated with the user.
+          example: Half-time worker
+          minLength: 1
+        lang:
+          type: string
+          enum:
+          - bg
+          - cs
+          - da
+          - de
+          - el
+          - en
+          - es
+          - fi
+          - fr
+          - hr
+          - ht_HT
+          - hu
+          - id
+          - it
+          - ja
+          - kar_MM
+          - ko
+          - lt
+          - mh_MH
+          - nl
+          - nl_BE
+          - 'no'
+          - pl
+          - pt
+          - ro
+          - ru
+          - rw_RW
+          - sk
+          - sl
+          - so_SO
+          - sv
+          - sw_KE
+          - th
+          - ti_ET
+          - tr
+          - uk
+          - zh
+          - vi
+          description: The default language of the user, in a bigram format (en, fr, de, etc.).
+        toBeDeactivatedAt:
+          format: date-time
+          type: string
+          nullable: true
+          description: The date and time when the user will be deactivated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)). Note that this parameter cannot be set on a user that is already deactivated.
+          example: '2024-09-10T23:00:00.000Z'
+        mail:
+          type: string
+          nullable: true
+          description: The email address of the user. Must not correspond to an existing user in the company.
+          example: john.smith@yopmail.com
+          minLength: 1
+        primaryGroupId:
+          type: string
+          nullable: true
+          description: The unique ID of the primary group of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        username:
+          type: string
+          nullable: true
+          description: 'The username that can be used to log in if the company allows it. Options are: lowercase letters, numbers, and the following special characters: _ - . + # ! $ % & '' * / = ? ^ ` { | } ~.'
+          example: johnsmith
+          minLength: 1
+        profileImageId:
+          type: string
+          nullable: true
+          description: 'The unique ID of the media to use as the user''s profile image. Set to null to remove the current image. Recommended size: 256px × 256px.'
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+    InputUserDTO:
+      title: Input User
+      type: object
+      properties:
+        mail:
+          type: string
+          description: The email address of the user. If not given, username must be given.
+          example: john.smith@yopmail.com
+          minLength: 1
+        username:
+          type: string
+          description: The username that can be used to log in if the company allows it. If not given, mail must be given.
+          example: johnsmith
+          minLength: 1
+        membership:
+          description: The initial group membership of the user.
+          allOf:
+          - $ref: '#/components/schemas/MembershipDTO'
+        primaryGroupId:
+          type: string
+          description: The unique ID of the primary group of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        custom:
+          type: string
+          description: The value of the **Additional information** field in the user’s profile. This is not the value of the custom fields associated with the user.
+          example: Half-time worker
+          minLength: 1
+        firstName:
+          type: string
+          description: The first name of the user.
+          example: John
+          minLength: 1
+        lastName:
+          type: string
+          description: The last name of the user.
+          example: Smith
+          minLength: 1
+        job:
+          type: string
+          description: The role title of the user.
+          example: Boss
+          minLength: 1
+        lang:
+          type: string
+          enum:
+          - bg
+          - cs
+          - da
+          - de
+          - el
+          - en
+          - es
+          - fi
+          - fr
+          - hr
+          - ht_HT
+          - hu
+          - id
+          - it
+          - ja
+          - kar_MM
+          - ko
+          - lt
+          - mh_MH
+          - nl
+          - nl_BE
+          - 'no'
+          - pl
+          - pt
+          - ro
+          - ru
+          - rw_RW
+          - sk
+          - sl
+          - so_SO
+          - sv
+          - sw_KE
+          - th
+          - ti_ET
+          - tr
+          - uk
+          - zh
+          - vi
+          description: 'The default language of the user, in a bigram format (en, fr, de, etc.). Default: `en`.'
+        organization:
+          type: string
+          description: The organization that the user belongs to.
+          example: 360Learning
+          minLength: 1
+        phone:
+          type: string
+          description: The phone number of the user.
+          example: '+33123456789'
+          minLength: 1
+        toBeDeactivatedAt:
+          format: date-time
+          type: string
+          description: The date and time when the user will be deactivated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - membership
+    OutputUserPathCertificateDTO:
+      title: Output User Path Certificate
+      type: object
+      properties:
+        deliveryDate:
+          format: date-time
+          type: string
+          description: The delivery date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        expirationDate:
+          format: date-time
+          type: string
+          description: The expiration date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        title:
+          type: string
+          description: The title of the certificate outline in the platform (internal name of the certificate).
+          example: Certificate of Completion
+        _id:
+          type: string
+          description: The unique ID of the user certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        validityPeriod:
+          type: number
+          description: The length of time, in months, for which the certificate is valid.
+        certificateOutlineId:
+          type: string
+          description: The unique ID of the outline of the received certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        pathId:
+          type: string
+          description: The unique ID of the path, in which the certificate was delivered.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        pathName:
+          type: string
+          description: The name of the path, in which the certificate was delivered.
+          example: Employees Onboarding
+        pathSessionId:
+          type: string
+          description: The unique ID of the path session, in which the certificate was delivered.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - path
+          description: The type of the certificate in the platform.
+          example: path
+      required:
+      - deliveryDate
+      - title
+      - _id
+      - certificateOutlineId
+      - pathId
+      - pathSessionId
+      - type
+    MembershipDTO:
+      title: Membership
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The unique ID of the group the user is a member of.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        role:
+          type: string
+          enum:
+          - admin
+          - analyst
+          - editor
+          - coach
+          - contributor
+          - learner
+          - userAdmin
+          description: The role of the user in the group.
+      required:
+      - groupId
+      - role
+    CreateCustomUserLinkRequestBody:
+      title: Create Custom User Link Request Body
+      type: object
+      properties:
+        customLinkId:
+          type: string
+          description: The unique ID of the custom link.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        url:
+          type: string
+          description: The URL of the custom user link.
+          example: https://360learning.com
+      required:
+      - customLinkId
+      - url
+    OutputUserExternalCertificateDTO:
+      title: Output User External Certificate
+      type: object
+      properties:
+        deliveryDate:
+          format: date-time
+          type: string
+          description: The delivery date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        expirationDate:
+          format: date-time
+          type: string
+          description: The expiration date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        title:
+          type: string
+          description: The title of the certificate outline in the platform (internal name of the certificate).
+          example: Certificate of Completion
+        _id:
+          type: string
+          description: The unique ID of the user certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        validityPeriod:
+          type: number
+          description: The length of time, in months, for which the certificate is valid.
+        certificateOutlineId:
+          type: string
+          description: The unique ID of the outline of the certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - external
+          description: The type of the certificate in the platform.
+          example: external
+      required:
+      - deliveryDate
+      - title
+      - _id
+      - type
+    UpdateUserCertificatesPrivacyLevelBody:
+      title: Update User Certificates Privacy Level Body
+      type: object
+      properties:
+        certificateIds:
+          description: The unique IDs of the certificates.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        isPublic:
+          type: boolean
+          description: The privacy level value of the certificates.
+      required:
+      - certificateIds
+      - isPublic
+    UploadUserMediaBodyDTO:
+      title: Upload User Media Body
+      type: object
+      properties:
+        profileImage:
+          type: string
+          format: binary
+          description: 'The user profile image file. Recommended size: 256px × 256px. Maximum file size: 10MB. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
+      required:
+      - profileImage
+    UpdateCustomUserLinkRequestBody:
+      title: Update Custom User Link Request Body
+      type: object
+      properties:
+        customLinkId:
+          type: string
+          description: The unique ID of the custom link.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        url:
+          type: string
+          description: The URL of the custom user link.
+          example: https://360learning.com
+      required:
+      - customLinkId
+      - url
     UserDTO:
       title: User
       type: object
@@ -4320,343 +4911,6 @@ components:
       - _id
       - status
       - lang
-    CustomFieldValueDTO:
-      title: Custom Field Value
-      type: object
-      properties:
-        customFieldId:
-          type: string
-          description: The unique ID of the custom field.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        type:
-          type: string
-          enum:
-          - string
-          - date
-          description: The type of the custom field.
-        value:
-          oneOf:
-          - type: string
-            title: string type
-            description: The custom field string value.
-            minLength: 1
-            example: US
-          - type: string
-            title: date type
-            format: date-time
-            description: The custom field date value is in the `YYYY-MM-DD` (ISO 8601 in Coordinated Universal Time (UTC)).
-            minLength: 1
-            example: '2025-01-27'
-          description: The value assigned to the target for this custom field.
-      required:
-      - customFieldId
-      - type
-      - value
-    UploadUserMediaBodyDTO:
-      title: Upload User Media Body
-      type: object
-      properties:
-        profileImage:
-          type: string
-          format: binary
-          description: 'The user profile image file. Recommended size: 256px × 256px. Maximum file size: 10MB. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
-      required:
-      - profileImage
-    InputUserDTO:
-      title: Input User
-      type: object
-      properties:
-        mail:
-          type: string
-          description: The email address of the user. If not given, username must be given.
-          example: john.smith@yopmail.com
-          minLength: 1
-        username:
-          type: string
-          description: The username that can be used to log in if the company allows it. If not given, mail must be given.
-          example: johnsmith
-          minLength: 1
-        membership:
-          description: The initial group membership of the user.
-          allOf:
-          - $ref: '#/components/schemas/MembershipDTO'
-        primaryGroupId:
-          type: string
-          description: The unique ID of the primary group of the user.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        custom:
-          type: string
-          description: The value of the **Additional information** field in the user’s profile. This is not the value of the custom fields associated with the user.
-          example: Half-time worker
-          minLength: 1
-        firstName:
-          type: string
-          description: The first name of the user.
-          example: John
-          minLength: 1
-        lastName:
-          type: string
-          description: The last name of the user.
-          example: Smith
-          minLength: 1
-        job:
-          type: string
-          description: The role title of the user.
-          example: Boss
-          minLength: 1
-        lang:
-          type: string
-          enum:
-          - bg
-          - cs
-          - da
-          - de
-          - el
-          - en
-          - es
-          - fi
-          - fr
-          - hr
-          - ht_HT
-          - hu
-          - id
-          - it
-          - ja
-          - kar_MM
-          - ko
-          - lt
-          - mh_MH
-          - nl
-          - nl_BE
-          - 'no'
-          - pl
-          - pt
-          - ro
-          - ru
-          - rw_RW
-          - sk
-          - sl
-          - so_SO
-          - sv
-          - sw_KE
-          - th
-          - ti_ET
-          - tr
-          - uk
-          - zh
-          - vi
-          description: 'The default language of the user, in a bigram format (en, fr, de, etc.). Default: `en`.'
-        organization:
-          type: string
-          description: The organization that the user belongs to.
-          example: 360Learning
-          minLength: 1
-        phone:
-          type: string
-          description: The phone number of the user.
-          example: '+33123456789'
-          minLength: 1
-        toBeDeactivatedAt:
-          format: date-time
-          type: string
-          description: The date and time when the user will be deactivated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - membership
-    InputExternalCertificateDTO:
-      title: Input External Certificate
-      type: object
-      properties:
-        deliveryDate:
-          format: date-time
-          type: string
-          description: The delivery date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        expirationDate:
-          format: date-time
-          type: string
-          description: The expiration date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        title:
-          type: string
-          description: The title of the certificate outline in the platform (internal name of the certificate).
-          example: Certificate of Completion
-        certificateOutlineId:
-          type: string
-          description: The unique ID of the outline of the certificate.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        file:
-          type: string
-          format: binary
-          description: The file to upload, in the `application/pdf` format.
-      required:
-      - deliveryDate
-      - title
-      - file
-    UpdateUserDTO:
-      title: Update User
-      type: object
-      properties:
-        firstName:
-          type: string
-          nullable: true
-          description: The first name of the user.
-          example: John
-          minLength: 1
-        lastName:
-          type: string
-          nullable: true
-          description: The last name of the user.
-          example: Smith
-          minLength: 1
-        phone:
-          type: string
-          nullable: true
-          description: The phone number of the user.
-          example: '+33123456789'
-          minLength: 1
-        job:
-          type: string
-          nullable: true
-          description: The role title of the user.
-          example: Architect
-          minLength: 1
-        organization:
-          type: string
-          nullable: true
-          description: The organization that the user belongs to.
-          example: 360Learning
-          minLength: 1
-        custom:
-          type: string
-          nullable: true
-          description: The value of the **Additional information** field in the user’s profile. This is not the value of the custom fields associated with the user.
-          example: Half-time worker
-          minLength: 1
-        lang:
-          type: string
-          enum:
-          - bg
-          - cs
-          - da
-          - de
-          - el
-          - en
-          - es
-          - fi
-          - fr
-          - hr
-          - ht_HT
-          - hu
-          - id
-          - it
-          - ja
-          - kar_MM
-          - ko
-          - lt
-          - mh_MH
-          - nl
-          - nl_BE
-          - 'no'
-          - pl
-          - pt
-          - ro
-          - ru
-          - rw_RW
-          - sk
-          - sl
-          - so_SO
-          - sv
-          - sw_KE
-          - th
-          - ti_ET
-          - tr
-          - uk
-          - zh
-          - vi
-          description: The default language of the user, in a bigram format (en, fr, de, etc.).
-        toBeDeactivatedAt:
-          format: date-time
-          type: string
-          nullable: true
-          description: The date and time when the user will be deactivated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)). Note that this parameter cannot be set on a user that is already deactivated.
-          example: '2024-09-10T23:00:00.000Z'
-        mail:
-          type: string
-          nullable: true
-          description: The email address of the user. Must not correspond to an existing user in the company.
-          example: john.smith@yopmail.com
-          minLength: 1
-        primaryGroupId:
-          type: string
-          nullable: true
-          description: The unique ID of the primary group of the user.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        username:
-          type: string
-          nullable: true
-          description: 'The username that can be used to log in if the company allows it. Options are: lowercase letters, numbers, and the following special characters: _ - . + # ! $ % & '' * / = ? ^ ` { | } ~.'
-          example: johnsmith
-          minLength: 1
-        profileImageId:
-          type: string
-          nullable: true
-          description: 'The unique ID of the media to use as the user''s profile image. Set to null to remove the current image. Recommended size: 256px × 256px.'
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-    UpdateUserCertificatesPrivacyLevelBody:
-      title: Update User Certificates Privacy Level Body
-      type: object
-      properties:
-        certificateIds:
-          description: The unique IDs of the certificates.
-          example:
-          - 507f1f77bcf86cd799439011
-          type: array
-          items:
-            type: string
-            format: ObjectId
-            pattern: ^[a-fA-F0-9]{24}$
-        isPublic:
-          type: boolean
-          description: The privacy level value of the certificates.
-      required:
-      - certificateIds
-      - isPublic
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      properties: {}
-    MembershipDTO:
-      title: Membership
-      type: object
-      properties:
-        groupId:
-          type: string
-          description: The unique ID of the group the user is a member of.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        role:
-          type: string
-          enum:
-          - admin
-          - analyst
-          - editor
-          - coach
-          - contributor
-          - learner
-          - userAdmin
-          description: The role of the user in the group.
-      required:
-      - groupId
-      - role
     Membership:
       title: Membership
       type: object
@@ -4682,179 +4936,10 @@ components:
       required:
       - groupId
       - role
-    UpdateUserCustomFieldValuesBody:
-      title: Update User Custom Field Values Body
+    EmptyResponse:
+      title: Empty Response
       type: object
-      properties:
-        customValues:
-          maxItems: 300
-          description: The list of customValues to replace the existing ones.
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomFieldValueDTO'
-      required:
-      - customValues
-    OutputUserPathCertificateDTO:
-      title: Output User Path Certificate
-      type: object
-      properties:
-        deliveryDate:
-          format: date-time
-          type: string
-          description: The delivery date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        expirationDate:
-          format: date-time
-          type: string
-          description: The expiration date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        title:
-          type: string
-          description: The title of the certificate outline in the platform (internal name of the certificate).
-          example: Certificate of Completion
-        _id:
-          type: string
-          description: The unique ID of the user certificate.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        validityPeriod:
-          type: number
-          description: The length of time, in months, for which the certificate is valid.
-        certificateOutlineId:
-          type: string
-          description: The unique ID of the outline of the received certificate.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        pathId:
-          type: string
-          description: The unique ID of the path, in which the certificate was delivered.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        pathName:
-          type: string
-          description: The name of the path, in which the certificate was delivered.
-          example: Employees Onboarding
-        pathSessionId:
-          type: string
-          description: The unique ID of the path session, in which the certificate was delivered.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        type:
-          type: string
-          enum:
-          - path
-          description: The type of the certificate in the platform.
-          example: path
-      required:
-      - deliveryDate
-      - title
-      - _id
-      - certificateOutlineId
-      - pathId
-      - pathSessionId
-      - type
-    OutputUserExternalCertificateDTO:
-      title: Output User External Certificate
-      type: object
-      properties:
-        deliveryDate:
-          format: date-time
-          type: string
-          description: The delivery date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        expirationDate:
-          format: date-time
-          type: string
-          description: The expiration date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        title:
-          type: string
-          description: The title of the certificate outline in the platform (internal name of the certificate).
-          example: Certificate of Completion
-        _id:
-          type: string
-          description: The unique ID of the user certificate.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        validityPeriod:
-          type: number
-          description: The length of time, in months, for which the certificate is valid.
-        certificateOutlineId:
-          type: string
-          description: The unique ID of the outline of the certificate.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        type:
-          type: string
-          enum:
-          - external
-          description: The type of the certificate in the platform.
-          example: external
-      required:
-      - deliveryDate
-      - title
-      - _id
-      - type
-    UserCustomLinkDTO:
-      title: User Custom Link
-      type: object
-      properties:
-        _id:
-          type: string
-          description: The unique ID of the custom user link.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        customLinkId:
-          type: string
-          description: The unique ID of the custom link.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        url:
-          type: string
-          description: The url of the custom link.
-          example: https://360learning.com
-      required:
-      - _id
-      - customLinkId
-      - url
-    UpdateCustomUserLinkRequestBody:
-      title: Update Custom User Link Request Body
-      type: object
-      properties:
-        customLinkId:
-          type: string
-          description: The unique ID of the custom link.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        url:
-          type: string
-          description: The URL of the custom user link.
-          example: https://360learning.com
-      required:
-      - customLinkId
-      - url
-    CreateCustomUserLinkRequestBody:
-      title: Create Custom User Link Request Body
-      type: object
-      properties:
-        customLinkId:
-          type: string
-          description: The unique ID of the custom link.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        url:
-          type: string
-          description: The URL of the custom user link.
-          example: https://360learning.com
-      required:
-      - customLinkId
-      - url
+      properties: {}
   securitySchemes:
     oauth2:
       type: oauth2
@@ -4863,3 +4948,6 @@ components:
 
 
         Example: `Authorization: Bearer <token>`'
+x-refined-from:
+- 360learning-core-api.json
+- 360learning-user-authorized-api.json

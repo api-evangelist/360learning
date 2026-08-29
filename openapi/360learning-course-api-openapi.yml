@@ -1,0 +1,141 @@
+openapi: 3.2.0
+info:
+  title: Webhook Course API
+  description: ''
+  version: 1.0.0
+  contact: {}
+servers:
+- url: https://app.360learning.com
+  description: Production EU
+- url: https://app.us.360learning.com
+  description: Production US
+tags:
+- name: Course
+paths: {}
+webhooks:
+  course.attempt.closed:
+    post:
+      description: Sent to your endpoint when an attempt is closed. This event is currently triggered only when learners finish an attempt, materialized through the reason attribute. The reason attribute potential values are expected to grow over time as new closure reasons will be supported.
+      operationId: webhook.course.attempt.closed
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - course.attempt.closed
+                  description: The type of the event.
+                  example: course.attempt.closed
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/AttemptClosedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Course attempt closed
+      tags:
+      - Course
+components:
+  schemas:
+    AttemptClosedContextDTO:
+      title: Attempt Closed Context
+      type: object
+      properties:
+        pathId:
+          type: string
+          description: The unique ID of the path if the course is played in the path context.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        pathSessionId:
+          type: string
+          description: The unique ID of the path session if the course is played in the path context.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+    AttemptClosedDTO:
+      title: Attempt Closed
+      type: object
+      properties:
+        attemptId:
+          type: string
+          description: The unique ID of the attempt.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        closedAt:
+          format: date-time
+          type: string
+          description: The date and time when the attempt was closed, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        userId:
+          type: string
+          description: The unique ID of the user who closed the attempt.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        courseId:
+          type: string
+          description: The unique ID of the course.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        reason:
+          type: string
+          enum:
+          - learnerFinished
+          description: The reason for closing the attempt.
+        context:
+          description: The context object for this attempt.
+          allOf:
+          - $ref: '#/components/schemas/AttemptClosedContextDTO'
+      required:
+      - attemptId
+      - closedAt
+      - userId
+      - courseId
+      - reason
+      - context
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows: {}
+      description: 'Use the token from the authentication endpoint in the Authorization header.
+
+
+        Example: `Authorization: Bearer <token>`'

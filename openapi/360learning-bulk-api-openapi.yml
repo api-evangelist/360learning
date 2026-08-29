@@ -1,0 +1,239 @@
+openapi: 3.2.0
+info:
+  title: Webhook Bulk API
+  description: ''
+  version: 1.0.0
+  contact: {}
+servers:
+- url: https://app.360learning.com
+  description: Production EU
+- url: https://app.us.360learning.com
+  description: Production US
+tags:
+- name: Bulk
+paths: {}
+webhooks:
+  bulk.operation.ended:
+    post:
+      description: Sent to your endpoint when a bulk operation has ended on your platform.
+      operationId: webhook.bulk.operation.ended
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - bulk.operation.ended
+                  description: The type of the event.
+                  example: bulk.operation.ended
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/BulkOperationEndedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Bulk operation ended
+      tags:
+      - Bulk
+  bulk.operation.created:
+    post:
+      description: Sent to your endpoint when a bulk operation is created through API on your platform.
+      operationId: webhook.bulk.operation.created
+      parameters:
+      - name: webhook-signature
+        in: header
+        required: true
+        description: The signature of the event payload, used to verify the authenticity of the event. If multiple signatures are present, they are space delimited.
+        schema:
+          type: string
+          example: v1,4UHnozIIxoqswxyYsplgMpo1w5JaUjaPDlg5dm8n1SE=
+      - name: webhook-id
+        in: header
+        required: true
+        description: The unique identifier of the event. It is the same ID for the retry attempts of the same event.
+        schema:
+          type: string
+          example: msg_35bE2UOtsaBIqUl7VW4mLuR9q2B
+      - name: webhook-timestamp
+        in: header
+        required: true
+        description: The date and time when the event was emitted, in the Unix epoch format (number of seconds that have elapsed since January 1, 1970).
+        schema:
+          type: string
+          example: '1763370163'
+      requestBody:
+        description: The payload sent to your endpoint when the event is triggered.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - timestamp
+              - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - bulk.operation.created
+                  description: The type of the event.
+                  example: bulk.operation.created
+                timestamp:
+                  type: integer
+                  description: The date and time when the event was triggered in your platform, in the Unix epoch format (number of milliseconds that have elapsed since January 1, 1970).
+                  example: '1748346292000'
+                data:
+                  description: The data associated with the event.
+                  $ref: '#/components/schemas/BulkOperationCreatedDTO'
+      responses:
+        2XX:
+          description: The event is considered as accepted for any 2xx response code.
+        default:
+          description: The event is considered as rejected for any other response code. The event emission will be retried later.
+      summary: Bulk operation created
+      tags:
+      - Bulk
+components:
+  schemas:
+    BulkOperationEndedDTO:
+      title: Bulk Operation Ended
+      type: object
+      properties:
+        bulkOperationId:
+          type: string
+          description: The unique ID of the bulk operation.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - addContentsToGroupsCatalog
+          - addContentsToGroupsLibrary
+          - addSkillReviews
+          - addUsersToGroups
+          - archiveExternalCourses
+          - deleteSkills
+          - createGroups
+          - createSubscriptionEvents
+          - deleteGroups
+          - deleteJobs
+          - deleteLibraries
+          - importExternalCourses
+          - importExternalStatistics
+          - removeContentsFromGroupsCatalog
+          - removeContentsFromGroupsLibrary
+          - removeUsersFromGroups
+          - replaceJobsSkills
+          - replaceUsersJobs
+          - upsertJobs
+          - upsertLibraries
+          - upsertSkills
+          description: The type of bulk operation.
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the bulk operation was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        endedAt:
+          format: date-time
+          type: string
+          description: The date and time when the bulk operation has ended at, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        status:
+          type: string
+          enum:
+          - completed
+          - error
+          description: The status of the bulk operation.
+      required:
+      - bulkOperationId
+      - type
+      - createdAt
+      - endedAt
+      - status
+    BulkOperationCreatedDTO:
+      title: Bulk Operation Created
+      type: object
+      properties:
+        bulkOperationId:
+          type: string
+          description: The unique ID of the bulk operation.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - addContentsToGroupsCatalog
+          - addContentsToGroupsLibrary
+          - addSkillReviews
+          - addUsersToGroups
+          - archiveExternalCourses
+          - deleteSkills
+          - createGroups
+          - createSubscriptionEvents
+          - deleteGroups
+          - deleteJobs
+          - deleteLibraries
+          - importExternalCourses
+          - importExternalStatistics
+          - removeContentsFromGroupsCatalog
+          - removeContentsFromGroupsLibrary
+          - removeUsersFromGroups
+          - replaceJobsSkills
+          - replaceUsersJobs
+          - upsertJobs
+          - upsertLibraries
+          - upsertSkills
+          description: The type of bulk operation.
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the bulk operation was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - bulkOperationId
+      - type
+      - createdAt
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows: {}
+      description: 'Use the token from the authentication endpoint in the Authorization header.
+
+
+        Example: `Authorization: Bearer <token>`'
