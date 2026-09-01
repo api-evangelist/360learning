@@ -47,7 +47,7 @@ created: '2026-07-17'
 modified: '2026-07-17'
 tags:
 - Company
-- Edtech
+- EdTech
 - Learning Management System
 - E-Learning
 - Training
@@ -267,7 +267,7 @@ apis:
   humanURL: https://360learning.readme.io/reference
   baseURL: https://app.360learning.com/api/v2
   tags:
-  - course
+  - Course
   tags_raw:
   - Course
   properties:
