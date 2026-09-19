@@ -45,6 +45,9 @@ x-tier-reason: portfolio-lead-enriched
 specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-07-17'
+x-docs-platform: readme
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-09-17
 tags:
 - Company
 - EdTech
@@ -52,7 +55,7 @@ tags:
 - E-Learning
 - Training
 - Collaborative Learning
-- HR Tech
+- Human Resources
 - Skills
 tags_raw:
 - Company
@@ -309,6 +312,8 @@ apis:
   humanURL: https://360learning.readme.io/reference
   baseURL: https://app.360learning.com/api/v2
   tags:
+  - xAPI
+  tags_raw:
   - x API
   properties:
   - type: OpenAPI
