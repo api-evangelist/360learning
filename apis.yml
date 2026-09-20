@@ -319,6 +319,8 @@ apis:
   - type: OpenAPI
     url: openapi/360learning-x-api-api-openapi.yml
 common:
+- type: RateLimits
+  url: rate-limits/360learning-rate-limits.yml
 - type: Plans
   url: plans/360learning-plans-pricing.yml
 - type: CapabilityMap

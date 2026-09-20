@@ -1,0 +1,44 @@
+# Rate limits transcribed from the provider's own documentation — see provenance. Quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://360learning.readme.io/docs/copy-of-rate-limiting-errors
+sources:
+- https://360learning.readme.io/docs/copy-of-rate-limiting-errors
+provenance:
+  tool: planning/api-economics/harvest_ratelimits.py
+  run: 20260920T133210
+  grounding: every limit_text was found verbatim in the fetched page text
+published: true
+note: Limits are account-wide per companyId; plus endpoint-specific limits.
+limit_count: 5
+limits:
+- name: Global read operations
+  limit_text: 'Read operations (GET): Up to 50 requests per second'
+  limit: 50
+  window: second
+  scope: account
+  endpoint: Core endpoints (GET)
+- name: Global write operations
+  limit_text: 'Write operations (POST, PATCH, PUT, DELETE): Up to 10 requests per second'
+  limit: 10
+  window: second
+  scope: account
+  endpoint: Core endpoints (POST, PATCH, PUT, DELETE)
+- name: Bulk concurrency
+  limit_text: allow up to 3 concurrent executions per companyId
+  limit: 3
+  scope: account
+  endpoint: Bulk endpoints
+- name: Create an eLearning standard course
+  limit_text: 'Create an eLearning standard course : Up to 1 request per second'
+  limit: 1
+  window: second
+  scope: endpoint
+  endpoint: Create an eLearning standard course
+- name: Edit an eLearning standard course
+  limit_text: 'Edit an eLearning standard course : Up to 1 request per second'
+  limit: 1
+  window: second
+  scope: endpoint
+  endpoint: Edit an eLearning standard course
+exceeded_status: 429
