@@ -1,0 +1,35 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://360learning.com/pricing/
+sources:
+- https://360learning.com/pricing/
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: per-seat
+published: true
+note: LMS platform pricing page; only the Team plan shows a numeric per-user price, Business and Enterprise
+  are Custom. FAQ states no minimum number of users.
+plan_count: 3
+currency: USD
+plans:
+- name: Team
+  price_text: $8 / user per month
+  price: 8
+  currency: USD
+  period: month
+  unit: user
+  included_quota: Up to 100 users; billed monthly with no annual commitment; 30-day free trial
+- name: Business
+  price_text: Custom
+  period: none
+  included_quota: 'Flexible user models: combine registered and monthly active users in a single contract'
+- name: Enterprise
+  price_text: Custom
+  period: none
+  included_quota: Advanced integrations, premium onboarding, dedicated support, strategic L&D guidance
+rate_limit_statements:
+- Up to 100 users
