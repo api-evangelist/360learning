@@ -2,16 +2,16 @@
 kin_checks:
   slug: 360learning
   schema_version: 0.22.0
-  scored_at: '2026-09-19'
-  run_ts: 2026-09-19T193153
+  scored_at: '2026-09-21'
+  run_ts: 2026-09-21T233935
   note: Actionable checks (missed + partial) in `checks`, plus the ids that did not
     apply in `na`. Everything else in rubric/scoring-0.22.0.yml was earned; counts
     below let you verify that.
   counts:
     total: 136
-    earned: 40
-    partial: 25
-    missed: 47
+    earned: 44
+    partial: 26
+    missed: 42
     na: 24
   checks:
   - id: well_known_published
@@ -54,10 +54,6 @@ kin_checks:
     status: missed
   - id: overlay_published
     status: missed
-  - id: rate_limits_documented
-    status: missed
-  - id: rate_limits_rich
-    status: missed
   - id: security_disclosure
     status: missed
   - id: github_org_present
@@ -76,10 +72,6 @@ kin_checks:
     status: missed
   - id: postman_present
     status: missed
-  - id: plans_present
-    status: missed
-  - id: plans_multiple
-    status: missed
   - id: sign_up_present
     status: missed
     detail: pointer liveness 0.0
@@ -94,8 +86,6 @@ kin_checks:
   - id: mcp_server
     status: missed
   - id: idempotency
-    status: missed
-  - id: rate_limit_signal
     status: missed
   - id: well_known_catalog
     status: missed
@@ -206,6 +196,10 @@ kin_checks:
   - id: error_semantics
     status: partial
     earned: 4.0
+    detail: 'grade: documented'
+  - id: rate_limit_signal
+    status: partial
+    earned: 3.5
     detail: 'grade: documented'
   - id: agent_skills
     status: partial
