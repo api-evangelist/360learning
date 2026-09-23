@@ -193,7 +193,7 @@ paths:
 
         >
 
-        > This endpoint is paginated with a page size of 1,000 custom fields. For more information, see the [Pagination guide](doc:pagination).
+        > This endpoint is paginated with a page size of 1,000 custom fields. For more information, see the Pagination guide.
 
 
         Lists all custom fields in your platform.'
@@ -967,16 +967,6 @@ paths:
       - Custom Fields
 components:
   schemas:
-    UpdateCustomFieldBody:
-      title: Update Custom Field Body
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the custom field.
-          example: Department
-      required:
-      - name
     ReplaceAuthorizedValuesDTO:
       title: Replace Authorized Values
       type: object
@@ -1000,6 +990,30 @@ components:
           description: The new authorized values for the given custom fields. A custom field can have at most 300 authorized values.
       required:
       - authorizedValues
+    InputCustomFieldDTO:
+      title: Input Custom Field
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the custom field.
+          example: Department
+        targetType:
+          type: string
+          enum:
+          - users
+          - contents
+          description: The resource type to which the custom field is linked.
+        type:
+          type: string
+          enum:
+          - string
+          - date
+          description: The type of the custom field.
+      required:
+      - name
+      - targetType
+      - type
     CustomFieldDTO:
       title: Custom Field
       type: object
@@ -1031,30 +1045,16 @@ components:
       - targetType
       - type
       - _id
-    InputCustomFieldDTO:
-      title: Input Custom Field
+    UpdateCustomFieldBody:
+      title: Update Custom Field Body
       type: object
       properties:
         name:
           type: string
           description: The name of the custom field.
           example: Department
-        targetType:
-          type: string
-          enum:
-          - users
-          - contents
-          description: The resource type to which the custom field is linked.
-        type:
-          type: string
-          enum:
-          - string
-          - date
-          description: The type of the custom field.
       required:
       - name
-      - targetType
-      - type
   securitySchemes:
     oauth2:
       type: oauth2

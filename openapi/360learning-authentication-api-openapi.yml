@@ -235,6 +235,27 @@ paths:
       description: Production US
 components:
   schemas:
+    GenerateTokenResponse:
+      title: Generate Token Response
+      type: object
+      properties:
+        token_type:
+          type: string
+          enum:
+          - Bearer
+          description: The type of the access token.
+        access_token:
+          type: string
+          description: The access token that authorizes access to API resources. Include the access token in the `Authorization` header of every request as `Bearer`.
+          example: eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJBaU1qdVNjLW9pelVYWHBZVnZWbDZrSklsb2FNWDNWYzZSdWp4QnlPX05FIn0
+        expires_in:
+          type: number
+          description: The lifetime of the access token in seconds.
+          example: '3600'
+      required:
+      - token_type
+      - access_token
+      - expires_in
     GenerateTokenBody:
       title: Generate Token Body
       type: object
@@ -267,27 +288,6 @@ components:
       - grant_type
       - client_id
       - client_secret
-    GenerateTokenResponse:
-      title: Generate Token Response
-      type: object
-      properties:
-        token_type:
-          type: string
-          enum:
-          - Bearer
-          description: The type of the access token.
-        access_token:
-          type: string
-          description: The access token that authorizes access to API resources. Include the access token in the `Authorization` header of every request as `Bearer`.
-          example: eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJBaU1qdVNjLW9pelVYWHBZVnZWbDZrSklsb2FNWDNWYzZSdWp4QnlPX05FIn0
-        expires_in:
-          type: number
-          description: The lifetime of the access token in seconds.
-          example: '3600'
-      required:
-      - token_type
-      - access_token
-      - expires_in
     GeneratePluginClientTokenBody:
       title: Generate Plugin Client Token Body
       type: object

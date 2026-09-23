@@ -174,7 +174,7 @@ paths:
 
         >
 
-        > This endpoint is paginated with a page size of 1,000 custom links. For more information, see the [Pagination guide](doc:pagination).
+        > This endpoint is paginated with a page size of 1,000 custom links. For more information, see the Pagination guide.
 
 
         Lists all custom links.'

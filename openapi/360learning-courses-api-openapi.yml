@@ -531,7 +531,7 @@ paths:
 
         >
 
-        > This endpoint is paginated with a page size of 500 courses attempts statistics. For more information, see the [Pagination guide](doc:pagination).
+        > This endpoint is paginated with a page size of 500 courses attempts statistics. For more information, see the Pagination guide.
 
 
         Lists all courses statistics in your platform.'
@@ -1203,7 +1203,7 @@ paths:
 
         >
 
-        > This endpoint is paginated with a page size of 500 courses. For more information, see the [Pagination guide](doc:pagination).
+        > This endpoint is paginated with a page size of 500 courses. For more information, see the Pagination guide.
 
 
         Lists all courses in your platform.'
@@ -1669,7 +1669,7 @@ paths:
 
         >
 
-        > This endpoint is paginated with a page size of 500 tags. For more information, see the [Pagination guide](doc:pagination).
+        > This endpoint is paginated with a page size of 500 tags. For more information, see the Pagination guide.
 
 
         Lists all unique tags of the given course.'
@@ -2195,61 +2195,6 @@ paths:
       - Courses
 components:
   schemas:
-    ArchiveCourseBody:
-      title: Archive Course Body
-      type: object
-      properties:
-        archived:
-          type: boolean
-          description: If true, archives the course. If false, restores the course.
-      required:
-      - archived
-    CustomFieldValueDTO:
-      title: Custom Field Value
-      type: object
-      properties:
-        customFieldId:
-          type: string
-          description: The unique ID of the custom field.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        type:
-          type: string
-          enum:
-          - string
-          - date
-          description: The type of the custom field.
-        value:
-          oneOf:
-          - type: string
-            title: string type
-            description: The custom field string value.
-            minLength: 1
-            example: US
-          - type: string
-            title: date type
-            format: date-time
-            description: The custom field date value is in the `YYYY-MM-DD` (ISO 8601 in Coordinated Universal Time (UTC)).
-            minLength: 1
-            example: '2025-01-27'
-          description: The value assigned to the target for this custom field.
-      required:
-      - customFieldId
-      - type
-      - value
-    CourseTranslatedFields:
-      title: Course Translated Fields
-      type: object
-      properties:
-        name:
-          type: string
-          description: The translation of the field `name` for this language.
-          example: Accueil des employés
-        description:
-          type: string
-          description: The translation of the field `description` for this language.
-          example: Ce module vous apprend à intégrer un nouveau collaborateur !
     GenerateFromPromptBody:
       title: Generate From Prompt Body
       type: object
@@ -2274,153 +2219,6 @@ components:
       required:
       - prompt
       - authorId
-    UpdateCourseCustomFieldValuesBody:
-      title: Update Course Custom Field Values Body
-      type: object
-      properties:
-        customValues:
-          maxItems: 300
-          description: The list of custom field values to replace the existing ones.
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomFieldValueDTO'
-      required:
-      - customValues
-    CreateELearningStandardCourseBody:
-      title: Create E Learning Standard Course Body
-      type: object
-      properties:
-        name:
-          type: string
-          description: The title of the course.
-          example: Employee Onboarding
-          minLength: 1
-        sourceLang:
-          type: string
-          enum:
-          - bg
-          - cs
-          - da
-          - de
-          - el
-          - en
-          - es
-          - fi
-          - fr
-          - hr
-          - ht_HT
-          - hu
-          - id
-          - it
-          - ja
-          - kar_MM
-          - ko
-          - lt
-          - mh_MH
-          - nl
-          - nl_BE
-          - 'no'
-          - pl
-          - pt
-          - ro
-          - ru
-          - rw_RW
-          - sk
-          - sl
-          - so_SO
-          - sv
-          - sw_KE
-          - th
-          - ti_ET
-          - tr
-          - uk
-          - zh
-          - am_ET
-          - bn
-          - bs
-          - ca
-          - cy
-          - en_CA
-          - en_GB
-          - es_AR
-          - es_MX
-          - et
-          - fr_CA
-          - gu
-          - he_IL
-          - hy
-          - kk
-          - km
-          - lo
-          - lv
-          - mi
-          - mn_MN
-          - mr
-          - ms
-          - my_MM
-          - nn_NO
-          - or
-          - pa
-          - pt_BR
-          - pt_MZ
-          - rn_BI
-          - si
-          - ta
-          - te
-          - tl_PH
-          - ur
-          - uz
-          - yo_NG
-          - zh_tw
-          - el
-          - hi
-          - sr
-          - ar
-          - vi
-          - zh_HANT
-          description: The language in which the course is created.
-        authorId:
-          type: string
-          description: The unique ID of the author of the course.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        groupId:
-          type: string
-          description: The unique ID of the group where the course was created.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        coAuthorIds:
-          description: The list of unique IDs of the co-authors of the course.
-          example:
-          - 507f1f77bcf86cd799439011
-          type: array
-          items:
-            type: string
-            format: ObjectId
-            pattern: ^[a-fA-F0-9]{24}$
-        description:
-          type: string
-          description: The description of the course.
-          example: This course will teach you how to onboard a new employee!
-        duration:
-          type: string
-          description: An estimate of the time required to complete the course. The expected value is a number of minutes.
-        estdFile:
-          type: string
-          format: binary
-          description: 'The eLearning standard package file to use as the course content. Supported media types: application/x-zip-compressed, application/zip.'
-        coverPicture:
-          type: string
-          format: binary
-          description: 'The picture file to be used as the course cover picture. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
-      required:
-      - name
-      - sourceLang
-      - authorId
-      - groupId
-      - estdFile
     CourseStatDTO:
       title: Course Stat
       type: object
@@ -2574,6 +2372,141 @@ components:
       - progress
       - courseId
       - userId
+    CreateELearningStandardCourseBody:
+      title: Create E Learning Standard Course Body
+      type: object
+      properties:
+        name:
+          type: string
+          description: The title of the course.
+          example: Employee Onboarding
+          minLength: 1
+        sourceLang:
+          type: string
+          enum:
+          - bg
+          - cs
+          - da
+          - de
+          - el
+          - en
+          - es
+          - fi
+          - fr
+          - hr
+          - ht_HT
+          - hu
+          - id
+          - it
+          - ja
+          - kar_MM
+          - ko
+          - lt
+          - mh_MH
+          - nl
+          - nl_BE
+          - 'no'
+          - pl
+          - pt
+          - ro
+          - ru
+          - rw_RW
+          - sk
+          - sl
+          - so_SO
+          - sv
+          - sw_KE
+          - th
+          - ti_ET
+          - tr
+          - uk
+          - zh
+          - am_ET
+          - bn
+          - bs
+          - ca
+          - cy
+          - en_CA
+          - en_GB
+          - es_AR
+          - es_MX
+          - et
+          - fr_CA
+          - gu
+          - he_IL
+          - hy
+          - kk
+          - km
+          - lo
+          - lv
+          - mi
+          - mn_MN
+          - mr
+          - ms
+          - my_MM
+          - nn_NO
+          - or
+          - pa
+          - pt_BR
+          - pt_MZ
+          - rn_BI
+          - si
+          - ta
+          - te
+          - tl_PH
+          - ur
+          - uz
+          - yo_NG
+          - zh_tw
+          - el
+          - hi
+          - sr
+          - ar
+          - vi
+          - zh_HANT
+          description: The language in which the course is created.
+        authorId:
+          type: string
+          description: The unique ID of the author of the course.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        groupId:
+          type: string
+          description: The unique ID of the group where the course was created.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        coAuthorIds:
+          description: The list of unique IDs of the co-authors of the course.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        description:
+          type: string
+          description: The description of the course.
+          example: This course will teach you how to onboard a new employee!
+        duration:
+          type: string
+          description: An estimate of the time required to complete the course. The expected value is a number of minutes.
+        estdFile:
+          type: string
+          format: binary
+          description: 'The eLearning standard package file to use as the course content. Supported media types: application/x-zip-compressed, application/zip.'
+        coverPicture:
+          type: string
+          format: binary
+          description: 'The picture file to be used as the course cover picture. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
+      required:
+      - name
+      - sourceLang
+      - authorId
+      - groupId
+      - estdFile
     UpdateCourseTagsBody:
       title: Update Course Tags Body
       type: object
@@ -2590,29 +2523,18 @@ components:
             pattern: ^[a-fA-F0-9]{24}$
       required:
       - tagIds
-    TagIdWithSource:
-      title: Tag Id With Source
+    CourseTranslatedFields:
+      title: Course Translated Fields
       type: object
       properties:
-        tagId:
+        name:
           type: string
-          description: The unique ID of the tag.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        source:
+          description: The translation of the field `name` for this language.
+          example: Accueil des employés
+        description:
           type: string
-          enum:
-          - native
-          - integration
-          description: 'The source of the tag.
-
-            - `native`: The tag has been manually added by an admin or created through the API.
-
-            - `integration`: The tag has been synced from an external source.'
-      required:
-      - tagId
-      - source
+          description: The translation of the field `description` for this language.
+          example: Ce module vous apprend à intégrer un nouveau collaborateur !
     UpdateELearningStandardCourseBody:
       title: Update E Learning Standard Course Body
       type: object
@@ -2742,116 +2664,84 @@ components:
           type: string
           format: binary
           description: 'The picture file to be used as the course cover picture. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
-    CourseTranslationDTO:
-      title: Course Translation
+    ArchiveCourseBody:
+      title: Archive Course Body
       type: object
       properties:
-        lang:
-          type: string
-          enum:
-          - bg
-          - cs
-          - da
-          - de
-          - el
-          - en
-          - es
-          - fi
-          - fr
-          - hr
-          - ht_HT
-          - hu
-          - id
-          - it
-          - ja
-          - kar_MM
-          - ko
-          - lt
-          - mh_MH
-          - nl
-          - nl_BE
-          - 'no'
-          - pl
-          - pt
-          - ro
-          - ru
-          - rw_RW
-          - sk
-          - sl
-          - so_SO
-          - sv
-          - sw_KE
-          - th
-          - ti_ET
-          - tr
-          - uk
-          - zh
-          - am_ET
-          - bn
-          - bs
-          - ca
-          - cy
-          - en_CA
-          - en_GB
-          - es_AR
-          - es_MX
-          - et
-          - fr_CA
-          - gu
-          - he_IL
-          - hy
-          - kk
-          - km
-          - lo
-          - lv
-          - mi
-          - mn_MN
-          - mr
-          - ms
-          - my_MM
-          - nn_NO
-          - or
-          - pa
-          - pt_BR
-          - pt_MZ
-          - rn_BI
-          - si
-          - ta
-          - te
-          - tl_PH
-          - ur
-          - uz
-          - yo_NG
-          - zh_tw
-          - el
-          - hi
-          - sr
-          - ar
-          - vi
-          - zh_HANT
-          description: The language of the translation.
-          example: fr
-        published:
+        archived:
           type: boolean
-          description: True if the translation is available to users in this language; false otherwise.
-        translatorIds:
-          description: The list of unique IDs of the translators assigned to this language.
-          example:
-          - 507f1f77bcf86cd799439011
+          description: If true, archives the course. If false, restores the course.
+      required:
+      - archived
+    UpdateCourseCustomFieldValuesBody:
+      title: Update Course Custom Field Values Body
+      type: object
+      properties:
+        customValues:
+          maxItems: 300
+          description: The list of custom field values to replace the existing ones.
           type: array
           items:
-            type: string
-            format: ObjectId
-            pattern: ^[a-fA-F0-9]{24}$
-        translatedFields:
-          description: The translations of the course fields for this language.
-          allOf:
-          - $ref: '#/components/schemas/CourseTranslatedFields'
+            $ref: '#/components/schemas/CustomFieldValueDTO'
       required:
-      - lang
-      - published
-      - translatorIds
-      - translatedFields
+      - customValues
+    CustomFieldValueDTO:
+      title: Custom Field Value
+      type: object
+      properties:
+        customFieldId:
+          type: string
+          description: The unique ID of the custom field.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - string
+          - date
+          description: The type of the custom field.
+        value:
+          oneOf:
+          - type: string
+            title: string type
+            description: The custom field string value.
+            minLength: 1
+            example: US
+          - type: string
+            title: date type
+            format: date-time
+            description: The custom field date value is in the `YYYY-MM-DD` (ISO 8601 in Coordinated Universal Time (UTC)).
+            minLength: 1
+            example: '2025-01-27'
+          description: The value assigned to the target for this custom field.
+      required:
+      - customFieldId
+      - type
+      - value
+    TagIdWithSource:
+      title: Tag Id With Source
+      type: object
+      properties:
+        tagId:
+          type: string
+          description: The unique ID of the tag.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        source:
+          type: string
+          enum:
+          - native
+          - integration
+          description: 'The source of the tag.
+
+            - `native`: The tag has been manually added by an admin or created through the API.
+
+            - `integration`: The tag has been synced from an external source.'
+      required:
+      - tagId
+      - source
     CourseDTO:
       title: Course
       type: object
@@ -3113,6 +3003,116 @@ components:
       - status
       - translations
       - type
+    CourseTranslationDTO:
+      title: Course Translation
+      type: object
+      properties:
+        lang:
+          type: string
+          enum:
+          - bg
+          - cs
+          - da
+          - de
+          - el
+          - en
+          - es
+          - fi
+          - fr
+          - hr
+          - ht_HT
+          - hu
+          - id
+          - it
+          - ja
+          - kar_MM
+          - ko
+          - lt
+          - mh_MH
+          - nl
+          - nl_BE
+          - 'no'
+          - pl
+          - pt
+          - ro
+          - ru
+          - rw_RW
+          - sk
+          - sl
+          - so_SO
+          - sv
+          - sw_KE
+          - th
+          - ti_ET
+          - tr
+          - uk
+          - zh
+          - am_ET
+          - bn
+          - bs
+          - ca
+          - cy
+          - en_CA
+          - en_GB
+          - es_AR
+          - es_MX
+          - et
+          - fr_CA
+          - gu
+          - he_IL
+          - hy
+          - kk
+          - km
+          - lo
+          - lv
+          - mi
+          - mn_MN
+          - mr
+          - ms
+          - my_MM
+          - nn_NO
+          - or
+          - pa
+          - pt_BR
+          - pt_MZ
+          - rn_BI
+          - si
+          - ta
+          - te
+          - tl_PH
+          - ur
+          - uz
+          - yo_NG
+          - zh_tw
+          - el
+          - hi
+          - sr
+          - ar
+          - vi
+          - zh_HANT
+          description: The language of the translation.
+          example: fr
+        published:
+          type: boolean
+          description: True if the translation is available to users in this language; false otherwise.
+        translatorIds:
+          description: The list of unique IDs of the translators assigned to this language.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        translatedFields:
+          description: The translations of the course fields for this language.
+          allOf:
+          - $ref: '#/components/schemas/CourseTranslatedFields'
+      required:
+      - lang
+      - published
+      - translatorIds
+      - translatedFields
   securitySchemes:
     oauth2:
       type: oauth2

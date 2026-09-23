@@ -625,36 +625,6 @@ paths:
       - Certificate Outlines
 components:
   schemas:
-    CertificateOutlineResponseDTO:
-      title: Certificate Outline Response
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the certificate outline.
-          example: Certificate of Completion
-          minLength: 1
-        groupId:
-          type: string
-          description: The unique ID of the group this outline belongs to.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        _id:
-          type: string
-          description: The unique ID of the certificate outline.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        createdAt:
-          format: date-time
-          type: string
-          description: The date and time when the certificate outline was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - title
-      - groupId
-      - _id
-      - createdAt
     InputCertificateOutlineDTO:
       title: Input Certificate Outline
       type: object
@@ -712,6 +682,36 @@ components:
       - title
       - groupId
       - bodyHtml
+    CertificateOutlineResponseDTO:
+      title: Certificate Outline Response
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the certificate outline.
+          example: Certificate of Completion
+          minLength: 1
+        groupId:
+          type: string
+          description: The unique ID of the group this outline belongs to.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        _id:
+          type: string
+          description: The unique ID of the certificate outline.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the certificate outline was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - title
+      - groupId
+      - _id
+      - createdAt
     PatchCertificateOutlineDTO:
       title: Patch Certificate Outline
       type: object

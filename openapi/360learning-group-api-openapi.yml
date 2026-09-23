@@ -189,6 +189,41 @@ webhooks:
       - Group
 components:
   schemas:
+    PolicyDTO:
+      title: Policy
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL of the policy document.
+          example: https://example.com/policy
+          minLength: 1
+        explicitConsent:
+          type: boolean
+          description: When true, user must provide explicit consent at first login. Default is false.
+      required:
+      - url
+    GroupCreatedDTO:
+      title: Group Created
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The unique ID of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the group was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        name:
+          type: string
+          description: The name of the group.
+      required:
+      - groupId
+      - createdAt
+      - name
     GroupDeletedDTO:
       title: Group Deleted
       type: object
@@ -298,41 +333,6 @@ components:
       - updatedAt
       - name
       - public
-    PolicyDTO:
-      title: Policy
-      type: object
-      properties:
-        url:
-          type: string
-          description: The URL of the policy document.
-          example: https://example.com/policy
-          minLength: 1
-        explicitConsent:
-          type: boolean
-          description: When true, user must provide explicit consent at first login. Default is false.
-      required:
-      - url
-    GroupCreatedDTO:
-      title: Group Created
-      type: object
-      properties:
-        groupId:
-          type: string
-          description: The unique ID of the group.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        createdAt:
-          format: date-time
-          type: string
-          description: The date and time when the group was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        name:
-          type: string
-          description: The name of the group.
-      required:
-      - groupId
-      - createdAt
-      - name
   securitySchemes:
     oauth2:
       type: oauth2

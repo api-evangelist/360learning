@@ -134,7 +134,7 @@ paths:
 
         >
 
-        > This endpoint is paginated with a page size of 5,000 tags. For more information, see the [Pagination guide](doc:pagination).
+        > This endpoint is paginated with a page size of 5,000 tags. For more information, see the Pagination guide.
 
 
         Lists all tags in your platform.'

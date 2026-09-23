@@ -178,7 +178,7 @@ paths:
 
         >
 
-        > This endpoint is paginated with a page size of 500 classrooms. For more information, see the [Pagination guide](doc:pagination).
+        > This endpoint is paginated with a page size of 500 classrooms. For more information, see the Pagination guide.
 
 
         Lists all classrooms in your platform.'
@@ -654,7 +654,7 @@ paths:
 
         >
 
-        > This endpoint is paginated with a page size of 2,000 slot registrations. For more information, see the [Pagination guide](doc:pagination).
+        > This endpoint is paginated with a page size of 2,000 slot registrations. For more information, see the Pagination guide.
 
 
         Lists all users registered to any slot in the given classroom.'
@@ -1025,7 +1025,7 @@ paths:
 
         >
 
-        > This endpoint is paginated with a page size of 100 classroom slots. For more information, see the [Pagination guide](doc:pagination).
+        > This endpoint is paginated with a page size of 100 classroom slots. For more information, see the Pagination guide.
 
 
         Lists all slots in a given classroom.'
@@ -1771,7 +1771,7 @@ paths:
 
         >
 
-        > This endpoint is paginated with a page size of 3,000 attendance sheets. For more information, see the [Pagination guide](doc:pagination).
+        > This endpoint is paginated with a page size of 3,000 attendance sheets. For more information, see the Pagination guide.
 
 
         Lists all attendance sheets in your platform for the given classroom slot.'
@@ -2197,7 +2197,7 @@ paths:
 
         >
 
-        > This endpoint is paginated with a page size of 3,000 attendances. For more information, see the [Pagination guide](doc:pagination).
+        > This endpoint is paginated with a page size of 3,000 attendances. For more information, see the Pagination guide.
 
 
         Lists all attendances in your platform for the given classroom slot and attendance sheet.'
@@ -3160,7 +3160,7 @@ paths:
 
         >
 
-        > This endpoint is paginated with a page size of 2,000 slot registrations. For more information, see the [Pagination guide](doc:pagination).
+        > This endpoint is paginated with a page size of 2,000 slot registrations. For more information, see the Pagination guide.
 
 
         Lists all users registered to a given classroom slot.'
@@ -3543,6 +3543,299 @@ paths:
       - Classrooms
 components:
   schemas:
+    InputClassroomDTO:
+      title: Input Classroom
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The unique ID of the creation group of the classroom.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The title of the classroom.
+          example: Security Conference
+          minLength: 1
+        mediaIds:
+          maxItems: 20
+          description: The list of unique IDs of the medias assigned to this classroom. These attachments will be sent by email to registered learners.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        message:
+          type: string
+          description: Complementary information about the classroom. This information will be sent by email to registered learners.
+          example: Be sure to have read all the attachments before the conference.
+          minLength: 1
+        trainingObjective:
+          type: string
+          description: The training objective of the classroom.
+          example: Learn the security rules of the company.
+          minLength: 1
+      required:
+      - groupId
+      - name
+    SlotRegistrationDTO:
+      title: Slot Registration
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the classroom slot registration.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        archivedAt:
+          format: date-time
+          type: string
+          description: The date and time when the slot registration was archived from the path session, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        userId:
+          type: string
+          description: The unique ID of the registered user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        attendanceDuration:
+          type: number
+          description: If the classroom is setup through a webinar integration, contains the reported duration of the attendance in milliseconds.
+          example: 60
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the slot registration has been created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        hasAttended:
+          type: boolean
+          description: The attendance status of the registration.
+        modifiedAt:
+          format: date-time
+          type: string
+          description: The date and time when the slot registration has been modified, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        pathId:
+          type: string
+          description: The ID of the path in which this registration was made (if any).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        rsvp:
+          description: The rsvp for this registration.
+          allOf:
+          - $ref: '#/components/schemas/RsvpDTO'
+        status:
+          type: string
+          enum:
+          - archived
+          - published
+          description: The status of the slot registration.
+      required:
+      - _id
+      - userId
+      - status
+    RsvpDTO:
+      title: Rsvp
+      type: object
+      properties:
+        going:
+          type: boolean
+          description: The rsvp response for this registration.
+        lastUpdatedAt:
+          format: date-time
+          type: string
+          description: The date of rsvp last update for this registration, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - going
+      - lastUpdatedAt
+    PathClassroomSlotDTO:
+      title: Path Classroom Slot
+      type: object
+      properties:
+        startDate:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot starts (must be before `endDate`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        endDate:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot ends (must be after `startDate`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        reportedDuration:
+          type: number
+          description: The reported duration of the slot, in hours.
+          example: 1
+        selfRegistration:
+          oneOf:
+          - $ref: '#/components/schemas/DisabledSelfRegistrationDTO'
+          - $ref: '#/components/schemas/EnabledSelfRegistrationDTO'
+          description: The self registration settings of the classroom slots.
+        virtual:
+          type: boolean
+          description: True when the slot is a virtual classroom, false otherwise.
+        maxCapacity:
+          type: number
+          description: The maximum number of registrations allowed in the slot. Learners won't be able to self-enroll on this slot if this number is reached.
+          example: 10
+        _id:
+          type: string
+          description: The unique ID of the classroom slot.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        classroomId:
+          type: string
+          description: The unique ID of the classroom the slot is linked to.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot has been created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        name:
+          type: string
+          description: The title of the classroom slot.
+          example: My awesome classroom slot
+        location:
+          type: string
+          description: The location of the classroom slot, being either a URL or a physical address.
+          example: https://meet.google.com/kdf-zkfz-hje
+        trainerIds:
+          description: The list of unique user IDs of trainers in charge of the slot (users must exist in the company).
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        mediaIds:
+          description: The list of medias unique identifiers linked to the classroom slot.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        modifiedAt:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot has been updated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        timezone:
+          type: string
+          description: The timezone of the slot in the format `Continent[/Country]/City` defined by [TZ database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+          example: Europe/Paris
+        webinarProvider:
+          type: string
+          description: If the classroom is setup through a webinar integration, contains the name of the integration.
+          example: Microsoft Teams
+        context:
+          description: The path session context of the classroom slot.
+          allOf:
+          - $ref: '#/components/schemas/PathContextDTO'
+      required:
+      - startDate
+      - endDate
+      - reportedDuration
+      - selfRegistration
+      - virtual
+      - _id
+      - classroomId
+      - name
+      - location
+      - trainerIds
+      - mediaIds
+      - context
+    InputClassroomSlotDTO:
+      title: Input Classroom Slot
+      type: object
+      properties:
+        startDate:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot starts (must be before `endDate`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        endDate:
+          format: date-time
+          type: string
+          description: The date and time when the classroom slot ends (must be after `startDate`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        reportedDuration:
+          type: number
+          description: The reported duration of the slot, in hours.
+          example: 1
+        selfRegistration:
+          oneOf:
+          - $ref: '#/components/schemas/DisabledSelfRegistrationDTO'
+          - $ref: '#/components/schemas/EnabledSelfRegistrationDTO'
+          description: The self registration settings of the classroom slots.
+        virtual:
+          type: boolean
+          description: True when the slot is a virtual classroom, false otherwise.
+        maxCapacity:
+          type: number
+          description: The maximum number of registrations allowed in the slot. Learners won't be able to self-enroll on this slot if this number is reached.
+          example: 10
+        name:
+          type: string
+          description: The title of the classroom slot.
+          example: My awesome classroom slot
+          minLength: 1
+        context:
+          description: The path session context of the classroom slot.
+          allOf:
+          - $ref: '#/components/schemas/PathContextDTO'
+        location:
+          type: string
+          description: The location of the classroom slot, being either a URL or a physical address.
+          example: https://meet.google.com/kdf-zkfz-hje
+          minLength: 1
+        trainerIds:
+          maxItems: 20
+          description: The list of unique user IDs of trainers in charge of the slot (users must exist in the company).
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        mediaIds:
+          maxItems: 20
+          description: The list of medias unique identifiers linked to the classroom slot.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        timezone:
+          type: string
+          description: The timezone of the slot in the format `Continent[/Country]/City` defined by [TZ database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+          example: Europe/Paris
+          minLength: 1
+      required:
+      - startDate
+      - endDate
+      - reportedDuration
+      - selfRegistration
+      - virtual
+      - name
+      - context
+      - location
+    NotificationDTO:
+      title: Notification
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: True to send an update notification by email to registered learners, false otherwise.
+        message:
+          type: string
+          description: The message to include in the notification email, has no effect if `notification.enabled:false`.
+          minLength: 1
     PatchClassroomSlotDTO:
       title: Patch Classroom Slot
       type: object
@@ -3595,6 +3888,309 @@ components:
           description: The notification configuration.
           allOf:
           - $ref: '#/components/schemas/NotificationDTO'
+    PathContextDTO:
+      title: Path Context
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique identifier of the entity the classroom slot was created in. For instance the path session ID.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - path
+      required:
+      - _id
+      - type
+    ClassroomSlotWaitlistRequestDTO:
+      title: Classroom Slot Waitlist Request
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The ID of the user who made the waitlist request.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        requestedAt:
+          format: date-time
+          type: string
+          description: The date and time when the addition to the waitlist was requested, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - userId
+      - requestedAt
+    SlotRegistrationWithClassroomSlotIdDTO:
+      title: Slot Registration With Classroom Slot Id
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the classroom slot registration.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        archivedAt:
+          format: date-time
+          type: string
+          description: The date and time when the slot registration was archived from the path session, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        userId:
+          type: string
+          description: The unique ID of the registered user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        attendanceDuration:
+          type: number
+          description: If the classroom is setup through a webinar integration, contains the reported duration of the attendance in milliseconds.
+          example: 60
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the slot registration has been created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        hasAttended:
+          type: boolean
+          description: The attendance status of the registration.
+        modifiedAt:
+          format: date-time
+          type: string
+          description: The date and time when the slot registration has been modified, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        pathId:
+          type: string
+          description: The ID of the path in which this registration was made (if any).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        rsvp:
+          description: The rsvp for this registration.
+          allOf:
+          - $ref: '#/components/schemas/RsvpDTO'
+        status:
+          type: string
+          enum:
+          - archived
+          - published
+          description: The status of the slot registration.
+        classroomSlotId:
+          type: string
+          description: The unique ID of the classroom slot.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - _id
+      - userId
+      - status
+      - classroomSlotId
+    AttendanceDTO:
+      title: Attendance
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the attendance.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        userId:
+          type: string
+          description: The unique ID of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        firstName:
+          type: string
+          description: The first name of the user on the attendance sheet.
+          example: John
+        lastName:
+          type: string
+          description: The last name of the user on the attendance sheet.
+          example: Smith
+        status:
+          type: string
+          enum:
+          - absent
+          - attendancePending
+          - present
+          - signaturePending
+          description: The status of the user attendance.
+      required:
+      - _id
+      - userId
+      - firstName
+      - lastName
+      - status
+    InputRsvpDTO:
+      title: Input Rsvp
+      type: object
+      properties:
+        going:
+          type: boolean
+          description: The rsvp response for this registration.
+      required:
+      - going
+    EnabledSelfRegistrationDTO:
+      title: Enabled Self Registration
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: True if self-registration enabled for this classroom slot, false otherwise.
+        cutoffDate:
+          format: date-time
+          type: string
+          description: 'The cutoff date for self-registrations (only if `selfRegistration.enabled: true`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).'
+      required:
+      - enabled
+      - cutoffDate
+    StandaloneContextDTO:
+      title: Standalone Context
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique identifier of the entity the classroom slot was created in. For instance the path session ID.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - standalone
+      required:
+      - _id
+      - type
+    PatchSlotRegistrationDTO:
+      title: Patch Slot Registration
+      type: object
+      properties:
+        rsvp:
+          nullable: true
+          description: The rsvp for this registration.
+          allOf:
+          - $ref: '#/components/schemas/InputRsvpDTO'
+    OpenedAttendanceSheetDTO:
+      title: Opened Attendance Sheet
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the attendance sheet.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The title of the attendance sheet.
+          example: First day afternoon
+        personalizedFields:
+          description: Customization options for the attendance sheet.
+          allOf:
+          - $ref: '#/components/schemas/PersonalizedFields'
+        status:
+          type: string
+          enum:
+          - adjustment
+          - open
+          description: The status of the attendance sheet.
+        checkInCode:
+          type: string
+          description: The code to be used by learners to check in.
+          example: '1234'
+      required:
+      - _id
+      - name
+      - status
+      - checkInCode
+    InputAttendanceSheetDTO:
+      title: Input Attendance Sheet
+      type: object
+      properties:
+        name:
+          type: string
+          description: The title of the attendance sheet.
+          example: First day afternoon
+          minLength: 1
+      required:
+      - name
+    PersonalizedFields:
+      title: Personalized Fields
+      type: object
+      properties:
+        organizationName:
+          type: string
+          description: The name of your organization.
+          example: 360Learning
+          minLength: 1
+        organizationLogoId:
+          type: string
+          description: The unique id of the logo of your organization as a media of type image.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+    PatchClassroomDTO:
+      title: Patch Classroom
+      type: object
+      properties:
+        name:
+          type: string
+          description: The title of the classroom.
+          example: Security Conference
+          minLength: 1
+        mediaIds:
+          maxItems: 20
+          description: The list of unique IDs of the medias assigned to this classroom. These attachments will be sent by email to registered learners.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        message:
+          type: string
+          nullable: true
+          description: Complementary information about the classroom. This information will be sent by email to registered learners.
+          example: Be sure to have read all the attachments before the conference.
+          minLength: 1
+        trainingObjective:
+          type: string
+          nullable: true
+          description: The training objective of the classroom.
+          example: Learn the security rules of the company.
+          minLength: 1
+    ProgramContextDTO:
+      title: Program Context
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique identifier of the entity the classroom slot was created in. For instance the path session ID.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - program
+      required:
+      - _id
+      - type
+    DisabledSelfRegistrationDTO:
+      title: Disabled Self Registration
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: True if self-registration enabled for this classroom slot, false otherwise.
+        cutoffDate:
+          format: date-time
+          type: string
+          description: 'The cutoff date for self-registrations (only if `selfRegistration.enabled: true`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).'
+      required:
+      - enabled
     ClassroomSlotDTO:
       title: Classroom Slot
       type: object
@@ -3696,413 +4292,6 @@ components:
       - trainerIds
       - mediaIds
       - context
-    SlotRegistrationDTO:
-      title: Slot Registration
-      type: object
-      properties:
-        _id:
-          type: string
-          description: The unique ID of the classroom slot registration.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        archivedAt:
-          format: date-time
-          type: string
-          description: The date and time when the slot registration was archived from the path session, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        userId:
-          type: string
-          description: The unique ID of the registered user.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        attendanceDuration:
-          type: number
-          description: If the classroom is setup through a webinar integration, contains the reported duration of the attendance in milliseconds.
-          example: 60
-        createdAt:
-          format: date-time
-          type: string
-          description: The date and time when the slot registration has been created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        hasAttended:
-          type: boolean
-          description: The attendance status of the registration.
-        modifiedAt:
-          format: date-time
-          type: string
-          description: The date and time when the slot registration has been modified, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        pathId:
-          type: string
-          description: The ID of the path in which this registration was made (if any).
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        rsvp:
-          description: The rsvp for this registration.
-          allOf:
-          - $ref: '#/components/schemas/RsvpDTO'
-        status:
-          type: string
-          enum:
-          - archived
-          - published
-          description: The status of the slot registration.
-      required:
-      - _id
-      - userId
-      - status
-    ClassroomSlotWaitlistRequestDTO:
-      title: Classroom Slot Waitlist Request
-      type: object
-      properties:
-        userId:
-          type: string
-          description: The ID of the user who made the waitlist request.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        requestedAt:
-          format: date-time
-          type: string
-          description: The date and time when the addition to the waitlist was requested, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - userId
-      - requestedAt
-    PathClassroomSlotDTO:
-      title: Path Classroom Slot
-      type: object
-      properties:
-        startDate:
-          format: date-time
-          type: string
-          description: The date and time when the classroom slot starts (must be before `endDate`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        endDate:
-          format: date-time
-          type: string
-          description: The date and time when the classroom slot ends (must be after `startDate`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        reportedDuration:
-          type: number
-          description: The reported duration of the slot, in hours.
-          example: 1
-        selfRegistration:
-          oneOf:
-          - $ref: '#/components/schemas/DisabledSelfRegistrationDTO'
-          - $ref: '#/components/schemas/EnabledSelfRegistrationDTO'
-          description: The self registration settings of the classroom slots.
-        virtual:
-          type: boolean
-          description: True when the slot is a virtual classroom, false otherwise.
-        maxCapacity:
-          type: number
-          description: The maximum number of registrations allowed in the slot. Learners won't be able to self-enroll on this slot if this number is reached.
-          example: 10
-        _id:
-          type: string
-          description: The unique ID of the classroom slot.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        classroomId:
-          type: string
-          description: The unique ID of the classroom the slot is linked to.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        createdAt:
-          format: date-time
-          type: string
-          description: The date and time when the classroom slot has been created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        name:
-          type: string
-          description: The title of the classroom slot.
-          example: My awesome classroom slot
-        location:
-          type: string
-          description: The location of the classroom slot, being either a URL or a physical address.
-          example: https://meet.google.com/kdf-zkfz-hje
-        trainerIds:
-          description: The list of unique user IDs of trainers in charge of the slot (users must exist in the company).
-          example:
-          - 507f1f77bcf86cd799439011
-          type: array
-          items:
-            type: string
-            format: ObjectId
-            pattern: ^[a-fA-F0-9]{24}$
-        mediaIds:
-          description: The list of medias unique identifiers linked to the classroom slot.
-          example:
-          - 507f1f77bcf86cd799439011
-          type: array
-          items:
-            type: string
-            format: ObjectId
-            pattern: ^[a-fA-F0-9]{24}$
-        modifiedAt:
-          format: date-time
-          type: string
-          description: The date and time when the classroom slot has been updated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        timezone:
-          type: string
-          description: The timezone of the slot in the format `Continent[/Country]/City` defined by [TZ database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-          example: Europe/Paris
-        webinarProvider:
-          type: string
-          description: If the classroom is setup through a webinar integration, contains the name of the integration.
-          example: Microsoft Teams
-        context:
-          description: The path session context of the classroom slot.
-          allOf:
-          - $ref: '#/components/schemas/PathContextDTO'
-      required:
-      - startDate
-      - endDate
-      - reportedDuration
-      - selfRegistration
-      - virtual
-      - _id
-      - classroomId
-      - name
-      - location
-      - trainerIds
-      - mediaIds
-      - context
-    NotificationDTO:
-      title: Notification
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: True to send an update notification by email to registered learners, false otherwise.
-        message:
-          type: string
-          description: The message to include in the notification email, has no effect if `notification.enabled:false`.
-          minLength: 1
-    PersonalizedFields:
-      title: Personalized Fields
-      type: object
-      properties:
-        organizationName:
-          type: string
-          description: The name of your organization.
-          example: 360Learning
-          minLength: 1
-        organizationLogoId:
-          type: string
-          description: The unique id of the logo of your organization as a media of type image.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-    InputClassroomDTO:
-      title: Input Classroom
-      type: object
-      properties:
-        groupId:
-          type: string
-          description: The unique ID of the creation group of the classroom.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        name:
-          type: string
-          description: The title of the classroom.
-          example: Security Conference
-          minLength: 1
-        mediaIds:
-          maxItems: 20
-          description: The list of unique IDs of the medias assigned to this classroom. These attachments will be sent by email to registered learners.
-          example:
-          - 507f1f77bcf86cd799439011
-          type: array
-          items:
-            type: string
-            format: ObjectId
-            pattern: ^[a-fA-F0-9]{24}$
-        message:
-          type: string
-          description: Complementary information about the classroom. This information will be sent by email to registered learners.
-          example: Be sure to have read all the attachments before the conference.
-          minLength: 1
-        trainingObjective:
-          type: string
-          description: The training objective of the classroom.
-          example: Learn the security rules of the company.
-          minLength: 1
-      required:
-      - groupId
-      - name
-    PatchSlotRegistrationDTO:
-      title: Patch Slot Registration
-      type: object
-      properties:
-        rsvp:
-          nullable: true
-          description: The rsvp for this registration.
-          allOf:
-          - $ref: '#/components/schemas/InputRsvpDTO'
-    InputClassroomSlotDTO:
-      title: Input Classroom Slot
-      type: object
-      properties:
-        startDate:
-          format: date-time
-          type: string
-          description: The date and time when the classroom slot starts (must be before `endDate`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        endDate:
-          format: date-time
-          type: string
-          description: The date and time when the classroom slot ends (must be after `startDate`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        reportedDuration:
-          type: number
-          description: The reported duration of the slot, in hours.
-          example: 1
-        selfRegistration:
-          oneOf:
-          - $ref: '#/components/schemas/DisabledSelfRegistrationDTO'
-          - $ref: '#/components/schemas/EnabledSelfRegistrationDTO'
-          description: The self registration settings of the classroom slots.
-        virtual:
-          type: boolean
-          description: True when the slot is a virtual classroom, false otherwise.
-        maxCapacity:
-          type: number
-          description: The maximum number of registrations allowed in the slot. Learners won't be able to self-enroll on this slot if this number is reached.
-          example: 10
-        name:
-          type: string
-          description: The title of the classroom slot.
-          example: My awesome classroom slot
-          minLength: 1
-        context:
-          description: The path session context of the classroom slot.
-          allOf:
-          - $ref: '#/components/schemas/PathContextDTO'
-        location:
-          type: string
-          description: The location of the classroom slot, being either a URL or a physical address.
-          example: https://meet.google.com/kdf-zkfz-hje
-          minLength: 1
-        trainerIds:
-          maxItems: 20
-          description: The list of unique user IDs of trainers in charge of the slot (users must exist in the company).
-          example:
-          - 507f1f77bcf86cd799439011
-          type: array
-          items:
-            type: string
-            format: ObjectId
-            pattern: ^[a-fA-F0-9]{24}$
-        mediaIds:
-          maxItems: 20
-          description: The list of medias unique identifiers linked to the classroom slot.
-          example:
-          - 507f1f77bcf86cd799439011
-          type: array
-          items:
-            type: string
-            format: ObjectId
-            pattern: ^[a-fA-F0-9]{24}$
-        timezone:
-          type: string
-          description: The timezone of the slot in the format `Continent[/Country]/City` defined by [TZ database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-          example: Europe/Paris
-          minLength: 1
-      required:
-      - startDate
-      - endDate
-      - reportedDuration
-      - selfRegistration
-      - virtual
-      - name
-      - context
-      - location
-    SlotRegistrationWithClassroomSlotIdDTO:
-      title: Slot Registration With Classroom Slot Id
-      type: object
-      properties:
-        _id:
-          type: string
-          description: The unique ID of the classroom slot registration.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        archivedAt:
-          format: date-time
-          type: string
-          description: The date and time when the slot registration was archived from the path session, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        userId:
-          type: string
-          description: The unique ID of the registered user.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        attendanceDuration:
-          type: number
-          description: If the classroom is setup through a webinar integration, contains the reported duration of the attendance in milliseconds.
-          example: 60
-        createdAt:
-          format: date-time
-          type: string
-          description: The date and time when the slot registration has been created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        hasAttended:
-          type: boolean
-          description: The attendance status of the registration.
-        modifiedAt:
-          format: date-time
-          type: string
-          description: The date and time when the slot registration has been modified, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        pathId:
-          type: string
-          description: The ID of the path in which this registration was made (if any).
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        rsvp:
-          description: The rsvp for this registration.
-          allOf:
-          - $ref: '#/components/schemas/RsvpDTO'
-        status:
-          type: string
-          enum:
-          - archived
-          - published
-          description: The status of the slot registration.
-        classroomSlotId:
-          type: string
-          description: The unique ID of the classroom slot.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-      required:
-      - _id
-      - userId
-      - status
-      - classroomSlotId
-    InputAttendanceSheetDTO:
-      title: Input Attendance Sheet
-      type: object
-      properties:
-        name:
-          type: string
-          description: The title of the attendance sheet.
-          example: First day afternoon
-          minLength: 1
-      required:
-      - name
-    RsvpDTO:
-      title: Rsvp
-      type: object
-      properties:
-        going:
-          type: boolean
-          description: The rsvp response for this registration.
-        lastUpdatedAt:
-          format: date-time
-          type: string
-          description: The date of rsvp last update for this registration, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - going
-      - lastUpdatedAt
     ClassroomDTO:
       title: Classroom
       type: object
@@ -4154,178 +4343,6 @@ components:
       - _id
       - name
       - mediaIds
-    DisabledSelfRegistrationDTO:
-      title: Disabled Self Registration
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: True if self-registration enabled for this classroom slot, false otherwise.
-        cutoffDate:
-          format: date-time
-          type: string
-          description: 'The cutoff date for self-registrations (only if `selfRegistration.enabled: true`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).'
-      required:
-      - enabled
-    OpenedAttendanceSheetDTO:
-      title: Opened Attendance Sheet
-      type: object
-      properties:
-        _id:
-          type: string
-          description: The unique ID of the attendance sheet.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        name:
-          type: string
-          description: The title of the attendance sheet.
-          example: First day afternoon
-        personalizedFields:
-          description: Customization options for the attendance sheet.
-          allOf:
-          - $ref: '#/components/schemas/PersonalizedFields'
-        status:
-          type: string
-          enum:
-          - adjustment
-          - open
-          description: The status of the attendance sheet.
-        checkInCode:
-          type: string
-          description: The code to be used by learners to check in.
-          example: '1234'
-      required:
-      - _id
-      - name
-      - status
-      - checkInCode
-    AttendanceDTO:
-      title: Attendance
-      type: object
-      properties:
-        _id:
-          type: string
-          description: The unique ID of the attendance.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        userId:
-          type: string
-          description: The unique ID of the user.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        firstName:
-          type: string
-          description: The first name of the user on the attendance sheet.
-          example: John
-        lastName:
-          type: string
-          description: The last name of the user on the attendance sheet.
-          example: Smith
-        status:
-          type: string
-          enum:
-          - absent
-          - attendancePending
-          - present
-          - signaturePending
-          description: The status of the user attendance.
-      required:
-      - _id
-      - userId
-      - firstName
-      - lastName
-      - status
-    PatchClassroomDTO:
-      title: Patch Classroom
-      type: object
-      properties:
-        name:
-          type: string
-          description: The title of the classroom.
-          example: Security Conference
-          minLength: 1
-        mediaIds:
-          maxItems: 20
-          description: The list of unique IDs of the medias assigned to this classroom. These attachments will be sent by email to registered learners.
-          example:
-          - 507f1f77bcf86cd799439011
-          type: array
-          items:
-            type: string
-            format: ObjectId
-            pattern: ^[a-fA-F0-9]{24}$
-        message:
-          type: string
-          nullable: true
-          description: Complementary information about the classroom. This information will be sent by email to registered learners.
-          example: Be sure to have read all the attachments before the conference.
-          minLength: 1
-        trainingObjective:
-          type: string
-          nullable: true
-          description: The training objective of the classroom.
-          example: Learn the security rules of the company.
-          minLength: 1
-    InputRsvpDTO:
-      title: Input Rsvp
-      type: object
-      properties:
-        going:
-          type: boolean
-          description: The rsvp response for this registration.
-      required:
-      - going
-    EnabledSelfRegistrationDTO:
-      title: Enabled Self Registration
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: True if self-registration enabled for this classroom slot, false otherwise.
-        cutoffDate:
-          format: date-time
-          type: string
-          description: 'The cutoff date for self-registrations (only if `selfRegistration.enabled: true`), in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).'
-      required:
-      - enabled
-      - cutoffDate
-    PathContextDTO:
-      title: Path Context
-      type: object
-      properties:
-        _id:
-          type: string
-          description: The unique identifier of the entity the classroom slot was created in. For instance the path session ID.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        type:
-          type: string
-          enum:
-          - path
-      required:
-      - _id
-      - type
-    ProgramContextDTO:
-      title: Program Context
-      type: object
-      properties:
-        _id:
-          type: string
-          description: The unique identifier of the entity the classroom slot was created in. For instance the path session ID.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        type:
-          type: string
-          enum:
-          - program
-      required:
-      - _id
-      - type
     ClosedAttendanceSheetDTO:
       title: Closed Attendance Sheet
       type: object
@@ -4358,23 +4375,6 @@ components:
       - _id
       - name
       - status
-    StandaloneContextDTO:
-      title: Standalone Context
-      type: object
-      properties:
-        _id:
-          type: string
-          description: The unique identifier of the entity the classroom slot was created in. For instance the path session ID.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        type:
-          type: string
-          enum:
-          - standalone
-      required:
-      - _id
-      - type
   securitySchemes:
     oauth2:
       type: oauth2

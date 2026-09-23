@@ -25,7 +25,7 @@ paths:
 
         >
 
-        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the Bulk operations guide.
 
 
         Adds multiple skill reviews.
@@ -232,7 +232,7 @@ paths:
 
         >
 
-        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the Bulk operations guide.
 
 
         Deletes jobs based on the given `externalId`.
@@ -429,7 +429,7 @@ paths:
 
         >
 
-        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the Bulk operations guide.
 
 
         Adds or replaces multiple jobs based on the given `externalId`.
@@ -636,7 +636,7 @@ paths:
 
         >
 
-        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the Bulk operations guide.
 
 
         Deletes libraries based on the given `externalId`.
@@ -833,7 +833,7 @@ paths:
 
         >
 
-        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the Bulk operations guide.
 
 
         Adds or replaces multiple libraries based on the given `externalId`.
@@ -1040,7 +1040,7 @@ paths:
 
         >
 
-        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the Bulk operations guide.
 
 
         Deletes skills based on the given `externalId`.
@@ -1237,7 +1237,7 @@ paths:
 
         >
 
-        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the Bulk operations guide.
 
 
         Adds or replaces multiple skills based on the given `externalId`.
@@ -1463,7 +1463,7 @@ paths:
 
         >
 
-        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the Bulk operations guide.
 
 
         Replaces jobs skills based on the given `jobId`.
@@ -1687,7 +1687,7 @@ paths:
 
         >
 
-        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the Bulk operations guide.
 
 
         Replaces users jobs based on the given `userId`.
@@ -1911,7 +1911,7 @@ paths:
 
         >
 
-        > This endpoint is paginated with a page size of 500 powers. For more information, see the [Pagination guide](doc:pagination).
+        > This endpoint is paginated with a page size of 500 powers. For more information, see the Pagination guide.
 
 
         Lists all the powers.'
@@ -2111,7 +2111,7 @@ paths:
 
         >
 
-        > This endpoint is paginated with a page size of 500 skills. For more information, see the [Pagination guide](doc:pagination).
+        > This endpoint is paginated with a page size of 500 skills. For more information, see the Pagination guide.
 
 
         Lists all skills in your platform.'
@@ -2480,68 +2480,8 @@ paths:
       description: Production US
 components:
   schemas:
-    JobDeleteDTO:
-      title: Job Delete
-      type: object
-      properties:
-        externalId:
-          type: string
-          description: The unique external ID of the job.
-          example: ff583381-f8b5-477e-a24d-947aa55f407b
-          minLength: 1
-      required:
-      - externalId
-    ReplaceUserJobsDTO:
-      title: Replace User Jobs
-      type: object
-      properties:
-        userId:
-          type: string
-          description: The unique ID of the user the jobs are associated to.
-          example: 672b473e3e8d1c8cee0f1a4b
-          minLength: 1
-          format: ObjectId
-          pattern: ^[a-fA-F0-9]{24}$
-        currentJobIds:
-          description: The list of unique IDs of the current jobs given to the user. Do not include the property to keep existing jobs. Send empty list ([]) to remove all corresponding jobs
-          example:
-          - JOB1
-          - JOB2
-          type: array
-          items:
-            type: string
-        targetJobIds:
-          description: The list of unique IDs of the target jobs given to the user. Do not include the property to keep existing jobs. Send empty list ([]) to remove all corresponding jobs
-          example:
-          - JOB3
-          - JOB4
-          type: array
-          items:
-            type: string
-        previousJobIds:
-          description: The list of unique IDs of the previous jobs given to the user. Do not include the property to keep existing jobs. Send empty list ([]) to remove all corresponding jobs
-          example:
-          - JOB5
-          - JOB6
-          type: array
-          items:
-            type: string
-      required:
-      - userId
-    DeleteSkillsBody:
-      title: Delete Skills Body
-      type: object
-      properties:
-        input:
-          description: An array of skill delete objects.
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/SkillDeleteDTO'
-      required:
-      - input
-    SkillAssessedByIndexDTO:
-      title: Skill Assessed By Index
+    SkillAddedDTO:
+      title: Skill Added
       type: object
       properties:
         externalId:
@@ -2571,8 +2511,8 @@ components:
         actionType:
           type: string
           enum:
-          - skillAssessedByIndex
-          description: The skill is assessed, with qualifier values given by index.
+          - skillAdded
+          description: The skill is added to the user profile.
         comment:
           type: string
           maxLength: 1000
@@ -2584,17 +2524,199 @@ components:
           type: string
           description: The date and time of the review, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)). If not set, the current date is used.
           minLength: 1
-        qualifiers:
-          maxItems: 100
-          description: The qualifier values related to the assessment, specified by index
-          type: array
-          items:
-            $ref: '#/components/schemas/ValueByIndexQualifierDTO'
       required:
       - userId
       - assessorId
       - skillId
       - actionType
+    JobUpsertDTO:
+      title: Job Upsert
+      type: object
+      properties:
+        externalId:
+          type: string
+          description: The unique external ID of the job.
+          example: ff583381-f8b5-477e-a24d-947aa55f407b
+          minLength: 1
+        name:
+          type: string
+          description: The name of the job.
+          example: Product manager
+          minLength: 1
+        description:
+          type: string
+          description: The description of the job.
+          example: The product manager is responsible for the design, development, and lifecycle management of products to meet customer needs and business objectives.
+          minLength: 1
+        parentExternalId:
+          type: string
+          description: The unique external ID of the parent job.
+          example: 477e108e-60b5-4908-856e-aa123e133921
+          minLength: 1
+        translations:
+          description: The different translations available for the job.
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTranslationDTO'
+      required:
+      - externalId
+      - name
+    SkillTranslationDTO:
+      title: Skill Translation
+      type: object
+      properties:
+        lang:
+          type: string
+          enum:
+          - bg
+          - cs
+          - de
+          - en
+          - es
+          - fr
+          - hu
+          - it
+          - ja
+          - nl
+          - pl
+          - pt
+          - ro
+          - ru
+          - sa
+          - tr
+          - uk
+          - vm
+          - zh
+          description: The language of the translation.
+          example: fr
+        translatedFields:
+          description: The translations of the skill fields for this language.
+          allOf:
+          - $ref: '#/components/schemas/SkillTranslatedFieldsDTO'
+      required:
+      - lang
+      - translatedFields
+    SkillDeletedDTO:
+      title: Skill Deleted
+      type: object
+      properties:
+        externalId:
+          type: string
+          description: The unique external ID of the review.
+          example: 5d9b7bf9-47bf-40ca-b670-2a2a80d992da
+          minLength: 1
+        userId:
+          type: string
+          description: The unique ID of the user the review is about.
+          example: 672b473e3e8d1c8cee0f1a4b
+          minLength: 1
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+        assessorId:
+          type: string
+          description: The unique ID of the user that made the review.
+          example: 672b47e33e8d1c8cee0f1a5c
+          minLength: 1
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+        skillId:
+          type: string
+          description: The unique ID of the skill the review is about.
+          example: SKI1708592191403r2x5
+          minLength: 1
+        actionType:
+          type: string
+          enum:
+          - skillDeleted
+          description: The skill is removed from the user profile.
+        comment:
+          type: string
+          maxLength: 1000
+          description: A comment about the review.
+          example: You demonstrated a good understanding of the topic.
+          minLength: 1
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time of the review, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)). If not set, the current date is used.
+          minLength: 1
+      required:
+      - userId
+      - assessorId
+      - skillId
+      - actionType
+    LibraryUpsertDTO:
+      title: Library Upsert
+      type: object
+      properties:
+        externalId:
+          type: string
+          description: The unique external ID of the library.
+          example: ff583381-f8b5-477e-a24d-947aa55f407b
+          minLength: 1
+        name:
+          type: string
+          description: The name of the library.
+          example: Development experience
+          minLength: 1
+        description:
+          type: string
+          description: The description of the library.
+          example: All you have to know about how we develop here.
+          minLength: 1
+        translations:
+          description: The different translations available for the library.
+          type: array
+          items:
+            $ref: '#/components/schemas/LibraryTranslationDTO'
+        status:
+          type: string
+          enum:
+          - draft
+          - published
+          description: The status of the library.
+      required:
+      - externalId
+      - name
+    BaseTranslatedFieldsDTO:
+      title: Base Translated Fields
+      type: object
+      properties:
+        name:
+          type: string
+          description: The translation of the field `name` for this language.
+          example: Le nom traduit en français
+          minLength: 1
+        description:
+          type: string
+          description: The translation of the field `description` for this language.
+          example: Traduction en français de la description.
+          minLength: 1
+    JobTranslatedFieldsDTO:
+      title: Job Translated Fields
+      type: object
+      properties:
+        name:
+          type: string
+          description: The translation of the field `name` for this language.
+          example: Le nom traduit en français
+          minLength: 1
+        description:
+          type: string
+          description: The translation of the field `description` for this language.
+          example: Traduction en français de la description.
+          minLength: 1
+    LibraryDeleteDTO:
+      title: Library Delete
+      type: object
+      properties:
+        externalId:
+          type: string
+          description: The unique external ID of the library.
+          example: ff583381-f8b5-477e-a24d-947aa55f407b
+          minLength: 1
+      required:
+      - externalId
     SkillAssessedByIdDTO:
       title: Skill Assessed By Id
       type: object
@@ -2650,91 +2772,6 @@ components:
       - assessorId
       - skillId
       - actionType
-    UpsertJobsBody:
-      title: Upsert Jobs Body
-      type: object
-      properties:
-        input:
-          description: An array of job upsert objects.
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/JobUpsertDTO'
-      required:
-      - input
-    SkillDeletedDTO:
-      title: Skill Deleted
-      type: object
-      properties:
-        externalId:
-          type: string
-          description: The unique external ID of the review.
-          example: 5d9b7bf9-47bf-40ca-b670-2a2a80d992da
-          minLength: 1
-        userId:
-          type: string
-          description: The unique ID of the user the review is about.
-          example: 672b473e3e8d1c8cee0f1a4b
-          minLength: 1
-          format: ObjectId
-          pattern: ^[a-fA-F0-9]{24}$
-        assessorId:
-          type: string
-          description: The unique ID of the user that made the review.
-          example: 672b47e33e8d1c8cee0f1a5c
-          minLength: 1
-          format: ObjectId
-          pattern: ^[a-fA-F0-9]{24}$
-        skillId:
-          type: string
-          description: The unique ID of the skill the review is about.
-          example: SKI1708592191403r2x5
-          minLength: 1
-        actionType:
-          type: string
-          enum:
-          - skillDeleted
-          description: The skill is removed from the user profile.
-        comment:
-          type: string
-          maxLength: 1000
-          description: A comment about the review.
-          example: You demonstrated a good understanding of the topic.
-          minLength: 1
-        createdAt:
-          format: date-time
-          type: string
-          description: The date and time of the review, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)). If not set, the current date is used.
-          minLength: 1
-      required:
-      - userId
-      - assessorId
-      - skillId
-      - actionType
-    DeleteLibrariesBody:
-      title: Delete Libraries Body
-      type: object
-      properties:
-        input:
-          description: An array of library delete objects.
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/LibraryDeleteDTO'
-      required:
-      - input
-    UpsertSkillsBody:
-      title: Upsert Skills Body
-      type: object
-      properties:
-        input:
-          description: An array of skill upsert objects.
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/SkillUpsertDTO'
-      required:
-      - input
     UpsertLibrariesBody:
       title: Upsert Libraries Body
       type: object
@@ -2745,6 +2782,34 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LibraryUpsertDTO'
+      required:
+      - input
+    DeleteJobsBody:
+      title: Delete Jobs Body
+      type: object
+      properties:
+        input:
+          description: An array of job delete objects.
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/JobDeleteDTO'
+      required:
+      - input
+    AddSkillReviewsBody:
+      title: Add Skill Reviews Body
+      type: object
+      properties:
+        input:
+          maxItems: 10000
+          description: An array of skill review objects.
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/SkillAddedDTO'
+            - $ref: '#/components/schemas/SkillAssessedByIdDTO'
+            - $ref: '#/components/schemas/SkillAssessedByIndexDTO'
+            - $ref: '#/components/schemas/SkillDeletedDTO'
       required:
       - input
     SkillUpsertDTO:
@@ -2789,131 +2854,17 @@ components:
       - externalId
       - name
       - parentExternalIds
-    SkillTranslationDTO:
-      title: Skill Translation
-      type: object
-      properties:
-        lang:
-          type: string
-          enum:
-          - bg
-          - cs
-          - de
-          - en
-          - es
-          - fr
-          - hu
-          - it
-          - ja
-          - nl
-          - pl
-          - pt
-          - ro
-          - ru
-          - sa
-          - tr
-          - uk
-          - vm
-          - zh
-          description: The language of the translation.
-          example: fr
-        translatedFields:
-          description: The translations of the skill fields for this language.
-          allOf:
-          - $ref: '#/components/schemas/SkillTranslatedFieldsDTO'
-      required:
-      - lang
-      - translatedFields
-    LibraryDeleteDTO:
-      title: Library Delete
+    JobDeleteDTO:
+      title: Job Delete
       type: object
       properties:
         externalId:
           type: string
-          description: The unique external ID of the library.
+          description: The unique external ID of the job.
           example: ff583381-f8b5-477e-a24d-947aa55f407b
           minLength: 1
       required:
       - externalId
-    JobTranslatedFieldsDTO:
-      title: Job Translated Fields
-      type: object
-      properties:
-        name:
-          type: string
-          description: The translation of the field `name` for this language.
-          example: Le nom traduit en français
-          minLength: 1
-        description:
-          type: string
-          description: The translation of the field `description` for this language.
-          example: Traduction en français de la description.
-          minLength: 1
-    AddSkillReviewsBody:
-      title: Add Skill Reviews Body
-      type: object
-      properties:
-        input:
-          maxItems: 10000
-          description: An array of skill review objects.
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/SkillAddedDTO'
-            - $ref: '#/components/schemas/SkillAssessedByIdDTO'
-            - $ref: '#/components/schemas/SkillAssessedByIndexDTO'
-            - $ref: '#/components/schemas/SkillDeletedDTO'
-      required:
-      - input
-    SkillAddedDTO:
-      title: Skill Added
-      type: object
-      properties:
-        externalId:
-          type: string
-          description: The unique external ID of the review.
-          example: 5d9b7bf9-47bf-40ca-b670-2a2a80d992da
-          minLength: 1
-        userId:
-          type: string
-          description: The unique ID of the user the review is about.
-          example: 672b473e3e8d1c8cee0f1a4b
-          minLength: 1
-          format: ObjectId
-          pattern: ^[a-fA-F0-9]{24}$
-        assessorId:
-          type: string
-          description: The unique ID of the user that made the review.
-          example: 672b47e33e8d1c8cee0f1a5c
-          minLength: 1
-          format: ObjectId
-          pattern: ^[a-fA-F0-9]{24}$
-        skillId:
-          type: string
-          description: The unique ID of the skill the review is about.
-          example: SKI1708592191403r2x5
-          minLength: 1
-        actionType:
-          type: string
-          enum:
-          - skillAdded
-          description: The skill is added to the user profile.
-        comment:
-          type: string
-          maxLength: 1000
-          description: A comment about the review.
-          example: You demonstrated a good understanding of the topic.
-          minLength: 1
-        createdAt:
-          format: date-time
-          type: string
-          description: The date and time of the review, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)). If not set, the current date is used.
-          minLength: 1
-      required:
-      - userId
-      - assessorId
-      - skillId
-      - actionType
     ReplaceUsersJobsBody:
       title: Replace Users Jobs Body
       type: object
@@ -2924,6 +2875,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ReplaceUserJobsDTO'
+      required:
+      - input
+    DeleteSkillsBody:
+      title: Delete Skills Body
+      type: object
+      properties:
+        input:
+          description: An array of skill delete objects.
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillDeleteDTO'
       required:
       - input
     LibraryTranslationDTO:
@@ -2961,6 +2924,133 @@ components:
       required:
       - lang
       - translatedFields
+    ReplaceUserJobsDTO:
+      title: Replace User Jobs
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user the jobs are associated to.
+          example: 672b473e3e8d1c8cee0f1a4b
+          minLength: 1
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+        currentJobIds:
+          description: The list of unique IDs of the current jobs given to the user. Do not include the property to keep existing jobs. Send empty list ([]) to remove all corresponding jobs
+          example:
+          - JOB1
+          - JOB2
+          type: array
+          items:
+            type: string
+        targetJobIds:
+          description: The list of unique IDs of the target jobs given to the user. Do not include the property to keep existing jobs. Send empty list ([]) to remove all corresponding jobs
+          example:
+          - JOB3
+          - JOB4
+          type: array
+          items:
+            type: string
+        previousJobIds:
+          description: The list of unique IDs of the previous jobs given to the user. Do not include the property to keep existing jobs. Send empty list ([]) to remove all corresponding jobs
+          example:
+          - JOB5
+          - JOB6
+          type: array
+          items:
+            type: string
+      required:
+      - userId
+    ValueByIdQualifierDTO:
+      title: Value By Id Qualifier
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the qualifier.
+          example: SKQ1701914859202x53r
+          minLength: 1
+        valueId:
+          type: string
+          description: The unique ID of the qualifier value.
+          example: 5wQSd5xljil5zndlsieqA5
+          minLength: 1
+      required:
+      - _id
+      - valueId
+    SkillAssessedByIndexDTO:
+      title: Skill Assessed By Index
+      type: object
+      properties:
+        externalId:
+          type: string
+          description: The unique external ID of the review.
+          example: 5d9b7bf9-47bf-40ca-b670-2a2a80d992da
+          minLength: 1
+        userId:
+          type: string
+          description: The unique ID of the user the review is about.
+          example: 672b473e3e8d1c8cee0f1a4b
+          minLength: 1
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+        assessorId:
+          type: string
+          description: The unique ID of the user that made the review.
+          example: 672b47e33e8d1c8cee0f1a5c
+          minLength: 1
+          format: ObjectId
+          pattern: ^[a-fA-F0-9]{24}$
+        skillId:
+          type: string
+          description: The unique ID of the skill the review is about.
+          example: SKI1708592191403r2x5
+          minLength: 1
+        actionType:
+          type: string
+          enum:
+          - skillAssessedByIndex
+          description: The skill is assessed, with qualifier values given by index.
+        comment:
+          type: string
+          maxLength: 1000
+          description: A comment about the review.
+          example: You demonstrated a good understanding of the topic.
+          minLength: 1
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time of the review, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)). If not set, the current date is used.
+          minLength: 1
+        qualifiers:
+          maxItems: 100
+          description: The qualifier values related to the assessment, specified by index
+          type: array
+          items:
+            $ref: '#/components/schemas/ValueByIndexQualifierDTO'
+      required:
+      - userId
+      - assessorId
+      - skillId
+      - actionType
+    ValueByIndexQualifierDTO:
+      title: Value By Index Qualifier
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the qualifier.
+          example: SKQ1701914859202x53r
+          minLength: 1
+        valueIndex:
+          type: integer
+          minimum: 1
+          maximum: 100
+          description: The index of the qualifier value, among the list of possible values. Takes values from 1 to the number of possible values for the qualifier.
+          example: 2
+      required:
+      - _id
+      - valueIndex
     JobSkillInputDTO:
       title: Job Skill Input
       type: object
@@ -2984,55 +3074,30 @@ components:
       required:
       - jobId
       - skillId
-    ValueByIndexQualifierDTO:
-      title: Value By Index Qualifier
+    UpsertJobsBody:
+      title: Upsert Jobs Body
       type: object
       properties:
-        _id:
-          type: string
-          description: The unique ID of the qualifier.
-          example: SKQ1701914859202x53r
-          minLength: 1
-        valueIndex:
-          type: integer
-          minimum: 1
-          maximum: 100
-          description: The index of the qualifier value, among the list of possible values. Takes values from 1 to the number of possible values for the qualifier.
-          example: 2
+        input:
+          description: An array of job upsert objects.
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/JobUpsertDTO'
       required:
-      - _id
-      - valueIndex
-    ValueByIdQualifierDTO:
-      title: Value By Id Qualifier
+      - input
+    UpsertSkillsBody:
+      title: Upsert Skills Body
       type: object
       properties:
-        _id:
-          type: string
-          description: The unique ID of the qualifier.
-          example: SKQ1701914859202x53r
-          minLength: 1
-        valueId:
-          type: string
-          description: The unique ID of the qualifier value.
-          example: 5wQSd5xljil5zndlsieqA5
-          minLength: 1
+        input:
+          description: An array of skill upsert objects.
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillUpsertDTO'
       required:
-      - _id
-      - valueId
-    BaseTranslatedFieldsDTO:
-      title: Base Translated Fields
-      type: object
-      properties:
-        name:
-          type: string
-          description: The translation of the field `name` for this language.
-          example: Le nom traduit en français
-          minLength: 1
-        description:
-          type: string
-          description: The translation of the field `description` for this language.
-          example: Traduction en français de la description.
-          minLength: 1
+      - input
     ReplaceJobsSkillsBody:
       title: Replace Jobs Skills Body
       type: object
@@ -3045,6 +3110,29 @@ components:
             $ref: '#/components/schemas/JobSkillInputDTO'
       required:
       - input
+    DeleteLibrariesBody:
+      title: Delete Libraries Body
+      type: object
+      properties:
+        input:
+          description: An array of library delete objects.
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/LibraryDeleteDTO'
+      required:
+      - input
+    SkillDeleteDTO:
+      title: Skill Delete
+      type: object
+      properties:
+        externalId:
+          type: string
+          description: The unique external ID of the skill.
+          example: 5d9b7bf9-47bf-40ca-b670-2a2a80d992da
+          minLength: 1
+      required:
+      - externalId
     SkillTranslatedFieldsDTO:
       title: Skill Translated Fields
       type: object
@@ -3059,49 +3147,6 @@ components:
           description: The translation of the field `description` for this language.
           example: Traduction en français de la description.
           minLength: 1
-    SkillDeleteDTO:
-      title: Skill Delete
-      type: object
-      properties:
-        externalId:
-          type: string
-          description: The unique external ID of the skill.
-          example: 5d9b7bf9-47bf-40ca-b670-2a2a80d992da
-          minLength: 1
-      required:
-      - externalId
-    JobUpsertDTO:
-      title: Job Upsert
-      type: object
-      properties:
-        externalId:
-          type: string
-          description: The unique external ID of the job.
-          example: ff583381-f8b5-477e-a24d-947aa55f407b
-          minLength: 1
-        name:
-          type: string
-          description: The name of the job.
-          example: Product manager
-          minLength: 1
-        description:
-          type: string
-          description: The description of the job.
-          example: The product manager is responsible for the design, development, and lifecycle management of products to meet customer needs and business objectives.
-          minLength: 1
-        parentExternalId:
-          type: string
-          description: The unique external ID of the parent job.
-          example: 477e108e-60b5-4908-856e-aa123e133921
-          minLength: 1
-        translations:
-          description: The different translations available for the job.
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTranslationDTO'
-      required:
-      - externalId
-      - name
     JobTranslationDTO:
       title: Job Translation
       type: object
@@ -3137,63 +3182,36 @@ components:
       required:
       - lang
       - translatedFields
-    LibraryUpsertDTO:
-      title: Library Upsert
+    ReplaceUserJobsBody:
+      title: Replace User Jobs Body
       type: object
       properties:
-        externalId:
-          type: string
-          description: The unique external ID of the library.
-          example: ff583381-f8b5-477e-a24d-947aa55f407b
-          minLength: 1
-        name:
-          type: string
-          description: The name of the library.
-          example: Development experience
-          minLength: 1
-        description:
-          type: string
-          description: The description of the library.
-          example: All you have to know about how we develop here.
-          minLength: 1
-        translations:
-          description: The different translations available for the library.
+        jobIds:
+          description: The list of unique IDs of the current jobs given to a user.
           type: array
           items:
-            $ref: '#/components/schemas/LibraryTranslationDTO'
-        status:
+            type: string
+      required:
+      - jobIds
+    TextQualifierDTO:
+      title: Text Qualifier
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the qualifier.
+          example: SKQ1701914859202x53r
+        type:
           type: string
           enum:
-          - draft
-          - published
-          description: The status of the library.
-      required:
-      - externalId
-      - name
-    DeleteJobsBody:
-      title: Delete Jobs Body
-      type: object
-      properties:
-        input:
-          description: An array of job delete objects.
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/JobDeleteDTO'
-      required:
-      - input
-    SkillTranslatedFieldsDTO_2:
-      title: Skill Translated Fields
-      type: object
-      properties:
-        name:
+          - text
+          description: The type of the qualifier.
+        currentValue:
           type: string
-          description: The translation of the field `name` for this language.
-          example: Sorties et déploiements
-        description:
-          type: string
-          description: The translation of the field `description` for this language.
-          example: L'utilisateur a-t-il déjà déployé le logiciel sur l'environnement de production ?
+          description: The current value of the qualifier.
+          example: 'The user still need to improve some aspects of the skill. '
+      required:
+      - _id
     NumberQualifierDTO:
       title: Number Qualifier
       type: object
@@ -3211,6 +3229,41 @@ components:
           type: number
           description: The current value of the qualifier.
           example: 10
+      required:
+      - _id
+    SkillTranslatedFieldsDTO_2:
+      title: Skill Translated Fields
+      type: object
+      properties:
+        name:
+          type: string
+          description: The translation of the field `name` for this language.
+          example: Sorties et déploiements
+        description:
+          type: string
+          description: The translation of the field `description` for this language.
+          example: L'utilisateur a-t-il déjà déployé le logiciel sur l'environnement de production ?
+    SingleChoiceQualifierDTO:
+      title: Single Choice Qualifier
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the qualifier.
+          example: SKQ1701914859202x53r
+        type:
+          type: string
+          enum:
+          - singleChoice
+          description: The type of the qualifier.
+        currentValue:
+          type: string
+          description: The current value of the qualifier.
+          example: Intermediate
+        currentValueId:
+          type: string
+          description: The unique ID of the current value of the qualifier.
+          example: clgz9uqmm0001357bbgggvr1m
       required:
       - _id
     PowerDTO:
@@ -3272,17 +3325,57 @@ components:
       - userId
       - status
       - qualifiers
-    ReplaceUserJobsBody:
-      title: Replace User Jobs Body
+    MultiChoiceQualifierDTO:
+      title: Multi Choice Qualifier
       type: object
       properties:
-        jobIds:
-          description: The list of unique IDs of the current jobs given to a user.
+        _id:
+          type: string
+          description: The unique ID of the qualifier.
+          example: SKQ1701914859202x53r
+        type:
+          type: string
+          enum:
+          - multiChoice
+          description: The type of the qualifier.
+        currentValues:
+          description: The list of the current values of the qualifier.
+          example:
+          - Intermediate
+          - Advanced
+          type: array
+          items:
+            type: string
+        currentValueIds:
+          description: The list of current values unique IDs of the qualifier.
+          example:
+          - clgz9uqmm0001357bbgggvr1m
+          - clgz9uqmm0001357bbgggvr2p
           type: array
           items:
             type: string
       required:
-      - jobIds
+      - _id
+    DateQualifierDTO:
+      title: Date Qualifier
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the qualifier.
+          example: SKQ1701914859202x53r
+        type:
+          type: string
+          enum:
+          - date
+          description: The type of the qualifier.
+        currentValue:
+          format: date-time
+          type: string
+          description: The current value of the qualifier, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+          example: '2024-09-30T16:56:39.911Z'
+      required:
+      - _id
     SkillParentDTO:
       title: Skill Parent
       type: object
@@ -3295,48 +3388,6 @@ components:
           type: string
           description: The unique external ID of the parent.
           example: 477e108e-60b5-4908-856e-aa123e133921
-      required:
-      - _id
-    TextQualifierDTO:
-      title: Text Qualifier
-      type: object
-      properties:
-        _id:
-          type: string
-          description: The unique ID of the qualifier.
-          example: SKQ1701914859202x53r
-        type:
-          type: string
-          enum:
-          - text
-          description: The type of the qualifier.
-        currentValue:
-          type: string
-          description: The current value of the qualifier.
-          example: 'The user still need to improve some aspects of the skill. '
-      required:
-      - _id
-    SingleChoiceQualifierDTO:
-      title: Single Choice Qualifier
-      type: object
-      properties:
-        _id:
-          type: string
-          description: The unique ID of the qualifier.
-          example: SKQ1701914859202x53r
-        type:
-          type: string
-          enum:
-          - singleChoice
-          description: The type of the qualifier.
-        currentValue:
-          type: string
-          description: The current value of the qualifier.
-          example: Intermediate
-        currentValueId:
-          type: string
-          description: The unique ID of the current value of the qualifier.
-          example: clgz9uqmm0001357bbgggvr1m
       required:
       - _id
     SkillDTO:
@@ -3396,57 +3447,6 @@ components:
       - parents
       - status
       - translations
-    MultiChoiceQualifierDTO:
-      title: Multi Choice Qualifier
-      type: object
-      properties:
-        _id:
-          type: string
-          description: The unique ID of the qualifier.
-          example: SKQ1701914859202x53r
-        type:
-          type: string
-          enum:
-          - multiChoice
-          description: The type of the qualifier.
-        currentValues:
-          description: The list of the current values of the qualifier.
-          example:
-          - Intermediate
-          - Advanced
-          type: array
-          items:
-            type: string
-        currentValueIds:
-          description: The list of current values unique IDs of the qualifier.
-          example:
-          - clgz9uqmm0001357bbgggvr1m
-          - clgz9uqmm0001357bbgggvr2p
-          type: array
-          items:
-            type: string
-      required:
-      - _id
-    DateQualifierDTO:
-      title: Date Qualifier
-      type: object
-      properties:
-        _id:
-          type: string
-          description: The unique ID of the qualifier.
-          example: SKQ1701914859202x53r
-        type:
-          type: string
-          enum:
-          - date
-          description: The type of the qualifier.
-        currentValue:
-          format: date-time
-          type: string
-          description: The current value of the qualifier, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-          example: '2024-09-30T16:56:39.911Z'
-      required:
-      - _id
   securitySchemes:
     oauth2:
       type: oauth2

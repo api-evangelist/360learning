@@ -25,7 +25,7 @@ paths:
 
         >
 
-        > This endpoint processes up to 1,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+        > This endpoint processes up to 1,000 objects asynchronously. For more information, see the Bulk operations guide.
 
 
         Archives multiple external courses in bulk based on the provided integration ID.
@@ -254,7 +254,7 @@ paths:
 
         >
 
-        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the Bulk operations guide.
 
 
         Adds or replaces multiple external courses based on the given `integrationId` and the courses''s `externalId`.
@@ -493,7 +493,7 @@ paths:
 
         >
 
-        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the [Bulk operations guide](doc:bulk-operations-1).
+        > This endpoint processes up to 10,000 objects asynchronously. For more information, see the Bulk operations guide.
 
 
         Imports multiple integration statistics in bulk based on the provided `integrationId`.
@@ -927,7 +927,7 @@ paths:
 
         >
 
-        > This endpoint is paginated with a page size of 100 integration configurations. For more information, see the [Pagination guide](doc:pagination).
+        > This endpoint is paginated with a page size of 100 integration configurations. For more information, see the Pagination guide.
 
 
         Lists all integration configurations.'
@@ -1539,10 +1539,126 @@ paths:
       description: Production US
 components:
   schemas:
-    ExternalCourseTranslationDTO:
-      title: External Course Translation
+    ExternalCourseTranslatedFields:
+      title: External Course Translated Fields
       type: object
       properties:
+        description:
+          type: string
+          description: The translation of the field `description` for this language.
+          example: Apprenez les bases de l'apprentissage automatique.
+          minLength: 1
+        launchUrl:
+          type: string
+          description: The URL to launch and play the external course in this language.
+          example: https://player.mylearningplatform.com/launch/l3ssup3rh3r0s/fr
+          minLength: 1
+        mobileLaunchUrl:
+          type: string
+          description: The URL to launch and play the external course from a mobile in this language.
+          example: https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s/fr
+          minLength: 1
+        name:
+          type: string
+          description: The translation of the field `name` for this language.
+          example: Cours intensif sur l'apprentissage automatique
+          minLength: 1
+        subjects:
+          description: The translation of the field `subjects` for this language.
+          example:
+          - Apprentissage automatique
+          - TI
+          type: array
+          items:
+            type: string
+            minLength: 1
+    ExternalCourseSourceDTO:
+      title: External Course Source
+      type: object
+      properties:
+        name:
+          type: string
+          example: Wikipedia
+          description: The name of the source.
+          minLength: 1
+        logoUrl:
+          type: string
+          example: https://en.wikipedia.org/static/images/icons/wikipedia.png
+          description: The logo URL of the source.
+          minLength: 1
+      required:
+      - name
+    UserIdentifierDTO:
+      title: User Identifier
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - mail
+          - internalId
+          description: 'Type of user identifier.
+
+            `mail`: learner mail.
+
+            `internalId`: learner internal identifier used on 360Learning platform.'
+        value:
+          type: string
+          description: Value of the user identifier given the type provided.
+          example: j.doe@hotmail.com
+          minLength: 1
+      required:
+      - type
+      - value
+    ArchiveExternalCoursesBody:
+      title: Archive External Courses Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for external course to be archived.
+          maxItems: 1000
+          type: array
+          items:
+            $ref: '#/components/schemas/ArchiveExternalCourseDTO'
+      required:
+      - input
+    CourseIdentifierDTO:
+      title: Course Identifier
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - externalId
+          - internalId
+          description: 'Type of course identifier.
+
+            `externalId`: identifier used on the external platform.
+
+            `internalId`: internal identifier used on 360Learning platform.'
+        value:
+          type: string
+          description: Value of the course identifier given the type provided.
+          example: l3ssup3rh3r0s
+          minLength: 1
+      required:
+      - type
+      - value
+    ImportExternalStatisticsDTO:
+      title: Import External Statistics
+      type: object
+      properties:
+        courseIdentifier:
+          description: Unique course identifier for the statistics.
+          allOf:
+          - $ref: '#/components/schemas/CourseIdentifierDTO'
+        forceNew:
+          type: boolean
+          description: Determine whether the statistics should force the creation of a new attempt (`true`) or update any existing one based on the couple `(courseIdentifier.value, userIdentifier.value)` (`false`). Default to `false`.
+        userIdentifier:
+          description: Unique learner identifier for the statistics.
+          allOf:
+          - $ref: '#/components/schemas/UserIdentifierDTO'
         lang:
           type: string
           enum:
@@ -1626,132 +1742,48 @@ components:
           - ar
           - vi
           - zh_HANT
-          description: The language of the translation.
+          description: The language in which the learner played the course.
           example: fr
-        translatedFields:
-          description: The translations of the external course fields for this language. If a field is not defined, the value from the default language is used.
-          allOf:
-          - $ref: '#/components/schemas/ExternalCourseTranslatedFields'
-      required:
-      - lang
-      - translatedFields
-    ExternalCourseTranslatedFields:
-      title: External Course Translated Fields
-      type: object
-      properties:
-        description:
-          type: string
-          description: The translation of the field `description` for this language.
-          example: Apprenez les bases de l'apprentissage automatique.
-          minLength: 1
-        launchUrl:
-          type: string
-          description: The URL to launch and play the external course in this language.
-          example: https://player.mylearningplatform.com/launch/l3ssup3rh3r0s/fr
-          minLength: 1
-        mobileLaunchUrl:
-          type: string
-          description: The URL to launch and play the external course from a mobile in this language.
-          example: https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s/fr
-          minLength: 1
-        name:
-          type: string
-          description: The translation of the field `name` for this language.
-          example: Cours intensif sur l'apprentissage automatique
-          minLength: 1
-        subjects:
-          description: The translation of the field `subjects` for this language.
-          example:
-          - Apprentissage automatique
-          - TI
-          type: array
-          items:
-            type: string
-            minLength: 1
-    CourseIdentifierDTO:
-      title: Course Identifier
-      type: object
-      properties:
-        type:
+        progress:
+          type: number
+          minimum: 0
+          maximum: 100
+          description: The progress percentage of the learner, expressed as an integer (0-100).
+          example: 100
+        score:
+          type: number
+          minimum: 0
+          maximum: 100
+          description: The score (0-100) of the learner for the external course.
+          example: 90
+        result:
           type: string
           enum:
-          - externalId
-          - internalId
-          description: 'Type of course identifier.
-
-            `externalId`: identifier used on the external platform.
-
-            `internalId`: internal identifier used on 360Learning platform.'
-        value:
+          - success
+          - failed
+          description: 'The result of the learner on the course: `failed` or `success`.'
+        timeSpent:
+          type: number
+          minimum: 1
+          description: The total time in milliseconds the learner spent playing the external course.
+          example: 3600000
+        firstActivityAt:
+          format: date-time
           type: string
-          description: Value of the course identifier given the type provided.
-          example: l3ssup3rh3r0s
-          minLength: 1
-      required:
-      - type
-      - value
-    ExternalCourseSourceDTO:
-      title: External Course Source
-      type: object
-      properties:
-        name:
+          description: The date when the learner first interacted with the external course, expressed in ISO 8601 format.
+          example: '2025-07-08T22:00:00.000Z'
+        lastActivityAt:
+          format: date-time
           type: string
-          example: Wikipedia
-          description: The name of the source.
-          minLength: 1
-        logoUrl:
-          type: string
-          example: https://en.wikipedia.org/static/images/icons/wikipedia.png
-          description: The logo URL of the source.
-          minLength: 1
+          description: The date when the learner last interacted with the external course, expressed in ISO 8601 format. If progress is set to 100%, this will be the completion date of the course.
+          example: '2025-07-08T22:00:00.000Z'
       required:
-      - name
-    ImportExternalCoursesBody:
-      title: Import External Courses Body
-      type: object
-      properties:
-        input:
-          description: An array of objects, each specifying details for external course to be imported.
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/ExternalCourseDTO'
-      required:
-      - input
-    UserIdentifierDTO:
-      title: User Identifier
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - mail
-          - internalId
-          description: 'Type of user identifier.
-
-            `mail`: learner mail.
-
-            `internalId`: learner internal identifier used on 360Learning platform.'
-        value:
-          type: string
-          description: Value of the user identifier given the type provided.
-          example: j.doe@hotmail.com
-          minLength: 1
-      required:
-      - type
-      - value
-    ArchiveExternalCoursesBody:
-      title: Archive External Courses Body
-      type: object
-      properties:
-        input:
-          description: An array of objects, each specifying details for external course to be archived.
-          maxItems: 1000
-          type: array
-          items:
-            $ref: '#/components/schemas/ArchiveExternalCourseDTO'
-      required:
-      - input
+      - courseIdentifier
+      - userIdentifier
+      - progress
+      - timeSpent
+      - firstActivityAt
+      - lastActivityAt
     ExternalCourseDTO:
       title: External Course
       type: object
@@ -1938,33 +1970,10 @@ components:
       - name
       - sources
       - subjects
-    ImportExternalStatisticsBody:
-      title: Import External Statistics Body
+    ExternalCourseTranslationDTO:
+      title: External Course Translation
       type: object
       properties:
-        input:
-          description: An array of objects, each specifying details for external statistics to be imported.
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/ImportExternalStatisticsDTO'
-      required:
-      - input
-    ImportExternalStatisticsDTO:
-      title: Import External Statistics
-      type: object
-      properties:
-        courseIdentifier:
-          description: Unique course identifier for the statistics.
-          allOf:
-          - $ref: '#/components/schemas/CourseIdentifierDTO'
-        forceNew:
-          type: boolean
-          description: Determine whether the statistics should force the creation of a new attempt (`true`) or update any existing one based on the couple `(courseIdentifier.value, userIdentifier.value)` (`false`). Default to `false`.
-        userIdentifier:
-          description: Unique learner identifier for the statistics.
-          allOf:
-          - $ref: '#/components/schemas/UserIdentifierDTO'
         lang:
           type: string
           enum:
@@ -2048,48 +2057,27 @@ components:
           - ar
           - vi
           - zh_HANT
-          description: The language in which the learner played the course.
+          description: The language of the translation.
           example: fr
-        progress:
-          type: number
-          minimum: 0
-          maximum: 100
-          description: The progress percentage of the learner, expressed as an integer (0-100).
-          example: 100
-        score:
-          type: number
-          minimum: 0
-          maximum: 100
-          description: The score (0-100) of the learner for the external course.
-          example: 90
-        result:
-          type: string
-          enum:
-          - success
-          - failed
-          description: 'The result of the learner on the course: `failed` or `success`.'
-        timeSpent:
-          type: number
-          minimum: 1
-          description: The total time in milliseconds the learner spent playing the external course.
-          example: 3600000
-        firstActivityAt:
-          format: date-time
-          type: string
-          description: The date when the learner first interacted with the external course, expressed in ISO 8601 format.
-          example: '2025-07-08T22:00:00.000Z'
-        lastActivityAt:
-          format: date-time
-          type: string
-          description: The date when the learner last interacted with the external course, expressed in ISO 8601 format. If progress is set to 100%, this will be the completion date of the course.
-          example: '2025-07-08T22:00:00.000Z'
+        translatedFields:
+          description: The translations of the external course fields for this language. If a field is not defined, the value from the default language is used.
+          allOf:
+          - $ref: '#/components/schemas/ExternalCourseTranslatedFields'
       required:
-      - courseIdentifier
-      - userIdentifier
-      - progress
-      - timeSpent
-      - firstActivityAt
-      - lastActivityAt
+      - lang
+      - translatedFields
+    ImportExternalStatisticsBody:
+      title: Import External Statistics Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for external statistics to be imported.
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/ImportExternalStatisticsDTO'
+      required:
+      - input
     ArchiveExternalCourseDTO:
       title: Archive External Course
       type: object
@@ -2101,135 +2089,18 @@ components:
           minLength: 1
       required:
       - externalId
-    IntegrationDTO:
-      title: Integration
+    ImportExternalCoursesBody:
+      title: Import External Courses Body
       type: object
       properties:
-        defaultCompletion:
-          type: boolean
-          description: True if the content is auto-completed at launch; false otherwise.
-        defaultProgress:
-          type: integer
-          description: The completion rate at launch as a percentage.
-          minimum: 0
-          maximum: 100
-        noGroupPropagation:
-          type: boolean
-          description: If true, the content is visible only within the integration group and is not propagated to subgroups. If false, the content is propagated to all subgroups.
-        externalPlatformLogoUrl:
-          type: string
-          description: The URL of the logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background.
-        externalPlatformUnicolorLogoUrl:
-          type: string
-          description: The URL of the unicolor logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background. If none is provided, the externalPlatformLogoUrl logo will be used.
-        externalPlatform:
-          type: string
-          description: The identifier of the external platform this integration is created for.
-          example: My Platform
-          minLength: 1
-        authorId:
-          type: string
-          description: The unique ID of the author of the imported content.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        groupId:
-          type: string
-          description: The unique ID of the group to which the content is imported.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        _id:
-          type: string
-          description: The unique ID of the integration.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
+        input:
+          description: An array of objects, each specifying details for external course to be imported.
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalCourseDTO'
       required:
-      - externalPlatform
-      - authorId
-      - groupId
-      - _id
-    PatchIntegrationDTO:
-      title: Patch Integration
-      type: object
-      properties:
-        defaultCompletion:
-          type: boolean
-          description: True if the content is auto-completed at launch; false otherwise.
-        defaultProgress:
-          type: integer
-          description: The completion rate at launch as a percentage.
-          minimum: 0
-          maximum: 100
-        noGroupPropagation:
-          type: boolean
-          description: If true, the content is visible only within the integration group and is not propagated to subgroups. If false, the content is propagated to all subgroups.
-        externalPlatformLogoUrl:
-          type: string
-          description: The URL of the logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background.
-        externalPlatformUnicolorLogoUrl:
-          type: string
-          description: The URL of the unicolor logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background. If none is provided, the externalPlatformLogoUrl logo will be used.
-        externalPlatform:
-          type: string
-          description: The identifier of the external platform this integration is created for.
-          example: My Platform
-          minLength: 1
-        authorId:
-          type: string
-          description: The unique ID of the author of the imported content.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        groupId:
-          type: string
-          description: The unique ID of the group to which the content is imported.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-    BaseIntegrationDTO:
-      title: Base Integration
-      type: object
-      properties:
-        defaultCompletion:
-          type: boolean
-          description: True if the content is auto-completed at launch; false otherwise.
-        defaultProgress:
-          type: integer
-          description: The completion rate at launch as a percentage.
-          minimum: 0
-          maximum: 100
-        noGroupPropagation:
-          type: boolean
-          description: If true, the content is visible only within the integration group and is not propagated to subgroups. If false, the content is propagated to all subgroups.
-        externalPlatformLogoUrl:
-          type: string
-          description: The URL of the logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background.
-        externalPlatformUnicolorLogoUrl:
-          type: string
-          description: The URL of the unicolor logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background. If none is provided, the externalPlatformLogoUrl logo will be used.
-        externalPlatform:
-          type: string
-          description: The identifier of the external platform this integration is created for.
-          example: My Platform
-          minLength: 1
-        authorId:
-          type: string
-          description: The unique ID of the author of the imported content.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        groupId:
-          type: string
-          description: The unique ID of the group to which the content is imported.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-      required:
-      - externalPlatform
-      - authorId
-      - groupId
+      - input
     ExternalCourseResponseDTO:
       title: External Course Response
       type: object
@@ -2425,6 +2296,135 @@ components:
       - authorId
       - courseId
       - translations
+    IntegrationDTO:
+      title: Integration
+      type: object
+      properties:
+        defaultCompletion:
+          type: boolean
+          description: True if the content is auto-completed at launch; false otherwise.
+        defaultProgress:
+          type: integer
+          description: The completion rate at launch as a percentage.
+          minimum: 0
+          maximum: 100
+        noGroupPropagation:
+          type: boolean
+          description: If true, the content is visible only within the integration group and is not propagated to subgroups. If false, the content is propagated to all subgroups.
+        externalPlatformLogoUrl:
+          type: string
+          description: The URL of the logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background.
+        externalPlatformUnicolorLogoUrl:
+          type: string
+          description: The URL of the unicolor logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background. If none is provided, the externalPlatformLogoUrl logo will be used.
+        externalPlatform:
+          type: string
+          description: The identifier of the external platform this integration is created for.
+          example: My Platform
+          minLength: 1
+        authorId:
+          type: string
+          description: The unique ID of the author of the imported content.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        groupId:
+          type: string
+          description: The unique ID of the group to which the content is imported.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        _id:
+          type: string
+          description: The unique ID of the integration.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - externalPlatform
+      - authorId
+      - groupId
+      - _id
+    PatchIntegrationDTO:
+      title: Patch Integration
+      type: object
+      properties:
+        defaultCompletion:
+          type: boolean
+          description: True if the content is auto-completed at launch; false otherwise.
+        defaultProgress:
+          type: integer
+          description: The completion rate at launch as a percentage.
+          minimum: 0
+          maximum: 100
+        noGroupPropagation:
+          type: boolean
+          description: If true, the content is visible only within the integration group and is not propagated to subgroups. If false, the content is propagated to all subgroups.
+        externalPlatformLogoUrl:
+          type: string
+          description: The URL of the logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background.
+        externalPlatformUnicolorLogoUrl:
+          type: string
+          description: The URL of the unicolor logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background. If none is provided, the externalPlatformLogoUrl logo will be used.
+        externalPlatform:
+          type: string
+          description: The identifier of the external platform this integration is created for.
+          example: My Platform
+          minLength: 1
+        authorId:
+          type: string
+          description: The unique ID of the author of the imported content.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        groupId:
+          type: string
+          description: The unique ID of the group to which the content is imported.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+    BaseIntegrationDTO:
+      title: Base Integration
+      type: object
+      properties:
+        defaultCompletion:
+          type: boolean
+          description: True if the content is auto-completed at launch; false otherwise.
+        defaultProgress:
+          type: integer
+          description: The completion rate at launch as a percentage.
+          minimum: 0
+          maximum: 100
+        noGroupPropagation:
+          type: boolean
+          description: If true, the content is visible only within the integration group and is not propagated to subgroups. If false, the content is propagated to all subgroups.
+        externalPlatformLogoUrl:
+          type: string
+          description: The URL of the logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background.
+        externalPlatformUnicolorLogoUrl:
+          type: string
+          description: The URL of the unicolor logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background. If none is provided, the externalPlatformLogoUrl logo will be used.
+        externalPlatform:
+          type: string
+          description: The identifier of the external platform this integration is created for.
+          example: My Platform
+          minLength: 1
+        authorId:
+          type: string
+          description: The unique ID of the author of the imported content.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        groupId:
+          type: string
+          description: The unique ID of the group to which the content is imported.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - externalPlatform
+      - authorId
+      - groupId
   securitySchemes:
     oauth2:
       type: oauth2

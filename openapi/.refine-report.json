@@ -32,7 +32,9 @@
     "360learning-user-api-openapi.yml",
     "360learning-xapi-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -76,25 +78,33 @@
     "tag 'Skills' spans 2 source specs (360learning-bulk-api.json, 360learning-core-api.json): per-path servers applied",
     "tag 'Subscriptions' spans 2 source specs (360learning-bulk-api.json, 360learning-webhook-api.json): per-path servers applied",
     "tag 'Authentication' spans 2 source specs (360learning-core-api.json, 360learning-plugin-api.json): per-path servers applied",
-    "tag 'Users' spans 2 source specs (360learning-core-api.json, 360learning-user-authorized-api.json): per-path servers applied"
+    "tag 'Users' spans 2 source specs (360learning-core-api.json, 360learning-user-authorized-api.json): per-path servers applied",
+    "superseded outputs removed: 360learning-x-api-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 23 total)"
   ],
   "skipped": [
     "360learning-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "360learning-bulk-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "360learning-certificate-outlines-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "360learning-classrooms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "360learning-course-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "360learning-courses-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "360learning-custom-fields-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "360learning-custom-links-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "360learning-external-ids-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "360learning-group-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "360learning-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "360learning-integrations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "360learning-learning-needs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "360learning-operations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "360learning-path-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "360learning-paths-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "360learning-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "360learning-skills-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "360learning-subscriptions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "360learning-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "360learning-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+    "360learning-user-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "360learning-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "360learning-x-api-api-openapi.yml: previously refined output, superseded by openapi/_original/"
   ]
 }

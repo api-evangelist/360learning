@@ -25,7 +25,7 @@ paths:
 
         >
 
-        > This endpoint is paginated with a page size of 500 projects. For more information, see the [Pagination guide](doc:pagination).
+        > This endpoint is paginated with a page size of 500 projects. For more information, see the Pagination guide.
 
 
         Lists all live projects in your platform.'

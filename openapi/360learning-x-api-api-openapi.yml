@@ -10,7 +10,7 @@ servers:
 - url: https://app.us.360learning.com
   description: Production US
 tags:
-- name: Xapi
+- name: x API
 paths: {}
 webhooks:
   xapi:
@@ -53,7 +53,7 @@ webhooks:
           description: The event is considered as rejected for any other response code. The event emission will be retried later.
       summary: xAPI
       tags:
-      - Xapi
+      - x API
   xapi.started:
     post:
       description: Sent to your endpoint when a learner starts a course on the platform. This event is a statement following the xAPI specification.
@@ -93,9 +93,18 @@ webhooks:
           description: The event is considered as rejected for any other response code. The event emission will be retried later.
       summary: xAPI Course Started
       tags:
-      - Xapi
+      - x API
 components:
   schemas:
+    XapiContextExtensions:
+      title: Xapi Context Extensions
+      type: object
+      properties:
+        https://app.360learning.com/api/xapi/extensions/offline:
+          type: boolean
+          description: If true, the statement was done in an offline context (mobile specificity); false otherwise.
+      required:
+      - https://app.360learning.com/api/xapi/extensions/offline
     XapiObjectDefinition:
       title: Xapi Object Definition
       type: object
@@ -220,22 +229,43 @@ components:
       required:
       - language
       - extensions
-    XapiAgentEmail:
-      title: Xapi Agent Email
+    XapiContextActivitiesForCourse:
+      title: Xapi Context Activities For Course
       type: object
       properties:
+        parent:
+          minItems: 1
+          maxItems: 1
+          description: The path context of this activity.
+          type: array
+          items:
+            $ref: '#/components/schemas/XapiPathContextActivity'
+        other:
+          minItems: 1
+          maxItems: 1
+          description: The session context of this activity.
+          type: array
+          items:
+            $ref: '#/components/schemas/XapiSessionContextActivity'
+      required:
+      - parent
+      - other
+    XapiPathContextActivity:
+      title: Xapi Path Context Activity
+      type: object
+      properties:
+        id:
+          type: string
+          example: urn:360learning:path:507f1f77bcf86cd799439045
+          description: The unique ID of the path activity. The format is 'urn:360learning:path:{{unique_ID}}'.
         objectType:
           type: string
           enum:
-          - Agent
-          description: The type of actor.
-        mbox:
-          type: string
-          example: mailto:john.smith@yopmail.com
-          description: The email address of the user. The format is 'mailto:{{email_address}}'.
+          - Activity
+          description: The type of object.
       required:
+      - id
       - objectType
-      - mbox
     XapiInitializedVerb:
       title: Xapi Initialized Verb
       type: object
@@ -254,6 +284,22 @@ components:
       required:
       - id
       - display
+    XapiAgentEmail:
+      title: Xapi Agent Email
+      type: object
+      properties:
+        objectType:
+          type: string
+          enum:
+          - Agent
+          description: The type of actor.
+        mbox:
+          type: string
+          example: mailto:john.smith@yopmail.com
+          description: The email address of the user. The format is 'mailto:{{email_address}}'.
+      required:
+      - objectType
+      - mbox
     XapiCourseObject:
       title: Xapi Course Object
       type: object
@@ -275,6 +321,22 @@ components:
       - objectType
       - id
       - definition
+    XapiSessionContextActivity:
+      title: Xapi Session Context Activity
+      type: object
+      properties:
+        id:
+          type: string
+          example: urn:360learning:session:507f1f77bcf86cd799439011
+          description: The unique ID of the session activity. The format is 'urn:360learning:session:{{unique_ID}}'.
+        objectType:
+          type: string
+          enum:
+          - Activity
+          description: The type of object.
+      required:
+      - id
+      - objectType
     XapiStartedDTO:
       title: Xapi Started
       type: object
@@ -312,84 +374,6 @@ components:
       - object
       - context
       - timestamp
-    XapiContextExtensions:
-      title: Xapi Context Extensions
-      type: object
-      properties:
-        https://app.360learning.com/api/xapi/extensions/offline:
-          type: boolean
-          description: If true, the statement was done in an offline context (mobile specificity); false otherwise.
-      required:
-      - https://app.360learning.com/api/xapi/extensions/offline
-    XapiAgentUsername:
-      title: Xapi Agent Username
-      type: object
-      properties:
-        objectType:
-          type: string
-          enum:
-          - Agent
-          description: The type of actor.
-        account:
-          description: The information to identify a user in a company allowing the usage of a username to log in.
-          allOf:
-          - $ref: '#/components/schemas/XapiAccount'
-      required:
-      - objectType
-      - account
-    XapiContextActivitiesForCourse:
-      title: Xapi Context Activities For Course
-      type: object
-      properties:
-        parent:
-          minItems: 1
-          maxItems: 1
-          description: The path context of this activity.
-          type: array
-          items:
-            $ref: '#/components/schemas/XapiPathContextActivity'
-        other:
-          minItems: 1
-          maxItems: 1
-          description: The session context of this activity.
-          type: array
-          items:
-            $ref: '#/components/schemas/XapiSessionContextActivity'
-      required:
-      - parent
-      - other
-    XapiSessionContextActivity:
-      title: Xapi Session Context Activity
-      type: object
-      properties:
-        id:
-          type: string
-          example: urn:360learning:session:507f1f77bcf86cd799439011
-          description: The unique ID of the session activity. The format is 'urn:360learning:session:{{unique_ID}}'.
-        objectType:
-          type: string
-          enum:
-          - Activity
-          description: The type of object.
-      required:
-      - id
-      - objectType
-    XapiPathContextActivity:
-      title: Xapi Path Context Activity
-      type: object
-      properties:
-        id:
-          type: string
-          example: urn:360learning:path:507f1f77bcf86cd799439045
-          description: The unique ID of the path activity. The format is 'urn:360learning:path:{{unique_ID}}'.
-        objectType:
-          type: string
-          enum:
-          - Activity
-          description: The type of object.
-      required:
-      - id
-      - objectType
     XapiAccount:
       title: Xapi Account
       type: object
@@ -406,6 +390,22 @@ components:
       required:
       - name
       - homePage
+    XapiAgentUsername:
+      title: Xapi Agent Username
+      type: object
+      properties:
+        objectType:
+          type: string
+          enum:
+          - Agent
+          description: The type of actor.
+        account:
+          description: The information to identify a user in a company allowing the usage of a username to log in.
+          allOf:
+          - $ref: '#/components/schemas/XapiAccount'
+      required:
+      - objectType
+      - account
   securitySchemes:
     oauth2:
       type: oauth2
