@@ -4267,131 +4267,6 @@ paths:
       description: Production US
 components:
   schemas:
-    Membership:
-      title: Membership
-      type: object
-      properties:
-        groupId:
-          type: string
-          description: The unique ID of the group.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        role:
-          type: string
-          enum:
-          - admin
-          - analyst
-          - editor
-          - coach
-          - contributor
-          - learner
-          - owner
-          - userAdmin
-          description: The role that the user has in the group.
-      required:
-      - groupId
-      - role
-    CustomFieldValueDTO:
-      title: Custom Field Value
-      type: object
-      properties:
-        customFieldId:
-          type: string
-          description: The unique ID of the custom field.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        type:
-          type: string
-          enum:
-          - string
-          - date
-          description: The type of the custom field.
-        value:
-          oneOf:
-          - type: string
-            title: string type
-            description: The custom field string value.
-            minLength: 1
-            example: US
-          - type: string
-            title: date type
-            format: date-time
-            description: The custom field date value is in the `YYYY-MM-DD` (ISO 8601 in Coordinated Universal Time (UTC)).
-            minLength: 1
-            example: '2025-01-27'
-          description: The value assigned to the target for this custom field.
-      required:
-      - customFieldId
-      - type
-      - value
-    UpdateUserCertificatesPrivacyLevelBody:
-      title: Update User Certificates Privacy Level Body
-      type: object
-      properties:
-        certificateIds:
-          description: The unique IDs of the certificates.
-          example:
-          - 507f1f77bcf86cd799439011
-          type: array
-          items:
-            type: string
-            format: ObjectId
-            pattern: ^[a-fA-F0-9]{24}$
-        isPublic:
-          type: boolean
-          description: The privacy level value of the certificates.
-      required:
-      - certificateIds
-      - isPublic
-    InputExternalCertificateDTO:
-      title: Input External Certificate
-      type: object
-      properties:
-        deliveryDate:
-          format: date-time
-          type: string
-          description: The delivery date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        expirationDate:
-          format: date-time
-          type: string
-          description: The expiration date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        title:
-          type: string
-          description: The title of the certificate outline in the platform (internal name of the certificate).
-          example: Certificate of Completion
-        certificateOutlineId:
-          type: string
-          description: The unique ID of the outline of the certificate.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        file:
-          type: string
-          format: binary
-          description: The file to upload, in the `application/pdf` format.
-      required:
-      - deliveryDate
-      - title
-      - file
-    CreateCustomUserLinkRequestBody:
-      title: Create Custom User Link Request Body
-      type: object
-      properties:
-        customLinkId:
-          type: string
-          description: The unique ID of the custom link.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        url:
-          type: string
-          description: The URL of the custom user link.
-          example: https://360learning.com
-      required:
-      - customLinkId
-      - url
     UploadUserMediaBodyDTO:
       title: Upload User Media Body
       type: object
@@ -4537,6 +4412,18 @@ components:
       - _id
       - status
       - lang
+    UpdateUserCustomFieldValuesBody:
+      title: Update User Custom Field Values Body
+      type: object
+      properties:
+        customValues:
+          maxItems: 300
+          description: The list of customValues to replace the existing ones.
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldValueDTO'
+      required:
+      - customValues
     InputUserDTO:
       title: Input User
       type: object
@@ -4639,6 +4526,195 @@ components:
           description: The date and time when the user will be deactivated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
       required:
       - membership
+    MembershipDTO:
+      title: Membership
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The unique ID of the group the user is a member of.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        role:
+          type: string
+          enum:
+          - admin
+          - analyst
+          - editor
+          - coach
+          - contributor
+          - learner
+          - userAdmin
+          description: The role of the user in the group.
+      required:
+      - groupId
+      - role
+    UserCustomLinkDTO:
+      title: User Custom Link
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the custom user link.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        customLinkId:
+          type: string
+          description: The unique ID of the custom link.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        url:
+          type: string
+          description: The url of the custom link.
+          example: https://360learning.com
+      required:
+      - _id
+      - customLinkId
+      - url
+    OutputUserExternalCertificateDTO:
+      title: Output User External Certificate
+      type: object
+      properties:
+        deliveryDate:
+          format: date-time
+          type: string
+          description: The delivery date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        expirationDate:
+          format: date-time
+          type: string
+          description: The expiration date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        title:
+          type: string
+          description: The title of the certificate outline in the platform (internal name of the certificate).
+          example: Certificate of Completion
+        _id:
+          type: string
+          description: The unique ID of the user certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        validityPeriod:
+          type: number
+          description: The length of time, in months, for which the certificate is valid.
+        certificateOutlineId:
+          type: string
+          description: The unique ID of the outline of the certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - external
+          description: The type of the certificate in the platform.
+          example: external
+      required:
+      - deliveryDate
+      - title
+      - _id
+      - type
+    ReplacePasswordBody:
+      title: Replace Password Body
+      type: object
+      properties:
+        password:
+          type: string
+          description: 'The new password of the given user. The new password must be at least 8 characters long and it might be subject to company based rules. Example: ''password'' : ''my_s3cret.PAssw0rd''.'
+        passwordMustBeChanged:
+          type: boolean
+          description: True if the user must change their password when first logging into the platform; false otherwise.
+      required:
+      - password
+      - passwordMustBeChanged
+    OutputUserPathCertificateDTO:
+      title: Output User Path Certificate
+      type: object
+      properties:
+        deliveryDate:
+          format: date-time
+          type: string
+          description: The delivery date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        expirationDate:
+          format: date-time
+          type: string
+          description: The expiration date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        title:
+          type: string
+          description: The title of the certificate outline in the platform (internal name of the certificate).
+          example: Certificate of Completion
+        _id:
+          type: string
+          description: The unique ID of the user certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        validityPeriod:
+          type: number
+          description: The length of time, in months, for which the certificate is valid.
+        certificateOutlineId:
+          type: string
+          description: The unique ID of the outline of the received certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        pathId:
+          type: string
+          description: The unique ID of the path, in which the certificate was delivered.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        pathName:
+          type: string
+          description: The name of the path, in which the certificate was delivered.
+          example: Employees Onboarding
+        pathSessionId:
+          type: string
+          description: The unique ID of the path session, in which the certificate was delivered.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - path
+          description: The type of the certificate in the platform.
+          example: path
+      required:
+      - deliveryDate
+      - title
+      - _id
+      - certificateOutlineId
+      - pathId
+      - pathSessionId
+      - type
+    Membership:
+      title: Membership
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The unique ID of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        role:
+          type: string
+          enum:
+          - admin
+          - analyst
+          - editor
+          - coach
+          - contributor
+          - learner
+          - owner
+          - userAdmin
+          description: The role that the user has in the group.
+      required:
+      - groupId
+      - role
     UpdateUserDTO:
       title: Update User
       type: object
@@ -4753,19 +4829,40 @@ components:
           format: ObjectId
           example: 507f1f77bcf86cd799439011
           pattern: ^[a-fA-F0-9]{24}$
-    ReplacePasswordBody:
-      title: Replace Password Body
+    InputExternalCertificateDTO:
+      title: Input External Certificate
       type: object
       properties:
-        password:
+        deliveryDate:
+          format: date-time
           type: string
-          description: 'The new password of the given user. The new password must be at least 8 characters long and it might be subject to company based rules. Example: ''password'' : ''my_s3cret.PAssw0rd''.'
-        passwordMustBeChanged:
-          type: boolean
-          description: True if the user must change their password when first logging into the platform; false otherwise.
+          description: The delivery date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        expirationDate:
+          format: date-time
+          type: string
+          description: The expiration date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        title:
+          type: string
+          description: The title of the certificate outline in the platform (internal name of the certificate).
+          example: Certificate of Completion
+        certificateOutlineId:
+          type: string
+          description: The unique ID of the outline of the certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        file:
+          type: string
+          format: binary
+          description: The file to upload, in the `application/pdf` format.
       required:
-      - password
-      - passwordMustBeChanged
+      - deliveryDate
+      - title
+      - file
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      properties: {}
     UpdateCustomUserLinkRequestBody:
       title: Update Custom User Link Request Body
       type: object
@@ -4783,58 +4880,10 @@ components:
       required:
       - customLinkId
       - url
-    OutputUserExternalCertificateDTO:
-      title: Output User External Certificate
+    CreateCustomUserLinkRequestBody:
+      title: Create Custom User Link Request Body
       type: object
       properties:
-        deliveryDate:
-          format: date-time
-          type: string
-          description: The delivery date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        expirationDate:
-          format: date-time
-          type: string
-          description: The expiration date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        title:
-          type: string
-          description: The title of the certificate outline in the platform (internal name of the certificate).
-          example: Certificate of Completion
-        _id:
-          type: string
-          description: The unique ID of the user certificate.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        validityPeriod:
-          type: number
-          description: The length of time, in months, for which the certificate is valid.
-        certificateOutlineId:
-          type: string
-          description: The unique ID of the outline of the certificate.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        type:
-          type: string
-          enum:
-          - external
-          description: The type of the certificate in the platform.
-          example: external
-      required:
-      - deliveryDate
-      - title
-      - _id
-      - type
-    UserCustomLinkDTO:
-      title: User Custom Link
-      type: object
-      properties:
-        _id:
-          type: string
-          description: The unique ID of the custom user link.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
         customLinkId:
           type: string
           description: The unique ID of the custom link.
@@ -4843,113 +4892,64 @@ components:
           pattern: ^[a-fA-F0-9]{24}$
         url:
           type: string
-          description: The url of the custom link.
+          description: The URL of the custom user link.
           example: https://360learning.com
       required:
-      - _id
       - customLinkId
       - url
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      properties: {}
-    OutputUserPathCertificateDTO:
-      title: Output User Path Certificate
+    UpdateUserCertificatesPrivacyLevelBody:
+      title: Update User Certificates Privacy Level Body
       type: object
       properties:
-        deliveryDate:
-          format: date-time
+        certificateIds:
+          description: The unique IDs of the certificates.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        isPublic:
+          type: boolean
+          description: The privacy level value of the certificates.
+      required:
+      - certificateIds
+      - isPublic
+    CustomFieldValueDTO:
+      title: Custom Field Value
+      type: object
+      properties:
+        customFieldId:
           type: string
-          description: The delivery date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        expirationDate:
-          format: date-time
-          type: string
-          description: The expiration date of the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        title:
-          type: string
-          description: The title of the certificate outline in the platform (internal name of the certificate).
-          example: Certificate of Completion
-        _id:
-          type: string
-          description: The unique ID of the user certificate.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        validityPeriod:
-          type: number
-          description: The length of time, in months, for which the certificate is valid.
-        certificateOutlineId:
-          type: string
-          description: The unique ID of the outline of the received certificate.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        pathId:
-          type: string
-          description: The unique ID of the path, in which the certificate was delivered.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        pathName:
-          type: string
-          description: The name of the path, in which the certificate was delivered.
-          example: Employees Onboarding
-        pathSessionId:
-          type: string
-          description: The unique ID of the path session, in which the certificate was delivered.
+          description: The unique ID of the custom field.
           format: ObjectId
           example: 507f1f77bcf86cd799439011
           pattern: ^[a-fA-F0-9]{24}$
         type:
           type: string
           enum:
-          - path
-          description: The type of the certificate in the platform.
-          example: path
+          - string
+          - date
+          description: The type of the custom field.
+        value:
+          oneOf:
+          - type: string
+            title: string type
+            description: The custom field string value.
+            minLength: 1
+            example: US
+          - type: string
+            title: date type
+            format: date-time
+            description: The custom field date value is in the `YYYY-MM-DD` (ISO 8601 in Coordinated Universal Time (UTC)).
+            minLength: 1
+            example: '2025-01-27'
+          description: The value assigned to the target for this custom field.
       required:
-      - deliveryDate
-      - title
-      - _id
-      - certificateOutlineId
-      - pathId
-      - pathSessionId
+      - customFieldId
       - type
-    MembershipDTO:
-      title: Membership
-      type: object
-      properties:
-        groupId:
-          type: string
-          description: The unique ID of the group the user is a member of.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        role:
-          type: string
-          enum:
-          - admin
-          - analyst
-          - editor
-          - coach
-          - contributor
-          - learner
-          - userAdmin
-          description: The role of the user in the group.
-      required:
-      - groupId
-      - role
-    UpdateUserCustomFieldValuesBody:
-      title: Update User Custom Field Values Body
-      type: object
-      properties:
-        customValues:
-          maxItems: 300
-          description: The list of customValues to replace the existing ones.
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomFieldValueDTO'
-      required:
-      - customValues
+      - value
   securitySchemes:
     oauth2:
       type: oauth2

@@ -1686,6 +1686,18 @@ paths:
       description: Production US
 components:
   schemas:
+    CreateSubscriptionEventsBody:
+      title: Create Subscription Events Body
+      type: object
+      properties:
+        input:
+          description: An array of email subscription events for users.
+          maxItems: 20000
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionEventDTO'
+      required:
+      - input
     SubscriptionEventDTO:
       title: Subscription Event
       type: object
@@ -1704,155 +1716,6 @@ components:
       required:
       - mail
       - type
-    CreateSubscriptionEventsBody:
-      title: Create Subscription Events Body
-      type: object
-      properties:
-        input:
-          description: An array of email subscription events for users.
-          maxItems: 20000
-          type: array
-          items:
-            $ref: '#/components/schemas/SubscriptionEventDTO'
-      required:
-      - input
-    EventDTO:
-      title: Event
-      type: object
-      properties:
-        _id:
-          type: string
-          description: The unique ID of the webhook event. It corresponds to the header value **webhook-id** in the webhook event request delivered to your endpoint.
-          example: msg_1srOrx2ZWZBpBUvZwXKQmoEYga2r
-        createdAt:
-          format: date-time
-          type: string
-          description: The date and time when the webhook event was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        status:
-          type: string
-          enum:
-          - delivered
-          - failed
-          - pending
-          - sending
-          description: 'The status of the webhook event. Options are:
-
-            - `delivered`: The event was successfully delivered.
-
-            - `failed`: The event failed to be delivered after all the retries.
-
-            - `pending`: The event delivery process is not yet started.
-
-            - `sending`: The event delivery is in progress following the retry schedule.'
-        payload:
-          type: object
-          description: The payload sent in the webhook event.
-      required:
-      - _id
-      - createdAt
-      - status
-      - payload
-    SigningSecretDTO:
-      title: Signing Secret
-      type: object
-      properties:
-        secret:
-          type: string
-          description: The signing secret of the webhook subscription. You can use this secret to verify the authenticity of the received events.
-          example: password123
-          minLength: 1
-      required:
-      - secret
-    PatchSubscriptionDTO:
-      title: Patch Subscription
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the webhook subscription.
-          example: HRIS system subscription
-          minLength: 1
-        status:
-          type: string
-          enum:
-          - active
-          - inactive
-          description: 'The status of the webhook subscription. Options are:
-
-            - `active`: events are sent to your endpoint.
-
-            - `inactive`: events are not sent to your endpoint.'
-        url:
-          type: string
-          description: The URL where the events are sent for this webhook subscription.
-          example: https://example.com/webhook
-          minLength: 1
-    BaseSubscriptionDTO:
-      title: Base Subscription
-      type: object
-      properties:
-        eventType:
-          type: string
-          enum:
-          - bulk.operation.created
-          - bulk.operation.ended
-          - course.attempt.closed
-          - group.created
-          - group.deleted
-          - group.updated
-          - path.archived
-          - path.created
-          - path.deleted
-          - path.session.added
-          - path.session.removed
-          - path.session.classroom.slot.users.unregistered.full
-          - path.session.classroom.slot.waitlist.closed
-          - path.session.classroom.slot.waitlist.opened
-          - path.session.classroom.slot.waitlist.user.joined
-          - path.session.user.status.updated
-          - path.session.users.enrolled
-          - path.session.users.unenrolled
-          - path.updated
-          - user.activated
-          - user.assessment.corrected
-          - user.certificate.awarded
-          - user.created
-          - user.deleted
-          - user.invited
-          - user.reactivated
-          - user.updated
-          - xapi.started
-          - xapi
-          description: The type of event that should be managed by this webhook subscription.
-        name:
-          type: string
-          description: The name of the webhook subscription.
-          example: HRIS system subscription
-          minLength: 1
-        url:
-          type: string
-          description: The URL where the events are sent for this webhook subscription.
-          example: https://example.com/webhook
-          minLength: 1
-      required:
-      - eventType
-      - name
-      - url
-    RetryEventsDTO:
-      title: Retry Events
-      type: object
-      properties:
-        startDate:
-          format: date-time
-          type: string
-          description: The date from which the events should be retried, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        endDate:
-          format: date-time
-          type: string
-          description: The date until which the events should be retried, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - startDate
-      - endDate
     SubscriptionDTO:
       title: Subscription
       type: object
@@ -1922,6 +1785,143 @@ components:
       - url
       - _id
       - status
+    BaseSubscriptionDTO:
+      title: Base Subscription
+      type: object
+      properties:
+        eventType:
+          type: string
+          enum:
+          - bulk.operation.created
+          - bulk.operation.ended
+          - course.attempt.closed
+          - group.created
+          - group.deleted
+          - group.updated
+          - path.archived
+          - path.created
+          - path.deleted
+          - path.session.added
+          - path.session.removed
+          - path.session.classroom.slot.users.unregistered.full
+          - path.session.classroom.slot.waitlist.closed
+          - path.session.classroom.slot.waitlist.opened
+          - path.session.classroom.slot.waitlist.user.joined
+          - path.session.user.status.updated
+          - path.session.users.enrolled
+          - path.session.users.unenrolled
+          - path.updated
+          - user.activated
+          - user.assessment.corrected
+          - user.certificate.awarded
+          - user.created
+          - user.deleted
+          - user.invited
+          - user.reactivated
+          - user.updated
+          - xapi.started
+          - xapi
+          description: The type of event that should be managed by this webhook subscription.
+        name:
+          type: string
+          description: The name of the webhook subscription.
+          example: HRIS system subscription
+          minLength: 1
+        url:
+          type: string
+          description: The URL where the events are sent for this webhook subscription.
+          example: https://example.com/webhook
+          minLength: 1
+      required:
+      - eventType
+      - name
+      - url
+    PatchSubscriptionDTO:
+      title: Patch Subscription
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the webhook subscription.
+          example: HRIS system subscription
+          minLength: 1
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          description: 'The status of the webhook subscription. Options are:
+
+            - `active`: events are sent to your endpoint.
+
+            - `inactive`: events are not sent to your endpoint.'
+        url:
+          type: string
+          description: The URL where the events are sent for this webhook subscription.
+          example: https://example.com/webhook
+          minLength: 1
+    SigningSecretDTO:
+      title: Signing Secret
+      type: object
+      properties:
+        secret:
+          type: string
+          description: The signing secret of the webhook subscription. You can use this secret to verify the authenticity of the received events.
+          example: password123
+          minLength: 1
+      required:
+      - secret
+    EventDTO:
+      title: Event
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the webhook event. It corresponds to the header value **webhook-id** in the webhook event request delivered to your endpoint.
+          example: msg_1srOrx2ZWZBpBUvZwXKQmoEYga2r
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the webhook event was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        status:
+          type: string
+          enum:
+          - delivered
+          - failed
+          - pending
+          - sending
+          description: 'The status of the webhook event. Options are:
+
+            - `delivered`: The event was successfully delivered.
+
+            - `failed`: The event failed to be delivered after all the retries.
+
+            - `pending`: The event delivery process is not yet started.
+
+            - `sending`: The event delivery is in progress following the retry schedule.'
+        payload:
+          type: object
+          description: The payload sent in the webhook event.
+      required:
+      - _id
+      - createdAt
+      - status
+      - payload
+    RetryEventsDTO:
+      title: Retry Events
+      type: object
+      properties:
+        startDate:
+          format: date-time
+          type: string
+          description: The date from which the events should be retried, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        endDate:
+          format: date-time
+          type: string
+          description: The date until which the events should be retried, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - startDate
+      - endDate
   securitySchemes:
     oauth2:
       type: oauth2

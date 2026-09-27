@@ -967,53 +967,6 @@ paths:
       - Custom Fields
 components:
   schemas:
-    ReplaceAuthorizedValuesDTO:
-      title: Replace Authorized Values
-      type: object
-      properties:
-        authorizedValues:
-          oneOf:
-          - type: array
-            title: date type
-            items:
-              type: string
-              format: date
-              example: '2024-06-30'
-            description: Use date values if the given custom field has a date type. The expected format is `YYYY-MM-DD` (ISO 8601 in Coordinated Universal Time (UTC)).
-          - type: array
-            title: string type
-            items:
-              type: string
-              example: Marketing
-            description: Use string values if the given custom field has a string type.
-          maxItems: 300
-          description: The new authorized values for the given custom fields. A custom field can have at most 300 authorized values.
-      required:
-      - authorizedValues
-    InputCustomFieldDTO:
-      title: Input Custom Field
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the custom field.
-          example: Department
-        targetType:
-          type: string
-          enum:
-          - users
-          - contents
-          description: The resource type to which the custom field is linked.
-        type:
-          type: string
-          enum:
-          - string
-          - date
-          description: The type of the custom field.
-      required:
-      - name
-      - targetType
-      - type
     CustomFieldDTO:
       title: Custom Field
       type: object
@@ -1045,6 +998,29 @@ components:
       - targetType
       - type
       - _id
+    ReplaceAuthorizedValuesDTO:
+      title: Replace Authorized Values
+      type: object
+      properties:
+        authorizedValues:
+          oneOf:
+          - type: array
+            title: date type
+            items:
+              type: string
+              format: date
+              example: '2024-06-30'
+            description: Use date values if the given custom field has a date type. The expected format is `YYYY-MM-DD` (ISO 8601 in Coordinated Universal Time (UTC)).
+          - type: array
+            title: string type
+            items:
+              type: string
+              example: Marketing
+            description: Use string values if the given custom field has a string type.
+          maxItems: 300
+          description: The new authorized values for the given custom fields. A custom field can have at most 300 authorized values.
+      required:
+      - authorizedValues
     UpdateCustomFieldBody:
       title: Update Custom Field Body
       type: object
@@ -1055,6 +1031,30 @@ components:
           example: Department
       required:
       - name
+    InputCustomFieldDTO:
+      title: Input Custom Field
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the custom field.
+          example: Department
+        targetType:
+          type: string
+          enum:
+          - users
+          - contents
+          description: The resource type to which the custom field is linked.
+        type:
+          type: string
+          enum:
+          - string
+          - date
+          description: The type of the custom field.
+      required:
+      - name
+      - targetType
+      - type
   securitySchemes:
     oauth2:
       type: oauth2

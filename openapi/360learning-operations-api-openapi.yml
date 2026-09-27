@@ -455,6 +455,20 @@ paths:
       - Operations
 components:
   schemas:
+    OperationProgressDTO:
+      title: Operation Progress
+      type: object
+      properties:
+        index:
+          type: number
+          description: The index of the last processed element of the bulk operation.
+        updatedAt:
+          format: date-time
+          type: string
+          description: The date and time of the last update of the bulk operation, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - index
+      - updatedAt
     RunningOperationDTO:
       title: Running Operation
       type: object
@@ -519,22 +533,8 @@ components:
       - progress
       - queuedAt
       - startedAt
-    OperationProgressDTO:
-      title: Operation Progress
-      type: object
-      properties:
-        index:
-          type: number
-          description: The index of the last processed element of the bulk operation.
-        updatedAt:
-          format: date-time
-          type: string
-          description: The date and time of the last update of the bulk operation, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - index
-      - updatedAt
-    QueuedOperationDTO:
-      title: Queued Operation
+    PendingOperationDTO:
+      title: Pending Operation
       type: object
       properties:
         _id:
@@ -575,38 +575,13 @@ components:
         status:
           type: string
           enum:
-          - queued
+          - pending
           description: The status of the bulk operation.
-        queuedAt:
-          format: date-time
-          type: string
-          description: The date and time when the bulk operation was queued, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
       required:
       - _id
       - type
       - createdAt
       - status
-      - queuedAt
-    SuccessResultDTO:
-      title: Success Result
-      type: object
-      properties:
-        input:
-          type: object
-          description: The input object used for the operation.
-        status:
-          type: string
-          enum:
-          - success
-          description: The status of the operation result.
-        resourceId:
-          type: string
-          description: The unique ID of the impacted resource.
-          example: ID123456
-      required:
-      - input
-      - status
-      - resourceId
     ErroredOperationDTO:
       title: Errored Operation
       type: object
@@ -680,25 +655,6 @@ components:
       - queuedAt
       - startedAt
       - endedAt
-    ErrorResultDTO:
-      title: Error Result
-      type: object
-      properties:
-        input:
-          type: object
-          description: The input object used for the operation.
-        status:
-          type: string
-          enum:
-          - error
-          description: The status of the operation result.
-        errorMessage:
-          type: string
-          description: The error message of the failed result.
-      required:
-      - input
-      - status
-      - errorMessage
     CompletedOperationDTO:
       title: Completed Operation
       type: object
@@ -768,8 +724,28 @@ components:
       - queuedAt
       - startedAt
       - endedAt
-    PendingOperationDTO:
-      title: Pending Operation
+    SuccessResultDTO:
+      title: Success Result
+      type: object
+      properties:
+        input:
+          type: object
+          description: The input object used for the operation.
+        status:
+          type: string
+          enum:
+          - success
+          description: The status of the operation result.
+        resourceId:
+          type: string
+          description: The unique ID of the impacted resource.
+          example: ID123456
+      required:
+      - input
+      - status
+      - resourceId
+    QueuedOperationDTO:
+      title: Queued Operation
       type: object
       properties:
         _id:
@@ -810,13 +786,37 @@ components:
         status:
           type: string
           enum:
-          - pending
+          - queued
           description: The status of the bulk operation.
+        queuedAt:
+          format: date-time
+          type: string
+          description: The date and time when the bulk operation was queued, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
       required:
       - _id
       - type
       - createdAt
       - status
+      - queuedAt
+    ErrorResultDTO:
+      title: Error Result
+      type: object
+      properties:
+        input:
+          type: object
+          description: The input object used for the operation.
+        status:
+          type: string
+          enum:
+          - error
+          description: The status of the operation result.
+        errorMessage:
+          type: string
+          description: The error message of the failed result.
+      required:
+      - input
+      - status
+      - errorMessage
   securitySchemes:
     oauth2:
       type: oauth2

@@ -113,6 +113,20 @@ paths:
       - Learning Needs
 components:
   schemas:
+    Question:
+      title: Question
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the question.
+          example: What is the problem that creating this training would solve?
+        answer:
+          type: string
+          description: The answer to the question.
+          example: It would strengthen the ties between the US and French Staff.
+      required:
+      - title
     LearningNeedDTO:
       title: Learning Need
       type: object
@@ -187,20 +201,6 @@ components:
       - questions
       - suggestedExpertIds
       - volunteerIds
-    Question:
-      title: Question
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the question.
-          example: What is the problem that creating this training would solve?
-        answer:
-          type: string
-          description: The answer to the question.
-          example: It would strengthen the ties between the US and French Staff.
-      required:
-      - title
   securitySchemes:
     oauth2:
       type: oauth2

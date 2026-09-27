@@ -479,8 +479,68 @@ webhooks:
       - User
 components:
   schemas:
-    UserDeletedDTO:
-      title: User Deleted
+    UserAssessmentCorrectedDTO:
+      title: User Assessment Corrected
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user whose assessment was corrected.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        assessmentId:
+          type: string
+          description: The unique ID of the assessment definition.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The name of the assessment.
+          example: Final assessment
+        pathId:
+          type: string
+          description: The unique ID of the path the assessment belongs to.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        sessionId:
+          type: string
+          description: The unique ID of the path session in which the assessment was taken.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        enrollmentId:
+          type: string
+          description: The unique ID of the user's enrollment that the assessment is tied to. Distinguishes assessments across multiple enrollments of the same user in the same session.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        success:
+          type: boolean
+          description: Whether the user passed (`true`) or failed (`false`) the assessment.
+        score:
+          type: number
+          minimum: 0
+          maximum: 100
+          description: The score the user obtained, as a percentage between 0 and 100. Only present for scored assessments.
+          example: 87
+        correctedAt:
+          format: date-time
+          type: string
+          description: The date and time when the assessment was corrected, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - userId
+      - assessmentId
+      - name
+      - pathId
+      - sessionId
+      - enrollmentId
+      - success
+      - correctedAt
+    UserReactivatedDTO:
+      title: User Reactivated
       type: object
       properties:
         userId:
@@ -509,13 +569,144 @@ components:
           description: The username that can be used to log in if the company allows it.
           example: johnsmith
           minLength: 1
-        deletedAt:
+        createdFrom:
+          type: string
+          enum:
+          - selfRegistration
+          description: Present and set to `"selfRegistration"` if the user registered via the self-registration form. Absent otherwise.
+        reactivatedAt:
           format: date-time
           type: string
-          description: The date and time when the user was soft deleted, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+          description: The date and time when the user was reactivated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
       required:
       - userId
-      - deletedAt
+      - reactivatedAt
+    UserActivatedDTO:
+      title: User Activated
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        firstName:
+          type: string
+          description: The first name of the user.
+          example: John
+          minLength: 1
+        lastName:
+          type: string
+          description: The last name of the user.
+          example: Smith
+          minLength: 1
+        mail:
+          type: string
+          description: The email address of the user.
+          example: john.smith@yopmail.com
+          minLength: 1
+        username:
+          type: string
+          description: The username that can be used to log in if the company allows it.
+          example: johnsmith
+          minLength: 1
+        createdFrom:
+          type: string
+          enum:
+          - selfRegistration
+          description: Present and set to `"selfRegistration"` if the user registered via the self-registration form. Absent otherwise.
+        firstActivatedAt:
+          format: date-time
+          type: string
+          description: The date and time when the user was activated for the first time, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - userId
+      - firstActivatedAt
+    UserInvitedDTO:
+      title: User Invited
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        firstName:
+          type: string
+          description: The first name of the user.
+          example: John
+          minLength: 1
+        lastName:
+          type: string
+          description: The last name of the user.
+          example: Smith
+          minLength: 1
+        mail:
+          type: string
+          description: The email address of the user.
+          example: john.smith@yopmail.com
+          minLength: 1
+        username:
+          type: string
+          description: The username that can be used to log in if the company allows it.
+          example: johnsmith
+          minLength: 1
+        createdFrom:
+          type: string
+          enum:
+          - selfRegistration
+          description: Present and set to `"selfRegistration"` if the user registered via the self-registration form. Absent otherwise.
+        invitedAt:
+          format: date-time
+          type: string
+          description: The date and time when the user was invited, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - userId
+      - invitedAt
+    CertificateAwardedDTO:
+      title: Certificate Awarded
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        certificateId:
+          type: string
+          description: The unique ID of the awarded certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        certificateOutlineId:
+          type: string
+          description: The unique ID of the certificate outline linked to the awarded certificate.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        deliveryDate:
+          format: date-time
+          type: string
+          description: The date and time when the user obtained the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        pathId:
+          type: string
+          description: The unique ID of the completed path where the certificate was awarded.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        pathSessionId:
+          type: string
+          description: The unique ID of the completed path session where the certificate was awarded.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - userId
+      - certificateId
+      - deliveryDate
     UserCreatedDTO:
       title: User Created
       type: object
@@ -553,6 +744,43 @@ components:
       required:
       - userId
       - createdAt
+    UserDeletedDTO:
+      title: User Deleted
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        firstName:
+          type: string
+          description: The first name of the user.
+          example: John
+          minLength: 1
+        lastName:
+          type: string
+          description: The last name of the user.
+          example: Smith
+          minLength: 1
+        mail:
+          type: string
+          description: The email address of the user.
+          example: john.smith@yopmail.com
+          minLength: 1
+        username:
+          type: string
+          description: The username that can be used to log in if the company allows it.
+          example: johnsmith
+          minLength: 1
+        deletedAt:
+          format: date-time
+          type: string
+          description: The date and time when the user was soft deleted, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - userId
+      - deletedAt
     UserUpdatedDTO:
       title: User Updated
       type: object
@@ -662,234 +890,6 @@ components:
       required:
       - userId
       - updatedAt
-    UserAssessmentCorrectedDTO:
-      title: User Assessment Corrected
-      type: object
-      properties:
-        userId:
-          type: string
-          description: The unique ID of the user whose assessment was corrected.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        assessmentId:
-          type: string
-          description: The unique ID of the assessment definition.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        name:
-          type: string
-          description: The name of the assessment.
-          example: Final assessment
-        pathId:
-          type: string
-          description: The unique ID of the path the assessment belongs to.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        sessionId:
-          type: string
-          description: The unique ID of the path session in which the assessment was taken.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        enrollmentId:
-          type: string
-          description: The unique ID of the user's enrollment that the assessment is tied to. Distinguishes assessments across multiple enrollments of the same user in the same session.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        success:
-          type: boolean
-          description: Whether the user passed (`true`) or failed (`false`) the assessment.
-        score:
-          type: number
-          minimum: 0
-          maximum: 100
-          description: The score the user obtained, as a percentage between 0 and 100. Only present for scored assessments.
-          example: 87
-        correctedAt:
-          format: date-time
-          type: string
-          description: The date and time when the assessment was corrected, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - userId
-      - assessmentId
-      - name
-      - pathId
-      - sessionId
-      - enrollmentId
-      - success
-      - correctedAt
-    UserInvitedDTO:
-      title: User Invited
-      type: object
-      properties:
-        userId:
-          type: string
-          description: The unique ID of the user.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        firstName:
-          type: string
-          description: The first name of the user.
-          example: John
-          minLength: 1
-        lastName:
-          type: string
-          description: The last name of the user.
-          example: Smith
-          minLength: 1
-        mail:
-          type: string
-          description: The email address of the user.
-          example: john.smith@yopmail.com
-          minLength: 1
-        username:
-          type: string
-          description: The username that can be used to log in if the company allows it.
-          example: johnsmith
-          minLength: 1
-        createdFrom:
-          type: string
-          enum:
-          - selfRegistration
-          description: Present and set to `"selfRegistration"` if the user registered via the self-registration form. Absent otherwise.
-        invitedAt:
-          format: date-time
-          type: string
-          description: The date and time when the user was invited, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - userId
-      - invitedAt
-    UserReactivatedDTO:
-      title: User Reactivated
-      type: object
-      properties:
-        userId:
-          type: string
-          description: The unique ID of the user.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        firstName:
-          type: string
-          description: The first name of the user.
-          example: John
-          minLength: 1
-        lastName:
-          type: string
-          description: The last name of the user.
-          example: Smith
-          minLength: 1
-        mail:
-          type: string
-          description: The email address of the user.
-          example: john.smith@yopmail.com
-          minLength: 1
-        username:
-          type: string
-          description: The username that can be used to log in if the company allows it.
-          example: johnsmith
-          minLength: 1
-        createdFrom:
-          type: string
-          enum:
-          - selfRegistration
-          description: Present and set to `"selfRegistration"` if the user registered via the self-registration form. Absent otherwise.
-        reactivatedAt:
-          format: date-time
-          type: string
-          description: The date and time when the user was reactivated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - userId
-      - reactivatedAt
-    CertificateAwardedDTO:
-      title: Certificate Awarded
-      type: object
-      properties:
-        userId:
-          type: string
-          description: The unique ID of the user.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        certificateId:
-          type: string
-          description: The unique ID of the awarded certificate.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        certificateOutlineId:
-          type: string
-          description: The unique ID of the certificate outline linked to the awarded certificate.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        deliveryDate:
-          format: date-time
-          type: string
-          description: The date and time when the user obtained the certificate, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        pathId:
-          type: string
-          description: The unique ID of the completed path where the certificate was awarded.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        pathSessionId:
-          type: string
-          description: The unique ID of the completed path session where the certificate was awarded.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-      required:
-      - userId
-      - certificateId
-      - deliveryDate
-    UserActivatedDTO:
-      title: User Activated
-      type: object
-      properties:
-        userId:
-          type: string
-          description: The unique ID of the user.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        firstName:
-          type: string
-          description: The first name of the user.
-          example: John
-          minLength: 1
-        lastName:
-          type: string
-          description: The last name of the user.
-          example: Smith
-          minLength: 1
-        mail:
-          type: string
-          description: The email address of the user.
-          example: john.smith@yopmail.com
-          minLength: 1
-        username:
-          type: string
-          description: The username that can be used to log in if the company allows it.
-          example: johnsmith
-          minLength: 1
-        createdFrom:
-          type: string
-          enum:
-          - selfRegistration
-          description: Present and set to `"selfRegistration"` if the user registered via the self-registration form. Absent otherwise.
-        firstActivatedAt:
-          format: date-time
-          type: string
-          description: The date and time when the user was activated for the first time, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - userId
-      - firstActivatedAt
   securitySchemes:
     oauth2:
       type: oauth2
