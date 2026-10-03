@@ -73,6 +73,22 @@ webhooks:
       - Course
 components:
   schemas:
+    AttemptClosedContextDTO:
+      title: Attempt Closed Context
+      type: object
+      properties:
+        pathId:
+          type: string
+          description: The unique ID of the path if the course is played in the path context.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        pathSessionId:
+          type: string
+          description: The unique ID of the path session if the course is played in the path context.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
     AttemptClosedDTO:
       title: Attempt Closed
       type: object
@@ -115,22 +131,6 @@ components:
       - courseId
       - reason
       - context
-    AttemptClosedContextDTO:
-      title: Attempt Closed Context
-      type: object
-      properties:
-        pathId:
-          type: string
-          description: The unique ID of the path if the course is played in the path context.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        pathSessionId:
-          type: string
-          description: The unique ID of the path session if the course is played in the path context.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
   securitySchemes:
     oauth2:
       type: oauth2

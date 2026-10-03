@@ -455,20 +455,6 @@ paths:
       - Operations
 components:
   schemas:
-    OperationProgressDTO:
-      title: Operation Progress
-      type: object
-      properties:
-        index:
-          type: number
-          description: The index of the last processed element of the bulk operation.
-        updatedAt:
-          format: date-time
-          type: string
-          description: The date and time of the last update of the bulk operation, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - index
-      - updatedAt
     RunningOperationDTO:
       title: Running Operation
       type: object
@@ -582,6 +568,143 @@ components:
       - type
       - createdAt
       - status
+    QueuedOperationDTO:
+      title: Queued Operation
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the bulk operation.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - addContentsToGroupsCatalog
+          - addContentsToGroupsLibrary
+          - addSkillReviews
+          - addUsersToGroups
+          - archiveExternalCourses
+          - deleteSkills
+          - createGroups
+          - createSubscriptionEvents
+          - deleteGroups
+          - deleteJobs
+          - deleteLibraries
+          - importExternalCourses
+          - importExternalStatistics
+          - removeContentsFromGroupsCatalog
+          - removeContentsFromGroupsLibrary
+          - removeUsersFromGroups
+          - replaceJobsSkills
+          - replaceUsersJobs
+          - upsertJobs
+          - upsertLibraries
+          - upsertSkills
+          description: The type of bulk operation.
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the bulk operation was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        status:
+          type: string
+          enum:
+          - queued
+          description: The status of the bulk operation.
+        queuedAt:
+          format: date-time
+          type: string
+          description: The date and time when the bulk operation was queued, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - _id
+      - type
+      - createdAt
+      - status
+      - queuedAt
+    CompletedOperationDTO:
+      title: Completed Operation
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique ID of the bulk operation.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        type:
+          type: string
+          enum:
+          - addContentsToGroupsCatalog
+          - addContentsToGroupsLibrary
+          - addSkillReviews
+          - addUsersToGroups
+          - archiveExternalCourses
+          - deleteSkills
+          - createGroups
+          - createSubscriptionEvents
+          - deleteGroups
+          - deleteJobs
+          - deleteLibraries
+          - importExternalCourses
+          - importExternalStatistics
+          - removeContentsFromGroupsCatalog
+          - removeContentsFromGroupsLibrary
+          - removeUsersFromGroups
+          - replaceJobsSkills
+          - replaceUsersJobs
+          - upsertJobs
+          - upsertLibraries
+          - upsertSkills
+          description: The type of bulk operation.
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the bulk operation was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        status:
+          type: string
+          enum:
+          - completed
+          description: The status of the bulk operation.
+        progress:
+          description: The current progress of the bulk operation.
+          allOf:
+          - $ref: '#/components/schemas/OperationProgressDTO'
+        queuedAt:
+          format: date-time
+          type: string
+          description: The date and time when the bulk operation was queued, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        startedAt:
+          format: date-time
+          type: string
+          description: The date and time when the bulk operation started, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        endedAt:
+          format: date-time
+          type: string
+          description: The date and time when the bulk operation ended, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - _id
+      - type
+      - createdAt
+      - status
+      - progress
+      - queuedAt
+      - startedAt
+      - endedAt
+    OperationProgressDTO:
+      title: Operation Progress
+      type: object
+      properties:
+        index:
+          type: number
+          description: The index of the last processed element of the bulk operation.
+        updatedAt:
+          format: date-time
+          type: string
+          description: The date and time of the last update of the bulk operation, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - index
+      - updatedAt
     ErroredOperationDTO:
       title: Errored Operation
       type: object
@@ -655,75 +778,25 @@ components:
       - queuedAt
       - startedAt
       - endedAt
-    CompletedOperationDTO:
-      title: Completed Operation
+    ErrorResultDTO:
+      title: Error Result
       type: object
       properties:
-        _id:
-          type: string
-          description: The unique ID of the bulk operation.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        type:
-          type: string
-          enum:
-          - addContentsToGroupsCatalog
-          - addContentsToGroupsLibrary
-          - addSkillReviews
-          - addUsersToGroups
-          - archiveExternalCourses
-          - deleteSkills
-          - createGroups
-          - createSubscriptionEvents
-          - deleteGroups
-          - deleteJobs
-          - deleteLibraries
-          - importExternalCourses
-          - importExternalStatistics
-          - removeContentsFromGroupsCatalog
-          - removeContentsFromGroupsLibrary
-          - removeUsersFromGroups
-          - replaceJobsSkills
-          - replaceUsersJobs
-          - upsertJobs
-          - upsertLibraries
-          - upsertSkills
-          description: The type of bulk operation.
-        createdAt:
-          format: date-time
-          type: string
-          description: The date and time when the bulk operation was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        input:
+          type: object
+          description: The input object used for the operation.
         status:
           type: string
           enum:
-          - completed
-          description: The status of the bulk operation.
-        progress:
-          description: The current progress of the bulk operation.
-          allOf:
-          - $ref: '#/components/schemas/OperationProgressDTO'
-        queuedAt:
-          format: date-time
+          - error
+          description: The status of the operation result.
+        errorMessage:
           type: string
-          description: The date and time when the bulk operation was queued, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        startedAt:
-          format: date-time
-          type: string
-          description: The date and time when the bulk operation started, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        endedAt:
-          format: date-time
-          type: string
-          description: The date and time when the bulk operation ended, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+          description: The error message of the failed result.
       required:
-      - _id
-      - type
-      - createdAt
+      - input
       - status
-      - progress
-      - queuedAt
-      - startedAt
-      - endedAt
+      - errorMessage
     SuccessResultDTO:
       title: Success Result
       type: object
@@ -744,79 +817,6 @@ components:
       - input
       - status
       - resourceId
-    QueuedOperationDTO:
-      title: Queued Operation
-      type: object
-      properties:
-        _id:
-          type: string
-          description: The unique ID of the bulk operation.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        type:
-          type: string
-          enum:
-          - addContentsToGroupsCatalog
-          - addContentsToGroupsLibrary
-          - addSkillReviews
-          - addUsersToGroups
-          - archiveExternalCourses
-          - deleteSkills
-          - createGroups
-          - createSubscriptionEvents
-          - deleteGroups
-          - deleteJobs
-          - deleteLibraries
-          - importExternalCourses
-          - importExternalStatistics
-          - removeContentsFromGroupsCatalog
-          - removeContentsFromGroupsLibrary
-          - removeUsersFromGroups
-          - replaceJobsSkills
-          - replaceUsersJobs
-          - upsertJobs
-          - upsertLibraries
-          - upsertSkills
-          description: The type of bulk operation.
-        createdAt:
-          format: date-time
-          type: string
-          description: The date and time when the bulk operation was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        status:
-          type: string
-          enum:
-          - queued
-          description: The status of the bulk operation.
-        queuedAt:
-          format: date-time
-          type: string
-          description: The date and time when the bulk operation was queued, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - _id
-      - type
-      - createdAt
-      - status
-      - queuedAt
-    ErrorResultDTO:
-      title: Error Result
-      type: object
-      properties:
-        input:
-          type: object
-          description: The input object used for the operation.
-        status:
-          type: string
-          enum:
-          - error
-          description: The status of the operation result.
-        errorMessage:
-          type: string
-          description: The error message of the failed result.
-      required:
-      - input
-      - status
-      - errorMessage
   securitySchemes:
     oauth2:
       type: oauth2
