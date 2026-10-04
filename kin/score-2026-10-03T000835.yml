@@ -1,35 +1,33 @@
-# Kin Score artifact — 360learning — 2026-08-27T103455
+# Kin Score artifact — 360learning — 2026-10-03T000835
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: 360learning
-  schema_version: 0.15.1
-  scored_at: '2026-08-27'
-  run_ts: 2026-08-27T103455
-  composite: 54.7
+  schema_version: 0.23.0
+  scored_at: '2026-10-03'
+  run_ts: 2026-10-03T000835
+  composite: 62.6
   band: strong
   facets:
-    discoverability: 81.5
-    contract_quality: 66.4
-    governance: 30.3
-    operational_transparency: 39.5
+    discoverability: 78.6
+    contract_quality: 54.9
+    contract_governance: 18.2
+    operational_transparency: 71.1
     developer_ergonomics: 39.9
-    commercial_clarity: 36.8
-    contract_governance: 30.3
-    access_clarity: 36.8
+    access_clarity: 68.4
   agent_readiness:
-    score: 30.4
+    score: 32.5
     band: agent-ready
     dimensions:
       spec_presence: true
       agentic_access: derived
-      reversibility_documented: false
+      reversibility_documented: documented
       mcp_server: false
       auth_clarity: bearer
       idempotency: false
-      error_semantics: documented
+      error_semantics: derived
       openapi_examples: verified
-      rate_limit_signal: false
+      rate_limit_signal: documented
       event_surface_described: true
       agent_skills: derived
       well_known_catalog: false
@@ -44,7 +42,7 @@ kin_score:
     applies: true
     regime: Education & Research
     regime_id: education
-    score: 66.7
+    score: 35.3
     matched_via: tags
   provenance:
     mcp: derived
@@ -52,7 +50,7 @@ kin_score:
     agentic_access: derived
     conformance: first-party
     contracts:
-      total: 17
+      total: 23
       derived: 0
       coverage: 0.0
       callable: 100.0
