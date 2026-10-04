@@ -599,6 +599,26 @@ paths:
       - Tags
 components:
   schemas:
+    TagUpdatableFields:
+      title: Tag Updatable Fields
+      type: object
+      properties:
+        isMain:
+          type: boolean
+          description: True if the tag is to be set as a main tag; false otherwise.
+        name:
+          type: string
+          description: The name of the tag.
+          example: Onboarding
+          minLength: 1
+        externalId:
+          type: string
+          description: The external identifier of the tag if it is being synced from outer resources.
+          example: 1743_ab
+          minLength: 1
+      required:
+      - isMain
+      - name
     TagDTOWithSource:
       title: Tag DTO With Source
       type: object
@@ -659,26 +679,6 @@ components:
       required:
       - isMain
       - _id
-      - name
-    TagUpdatableFields:
-      title: Tag Updatable Fields
-      type: object
-      properties:
-        isMain:
-          type: boolean
-          description: True if the tag is to be set as a main tag; false otherwise.
-        name:
-          type: string
-          description: The name of the tag.
-          example: Onboarding
-          minLength: 1
-        externalId:
-          type: string
-          description: The external identifier of the tag if it is being synced from outer resources.
-          example: 1743_ab
-          minLength: 1
-      required:
-      - isMain
       - name
   securitySchemes:
     oauth2:

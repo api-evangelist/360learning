@@ -1686,18 +1686,6 @@ paths:
       description: Production US
 components:
   schemas:
-    CreateSubscriptionEventsBody:
-      title: Create Subscription Events Body
-      type: object
-      properties:
-        input:
-          description: An array of email subscription events for users.
-          maxItems: 20000
-          type: array
-          items:
-            $ref: '#/components/schemas/SubscriptionEventDTO'
-      required:
-      - input
     SubscriptionEventDTO:
       title: Subscription Event
       type: object
@@ -1716,30 +1704,18 @@ components:
       required:
       - mail
       - type
-    PatchSubscriptionDTO:
-      title: Patch Subscription
+    CreateSubscriptionEventsBody:
+      title: Create Subscription Events Body
       type: object
       properties:
-        name:
-          type: string
-          description: The name of the webhook subscription.
-          example: HRIS system subscription
-          minLength: 1
-        status:
-          type: string
-          enum:
-          - active
-          - inactive
-          description: 'The status of the webhook subscription. Options are:
-
-            - `active`: events are sent to your endpoint.
-
-            - `inactive`: events are not sent to your endpoint.'
-        url:
-          type: string
-          description: The URL where the events are sent for this webhook subscription.
-          example: https://example.com/webhook
-          minLength: 1
+        input:
+          description: An array of email subscription events for users.
+          maxItems: 20000
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionEventDTO'
+      required:
+      - input
     SubscriptionDTO:
       title: Subscription
       type: object
@@ -1809,6 +1785,30 @@ components:
       - url
       - _id
       - status
+    PatchSubscriptionDTO:
+      title: Patch Subscription
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the webhook subscription.
+          example: HRIS system subscription
+          minLength: 1
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          description: 'The status of the webhook subscription. Options are:
+
+            - `active`: events are sent to your endpoint.
+
+            - `inactive`: events are not sent to your endpoint.'
+        url:
+          type: string
+          description: The URL where the events are sent for this webhook subscription.
+          example: https://example.com/webhook
+          minLength: 1
     EventDTO:
       title: Event
       type: object
@@ -1896,17 +1896,6 @@ components:
       - eventType
       - name
       - url
-    SigningSecretDTO:
-      title: Signing Secret
-      type: object
-      properties:
-        secret:
-          type: string
-          description: The signing secret of the webhook subscription. You can use this secret to verify the authenticity of the received events.
-          example: password123
-          minLength: 1
-      required:
-      - secret
     RetryEventsDTO:
       title: Retry Events
       type: object
@@ -1922,6 +1911,17 @@ components:
       required:
       - startDate
       - endDate
+    SigningSecretDTO:
+      title: Signing Secret
+      type: object
+      properties:
+        secret:
+          type: string
+          description: The signing secret of the webhook subscription. You can use this secret to verify the authenticity of the received events.
+          example: password123
+          minLength: 1
+      required:
+      - secret
   securitySchemes:
     oauth2:
       type: oauth2

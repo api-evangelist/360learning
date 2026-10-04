@@ -96,6 +96,201 @@ webhooks:
       - x API
 components:
   schemas:
+    XapiInitializedVerb:
+      title: Xapi Initialized Verb
+      type: object
+      properties:
+        id:
+          type: string
+          enum:
+          - http://adlnet.gov/expapi/verbs/initialized
+          description: The type of actor.
+        display:
+          type: object
+          additionalProperties: true
+          example:
+            en-US: initialized
+          description: The human readable representation of the verb in one or more languages. The key is the language code (ISO 639 language code plus an optional ISO 3166-1 country code), and the value is the verb in that language.
+      required:
+      - id
+      - display
+    XapiCourseObject:
+      title: Xapi Course Object
+      type: object
+      properties:
+        objectType:
+          type: string
+          enum:
+          - Activity
+          description: The type of object.
+        id:
+          type: string
+          example: urn:360learning:course:507f1f77bcf86cd799439011
+          description: The unique ID of the course activity. The format is 'urn:360learning:course:{{unique_ID}}'.
+        definition:
+          description: The metadata relative to the activity.
+          allOf:
+          - $ref: '#/components/schemas/XapiObjectDefinition'
+      required:
+      - objectType
+      - id
+      - definition
+    XapiPathContextActivity:
+      title: Xapi Path Context Activity
+      type: object
+      properties:
+        id:
+          type: string
+          example: urn:360learning:path:507f1f77bcf86cd799439045
+          description: The unique ID of the path activity. The format is 'urn:360learning:path:{{unique_ID}}'.
+        objectType:
+          type: string
+          enum:
+          - Activity
+          description: The type of object.
+      required:
+      - id
+      - objectType
+    XapiAccount:
+      title: Xapi Account
+      type: object
+      properties:
+        name:
+          type: string
+          example: johnsmith
+          description: The username of the user.
+        homePage:
+          type: string
+          format: url
+          example: https://app.360learning.com
+          description: The canonical home page the account is on.
+      required:
+      - name
+      - homePage
+    XapiContextActivitiesForCourse:
+      title: Xapi Context Activities For Course
+      type: object
+      properties:
+        parent:
+          minItems: 1
+          maxItems: 1
+          description: The path context of this activity.
+          type: array
+          items:
+            $ref: '#/components/schemas/XapiPathContextActivity'
+        other:
+          minItems: 1
+          maxItems: 1
+          description: The session context of this activity.
+          type: array
+          items:
+            $ref: '#/components/schemas/XapiSessionContextActivity'
+      required:
+      - parent
+      - other
+    XapiAgentEmail:
+      title: Xapi Agent Email
+      type: object
+      properties:
+        objectType:
+          type: string
+          enum:
+          - Agent
+          description: The type of actor.
+        mbox:
+          type: string
+          example: mailto:john.smith@yopmail.com
+          description: The email address of the user. The format is 'mailto:{{email_address}}'.
+      required:
+      - objectType
+      - mbox
+    XapiStartedDTO:
+      title: Xapi Started
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 6b951307-9deb-47f5-b8f9-65e505bac3e4
+          description: The unique ID of the statement.
+        actor:
+          oneOf:
+          - $ref: '#/components/schemas/XapiAgentEmail'
+          - $ref: '#/components/schemas/XapiAgentUsername'
+          description: The agent or group who performed the action. The email schema is used by default and the username schema is only used if the company allow the usage of a username to log in.
+        verb:
+          description: The action between the actor and the object.
+          allOf:
+          - $ref: '#/components/schemas/XapiInitializedVerb'
+        object:
+          description: The activity or agent undergoing the action.
+          allOf:
+          - $ref: '#/components/schemas/XapiCourseObject'
+        context:
+          description: The contextual information of the statement.
+          allOf:
+          - $ref: '#/components/schemas/XapiCourseContext'
+        timestamp:
+          format: date-time
+          type: string
+          description: The date and time when the activity was started, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - id
+      - actor
+      - verb
+      - object
+      - context
+      - timestamp
+    XapiObjectDefinition:
+      title: Xapi Object Definition
+      type: object
+      properties:
+        name:
+          type: object
+          additionalProperties: true
+          example:
+            en-US: My course name
+          description: The title of the course in one or more languages. The key is the language code (ISO 639 language code plus an optional ISO 3166-1 country code), and the value is the course title in that language.
+        description:
+          type: object
+          additionalProperties: true
+          example:
+            en-US: My course description
+          description: The description of the course in one or more languages. The key is the language code (ISO 639 language code plus an optional ISO 3166-1 country code), and the value is the course description in that language.
+        type:
+          type: string
+          enum:
+          - http://adlnet.gov/expapi/activities/module
+          description: The type of the activity.
+      required:
+      - name
+      - description
+      - type
+    XapiContextExtensions:
+      title: Xapi Context Extensions
+      type: object
+      properties:
+        https://app.360learning.com/api/xapi/extensions/offline:
+          type: boolean
+          description: If true, the statement was done in an offline context (mobile specificity); false otherwise.
+      required:
+      - https://app.360learning.com/api/xapi/extensions/offline
+    XapiSessionContextActivity:
+      title: Xapi Session Context Activity
+      type: object
+      properties:
+        id:
+          type: string
+          example: urn:360learning:session:507f1f77bcf86cd799439011
+          description: The unique ID of the session activity. The format is 'urn:360learning:session:{{unique_ID}}'.
+        objectType:
+          type: string
+          enum:
+          - Activity
+          description: The type of object.
+      required:
+      - id
+      - objectType
     XapiCourseContext:
       title: Xapi Course Context
       type: object
@@ -195,22 +390,6 @@ components:
       required:
       - language
       - extensions
-    XapiAgentEmail:
-      title: Xapi Agent Email
-      type: object
-      properties:
-        objectType:
-          type: string
-          enum:
-          - Agent
-          description: The type of actor.
-        mbox:
-          type: string
-          example: mailto:john.smith@yopmail.com
-          description: The email address of the user. The format is 'mailto:{{email_address}}'.
-      required:
-      - objectType
-      - mbox
     XapiAgentUsername:
       title: Xapi Agent Username
       type: object
@@ -227,185 +406,6 @@ components:
       required:
       - objectType
       - account
-    XapiContextExtensions:
-      title: Xapi Context Extensions
-      type: object
-      properties:
-        https://app.360learning.com/api/xapi/extensions/offline:
-          type: boolean
-          description: If true, the statement was done in an offline context (mobile specificity); false otherwise.
-      required:
-      - https://app.360learning.com/api/xapi/extensions/offline
-    XapiContextActivitiesForCourse:
-      title: Xapi Context Activities For Course
-      type: object
-      properties:
-        parent:
-          minItems: 1
-          maxItems: 1
-          description: The path context of this activity.
-          type: array
-          items:
-            $ref: '#/components/schemas/XapiPathContextActivity'
-        other:
-          minItems: 1
-          maxItems: 1
-          description: The session context of this activity.
-          type: array
-          items:
-            $ref: '#/components/schemas/XapiSessionContextActivity'
-      required:
-      - parent
-      - other
-    XapiObjectDefinition:
-      title: Xapi Object Definition
-      type: object
-      properties:
-        name:
-          type: object
-          additionalProperties: true
-          example:
-            en-US: My course name
-          description: The title of the course in one or more languages. The key is the language code (ISO 639 language code plus an optional ISO 3166-1 country code), and the value is the course title in that language.
-        description:
-          type: object
-          additionalProperties: true
-          example:
-            en-US: My course description
-          description: The description of the course in one or more languages. The key is the language code (ISO 639 language code plus an optional ISO 3166-1 country code), and the value is the course description in that language.
-        type:
-          type: string
-          enum:
-          - http://adlnet.gov/expapi/activities/module
-          description: The type of the activity.
-      required:
-      - name
-      - description
-      - type
-    XapiStartedDTO:
-      title: Xapi Started
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: 6b951307-9deb-47f5-b8f9-65e505bac3e4
-          description: The unique ID of the statement.
-        actor:
-          oneOf:
-          - $ref: '#/components/schemas/XapiAgentEmail'
-          - $ref: '#/components/schemas/XapiAgentUsername'
-          description: The agent or group who performed the action. The email schema is used by default and the username schema is only used if the company allow the usage of a username to log in.
-        verb:
-          description: The action between the actor and the object.
-          allOf:
-          - $ref: '#/components/schemas/XapiInitializedVerb'
-        object:
-          description: The activity or agent undergoing the action.
-          allOf:
-          - $ref: '#/components/schemas/XapiCourseObject'
-        context:
-          description: The contextual information of the statement.
-          allOf:
-          - $ref: '#/components/schemas/XapiCourseContext'
-        timestamp:
-          format: date-time
-          type: string
-          description: The date and time when the activity was started, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - id
-      - actor
-      - verb
-      - object
-      - context
-      - timestamp
-    XapiSessionContextActivity:
-      title: Xapi Session Context Activity
-      type: object
-      properties:
-        id:
-          type: string
-          example: urn:360learning:session:507f1f77bcf86cd799439011
-          description: The unique ID of the session activity. The format is 'urn:360learning:session:{{unique_ID}}'.
-        objectType:
-          type: string
-          enum:
-          - Activity
-          description: The type of object.
-      required:
-      - id
-      - objectType
-    XapiInitializedVerb:
-      title: Xapi Initialized Verb
-      type: object
-      properties:
-        id:
-          type: string
-          enum:
-          - http://adlnet.gov/expapi/verbs/initialized
-          description: The type of actor.
-        display:
-          type: object
-          additionalProperties: true
-          example:
-            en-US: initialized
-          description: The human readable representation of the verb in one or more languages. The key is the language code (ISO 639 language code plus an optional ISO 3166-1 country code), and the value is the verb in that language.
-      required:
-      - id
-      - display
-    XapiAccount:
-      title: Xapi Account
-      type: object
-      properties:
-        name:
-          type: string
-          example: johnsmith
-          description: The username of the user.
-        homePage:
-          type: string
-          format: url
-          example: https://app.360learning.com
-          description: The canonical home page the account is on.
-      required:
-      - name
-      - homePage
-    XapiCourseObject:
-      title: Xapi Course Object
-      type: object
-      properties:
-        objectType:
-          type: string
-          enum:
-          - Activity
-          description: The type of object.
-        id:
-          type: string
-          example: urn:360learning:course:507f1f77bcf86cd799439011
-          description: The unique ID of the course activity. The format is 'urn:360learning:course:{{unique_ID}}'.
-        definition:
-          description: The metadata relative to the activity.
-          allOf:
-          - $ref: '#/components/schemas/XapiObjectDefinition'
-      required:
-      - objectType
-      - id
-      - definition
-    XapiPathContextActivity:
-      title: Xapi Path Context Activity
-      type: object
-      properties:
-        id:
-          type: string
-          example: urn:360learning:path:507f1f77bcf86cd799439045
-          description: The unique ID of the path activity. The format is 'urn:360learning:path:{{unique_ID}}'.
-        objectType:
-          type: string
-          enum:
-          - Activity
-          description: The type of object.
-      required:
-      - id
-      - objectType
   securitySchemes:
     oauth2:
       type: oauth2

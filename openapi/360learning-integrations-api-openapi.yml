@@ -1539,79 +1539,6 @@ paths:
       description: Production US
 components:
   schemas:
-    ImportExternalCoursesBody:
-      title: Import External Courses Body
-      type: object
-      properties:
-        input:
-          description: An array of objects, each specifying details for external course to be imported.
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/ExternalCourseDTO'
-      required:
-      - input
-    ImportExternalStatisticsBody:
-      title: Import External Statistics Body
-      type: object
-      properties:
-        input:
-          description: An array of objects, each specifying details for external statistics to be imported.
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/ImportExternalStatisticsDTO'
-      required:
-      - input
-    ExternalCourseTranslatedFields:
-      title: External Course Translated Fields
-      type: object
-      properties:
-        description:
-          type: string
-          description: The translation of the field `description` for this language.
-          example: Apprenez les bases de l'apprentissage automatique.
-          minLength: 1
-        launchUrl:
-          type: string
-          description: The URL to launch and play the external course in this language.
-          example: https://player.mylearningplatform.com/launch/l3ssup3rh3r0s/fr
-          minLength: 1
-        mobileLaunchUrl:
-          type: string
-          description: The URL to launch and play the external course from a mobile in this language.
-          example: https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s/fr
-          minLength: 1
-        name:
-          type: string
-          description: The translation of the field `name` for this language.
-          example: Cours intensif sur l'apprentissage automatique
-          minLength: 1
-        subjects:
-          description: The translation of the field `subjects` for this language.
-          example:
-          - Apprentissage automatique
-          - TI
-          type: array
-          items:
-            type: string
-            minLength: 1
-    ExternalCourseSourceDTO:
-      title: External Course Source
-      type: object
-      properties:
-        name:
-          type: string
-          example: Wikipedia
-          description: The name of the source.
-          minLength: 1
-        logoUrl:
-          type: string
-          example: https://en.wikipedia.org/static/images/icons/wikipedia.png
-          description: The logo URL of the source.
-          minLength: 1
-      required:
-      - name
     CourseIdentifierDTO:
       title: Course Identifier
       type: object
@@ -1634,18 +1561,6 @@ components:
       required:
       - type
       - value
-    ArchiveExternalCoursesBody:
-      title: Archive External Courses Body
-      type: object
-      properties:
-        input:
-          description: An array of objects, each specifying details for external course to be archived.
-          maxItems: 1000
-          type: array
-          items:
-            $ref: '#/components/schemas/ArchiveExternalCourseDTO'
-      required:
-      - input
     ExternalCourseTranslationDTO:
       title: External Course Translation
       type: object
@@ -1742,6 +1657,18 @@ components:
       required:
       - lang
       - translatedFields
+    ArchiveExternalCoursesBody:
+      title: Archive External Courses Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for external course to be archived.
+          maxItems: 1000
+          type: array
+          items:
+            $ref: '#/components/schemas/ArchiveExternalCourseDTO'
+      required:
+      - input
     UserIdentifierDTO:
       title: User Identifier
       type: object
@@ -1764,6 +1691,22 @@ components:
       required:
       - type
       - value
+    ExternalCourseSourceDTO:
+      title: External Course Source
+      type: object
+      properties:
+        name:
+          type: string
+          example: Wikipedia
+          description: The name of the source.
+          minLength: 1
+        logoUrl:
+          type: string
+          example: https://en.wikipedia.org/static/images/icons/wikipedia.png
+          description: The logo URL of the source.
+          minLength: 1
+      required:
+      - name
     ExternalCourseDTO:
       title: External Course
       type: object
@@ -1950,17 +1893,30 @@ components:
       - name
       - sources
       - subjects
-    ArchiveExternalCourseDTO:
-      title: Archive External Course
+    ImportExternalCoursesBody:
+      title: Import External Courses Body
       type: object
       properties:
-        externalId:
-          type: string
-          description: Unique external identifier of the course to archive.
-          example: l3ssup3rh3r0s
-          minLength: 1
+        input:
+          description: An array of objects, each specifying details for external course to be imported.
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalCourseDTO'
       required:
-      - externalId
+      - input
+    ImportExternalStatisticsBody:
+      title: Import External Statistics Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for external statistics to be imported.
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/ImportExternalStatisticsDTO'
+      required:
+      - input
     ImportExternalStatisticsDTO:
       title: Import External Statistics
       type: object
@@ -2101,6 +2057,179 @@ components:
       - timeSpent
       - firstActivityAt
       - lastActivityAt
+    ExternalCourseTranslatedFields:
+      title: External Course Translated Fields
+      type: object
+      properties:
+        description:
+          type: string
+          description: The translation of the field `description` for this language.
+          example: Apprenez les bases de l'apprentissage automatique.
+          minLength: 1
+        launchUrl:
+          type: string
+          description: The URL to launch and play the external course in this language.
+          example: https://player.mylearningplatform.com/launch/l3ssup3rh3r0s/fr
+          minLength: 1
+        mobileLaunchUrl:
+          type: string
+          description: The URL to launch and play the external course from a mobile in this language.
+          example: https://player.mylearningplatform.com/mobile/launch/l3ssup3rh3r0s/fr
+          minLength: 1
+        name:
+          type: string
+          description: The translation of the field `name` for this language.
+          example: Cours intensif sur l'apprentissage automatique
+          minLength: 1
+        subjects:
+          description: The translation of the field `subjects` for this language.
+          example:
+          - Apprentissage automatique
+          - TI
+          type: array
+          items:
+            type: string
+            minLength: 1
+    ArchiveExternalCourseDTO:
+      title: Archive External Course
+      type: object
+      properties:
+        externalId:
+          type: string
+          description: Unique external identifier of the course to archive.
+          example: l3ssup3rh3r0s
+          minLength: 1
+      required:
+      - externalId
+    PatchIntegrationDTO:
+      title: Patch Integration
+      type: object
+      properties:
+        defaultCompletion:
+          type: boolean
+          description: True if the content is auto-completed at launch; false otherwise.
+        defaultProgress:
+          type: integer
+          description: The completion rate at launch as a percentage.
+          minimum: 0
+          maximum: 100
+        noGroupPropagation:
+          type: boolean
+          description: If true, the content is visible only within the integration group and is not propagated to subgroups. If false, the content is propagated to all subgroups.
+        externalPlatformLogoUrl:
+          type: string
+          description: The URL of the logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background.
+        externalPlatformUnicolorLogoUrl:
+          type: string
+          description: The URL of the unicolor logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background. If none is provided, the externalPlatformLogoUrl logo will be used.
+        externalPlatform:
+          type: string
+          description: The identifier of the external platform this integration is created for.
+          example: My Platform
+          minLength: 1
+        authorId:
+          type: string
+          description: The unique ID of the author of the imported content.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        groupId:
+          type: string
+          description: The unique ID of the group to which the content is imported.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+    BaseIntegrationDTO:
+      title: Base Integration
+      type: object
+      properties:
+        defaultCompletion:
+          type: boolean
+          description: True if the content is auto-completed at launch; false otherwise.
+        defaultProgress:
+          type: integer
+          description: The completion rate at launch as a percentage.
+          minimum: 0
+          maximum: 100
+        noGroupPropagation:
+          type: boolean
+          description: If true, the content is visible only within the integration group and is not propagated to subgroups. If false, the content is propagated to all subgroups.
+        externalPlatformLogoUrl:
+          type: string
+          description: The URL of the logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background.
+        externalPlatformUnicolorLogoUrl:
+          type: string
+          description: The URL of the unicolor logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background. If none is provided, the externalPlatformLogoUrl logo will be used.
+        externalPlatform:
+          type: string
+          description: The identifier of the external platform this integration is created for.
+          example: My Platform
+          minLength: 1
+        authorId:
+          type: string
+          description: The unique ID of the author of the imported content.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        groupId:
+          type: string
+          description: The unique ID of the group to which the content is imported.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - externalPlatform
+      - authorId
+      - groupId
+    IntegrationDTO:
+      title: Integration
+      type: object
+      properties:
+        defaultCompletion:
+          type: boolean
+          description: True if the content is auto-completed at launch; false otherwise.
+        defaultProgress:
+          type: integer
+          description: The completion rate at launch as a percentage.
+          minimum: 0
+          maximum: 100
+        noGroupPropagation:
+          type: boolean
+          description: If true, the content is visible only within the integration group and is not propagated to subgroups. If false, the content is propagated to all subgroups.
+        externalPlatformLogoUrl:
+          type: string
+          description: The URL of the logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background.
+        externalPlatformUnicolorLogoUrl:
+          type: string
+          description: The URL of the unicolor logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background. If none is provided, the externalPlatformLogoUrl logo will be used.
+        externalPlatform:
+          type: string
+          description: The identifier of the external platform this integration is created for.
+          example: My Platform
+          minLength: 1
+        authorId:
+          type: string
+          description: The unique ID of the author of the imported content.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        groupId:
+          type: string
+          description: The unique ID of the group to which the content is imported.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        _id:
+          type: string
+          description: The unique ID of the integration.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - externalPlatform
+      - authorId
+      - groupId
+      - _id
     ExternalCourseResponseDTO:
       title: External Course Response
       type: object
@@ -2296,135 +2425,6 @@ components:
       - authorId
       - courseId
       - translations
-    BaseIntegrationDTO:
-      title: Base Integration
-      type: object
-      properties:
-        defaultCompletion:
-          type: boolean
-          description: True if the content is auto-completed at launch; false otherwise.
-        defaultProgress:
-          type: integer
-          description: The completion rate at launch as a percentage.
-          minimum: 0
-          maximum: 100
-        noGroupPropagation:
-          type: boolean
-          description: If true, the content is visible only within the integration group and is not propagated to subgroups. If false, the content is propagated to all subgroups.
-        externalPlatformLogoUrl:
-          type: string
-          description: The URL of the logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background.
-        externalPlatformUnicolorLogoUrl:
-          type: string
-          description: The URL of the unicolor logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background. If none is provided, the externalPlatformLogoUrl logo will be used.
-        externalPlatform:
-          type: string
-          description: The identifier of the external platform this integration is created for.
-          example: My Platform
-          minLength: 1
-        authorId:
-          type: string
-          description: The unique ID of the author of the imported content.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        groupId:
-          type: string
-          description: The unique ID of the group to which the content is imported.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-      required:
-      - externalPlatform
-      - authorId
-      - groupId
-    PatchIntegrationDTO:
-      title: Patch Integration
-      type: object
-      properties:
-        defaultCompletion:
-          type: boolean
-          description: True if the content is auto-completed at launch; false otherwise.
-        defaultProgress:
-          type: integer
-          description: The completion rate at launch as a percentage.
-          minimum: 0
-          maximum: 100
-        noGroupPropagation:
-          type: boolean
-          description: If true, the content is visible only within the integration group and is not propagated to subgroups. If false, the content is propagated to all subgroups.
-        externalPlatformLogoUrl:
-          type: string
-          description: The URL of the logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background.
-        externalPlatformUnicolorLogoUrl:
-          type: string
-          description: The URL of the unicolor logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background. If none is provided, the externalPlatformLogoUrl logo will be used.
-        externalPlatform:
-          type: string
-          description: The identifier of the external platform this integration is created for.
-          example: My Platform
-          minLength: 1
-        authorId:
-          type: string
-          description: The unique ID of the author of the imported content.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        groupId:
-          type: string
-          description: The unique ID of the group to which the content is imported.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-    IntegrationDTO:
-      title: Integration
-      type: object
-      properties:
-        defaultCompletion:
-          type: boolean
-          description: True if the content is auto-completed at launch; false otherwise.
-        defaultProgress:
-          type: integer
-          description: The completion rate at launch as a percentage.
-          minimum: 0
-          maximum: 100
-        noGroupPropagation:
-          type: boolean
-          description: If true, the content is visible only within the integration group and is not propagated to subgroups. If false, the content is propagated to all subgroups.
-        externalPlatformLogoUrl:
-          type: string
-          description: The URL of the logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background.
-        externalPlatformUnicolorLogoUrl:
-          type: string
-          description: The URL of the unicolor logo of the external platform this integration is created for. The URL must be a valid HTTPS URL pointing to a logo with transparent background. If none is provided, the externalPlatformLogoUrl logo will be used.
-        externalPlatform:
-          type: string
-          description: The identifier of the external platform this integration is created for.
-          example: My Platform
-          minLength: 1
-        authorId:
-          type: string
-          description: The unique ID of the author of the imported content.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        groupId:
-          type: string
-          description: The unique ID of the group to which the content is imported.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        _id:
-          type: string
-          description: The unique ID of the integration.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-      required:
-      - externalPlatform
-      - authorId
-      - groupId
-      - _id
   securitySchemes:
     oauth2:
       type: oauth2

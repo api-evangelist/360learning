@@ -2195,6 +2195,15 @@ paths:
       - Courses
 components:
   schemas:
+    ArchiveCourseBody:
+      title: Archive Course Body
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: If true, archives the course. If false, restores the course.
+      required:
+      - archived
     CourseTranslatedFields:
       title: Course Translated Fields
       type: object
@@ -2207,17 +2216,8 @@ components:
           type: string
           description: The translation of the field `description` for this language.
           example: Ce module vous apprend à intégrer un nouveau collaborateur !
-    ArchiveCourseBody:
-      title: Archive Course Body
-      type: object
-      properties:
-        archived:
-          type: boolean
-          description: If true, archives the course. If false, restores the course.
-      required:
-      - archived
-    UpdateELearningStandardCourseBody:
-      title: Update E Learning Standard Course Body
+    CreateELearningStandardCourseBody:
+      title: Create E Learning Standard Course Body
       type: object
       properties:
         name:
@@ -2317,7 +2317,7 @@ components:
           pattern: ^[a-fA-F0-9]{24}$
         groupId:
           type: string
-          description: The unique ID of the group that will own the course.
+          description: The unique ID of the group where the course was created.
           format: ObjectId
           example: 507f1f77bcf86cd799439011
           pattern: ^[a-fA-F0-9]{24}$
@@ -2345,56 +2345,12 @@ components:
           type: string
           format: binary
           description: 'The picture file to be used as the course cover picture. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
-    UpdateCourseTagsBody:
-      title: Update Course Tags Body
-      type: object
-      properties:
-        tagIds:
-          maxItems: 100
-          description: The new tag IDs linked to the given course.
-          example:
-          - 507f1f77bcf86cd799439011
-          type: array
-          items:
-            type: string
-            format: ObjectId
-            pattern: ^[a-fA-F0-9]{24}$
       required:
-      - tagIds
-    CustomFieldValueDTO:
-      title: Custom Field Value
-      type: object
-      properties:
-        customFieldId:
-          type: string
-          description: The unique ID of the custom field.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        type:
-          type: string
-          enum:
-          - string
-          - date
-          description: The type of the custom field.
-        value:
-          oneOf:
-          - type: string
-            title: string type
-            description: The custom field string value.
-            minLength: 1
-            example: US
-          - type: string
-            title: date type
-            format: date-time
-            description: The custom field date value is in the `YYYY-MM-DD` (ISO 8601 in Coordinated Universal Time (UTC)).
-            minLength: 1
-            example: '2025-01-27'
-          description: The value assigned to the target for this custom field.
-      required:
-      - customFieldId
-      - type
-      - value
+      - name
+      - sourceLang
+      - authorId
+      - groupId
+      - estdFile
     CourseDTO:
       title: Course
       type: object
@@ -2656,30 +2612,63 @@ components:
       - status
       - translations
       - type
-    GenerateFromPromptBody:
-      title: Generate From Prompt Body
+    CustomFieldValueDTO:
+      title: Custom Field Value
       type: object
       properties:
-        prompt:
+        customFieldId:
           type: string
-          description: The prompt to use for generating the course.
-          example: Create a course on how to learn a new language effectively
-          minLength: 1
-        authorId:
-          type: string
-          description: The unique ID of the author of the course.
+          description: The unique ID of the custom field.
           format: ObjectId
           example: 507f1f77bcf86cd799439011
           pattern: ^[a-fA-F0-9]{24}$
-        groupId:
+        type:
           type: string
-          description: The unique ID of the group where the course will be created.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
+          enum:
+          - string
+          - date
+          description: The type of the custom field.
+        value:
+          oneOf:
+          - type: string
+            title: string type
+            description: The custom field string value.
+            minLength: 1
+            example: US
+          - type: string
+            title: date type
+            format: date-time
+            description: The custom field date value is in the `YYYY-MM-DD` (ISO 8601 in Coordinated Universal Time (UTC)).
+            minLength: 1
+            example: '2025-01-27'
+          description: The value assigned to the target for this custom field.
       required:
-      - prompt
-      - authorId
+      - customFieldId
+      - type
+      - value
+    TagIdWithSource:
+      title: Tag Id With Source
+      type: object
+      properties:
+        tagId:
+          type: string
+          description: The unique ID of the tag.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        source:
+          type: string
+          enum:
+          - native
+          - integration
+          description: 'The source of the tag.
+
+            - `native`: The tag has been manually added by an admin or created through the API.
+
+            - `integration`: The tag has been synced from an external source.'
+      required:
+      - tagId
+      - source
     CourseTranslationDTO:
       title: Course Translation
       type: object
@@ -2790,6 +2779,46 @@ components:
       - published
       - translatorIds
       - translatedFields
+    GenerateFromPromptBody:
+      title: Generate From Prompt Body
+      type: object
+      properties:
+        prompt:
+          type: string
+          description: The prompt to use for generating the course.
+          example: Create a course on how to learn a new language effectively
+          minLength: 1
+        authorId:
+          type: string
+          description: The unique ID of the author of the course.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        groupId:
+          type: string
+          description: The unique ID of the group where the course will be created.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - prompt
+      - authorId
+    UpdateCourseTagsBody:
+      title: Update Course Tags Body
+      type: object
+      properties:
+        tagIds:
+          maxItems: 100
+          description: The new tag IDs linked to the given course.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - tagIds
     CourseStatDTO:
       title: Course Stat
       type: object
@@ -2943,8 +2972,20 @@ components:
       - progress
       - courseId
       - userId
-    CreateELearningStandardCourseBody:
-      title: Create E Learning Standard Course Body
+    UpdateCourseCustomFieldValuesBody:
+      title: Update Course Custom Field Values Body
+      type: object
+      properties:
+        customValues:
+          maxItems: 300
+          description: The list of custom field values to replace the existing ones.
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldValueDTO'
+      required:
+      - customValues
+    UpdateELearningStandardCourseBody:
+      title: Update E Learning Standard Course Body
       type: object
       properties:
         name:
@@ -3044,7 +3085,7 @@ components:
           pattern: ^[a-fA-F0-9]{24}$
         groupId:
           type: string
-          description: The unique ID of the group where the course was created.
+          description: The unique ID of the group that will own the course.
           format: ObjectId
           example: 507f1f77bcf86cd799439011
           pattern: ^[a-fA-F0-9]{24}$
@@ -3072,47 +3113,6 @@ components:
           type: string
           format: binary
           description: 'The picture file to be used as the course cover picture. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
-      required:
-      - name
-      - sourceLang
-      - authorId
-      - groupId
-      - estdFile
-    TagIdWithSource:
-      title: Tag Id With Source
-      type: object
-      properties:
-        tagId:
-          type: string
-          description: The unique ID of the tag.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        source:
-          type: string
-          enum:
-          - native
-          - integration
-          description: 'The source of the tag.
-
-            - `native`: The tag has been manually added by an admin or created through the API.
-
-            - `integration`: The tag has been synced from an external source.'
-      required:
-      - tagId
-      - source
-    UpdateCourseCustomFieldValuesBody:
-      title: Update Course Custom Field Values Body
-      type: object
-      properties:
-        customValues:
-          maxItems: 300
-          description: The list of custom field values to replace the existing ones.
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomFieldValueDTO'
-      required:
-      - customValues
   securitySchemes:
     oauth2:
       type: oauth2

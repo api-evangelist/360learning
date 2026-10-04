@@ -800,8 +800,39 @@ components:
       - createdBy
       - pathSessionId
       - openedAt
-    PathArchivedDTO:
-      title: Path Archived
+    LearnerJoinedClassroomSlotWaitlistDTO:
+      title: Learner Joined Classroom Slot Waitlist
+      type: object
+      properties:
+        classroomSlotId:
+          type: string
+          description: The unique ID of the classroom slot.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        learnerId:
+          type: string
+          description: The unique ID of the learner.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        pathSessionId:
+          type: string
+          description: The unique ID of the path session.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        joinedAt:
+          format: date-time
+          type: string
+          description: The date and time when the learner joined, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - classroomSlotId
+      - learnerId
+      - pathSessionId
+      - joinedAt
+    PathUpdatedDTO:
+      title: Path Updated
       type: object
       properties:
         pathId:
@@ -810,18 +841,112 @@ components:
           format: ObjectId
           example: 507f1f77bcf86cd799439011
           pattern: ^[a-fA-F0-9]{24}$
-        archivedAt:
-          format: date-time
-          type: string
-          description: The date and time when the path was archived, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
         name:
           type: string
           description: The name of the path.
           example: Employee Onboarding
+          minLength: 1
+        changeType:
+          type: string
+          enum:
+          - authors
+          - certificate
+          - duration
+          - group
+          - requirements
+          - settings
+          - steps
+          description: The type of change that triggered the event. New values may be added in future releases — only match the values your integration handles.
+        updatedAt:
+          format: date-time
+          type: string
+          description: The date and time when the path was updated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
       required:
       - pathId
-      - archivedAt
       - name
+      - changeType
+      - updatedAt
+    PathCreatedDTO:
+      title: Path Created
+      type: object
+      properties:
+        pathId:
+          type: string
+          description: The unique ID of the path.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        createdAt:
+          format: date-time
+          type: string
+          description: The date and time when the path was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - pathId
+      - createdAt
+    PathSessionRemovedDTO:
+      title: Path Session Removed
+      type: object
+      properties:
+        pathId:
+          type: string
+          description: The unique ID of the path.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        sessionId:
+          type: string
+          description: The unique ID of the deleted session.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The name of the session.
+          example: January 2026
+          minLength: 1
+        deletedAt:
+          format: date-time
+          type: string
+          description: The date and time when the session was deleted, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - pathId
+      - sessionId
+      - name
+      - deletedAt
+    LearnersUnregisteredFullClassroomSlotDTO:
+      title: Learners Unregistered Full Classroom Slot
+      type: object
+      properties:
+        classroomSlotId:
+          type: string
+          description: The unique ID of the classroom slot.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        learnerIds:
+          description: The unique IDs of the learners.
+          example:
+          - 507f1f77bcf86cd799439011
+          type: array
+          items:
+            type: string
+            format: ObjectId
+            pattern: ^[a-fA-F0-9]{24}$
+        pathSessionId:
+          type: string
+          description: The unique ID of the path session.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        leftAt:
+          format: date-time
+          type: string
+          description: The date and time when learners unregistered, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - classroomSlotId
+      - learnerIds
+      - pathSessionId
+      - leftAt
     UserPathSessionStatusUpdatedDTO:
       title: User Path Session Status Updated
       type: object
@@ -874,164 +999,6 @@ components:
       - enrollmentId
       - status
       - updatedAt
-    PathDeletedDTO:
-      title: Path Deleted
-      type: object
-      properties:
-        pathId:
-          type: string
-          description: The unique ID of the path.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        deletedAt:
-          format: date-time
-          type: string
-          description: The date and time when the path was deleted, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-        name:
-          type: string
-          description: The name of the path.
-          example: Employee Onboarding
-      required:
-      - pathId
-      - deletedAt
-      - name
-    PathCreatedDTO:
-      title: Path Created
-      type: object
-      properties:
-        pathId:
-          type: string
-          description: The unique ID of the path.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        createdAt:
-          format: date-time
-          type: string
-          description: The date and time when the path was created, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - pathId
-      - createdAt
-    PathSessionRemovedDTO:
-      title: Path Session Removed
-      type: object
-      properties:
-        pathId:
-          type: string
-          description: The unique ID of the path.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        sessionId:
-          type: string
-          description: The unique ID of the deleted session.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        name:
-          type: string
-          description: The name of the session.
-          example: January 2026
-          minLength: 1
-        deletedAt:
-          format: date-time
-          type: string
-          description: The date and time when the session was deleted, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - pathId
-      - sessionId
-      - name
-      - deletedAt
-    LearnerJoinedClassroomSlotWaitlistDTO:
-      title: Learner Joined Classroom Slot Waitlist
-      type: object
-      properties:
-        classroomSlotId:
-          type: string
-          description: The unique ID of the classroom slot.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        learnerId:
-          type: string
-          description: The unique ID of the learner.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        pathSessionId:
-          type: string
-          description: The unique ID of the path session.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        joinedAt:
-          format: date-time
-          type: string
-          description: The date and time when the learner joined, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - classroomSlotId
-      - learnerId
-      - pathSessionId
-      - joinedAt
-    PathSessionUsersEnrolledDTO:
-      title: Path Session Users Enrolled
-      type: object
-      properties:
-        pathId:
-          type: string
-          description: The unique ID of the path.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        sessionId:
-          type: string
-          description: The unique ID of the path session.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        enrolledAt:
-          format: date-time
-          type: string
-          description: The date and time when the enrollment change occurred, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - pathId
-      - sessionId
-      - enrolledAt
-    LearnersUnregisteredFullClassroomSlotDTO:
-      title: Learners Unregistered Full Classroom Slot
-      type: object
-      properties:
-        classroomSlotId:
-          type: string
-          description: The unique ID of the classroom slot.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        learnerIds:
-          description: The unique IDs of the learners.
-          example:
-          - 507f1f77bcf86cd799439011
-          type: array
-          items:
-            type: string
-            format: ObjectId
-            pattern: ^[a-fA-F0-9]{24}$
-        pathSessionId:
-          type: string
-          description: The unique ID of the path session.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        leftAt:
-          format: date-time
-          type: string
-          description: The date and time when learners unregistered, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - classroomSlotId
-      - learnerIds
-      - pathSessionId
-      - leftAt
     PathSessionUsersUnenrolledDTO:
       title: Path Session Users Unenrolled
       type: object
@@ -1056,30 +1023,6 @@ components:
       - pathId
       - sessionId
       - unenrolledAt
-    ClassroomSlotWaitlistClosedDTO:
-      title: Classroom Slot Waitlist Closed
-      type: object
-      properties:
-        classroomSlotId:
-          type: string
-          description: The unique ID of the classroom slot.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        pathSessionId:
-          type: string
-          description: The unique ID of the path session.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        closedAt:
-          format: date-time
-          type: string
-          description: The date and time when the waitlist closed, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
-      required:
-      - classroomSlotId
-      - pathSessionId
-      - closedAt
     PathSessionAddedDTO:
       title: Path Session Added
       type: object
@@ -1110,8 +1053,8 @@ components:
       - sessionId
       - name
       - createdAt
-    PathUpdatedDTO:
-      title: Path Updated
+    PathArchivedDTO:
+      title: Path Archived
       type: object
       properties:
         pathId:
@@ -1120,31 +1063,88 @@ components:
           format: ObjectId
           example: 507f1f77bcf86cd799439011
           pattern: ^[a-fA-F0-9]{24}$
+        archivedAt:
+          format: date-time
+          type: string
+          description: The date and time when the path was archived, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
         name:
           type: string
           description: The name of the path.
           example: Employee Onboarding
-          minLength: 1
-        changeType:
-          type: string
-          enum:
-          - authors
-          - certificate
-          - duration
-          - group
-          - requirements
-          - settings
-          - steps
-          description: The type of change that triggered the event. New values may be added in future releases — only match the values your integration handles.
-        updatedAt:
-          format: date-time
-          type: string
-          description: The date and time when the path was updated, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
       required:
       - pathId
+      - archivedAt
       - name
-      - changeType
-      - updatedAt
+    ClassroomSlotWaitlistClosedDTO:
+      title: Classroom Slot Waitlist Closed
+      type: object
+      properties:
+        classroomSlotId:
+          type: string
+          description: The unique ID of the classroom slot.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        pathSessionId:
+          type: string
+          description: The unique ID of the path session.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        closedAt:
+          format: date-time
+          type: string
+          description: The date and time when the waitlist closed, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - classroomSlotId
+      - pathSessionId
+      - closedAt
+    PathDeletedDTO:
+      title: Path Deleted
+      type: object
+      properties:
+        pathId:
+          type: string
+          description: The unique ID of the path.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        deletedAt:
+          format: date-time
+          type: string
+          description: The date and time when the path was deleted, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+        name:
+          type: string
+          description: The name of the path.
+          example: Employee Onboarding
+      required:
+      - pathId
+      - deletedAt
+      - name
+    PathSessionUsersEnrolledDTO:
+      title: Path Session Users Enrolled
+      type: object
+      properties:
+        pathId:
+          type: string
+          description: The unique ID of the path.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        sessionId:
+          type: string
+          description: The unique ID of the path session.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        enrolledAt:
+          format: date-time
+          type: string
+          description: The date and time when the enrollment change occurred, in the `YYYY-MM-DDThh:mm:ss.sssZ` format (ISO 8601 in Coordinated Universal Time (UTC)).
+      required:
+      - pathId
+      - sessionId
+      - enrolledAt
   securitySchemes:
     oauth2:
       type: oauth2

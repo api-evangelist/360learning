@@ -3380,18 +3380,78 @@ paths:
       description: Production US
 components:
   schemas:
-    RemoveUsersFromGroupsBody:
-      title: Remove Users From Groups Body
+    RemoveContentsFromGroupsLibraryBody:
+      title: Remove Contents From Groups Library Body
       type: object
       properties:
         input:
-          description: An array of objects, each specifying details for removing a user from a group.
+          description: An array of objects, each specifying details for removing content from a group library.
           maxItems: 20000
           type: array
           items:
-            $ref: '#/components/schemas/MembershipDeletionDTO'
+            $ref: '#/components/schemas/LibraryDTO'
       required:
       - input
+    RemoveContentsFromGroupsCatalogBody:
+      title: Remove Contents From Groups Catalog Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for removing content from a group catalog.
+          maxItems: 20000
+          type: array
+          items:
+            $ref: '#/components/schemas/CatalogDTO'
+      required:
+      - input
+    DeleteGroupsBody:
+      title: Delete Groups Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for the group to be deleted.
+          maxItems: 2000
+          type: array
+          items:
+            $ref: '#/components/schemas/DeleteGroupDTO'
+      required:
+      - input
+    AddUsersToGroupsBody:
+      title: Add Users To Groups Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for adding a user to a group.
+          maxItems: 20000
+          type: array
+          items:
+            $ref: '#/components/schemas/MembershipAdditionDTO'
+      required:
+      - input
+    AddContentsToGroupsLibraryBody:
+      title: Add Contents To Groups Library Body
+      type: object
+      properties:
+        input:
+          description: An array of objects, each specifying details for adding content to a group library.
+          maxItems: 20000
+          type: array
+          items:
+            $ref: '#/components/schemas/LibraryDTO'
+      required:
+      - input
+    DeleteGroupDTO:
+      title: Delete Group
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The unique ID of the group to delete.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - groupId
     CatalogDTO:
       title: Catalog
       type: object
@@ -3418,30 +3478,6 @@ components:
       - groupId
       - contentType
       - contentId
-    RemoveContentsFromGroupsLibraryBody:
-      title: Remove Contents From Groups Library Body
-      type: object
-      properties:
-        input:
-          description: An array of objects, each specifying details for removing content from a group library.
-          maxItems: 20000
-          type: array
-          items:
-            $ref: '#/components/schemas/LibraryDTO'
-      required:
-      - input
-    DeleteGroupsBody:
-      title: Delete Groups Body
-      type: object
-      properties:
-        input:
-          description: An array of objects, each specifying details for the group to be deleted.
-          maxItems: 2000
-          type: array
-          items:
-            $ref: '#/components/schemas/DeleteGroupDTO'
-      required:
-      - input
     MembershipDeletionDTO:
       title: Membership Deletion
       type: object
@@ -3473,16 +3509,16 @@ components:
       - userId
       - groupId
       - role
-    AddContentsToGroupsLibraryBody:
-      title: Add Contents To Groups Library Body
+    AddContentsToGroupsCatalogBody:
+      title: Add Contents To Groups Catalog Body
       type: object
       properties:
         input:
-          description: An array of objects, each specifying details for adding content to a group library.
+          description: An array of objects, each specifying details for adding content to a group catalog.
           maxItems: 20000
           type: array
           items:
-            $ref: '#/components/schemas/LibraryDTO'
+            $ref: '#/components/schemas/CatalogDTO'
       required:
       - input
     LibraryDTO:
@@ -3542,78 +3578,80 @@ components:
       - userId
       - groupId
       - role
-    AddUsersToGroupsBody:
-      title: Add Users To Groups Body
+    RemoveUsersFromGroupsBody:
+      title: Remove Users From Groups Body
       type: object
       properties:
         input:
-          description: An array of objects, each specifying details for adding a user to a group.
+          description: An array of objects, each specifying details for removing a user from a group.
           maxItems: 20000
           type: array
           items:
-            $ref: '#/components/schemas/MembershipAdditionDTO'
+            $ref: '#/components/schemas/MembershipDeletionDTO'
       required:
       - input
-    DeleteGroupDTO:
-      title: Delete Group
+    UploadGroupMediaBodyDTO:
+      title: Upload Group Media Body
       type: object
       properties:
-        groupId:
+        authorId:
           type: string
-          description: The unique ID of the group to delete.
+          description: The unique ID of the user performing the upload. Must be a non-deleted user in the company.
           format: ObjectId
           example: 507f1f77bcf86cd799439011
           pattern: ^[a-fA-F0-9]{24}$
+        banner:
+          type: string
+          format: binary
+          description: 'The banner image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
+        background:
+          type: string
+          format: binary
+          description: 'The background image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
+        favicon:
+          type: string
+          format: binary
+          description: 'The favicon image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp, image/x-icon, image/vnd.microsoft.icon.'
+        logo:
+          type: string
+          format: binary
+          description: 'The logo image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
       required:
-      - groupId
-    AddContentsToGroupsCatalogBody:
-      title: Add Contents To Groups Catalog Body
+      - authorId
+    UserRole:
+      title: User Role
       type: object
       properties:
-        input:
-          description: An array of objects, each specifying details for adding content to a group catalog.
-          maxItems: 20000
-          type: array
-          items:
-            $ref: '#/components/schemas/CatalogDTO'
+        userId:
+          type: string
+          description: The unique ID of the user.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        role:
+          type: string
+          enum:
+          - admin
+          - analyst
+          - editor
+          - coach
+          - contributor
+          - learner
+          - owner
+          - userAdmin
+          description: The role of the group member.
       required:
-      - input
-    RemoveContentsFromGroupsCatalogBody:
-      title: Remove Contents From Groups Catalog Body
+      - userId
+      - role
+    PatchBrandCustomizationDTO:
+      title: Patch Brand Customization
       type: object
       properties:
-        input:
-          description: An array of objects, each specifying details for removing content from a group catalog.
-          maxItems: 20000
-          type: array
-          items:
-            $ref: '#/components/schemas/CatalogDTO'
-      required:
-      - input
-    PatchBrandCustomizationColorsDTO:
-      title: Patch Brand Customization Colors
-      type: object
-      properties:
-        primary:
-          type: string
+        colors:
           nullable: true
-          description: 'The Main color used for buttons, links, navigation highlights, etc. (on the platform and emails), in hexadecimal format. Default: #0a47c2.'
-          example: '#0a1b2c'
-        menuBackground:
-          type: string
-          nullable: true
-          description: 'The color used for the platform background, in hexadecimal format. Default: #ffffff.'
-          example: '#0a1b2c'
-        myWorkBackground:
-          type: string
-          nullable: true
-          description: 'The color used for my work background, in hexadecimal format. Default: #f7f4ee.'
-          example: '#0a1b2c'
-        platformBackground:
-          type: string
-          nullable: true
-          description: 'The color used for the left bar background, in hexadecimal format. Default: #ffffff.'
-          example: '#0a1b2c'
+          description: The branding colors of the group.
+          allOf:
+          - $ref: '#/components/schemas/PatchBrandCustomizationColorsDTO'
     InputGroupDTO:
       title: Input Group
       type: object
@@ -3692,172 +3730,30 @@ components:
       - name
       - public
       - parentId
-    UserRole:
-      title: User Role
+    PatchBrandCustomizationColorsDTO:
+      title: Patch Brand Customization Colors
       type: object
       properties:
-        userId:
+        primary:
           type: string
-          description: The unique ID of the user.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        role:
-          type: string
-          enum:
-          - admin
-          - analyst
-          - editor
-          - coach
-          - contributor
-          - learner
-          - owner
-          - userAdmin
-          description: The role of the group member.
-      required:
-      - userId
-      - role
-    PatchBrandCustomizationDTO:
-      title: Patch Brand Customization
-      type: object
-      properties:
-        colors:
           nullable: true
-          description: The branding colors of the group.
-          allOf:
-          - $ref: '#/components/schemas/PatchBrandCustomizationColorsDTO'
-    BrandCustomizationDTO:
-      title: Brand Customization
-      type: object
-      properties:
-        colors:
-          description: The updated colors of the group.
-          allOf:
-          - $ref: '#/components/schemas/BrandCustomizationColorsDTO'
-    UploadGroupMediaBodyDTO:
-      title: Upload Group Media Body
-      type: object
-      properties:
-        authorId:
+          description: 'The Main color used for buttons, links, navigation highlights, etc. (on the platform and emails), in hexadecimal format. Default: #0a47c2.'
+          example: '#0a1b2c'
+        menuBackground:
           type: string
-          description: The unique ID of the user performing the upload. Must be a non-deleted user in the company.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        banner:
+          nullable: true
+          description: 'The color used for the platform background, in hexadecimal format. Default: #ffffff.'
+          example: '#0a1b2c'
+        myWorkBackground:
           type: string
-          format: binary
-          description: 'The banner image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
-        background:
+          nullable: true
+          description: 'The color used for my work background, in hexadecimal format. Default: #f7f4ee.'
+          example: '#0a1b2c'
+        platformBackground:
           type: string
-          format: binary
-          description: 'The background image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
-        favicon:
-          type: string
-          format: binary
-          description: 'The favicon image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp, image/x-icon, image/vnd.microsoft.icon.'
-        logo:
-          type: string
-          format: binary
-          description: 'The logo image file. Supported media types: image/bmp, image/gif, image/heic, image/jpeg, image/png, image/svg+xml, image/webp.'
-      required:
-      - authorId
-    GroupDTO:
-      title: Group
-      type: object
-      properties:
-        privacyPolicy:
-          description: The privacy policy of the group.
-          allOf:
-          - $ref: '#/components/schemas/PolicyDTO'
-        moderationCharter:
-          description: The moderation charter of the group.
-          allOf:
-          - $ref: '#/components/schemas/PolicyDTO'
-        termsOfUse:
-          description: The terms of use of the group.
-          allOf:
-          - $ref: '#/components/schemas/PolicyDTO'
-        imprint:
-          description: The imprint of the group.
-          allOf:
-          - $ref: '#/components/schemas/PolicyDTO'
-        bannerImageId:
-          type: string
-          description: The banner image of the group. Ensure that given media is an image with the proper size (at least 980px wide and 370px high).
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        backgroundImageId:
-          type: string
-          description: The background image of the group. Ensure that given media is an image with the proper size (at least 760px wide and 880px high).
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        faviconImageId:
-          type: string
-          description: The favicon image of the group. Ensure that given media is an image with the proper size (less than 500px wide and 500px high and more than 16px wide and 16px high).
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        logoImageId:
-          type: string
-          description: The logo image of the group.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        subdomain:
-          type: string
-          minLength: 3
-          maxLength: 255
-          pattern: ^[a-z0-9][a-z0-9-]*$
-          description: The subdomain of the group.
-          example: company-subdomain
-        url:
-          type: string
-          description: The custom url of the group. The given URL must resolve on the same address as 360learning.com.
-          example: company-domain.com
-        _id:
-          type: string
-          description: The unique ID of the group.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-        name:
-          type: string
-          description: The name of the group.
-          example: Engineering Team
-        custom:
-          type: string
-          description: A custom field to store information available only in the **General settings** of the group, the CSV exports, and the API. This information is not displayed to learners on the platform.
-          example: Unit 101
-        public:
-          type: boolean
-          description: True if the group is public; false if the group is private.
-        parentId:
-          type: string
-          description: The unique ID of the parent group. Not defined for the root group.
-          format: ObjectId
-          example: 507f1f77bcf86cd799439011
-          pattern: ^[a-fA-F0-9]{24}$
-      required:
-      - _id
-      - name
-      - public
-    PolicyDTO:
-      title: Policy
-      type: object
-      properties:
-        url:
-          type: string
-          description: The URL of the policy document.
-          example: https://example.com/policy
-          minLength: 1
-        explicitConsent:
-          type: boolean
-          description: When true, user must provide explicit consent at first login. Ignored for imprint. Default is false.
-      required:
-      - url
+          nullable: true
+          description: 'The color used for the left bar background, in hexadecimal format. Default: #ffffff.'
+          example: '#0a1b2c'
     PatchGroupDTO:
       title: Patch Group
       type: object
@@ -3941,6 +3837,96 @@ components:
           description: The imprint of the group.
           allOf:
           - $ref: '#/components/schemas/PolicyDTO'
+    BrandCustomizationDTO:
+      title: Brand Customization
+      type: object
+      properties:
+        colors:
+          description: The updated colors of the group.
+          allOf:
+          - $ref: '#/components/schemas/BrandCustomizationColorsDTO'
+    GroupDTO:
+      title: Group
+      type: object
+      properties:
+        privacyPolicy:
+          description: The privacy policy of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        moderationCharter:
+          description: The moderation charter of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        termsOfUse:
+          description: The terms of use of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        imprint:
+          description: The imprint of the group.
+          allOf:
+          - $ref: '#/components/schemas/PolicyDTO'
+        bannerImageId:
+          type: string
+          description: The banner image of the group. Ensure that given media is an image with the proper size (at least 980px wide and 370px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        backgroundImageId:
+          type: string
+          description: The background image of the group. Ensure that given media is an image with the proper size (at least 760px wide and 880px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        faviconImageId:
+          type: string
+          description: The favicon image of the group. Ensure that given media is an image with the proper size (less than 500px wide and 500px high and more than 16px wide and 16px high).
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        logoImageId:
+          type: string
+          description: The logo image of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        subdomain:
+          type: string
+          minLength: 3
+          maxLength: 255
+          pattern: ^[a-z0-9][a-z0-9-]*$
+          description: The subdomain of the group.
+          example: company-subdomain
+        url:
+          type: string
+          description: The custom url of the group. The given URL must resolve on the same address as 360learning.com.
+          example: company-domain.com
+        _id:
+          type: string
+          description: The unique ID of the group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+        name:
+          type: string
+          description: The name of the group.
+          example: Engineering Team
+        custom:
+          type: string
+          description: A custom field to store information available only in the **General settings** of the group, the CSV exports, and the API. This information is not displayed to learners on the platform.
+          example: Unit 101
+        public:
+          type: boolean
+          description: True if the group is public; false if the group is private.
+        parentId:
+          type: string
+          description: The unique ID of the parent group. Not defined for the root group.
+          format: ObjectId
+          example: 507f1f77bcf86cd799439011
+          pattern: ^[a-fA-F0-9]{24}$
+      required:
+      - _id
+      - name
+      - public
     BrandCustomizationColorsDTO:
       title: Brand Customization Colors
       type: object
@@ -3961,6 +3947,20 @@ components:
           type: string
           description: 'The color used for the left bar background, in hexadecimal format. Default: #ffffff.'
           example: '#0a1b2c'
+    PolicyDTO:
+      title: Policy
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL of the policy document.
+          example: https://example.com/policy
+          minLength: 1
+        explicitConsent:
+          type: boolean
+          description: When true, user must provide explicit consent at first login. Ignored for imprint. Default is false.
+      required:
+      - url
   securitySchemes:
     oauth2:
       type: oauth2
