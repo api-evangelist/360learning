@@ -52,7 +52,7 @@
     - connectors/applications/360learning
     vendor_link: https://360learning.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: 360learning-microsoft-teams-own
   label: Microsoft Teams (own)
