@@ -1,1851 +1,1825 @@
 {
+  "info": {
+    "_postman_id": "5aa62373-f70b-4e00-99d6-613f7012b699",
+    "name": "Core Tags API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:01:34.000Z",
+    "updatedAt": "2026-10-21T21:01:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5aa62373-f70b-4e00-99d6-613f7012b699"
+  },
   "item": [
     {
-      "id": "cfb488db-bad5-4576-aa77-bb0478005096",
-      "name": "Tags",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "c98de4c9-d8b4-483a-8692-6022ddfe1ebb",
-          "name": "Create a tag",
-          "request": {
-            "name": "Create a tag",
-            "description": {
-              "content": "> 🔑\n>\n> Required OAuth scope: `tags:write`.\n\nCreates a tag with the given properties.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "v2",
-                "tags"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) The version of the API.",
-                "key": "360-api-version",
-                "value": "<string>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": []
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "v2",
+          "item": [
             {
-              "id": "0bde4bae-b46b-4b3d-ba6c-8b4f86bf589d",
-              "name": "Returns the created tag.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"Onboarding\",\n  \"externalId\": \"1743_ab\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
+              "name": "tags",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"isMain\": true,\n  \"_id\": \"507f1f77bcf86cd799439011\",\n  \"name\": \"Onboarding\",\n  \"externalId\": \"1743_ab\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "fb5d3245-e619-4d7b-bdf2-b66120621c54",
-              "name": "The given tag name belongs to another tag.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"Onboarding\",\n  \"externalId\": \"1743_ab\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"code\": \"tagNameNotAvailable\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0817985f-0b10-4a17-99ea-cd87804bec4c",
-              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"Onboarding\",\n  \"externalId\": \"1743_ab\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"invalid_token\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7e632598-5b43-48e6-bca8-98e3c78a9a4d",
-              "name": "The given access token does not have the required OAuth scope to execute the request.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"Onboarding\",\n  \"externalId\": \"1743_ab\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "cf66a96d-ee86-44f0-80d2-094190fa3040",
-              "name": "The client has sent too many requests in a short amount of time. ",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"Onboarding\",\n  \"externalId\": \"1743_ab\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c0883e96-bbdd-469b-b550-0646245136bb",
-          "name": "List all tags",
-          "request": {
-            "name": "List all tags",
-            "description": {
-              "content": "> 🔑\n>\n> Required OAuth scope: `tags:read`.\n\n> 📖\n>\n> This endpoint is paginated with a page size of 5,000 tags. For more information, see the [Pagination guide](doc:pagination).\n\nLists all tags in your platform.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "v2",
-                "tags"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "isMain[eq]",
-                  "value": "<boolean>",
-                  "description": "Filter on **isMain** property with LHS bracket notation.\n\nExpected value format is a boolean (`true` or `false`)."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) The version of the API.",
-                "key": "360-api-version",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": []
-            }
-          },
-          "response": [
-            {
-              "id": "2c81adc5-6ae2-41a0-ab09-02919dca2598",
-              "name": "Returns one page of 5000 tags.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "name": "{tagId}",
+                  "item": [
                     {
-                      "key": "isMain[eq]",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                      "name": "Delete a tag",
+                      "id": "1ba7eff6-9285-4fb4-9f43-c080bf1b73c4",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2"
+                        },
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "(Required) The version of the API.",
+                            "key": "360-api-version",
+                            "value": "v2.0"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "tags",
+                            ":tagId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "f0ca62b4-ecec-468c-be54-e079bdf0979f",
+                              "key": "tagId",
+                              "value": "dDB5fB5AAd2cd37f3aACaAC2",
+                              "description": "(Required) The unique ID of the tag."
+                            }
+                          ]
+                        },
+                        "description": "> \ud83d\udd11\n>\n> Required OAuth scope: `tags:write`.\n\nDeletes a specific tag given its unique ID."
+                      },
+                      "response": [
+                        {
+                          "id": "a0ae3313-5e15-4942-bb8c-61f92ebeb89a",
+                          "name": "Deletes a specific tag.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "(Required) The version of the API.",
+                                "key": "360-api-version",
+                                "value": "v2.0"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "tags",
+                                ":tagId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tagId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T21:01:34.000Z",
+                          "updatedAt": "2026-10-21T21:01:34.000Z",
+                          "uid": "35240-a0ae3313-5e15-4942-bb8c-61f92ebeb89a"
+                        },
+                        {
+                          "id": "040d1b7d-c0c6-4c11-850d-64caf73513c1",
+                          "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "(Required) The version of the API.",
+                                "key": "360-api-version",
+                                "value": "v2.0"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "tags",
+                                ":tagId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tagId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"invalid_token\"\n}",
+                          "createdAt": "2026-10-21T21:01:34.000Z",
+                          "updatedAt": "2026-10-21T21:01:34.000Z",
+                          "uid": "35240-040d1b7d-c0c6-4c11-850d-64caf73513c1"
+                        },
+                        {
+                          "id": "db115d36-af07-46d7-940f-2b0786349ace",
+                          "name": "The given access token does not have the required OAuth scope to execute the request.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "(Required) The version of the API.",
+                                "key": "360-api-version",
+                                "value": "v2.0"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "tags",
+                                ":tagId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tagId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-21T21:01:34.000Z",
+                          "updatedAt": "2026-10-21T21:01:34.000Z",
+                          "uid": "35240-db115d36-af07-46d7-940f-2b0786349ace"
+                        },
+                        {
+                          "id": "daa09b9c-464f-45b8-89b0-c3acdab0e406",
+                          "name": "The given `tagId` does not correspond to any existing tag.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "(Required) The version of the API.",
+                                "key": "360-api-version",
+                                "value": "v2.0"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "tags",
+                                ":tagId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tagId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"tagNotFound\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-21T21:01:34.000Z",
+                          "updatedAt": "2026-10-21T21:01:34.000Z",
+                          "uid": "35240-daa09b9c-464f-45b8-89b0-c3acdab0e406"
+                        },
+                        {
+                          "id": "e1fcbba3-5a2c-4e91-8070-3010ad4de4b8",
+                          "name": "The client has sent too many requests in a short amount of time. ",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "(Required) The version of the API.",
+                                "key": "360-api-version",
+                                "value": "v2.0"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "tags",
+                                ":tagId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tagId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+                          "createdAt": "2026-10-21T21:01:34.000Z",
+                          "updatedAt": "2026-10-21T21:01:34.000Z",
+                          "uid": "35240-e1fcbba3-5a2c-4e91-8070-3010ad4de4b8"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T21:01:34.000Z",
+                      "updatedAt": "2026-10-21T21:01:34.000Z",
+                      "uid": "35240-1ba7eff6-9285-4fb4-9f43-c080bf1b73c4"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "disabled": false,
-                  "description": "URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).\n\n⚠️ Only included if there is another page of results.",
-                  "key": "Link",
-                  "value": "<my/resource/url>; rel=\"next\""
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"isMain\": true,\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"name\": \"Onboarding\",\n    \"source\": \"integration\",\n    \"externalId\": \"1743_ab\"\n  },\n  {\n    \"isMain\": false,\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"name\": \"Onboarding\",\n    \"source\": \"native\",\n    \"externalId\": \"1743_ab\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "318459a7-3fd4-4024-8627-acf9c6303b9e",
-              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
                     {
-                      "key": "isMain[eq]",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                      "name": "Retrieve a tag",
+                      "id": "18d0a04f-63f5-45b1-ae66-40752933cb5a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2"
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) The version of the API.",
+                            "key": "360-api-version",
+                            "value": "v2.0"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "tags",
+                            ":tagId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "5a6c1099-5c5f-4186-8558-0b4db1854b36",
+                              "key": "tagId",
+                              "value": "dDB5fB5AAd2cd37f3aACaAC2",
+                              "description": "(Required) The unique ID of the tag."
+                            }
+                          ]
+                        },
+                        "description": "> \ud83d\udd11\n>\n> Required OAuth scope: `tags:read`.\n\nRetrieves a tag given its ID."
+                      },
+                      "response": [
+                        {
+                          "id": "1925da35-e7e5-4d03-99a8-e298163aaf93",
+                          "name": "Returns the details of the given tag.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) The version of the API.",
+                                "key": "360-api-version",
+                                "value": "v2.0"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "tags",
+                                ":tagId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tagId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"isMain\": \"<boolean>\",\n  \"_id\": \"A3bFBf9A202bba3A68Bf5E2E\",\n  \"name\": \"<string>\",\n  \"source\": \"integration\",\n  \"externalId\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:01:34.000Z",
+                          "updatedAt": "2026-10-21T21:01:34.000Z",
+                          "uid": "35240-1925da35-e7e5-4d03-99a8-e298163aaf93"
+                        },
+                        {
+                          "id": "79a85815-3314-4e8a-8a30-0de63a529800",
+                          "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) The version of the API.",
+                                "key": "360-api-version",
+                                "value": "v2.0"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "tags",
+                                ":tagId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tagId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"invalid_token\"\n}",
+                          "createdAt": "2026-10-21T21:01:34.000Z",
+                          "updatedAt": "2026-10-21T21:01:34.000Z",
+                          "uid": "35240-79a85815-3314-4e8a-8a30-0de63a529800"
+                        },
+                        {
+                          "id": "c5460182-4cf2-4dd0-81f3-b1058be4f25c",
+                          "name": "The given access token does not have the required OAuth scope to execute the request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) The version of the API.",
+                                "key": "360-api-version",
+                                "value": "v2.0"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "tags",
+                                ":tagId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tagId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-21T21:01:34.000Z",
+                          "updatedAt": "2026-10-21T21:01:34.000Z",
+                          "uid": "35240-c5460182-4cf2-4dd0-81f3-b1058be4f25c"
+                        },
+                        {
+                          "id": "57fc2800-5ceb-46f4-9c2c-73f0633f284b",
+                          "name": "The given `tagId` does not correspond to any existing tag.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) The version of the API.",
+                                "key": "360-api-version",
+                                "value": "v2.0"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "tags",
+                                ":tagId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tagId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"tagNotFound\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-21T21:01:34.000Z",
+                          "updatedAt": "2026-10-21T21:01:34.000Z",
+                          "uid": "35240-57fc2800-5ceb-46f4-9c2c-73f0633f284b"
+                        },
+                        {
+                          "id": "c2f12ea2-01ca-4de9-8097-a19c186228aa",
+                          "name": "The client has sent too many requests in a short amount of time. ",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) The version of the API.",
+                                "key": "360-api-version",
+                                "value": "v2.0"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "tags",
+                                ":tagId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tagId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+                          "createdAt": "2026-10-21T21:01:34.000Z",
+                          "updatedAt": "2026-10-21T21:01:34.000Z",
+                          "uid": "35240-c2f12ea2-01ca-4de9-8097-a19c186228aa"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T21:01:34.000Z",
+                      "updatedAt": "2026-10-21T21:01:34.000Z",
+                      "uid": "35240-18d0a04f-63f5-45b1-ae66-40752933cb5a"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"invalid_token\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "17a1fc48-c273-441d-a57f-7f1b8d80deca",
-              "name": "The given access token does not have the required OAuth scope to execute the request.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
                     {
-                      "key": "isMain[eq]",
-                      "value": "<boolean>"
+                      "name": "Replace a tag",
+                      "id": "6db3c5c7-0197-46b9-9306-e53a51f252ca",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2"
+                        },
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "(Required) The version of the API.",
+                            "key": "360-api-version",
+                            "value": "v2.0"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "tags",
+                            ":tagId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "eb3351c8-6f35-4332-a445-e780726942c5",
+                              "key": "tagId",
+                              "value": "dDB5fB5AAd2cd37f3aACaAC2",
+                              "description": "(Required) The unique ID of the tag."
+                            }
+                          ]
+                        },
+                        "description": "> \ud83d\udd11\n>\n> Required OAuth scope: `tags:write`.\n\nReplaces an existing tag with the provided data. Fields not included in the payload remain unchanged."
+                      },
+                      "response": [
+                        {
+                          "id": "935756f8-78bd-4a30-bc30-19ff30762a4c",
+                          "name": "Update the tag.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) The version of the API.",
+                                "key": "360-api-version",
+                                "value": "v2.0"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "tags",
+                                ":tagId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tagId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"isMain\": \"<boolean>\",\n  \"_id\": \"8F8CCeBe0A668501e775A227\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:01:34.000Z",
+                          "updatedAt": "2026-10-21T21:01:34.000Z",
+                          "uid": "35240-935756f8-78bd-4a30-bc30-19ff30762a4c"
+                        },
+                        {
+                          "id": "879d74a1-708a-4196-bec8-3264519a4675",
+                          "name": "The given tag name belongs to another tag.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) The version of the API.",
+                                "key": "360-api-version",
+                                "value": "v2.0"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "tags",
+                                ":tagId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tagId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"tagNameNotAvailable\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-21T21:01:34.000Z",
+                          "updatedAt": "2026-10-21T21:01:34.000Z",
+                          "uid": "35240-879d74a1-708a-4196-bec8-3264519a4675"
+                        },
+                        {
+                          "id": "2417f65c-24c6-4674-ba42-ac0fda7baaeb",
+                          "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) The version of the API.",
+                                "key": "360-api-version",
+                                "value": "v2.0"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "tags",
+                                ":tagId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tagId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"invalid_token\"\n}",
+                          "createdAt": "2026-10-21T21:01:34.000Z",
+                          "updatedAt": "2026-10-21T21:01:34.000Z",
+                          "uid": "35240-2417f65c-24c6-4674-ba42-ac0fda7baaeb"
+                        },
+                        {
+                          "id": "c3a67339-335f-4a76-8130-875b64e49d8d",
+                          "name": "The given access token does not have the required OAuth scope to execute the request.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) The version of the API.",
+                                "key": "360-api-version",
+                                "value": "v2.0"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "tags",
+                                ":tagId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tagId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-21T21:01:34.000Z",
+                          "updatedAt": "2026-10-21T21:01:34.000Z",
+                          "uid": "35240-c3a67339-335f-4a76-8130-875b64e49d8d"
+                        },
+                        {
+                          "id": "10a4f8fd-f82e-41b9-9bfc-57b9ebfeb812",
+                          "name": "The given `tagId` does not correspond to any existing tag.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) The version of the API.",
+                                "key": "360-api-version",
+                                "value": "v2.0"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "tags",
+                                ":tagId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tagId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"tagNotFound\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-21T21:01:34.000Z",
+                          "updatedAt": "2026-10-21T21:01:34.000Z",
+                          "uid": "35240-10a4f8fd-f82e-41b9-9bfc-57b9ebfeb812"
+                        },
+                        {
+                          "id": "c4f60ac5-fe45-45b2-9d46-53df724c979d",
+                          "name": "The client has sent too many requests in a short amount of time. ",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) The version of the API.",
+                                "key": "360-api-version",
+                                "value": "v2.0"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/tags/:tagId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "tags",
+                                ":tagId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tagId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+                          "createdAt": "2026-10-21T21:01:34.000Z",
+                          "updatedAt": "2026-10-21T21:01:34.000Z",
+                          "uid": "35240-c4f60ac5-fe45-45b2-9d46-53df724c979d"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T21:01:34.000Z",
+                      "updatedAt": "2026-10-21T21:01:34.000Z",
+                      "uid": "35240-6db3c5c7-0197-46b9-9306-e53a51f252ca"
                     }
                   ],
-                  "variable": []
+                  "id": "3255d333-5f3b-446a-ba2a-ff05bb2adb74",
+                  "createdAt": "2026-10-21T21:01:34.000Z",
+                  "updatedAt": "2026-10-21T21:01:34.000Z",
+                  "uid": "35240-3255d333-5f3b-446a-ba2a-ff05bb2adb74"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f7b50606-e309-4d0d-8e5f-62dda20e6e6a",
-              "name": "The client has sent too many requests in a short amount of time. ",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "name": "Create a tag",
+                  "id": "488cdfae-1e83-4897-a103-a190a86c4d49",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "oauth2"
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) The version of the API.",
+                        "key": "360-api-version",
+                        "value": "v2.0"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/tags",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "tags"
+                      ]
+                    },
+                    "description": "> \ud83d\udd11\n>\n> Required OAuth scope: `tags:write`.\n\nCreates a tag with the given properties."
+                  },
+                  "response": [
                     {
-                      "key": "isMain[eq]",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                      "id": "c9e7c481-c848-47f0-91f7-1044f640b4fb",
+                      "name": "Returns the created tag.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) The version of the API.",
+                            "key": "360-api-version",
+                            "value": "v2.0"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/tags",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "tags"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"isMain\": \"<boolean>\",\n  \"_id\": \"8F8CCeBe0A668501e775A227\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:01:34.000Z",
+                      "updatedAt": "2026-10-21T21:01:34.000Z",
+                      "uid": "35240-c9e7c481-c848-47f0-91f7-1044f640b4fb"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "1783df82-ec90-4571-9811-c7158617c9b2",
-          "name": "Delete a tag",
-          "request": {
-            "name": "Delete a tag",
-            "description": {
-              "content": "> 🔑\n>\n> Required OAuth scope: `tags:write`.\n\nDeletes a specific tag given its unique ID.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "v2",
-                "tags",
-                ":tagId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<ObjectId>",
-                  "key": "tagId",
-                  "description": "(Required) The unique ID of the tag."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) The version of the API.",
-                "key": "360-api-version",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": []
-            }
-          },
-          "response": [
-            {
-              "id": "7fcd60a9-3f68-4010-b583-e22003177c9a",
-              "name": "Deletes a specific tag.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags",
-                    ":tagId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<ObjectId>",
-                      "key": "tagId",
-                      "description": "(Required) The unique ID of the tag."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                      "id": "a1392b73-f77e-4a0e-ab64-408ecf408141",
+                      "name": "The given tag name belongs to another tag.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) The version of the API.",
+                            "key": "360-api-version",
+                            "value": "v2.0"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/tags",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "tags"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"tagNameNotAvailable\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T21:01:34.000Z",
+                      "updatedAt": "2026-10-21T21:01:34.000Z",
+                      "uid": "35240-a1392b73-f77e-4a0e-ab64-408ecf408141"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "622cfa3d-03d3-4da3-9b8f-bc841af2be20",
-              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags",
-                    ":tagId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<ObjectId>",
-                      "key": "tagId",
-                      "description": "(Required) The unique ID of the tag."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                      "id": "c446e5ed-c1c5-4fb0-b649-534e21816182",
+                      "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) The version of the API.",
+                            "key": "360-api-version",
+                            "value": "v2.0"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/tags",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "tags"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"invalid_token\"\n}",
+                      "createdAt": "2026-10-21T21:01:34.000Z",
+                      "updatedAt": "2026-10-21T21:01:34.000Z",
+                      "uid": "35240-c446e5ed-c1c5-4fb0-b649-534e21816182"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"invalid_token\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d29cc40f-98b0-4bb0-8e40-719203fd3f84",
-              "name": "The given access token does not have the required OAuth scope to execute the request.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags",
-                    ":tagId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<ObjectId>",
-                      "key": "tagId",
-                      "description": "(Required) The unique ID of the tag."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                      "id": "4318bd8f-378b-4a38-a42a-388c1b39a078",
+                      "name": "The given access token does not have the required OAuth scope to execute the request.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) The version of the API.",
+                            "key": "360-api-version",
+                            "value": "v2.0"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/tags",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "tags"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T21:01:34.000Z",
+                      "updatedAt": "2026-10-21T21:01:34.000Z",
+                      "uid": "35240-4318bd8f-378b-4a38-a42a-388c1b39a078"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "50926f76-5de9-4ddb-a372-ebba1e24c8e1",
-              "name": "The given `tagId` does not correspond to any existing tag.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags",
-                    ":tagId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<ObjectId>",
-                      "key": "tagId",
-                      "description": "(Required) The unique ID of the tag."
+                      "id": "cd226034-516e-4bd0-b3c4-737059d13b15",
+                      "name": "The client has sent too many requests in a short amount of time. ",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) The version of the API.",
+                            "key": "360-api-version",
+                            "value": "v2.0"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/tags",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "tags"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+                      "createdAt": "2026-10-21T21:01:34.000Z",
+                      "updatedAt": "2026-10-21T21:01:34.000Z",
+                      "uid": "35240-cd226034-516e-4bd0-b3c4-737059d13b15"
                     }
-                  ]
+                  ],
+                  "createdAt": "2026-10-21T21:01:34.000Z",
+                  "updatedAt": "2026-10-21T21:01:34.000Z",
+                  "uid": "35240-488cdfae-1e83-4897-a103-a190a86c4d49"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"code\": \"tagNotFound\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "81295684-54dd-46e3-b08d-1877325d42c6",
-              "name": "The client has sent too many requests in a short amount of time. ",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags",
-                    ":tagId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "name": "List all tags",
+                  "id": "ea1a1df7-1ef6-4b2d-9252-d18dd4c377d6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "oauth2"
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) The version of the API.",
+                        "key": "360-api-version",
+                        "value": "v2.0"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/tags?isMain[eq]=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "tags"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter on **isMain** property with LHS bracket notation.\n\nExpected value format is a boolean (`true` or `false`).",
+                          "key": "isMain[eq]",
+                          "value": "<boolean>"
+                        }
+                      ]
+                    },
+                    "description": "> \ud83d\udd11\n>\n> Required OAuth scope: `tags:read`.\n\n> \ud83d\udcd6\n>\n> This endpoint is paginated with a page size of 5,000 tags. For more information, see the Pagination guide.\n\nLists all tags in your platform."
+                  },
+                  "response": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<ObjectId>",
-                      "key": "tagId",
-                      "description": "(Required) The unique ID of the tag."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                      "id": "6cca3431-7ef6-497a-abc5-6d670f5d6e47",
+                      "name": "Returns one page of 5000 tags.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) The version of the API.",
+                            "key": "360-api-version",
+                            "value": "v2.0"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/tags?isMain[eq]=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "tags"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter on **isMain** property with LHS bracket notation.\n\nExpected value format is a boolean (`true` or `false`).",
+                              "key": "isMain[eq]",
+                              "value": "<boolean>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "URL (between `<` `>`) to fetch the immediate next page of results. For more information, see our [Pagination guide](doc:pagination).\n\n\u26a0\ufe0f Only included if there is another page of results.",
+                            "type": "text/plain"
+                          },
+                          "key": "Link",
+                          "value": "<string>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"isMain\": \"<boolean>\",\n    \"_id\": \"6Ee4A4b7Bbb801EAA0C62E59\",\n    \"name\": \"<string>\",\n    \"source\": \"native\",\n    \"externalId\": \"<string>\"\n  },\n  {\n    \"isMain\": \"<boolean>\",\n    \"_id\": \"7fb54E43Ad75Cb39aef7f257\",\n    \"name\": \"<string>\",\n    \"source\": \"integration\",\n    \"externalId\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-10-21T21:01:34.000Z",
+                      "updatedAt": "2026-10-21T21:01:34.000Z",
+                      "uid": "35240-6cca3431-7ef6-497a-abc5-6d670f5d6e47"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "9450d8cd-c52b-4288-a6b8-3efecfb72899",
-          "name": "Retrieve a tag",
-          "request": {
-            "name": "Retrieve a tag",
-            "description": {
-              "content": "> 🔑\n>\n> Required OAuth scope: `tags:read`.\n\nRetrieves a tag given its ID.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "v2",
-                "tags",
-                ":tagId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<ObjectId>",
-                  "key": "tagId",
-                  "description": "(Required) The unique ID of the tag."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) The version of the API.",
-                "key": "360-api-version",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": []
-            }
-          },
-          "response": [
-            {
-              "id": "0dc71da1-16a3-4fb7-822b-18b81d192905",
-              "name": "Returns the details of the given tag.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags",
-                    ":tagId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<ObjectId>",
-                      "key": "tagId",
-                      "description": "(Required) The unique ID of the tag."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                      "id": "3e09092a-359f-440c-aa8a-653d340d46d9",
+                      "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) The version of the API.",
+                            "key": "360-api-version",
+                            "value": "v2.0"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/tags?isMain[eq]=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "tags"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter on **isMain** property with LHS bracket notation.\n\nExpected value format is a boolean (`true` or `false`).",
+                              "key": "isMain[eq]",
+                              "value": "<boolean>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"invalid_token\"\n}",
+                      "createdAt": "2026-10-21T21:01:34.000Z",
+                      "updatedAt": "2026-10-21T21:01:34.000Z",
+                      "uid": "35240-3e09092a-359f-440c-aa8a-653d340d46d9"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"isMain\": true,\n  \"_id\": \"507f1f77bcf86cd799439011\",\n  \"name\": \"Onboarding\",\n  \"source\": \"integration\",\n  \"externalId\": \"1743_ab\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f500f578-e85b-4f28-a04d-194d29f83e21",
-              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags",
-                    ":tagId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<ObjectId>",
-                      "key": "tagId",
-                      "description": "(Required) The unique ID of the tag."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                      "id": "70a7be55-bf4e-433b-b048-e647fff927a1",
+                      "name": "The given access token does not have the required OAuth scope to execute the request.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) The version of the API.",
+                            "key": "360-api-version",
+                            "value": "v2.0"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/tags?isMain[eq]=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "tags"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter on **isMain** property with LHS bracket notation.\n\nExpected value format is a boolean (`true` or `false`).",
+                              "key": "isMain[eq]",
+                              "value": "<boolean>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T21:01:34.000Z",
+                      "updatedAt": "2026-10-21T21:01:34.000Z",
+                      "uid": "35240-70a7be55-bf4e-433b-b048-e647fff927a1"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"invalid_token\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "79370c32-b9c8-4fee-9b97-02fed2d2d2ec",
-              "name": "The given access token does not have the required OAuth scope to execute the request.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags",
-                    ":tagId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<ObjectId>",
-                      "key": "tagId",
-                      "description": "(Required) The unique ID of the tag."
+                      "id": "0f6c1c03-5fc8-484f-a973-03c36787a34a",
+                      "name": "The client has sent too many requests in a short amount of time. ",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) The version of the API.",
+                            "key": "360-api-version",
+                            "value": "v2.0"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/tags?isMain[eq]=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "tags"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter on **isMain** property with LHS bracket notation.\n\nExpected value format is a boolean (`true` or `false`).",
+                              "key": "isMain[eq]",
+                              "value": "<boolean>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"tooManyRequests\"\n}",
+                      "createdAt": "2026-10-21T21:01:34.000Z",
+                      "updatedAt": "2026-10-21T21:01:34.000Z",
+                      "uid": "35240-0f6c1c03-5fc8-484f-a973-03c36787a34a"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  ],
+                  "createdAt": "2026-10-21T21:01:34.000Z",
+                  "updatedAt": "2026-10-21T21:01:34.000Z",
+                  "uid": "35240-ea1a1df7-1ef6-4b2d-9252-d18dd4c377d6"
                 }
               ],
-              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ef1eb846-98ae-434e-9931-45acd0f3e315",
-              "name": "The given `tagId` does not correspond to any existing tag.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags",
-                    ":tagId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<ObjectId>",
-                      "key": "tagId",
-                      "description": "(Required) The unique ID of the tag."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"code\": \"tagNotFound\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7cf4ec95-e5e2-4681-ae55-4722602c498e",
-              "name": "The client has sent too many requests in a short amount of time. ",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags",
-                    ":tagId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<ObjectId>",
-                      "key": "tagId",
-                      "description": "(Required) The unique ID of the tag."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "2dcb161a-8719-457f-b44d-ceab2b36db47",
-          "name": "Replace a tag",
-          "request": {
-            "name": "Replace a tag",
-            "description": {
-              "content": "> 🔑\n>\n> Required OAuth scope: `tags:write`.\n\nReplaces an existing tag with the provided data. Fields not included in the payload remain unchanged.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "v2",
-                "tags",
-                ":tagId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<ObjectId>",
-                  "key": "tagId",
-                  "description": "(Required) The unique ID of the tag."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) The version of the API.",
-                "key": "360-api-version",
-                "value": "<string>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": []
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "8d8568f1-5b2c-4743-bc6d-c3fc7236d614",
-              "name": "Update the tag.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags",
-                    ":tagId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<ObjectId>",
-                      "key": "tagId",
-                      "description": "(Required) The unique ID of the tag."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"Onboarding\",\n  \"externalId\": \"1743_ab\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"isMain\": true,\n  \"_id\": \"507f1f77bcf86cd799439011\",\n  \"name\": \"Onboarding\",\n  \"externalId\": \"1743_ab\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "61c7f93d-fdbd-4c63-9f51-8be33a877727",
-              "name": "The given tag name belongs to another tag.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags",
-                    ":tagId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<ObjectId>",
-                      "key": "tagId",
-                      "description": "(Required) The unique ID of the tag."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"Onboarding\",\n  \"externalId\": \"1743_ab\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"code\": \"tagNameNotAvailable\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1716823d-a7ce-4783-a3c5-68ba7e967a9d",
-              "name": "The given access token is either missing, invalid, has expired, or has been revoked.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags",
-                    ":tagId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<ObjectId>",
-                      "key": "tagId",
-                      "description": "(Required) The unique ID of the tag."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"Onboarding\",\n  \"externalId\": \"1743_ab\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"invalid_token\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "57406ac2-08a2-4598-8279-cce49a759903",
-              "name": "The given access token does not have the required OAuth scope to execute the request.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags",
-                    ":tagId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<ObjectId>",
-                      "key": "tagId",
-                      "description": "(Required) The unique ID of the tag."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"Onboarding\",\n  \"externalId\": \"1743_ab\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"code\": \"invalid_scope\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d6692bf8-ad4c-4338-ac5a-38ea6b7a0b6b",
-              "name": "The given `tagId` does not correspond to any existing tag.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags",
-                    ":tagId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<ObjectId>",
-                      "key": "tagId",
-                      "description": "(Required) The unique ID of the tag."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"Onboarding\",\n  \"externalId\": \"1743_ab\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"code\": \"tagNotFound\",\n    \"message\": \"A human-readable message to help with debugging.\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b73cd2ac-790f-4eef-8ec4-169a08e5456e",
-              "name": "The client has sent too many requests in a short amount of time. ",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "tags",
-                    ":tagId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<ObjectId>",
-                      "key": "tagId",
-                      "description": "(Required) The unique ID of the tag."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The version of the API.",
-                    "key": "360-api-version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"isMain\": \"<boolean>\",\n  \"name\": \"Onboarding\",\n  \"externalId\": \"1743_ab\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"tooManyRequests\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "a3955d9b-a85a-4340-9048-9d3c74b4d326",
+              "createdAt": "2026-10-21T21:01:34.000Z",
+              "updatedAt": "2026-10-21T21:01:34.000Z",
+              "uid": "35240-a3955d9b-a85a-4340-9048-9d3c74b4d326"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "f5602c9e-7b3b-4555-bdb0-86e94b9f508b",
+          "createdAt": "2026-10-21T21:01:34.000Z",
+          "updatedAt": "2026-10-21T21:01:34.000Z",
+          "uid": "35240-f5602c9e-7b3b-4555-bdb0-86e94b9f508b"
         }
       ],
-      "event": []
+      "id": "1904e4a8-81ae-4453-ab1c-ca39d80328d2",
+      "createdAt": "2026-10-21T21:01:34.000Z",
+      "updatedAt": "2026-10-21T21:01:34.000Z",
+      "uid": "35240-1904e4a8-81ae-4453-ab1c-ca39d80328d2"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://app.360learning.com",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://app.360learning.com"
     }
-  ],
-  "info": {
-    "_postman_id": "9003276f-c0d5-4bd0-bb34-15f7fc7e7469",
-    "name": "Bulk Authentication Tags API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

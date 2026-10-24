@@ -1,0 +1,18 @@
+{
+  "info": {
+    "_postman_id": "7b254035-1374-4807-95ea-c34090ed3c51",
+    "name": "Webhook Group API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:02:03.000Z",
+    "updatedAt": "2026-10-21T21:02:03.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7b254035-1374-4807-95ea-c34090ed3c51"
+  },
+  "item": [],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.360learning.com"
+    }
+  ]
+}

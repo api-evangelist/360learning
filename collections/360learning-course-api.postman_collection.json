@@ -1,0 +1,18 @@
+{
+  "info": {
+    "_postman_id": "50dfdd7b-7a80-4874-9e2c-6ec3f893fa3f",
+    "name": "Webhook Course API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:01:56.000Z",
+    "updatedAt": "2026-10-21T21:01:56.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-50dfdd7b-7a80-4874-9e2c-6ec3f893fa3f"
+  },
+  "item": [],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.360learning.com"
+    }
+  ]
+}

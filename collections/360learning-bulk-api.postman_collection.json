@@ -1,0 +1,18 @@
+{
+  "info": {
+    "_postman_id": "4996f8ad-c222-4578-b45c-337971b5872b",
+    "name": "Webhook Bulk API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:01:49.000Z",
+    "updatedAt": "2026-10-21T21:01:49.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4996f8ad-c222-4578-b45c-337971b5872b"
+  },
+  "item": [],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.360learning.com"
+    }
+  ]
+}

@@ -1,607 +1,730 @@
 {
+  "info": {
+    "_postman_id": "7ba22a7d-09ee-47fe-a959-182dcc8b4891",
+    "name": "360learning Authentication API",
+    "description": "Operations tagged Authentication across 2 of this provider's published API definitions: 360learning-core-api.json, 360learning-plugin-api.json. Each path carries the servers of the definition it was published in.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:59:38.000Z",
+    "updatedAt": "2026-10-21T20:59:38.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7ba22a7d-09ee-47fe-a959-182dcc8b4891"
+  },
   "item": [
     {
-      "id": "53aafa35-397c-4d6a-a2b9-aa03ed682927",
-      "name": "Authentication",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "b016d6dc-307c-4dfa-8ece-7403db92b62b",
-          "name": "Create an access token",
-          "request": {
-            "name": "Create an access token",
-            "description": {
-              "content": "Creates an OAuth access token using the `client_id` and `client_secret` credentials. Once generated, the token authorizes access to the 360Learning API v2 resources for 1 hour. It must be included in the `Authorization` header of each request as `Bearer`.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "v2",
-                "oauth2",
-                "token"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"grant_type\": \"<string>\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"user_id\": \"<ObjectId>\",\n  \"company_id\": \"<ObjectId>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "v2",
+          "item": [
             {
-              "id": "77f29502-1493-4b45-8c96-760878281e30",
-              "name": "Returns an access token that must be used in all your calls to public API endpoints.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "oauth2",
-                    "token"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"grant_type\": \"<string>\",\n  \"client_id\": \"00918d22e6cd4dd0bf751241853ec641\",\n  \"client_secret\": \"de831d67bd4245bc950867ca49b5ebc2\",\n  \"user_id\": \"624c5526204fc7207e603123\",\n  \"company_id\": \"<ObjectId>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "oauth2",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "token",
+                  "item": [
+                    {
+                      "name": "Create an access token",
+                      "id": "1d62fa57-20ee-43a0-9326-64ffc2399b5d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"grant_type\": \"client_credentials\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"user_id\": \"9c2FB10eB93e5ABBAfea995b\",\n  \"company_id\": \"46F50EEDF339c21E6fE56bE5\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/oauth2/token",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "oauth2",
+                            "token"
+                          ]
+                        },
+                        "description": "Creates an OAuth access token using the `client_id` and `client_secret` credentials. Once generated, the token authorizes access to the 360Learning API v2 resources for 1 hour. It must be included in the `Authorization` header of each request as `Bearer`."
+                      },
+                      "response": [
+                        {
+                          "id": "feb72ed2-4be7-42fd-80cb-11ad04be7724",
+                          "name": "Returns an access token that must be used in all your calls to public API endpoints.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"grant_type\": \"client_credentials\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"user_id\": \"9c2FB10eB93e5ABBAfea995b\",\n  \"company_id\": \"46F50EEDF339c21E6fE56bE5\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/oauth2/token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "oauth2",
+                                "token"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"token_type\": \"Bearer\",\n  \"access_token\": \"<string>\",\n  \"expires_in\": \"<number>\"\n}",
+                          "createdAt": "2026-10-21T20:59:38.000Z",
+                          "updatedAt": "2026-10-21T20:59:38.000Z",
+                          "uid": "35240-feb72ed2-4be7-42fd-80cb-11ad04be7724"
+                        },
+                        {
+                          "id": "0172cbb1-6cf3-4b28-8257-5fd21823c599",
+                          "name": "The server cannot or will not process the request due to something that is perceived to be a client error.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"grant_type\": \"client_credentials\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"user_id\": \"9c2FB10eB93e5ABBAfea995b\",\n  \"company_id\": \"46F50EEDF339c21E6fE56bE5\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/oauth2/token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "oauth2",
+                                "token"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"invalid_request\"\n}",
+                          "createdAt": "2026-10-21T20:59:38.000Z",
+                          "updatedAt": "2026-10-21T20:59:38.000Z",
+                          "uid": "35240-0172cbb1-6cf3-4b28-8257-5fd21823c599"
+                        },
+                        {
+                          "id": "ff5e1dc3-1cf2-4259-8ac1-2dc7f3c5f227",
+                          "name": "Your credentials pair `client_id`/`client_secret` is invalid.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"grant_type\": \"client_credentials\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"user_id\": \"9c2FB10eB93e5ABBAfea995b\",\n  \"company_id\": \"46F50EEDF339c21E6fE56bE5\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/oauth2/token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "oauth2",
+                                "token"
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"invalid_client\"\n}",
+                          "createdAt": "2026-10-21T20:59:38.000Z",
+                          "updatedAt": "2026-10-21T20:59:38.000Z",
+                          "uid": "35240-ff5e1dc3-1cf2-4259-8ac1-2dc7f3c5f227"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:59:38.000Z",
+                      "updatedAt": "2026-10-21T20:59:38.000Z",
+                      "uid": "35240-1d62fa57-20ee-43a0-9326-64ffc2399b5d"
+                    }
+                  ],
+                  "id": "69a56cc3-3361-4469-ade0-90dd68a8ab5d",
+                  "createdAt": "2026-10-21T20:59:38.000Z",
+                  "updatedAt": "2026-10-21T20:59:38.000Z",
+                  "uid": "35240-69a56cc3-3361-4469-ade0-90dd68a8ab5d"
                 }
               ],
-              "body": "{\n  \"token_type\": \"Bearer\",\n  \"access_token\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJBaU1qdVNjLW9pelVYWHBZVnZWbDZrSklsb2FNWDNWYzZSdWp4QnlPX05FIn0\",\n  \"expires_in\": 7082.710949912892\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "be46652a-d672-47c6-8f55-ec736977e262",
+              "createdAt": "2026-10-21T20:59:38.000Z",
+              "updatedAt": "2026-10-21T20:59:38.000Z",
+              "uid": "35240-be46652a-d672-47c6-8f55-ec736977e262"
             },
             {
-              "id": "16f44779-0b31-4bdb-b006-2afec0e74296",
-              "name": "The server cannot or will not process the request due to something that is perceived to be a client error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "oauth2",
-                    "token"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"grant_type\": \"<string>\",\n  \"client_id\": \"00918d22e6cd4dd0bf751241853ec641\",\n  \"client_secret\": \"de831d67bd4245bc950867ca49b5ebc2\",\n  \"user_id\": \"624c5526204fc7207e603123\",\n  \"company_id\": \"<ObjectId>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+              "name": "plugin",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "oauth2",
+                  "item": [
+                    {
+                      "name": "backend-token",
+                      "item": [
+                        {
+                          "name": "Create an access token for plugin (backend)",
+                          "id": "d47f943a-f9ea-45f0-a2be-39b13add69b8",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"company_id\": \"6D7Ad8F56bbeF7Aa89f8Ce9D\",\n  \"plugin_id\": \"B5dfaba604A29F1ED3e1CBCb\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/plugin/oauth2/backend-token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "plugin",
+                                "oauth2",
+                                "backend-token"
+                              ]
+                            },
+                            "description": "Creates an OAuth access token using the `client_id` and `client_secret` credentials. Once generated, the token authorizes access to the 360Learning API v2 resources for 1 hour. It must be included in the `Authorization` header of each request as `Bearer`."
+                          },
+                          "response": [
+                            {
+                              "id": "e0333f71-a8a0-42e6-be4d-d42f60ca65e7",
+                              "name": "Returns an access token that must be used in all your calls to public API endpoints. This access token can only be used inside a plugin.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"company_id\": \"6D7Ad8F56bbeF7Aa89f8Ce9D\",\n  \"plugin_id\": \"B5dfaba604A29F1ED3e1CBCb\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/plugin/oauth2/backend-token",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "plugin",
+                                    "oauth2",
+                                    "backend-token"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"token_type\": \"Bearer\",\n  \"access_token\": \"<string>\",\n  \"expires_in\": \"<number>\"\n}",
+                              "createdAt": "2026-10-21T20:59:38.000Z",
+                              "updatedAt": "2026-10-21T20:59:38.000Z",
+                              "uid": "35240-e0333f71-a8a0-42e6-be4d-d42f60ca65e7"
+                            },
+                            {
+                              "id": "3d5c4e9b-251a-4487-bba5-285618316a4a",
+                              "name": "The server cannot or will not process the request due to something that is perceived to be a client error.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"company_id\": \"6D7Ad8F56bbeF7Aa89f8Ce9D\",\n  \"plugin_id\": \"B5dfaba604A29F1ED3e1CBCb\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/plugin/oauth2/backend-token",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "plugin",
+                                    "oauth2",
+                                    "backend-token"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"invalid_request\"\n}",
+                              "createdAt": "2026-10-21T20:59:38.000Z",
+                              "updatedAt": "2026-10-21T20:59:38.000Z",
+                              "uid": "35240-3d5c4e9b-251a-4487-bba5-285618316a4a"
+                            },
+                            {
+                              "id": "98d50f62-c862-4e1e-87fb-04239aaedef6",
+                              "name": "The authorization cannot be granted.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"company_id\": \"6D7Ad8F56bbeF7Aa89f8Ce9D\",\n  \"plugin_id\": \"B5dfaba604A29F1ED3e1CBCb\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/plugin/oauth2/backend-token",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "plugin",
+                                    "oauth2",
+                                    "backend-token"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"incomplete_plugin_setup\"\n}",
+                              "createdAt": "2026-10-21T20:59:38.000Z",
+                              "updatedAt": "2026-10-21T20:59:38.000Z",
+                              "uid": "35240-98d50f62-c862-4e1e-87fb-04239aaedef6"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:59:38.000Z",
+                          "updatedAt": "2026-10-21T20:59:38.000Z",
+                          "uid": "35240-d47f943a-f9ea-45f0-a2be-39b13add69b8"
+                        }
+                      ],
+                      "id": "f7cfbfcd-283b-4004-a003-f06cbc94939d",
+                      "createdAt": "2026-10-21T20:59:38.000Z",
+                      "updatedAt": "2026-10-21T20:59:38.000Z",
+                      "uid": "35240-f7cfbfcd-283b-4004-a003-f06cbc94939d"
+                    },
+                    {
+                      "name": "client-token",
+                      "item": [
+                        {
+                          "name": "Create an access token for plugin (client)",
+                          "id": "139fdb8f-d508-4891-8fa1-606ae07b5fc2",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"temporaryToken\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/plugin/oauth2/client-token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "plugin",
+                                "oauth2",
+                                "client-token"
+                              ]
+                            },
+                            "description": "Creates an OAuth access token. Once generated, the token authorizes access to the 360Learning API v2 resources for 1 hour. It must be included in the `Authorization` header of each request as `Bearer`."
+                          },
+                          "response": [
+                            {
+                              "id": "0281d9ae-b5b2-4f1c-949c-0f21c422bf09",
+                              "name": "Returns an access token that must be used in all your calls to public API endpoints. This access token can only be used inside a plugin.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"temporaryToken\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/plugin/oauth2/client-token",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "plugin",
+                                    "oauth2",
+                                    "client-token"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"token_type\": \"Bearer\",\n  \"access_token\": \"<string>\",\n  \"expires_in\": \"<number>\"\n}",
+                              "createdAt": "2026-10-21T20:59:38.000Z",
+                              "updatedAt": "2026-10-21T20:59:38.000Z",
+                              "uid": "35240-0281d9ae-b5b2-4f1c-949c-0f21c422bf09"
+                            },
+                            {
+                              "id": "dfd903ce-d670-444e-aa3b-eab0900803fe",
+                              "name": "The server cannot or will not process the request due to something that is perceived to be a client error.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"temporaryToken\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/plugin/oauth2/client-token",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "plugin",
+                                    "oauth2",
+                                    "client-token"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"invalid_request\"\n}",
+                              "createdAt": "2026-10-21T20:59:38.000Z",
+                              "updatedAt": "2026-10-21T20:59:38.000Z",
+                              "uid": "35240-dfd903ce-d670-444e-aa3b-eab0900803fe"
+                            },
+                            {
+                              "id": "f52228c5-e0ee-4957-b1bb-4216cf8a7b54",
+                              "name": "The authorization cannot be granted.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"temporaryToken\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/plugin/oauth2/client-token",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "plugin",
+                                    "oauth2",
+                                    "client-token"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"incomplete_plugin_setup\"\n}",
+                              "createdAt": "2026-10-21T20:59:38.000Z",
+                              "updatedAt": "2026-10-21T20:59:38.000Z",
+                              "uid": "35240-f52228c5-e0ee-4957-b1bb-4216cf8a7b54"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:59:38.000Z",
+                          "updatedAt": "2026-10-21T20:59:38.000Z",
+                          "uid": "35240-139fdb8f-d508-4891-8fa1-606ae07b5fc2"
+                        }
+                      ],
+                      "id": "e0553be7-1e95-404d-a180-f5677f7fefb4",
+                      "createdAt": "2026-10-21T20:59:38.000Z",
+                      "updatedAt": "2026-10-21T20:59:38.000Z",
+                      "uid": "35240-e0553be7-1e95-404d-a180-f5677f7fefb4"
+                    }
+                  ],
+                  "id": "dc9f2aa5-6209-4197-8411-dfcb95ec3951",
+                  "createdAt": "2026-10-21T20:59:38.000Z",
+                  "updatedAt": "2026-10-21T20:59:38.000Z",
+                  "uid": "35240-dc9f2aa5-6209-4197-8411-dfcb95ec3951"
                 }
               ],
-              "body": "{\n  \"error\": \"invalid_request\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7990d234-3efe-4dcb-92e4-4493b134f2f7",
-              "name": "Your credentials pair `client_id`/`client_secret` is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "oauth2",
-                    "token"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"grant_type\": \"<string>\",\n  \"client_id\": \"00918d22e6cd4dd0bf751241853ec641\",\n  \"client_secret\": \"de831d67bd4245bc950867ca49b5ebc2\",\n  \"user_id\": \"624c5526204fc7207e603123\",\n  \"company_id\": \"<ObjectId>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"invalid_client\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "201bf0a3-2d4b-42b2-8c5d-6e350d08ad18",
+              "createdAt": "2026-10-21T20:59:38.000Z",
+              "updatedAt": "2026-10-21T20:59:38.000Z",
+              "uid": "35240-201bf0a3-2d4b-42b2-8c5d-6e350d08ad18"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "3e8da167-f107-4804-ae2e-5b8056ad1ebe",
-          "name": "Create an access token for plugin (backend)",
-          "request": {
-            "name": "Create an access token for plugin (backend)",
-            "description": {
-              "content": "Creates an OAuth access token using the `client_id` and `client_secret` credentials. Once generated, the token authorizes access to the 360Learning API v2 resources for 1 hour. It must be included in the `Authorization` header of each request as `Bearer`.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "v2",
-                "plugin",
-                "oauth2",
-                "backend-token"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"company_id\": \"<ObjectId>\",\n  \"plugin_id\": \"<ObjectId>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "8a2a840d-fd83-4348-9f0b-2bc02d45afe7",
-              "name": "Returns an access token that must be used in all your calls to public API endpoints. This access token can only be used inside a plugin.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "plugin",
-                    "oauth2",
-                    "backend-token"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"client_id\": \"00918d22e6cd4dd0bf751241853ec641\",\n  \"client_secret\": \"de831d67bd4245bc950867ca49b5ebc2\",\n  \"company_id\": \"507f1f77bcf86cd799439011\",\n  \"plugin_id\": \"507f1f77bcf86cd799439011\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"token_type\": \"Bearer\",\n  \"access_token\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJBaU1qdVNjLW9pelVYWHBZVnZWbDZrSklsb2FNWDNWYzZSdWp4QnlPX05FIn0\",\n  \"expires_in\": 7082.710949912892\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "006a45df-36fc-4736-ad88-9f863ba44195",
-              "name": "The server cannot or will not process the request due to something that is perceived to be a client error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "plugin",
-                    "oauth2",
-                    "backend-token"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"client_id\": \"00918d22e6cd4dd0bf751241853ec641\",\n  \"client_secret\": \"de831d67bd4245bc950867ca49b5ebc2\",\n  \"company_id\": \"507f1f77bcf86cd799439011\",\n  \"plugin_id\": \"507f1f77bcf86cd799439011\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"invalid_request\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "14a283a0-5d9b-495e-ac5e-9b4fe86ae00b",
-              "name": "The authorization cannot be granted.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "plugin",
-                    "oauth2",
-                    "backend-token"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"client_id\": \"00918d22e6cd4dd0bf751241853ec641\",\n  \"client_secret\": \"de831d67bd4245bc950867ca49b5ebc2\",\n  \"company_id\": \"507f1f77bcf86cd799439011\",\n  \"plugin_id\": \"507f1f77bcf86cd799439011\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"incomplete_plugin_setup\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "309b0530-4a1a-4ffa-99f5-7c014b15afaf",
-          "name": "Create an access token for plugin (client)",
-          "request": {
-            "name": "Create an access token for plugin (client)",
-            "description": {
-              "content": "Creates an OAuth access token. Once generated, the token authorizes access to the 360Learning API v2 resources for 1 hour. It must be included in the `Authorization` header of each request as `Bearer`.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "v2",
-                "plugin",
-                "oauth2",
-                "client-token"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"temporaryToken\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "a8209b2c-c6fa-4872-a1db-d19300c5fd8e",
-              "name": "Returns an access token that must be used in all your calls to public API endpoints. This access token can only be used inside a plugin.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "plugin",
-                    "oauth2",
-                    "client-token"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"temporaryToken\": \"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOiI1NGJkMDA1MTQyYzM5YWJhMDFmZmQ5OTkiLCJ1c2VySWQiOiI1ODIwNTJkNGU4NTg5ZjBkYTgwY2MyYzciLCJwbHVnaW5JZCI6IjY4NjcwNmQwZjVhOGEwNDFhNzU2MjUyNiIsInR5cGUiOiJwbHVnaW5FeGNoYW5nZSIsImlhdCI6MTc1Mzk1NTkyNSwiZXhwIjoxNzUzOTU1OTg1fQ.roxrGR6Z2utCcVa_vqatYLmMMy82fKcs1KxAdwWJNXuoW7dJTv8ODjZA0FsMI26kRlgTkJl3CDMn6eCqEmrgKw\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"token_type\": \"Bearer\",\n  \"access_token\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJBaU1qdVNjLW9pelVYWHBZVnZWbDZrSklsb2FNWDNWYzZSdWp4QnlPX05FIn0\",\n  \"expires_in\": 7082.710949912892\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "746c0b08-03da-41cf-af6a-7daedfd42aff",
-              "name": "The server cannot or will not process the request due to something that is perceived to be a client error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "plugin",
-                    "oauth2",
-                    "client-token"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"temporaryToken\": \"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOiI1NGJkMDA1MTQyYzM5YWJhMDFmZmQ5OTkiLCJ1c2VySWQiOiI1ODIwNTJkNGU4NTg5ZjBkYTgwY2MyYzciLCJwbHVnaW5JZCI6IjY4NjcwNmQwZjVhOGEwNDFhNzU2MjUyNiIsInR5cGUiOiJwbHVnaW5FeGNoYW5nZSIsImlhdCI6MTc1Mzk1NTkyNSwiZXhwIjoxNzUzOTU1OTg1fQ.roxrGR6Z2utCcVa_vqatYLmMMy82fKcs1KxAdwWJNXuoW7dJTv8ODjZA0FsMI26kRlgTkJl3CDMn6eCqEmrgKw\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"invalid_request\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "324917de-96ce-4bd3-ba3d-af6fc322d748",
-              "name": "The authorization cannot be granted.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v2",
-                    "plugin",
-                    "oauth2",
-                    "client-token"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"temporaryToken\": \"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOiI1NGJkMDA1MTQyYzM5YWJhMDFmZmQ5OTkiLCJ1c2VySWQiOiI1ODIwNTJkNGU4NTg5ZjBkYTgwY2MyYzciLCJwbHVnaW5JZCI6IjY4NjcwNmQwZjVhOGEwNDFhNzU2MjUyNiIsInR5cGUiOiJwbHVnaW5FeGNoYW5nZSIsImlhdCI6MTc1Mzk1NTkyNSwiZXhwIjoxNzUzOTU1OTg1fQ.roxrGR6Z2utCcVa_vqatYLmMMy82fKcs1KxAdwWJNXuoW7dJTv8ODjZA0FsMI26kRlgTkJl3CDMn6eCqEmrgKw\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"incomplete_plugin_setup\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "76ea11dd-c54e-460c-a50d-029db9d9d992",
+          "createdAt": "2026-10-21T20:59:38.000Z",
+          "updatedAt": "2026-10-21T20:59:38.000Z",
+          "uid": "35240-76ea11dd-c54e-460c-a50d-029db9d9d992"
         }
       ],
-      "event": []
+      "id": "1a9da1ef-e74b-4208-b5f7-f5d529e382eb",
+      "createdAt": "2026-10-21T20:59:38.000Z",
+      "updatedAt": "2026-10-21T20:59:38.000Z",
+      "uid": "35240-1a9da1ef-e74b-4208-b5f7-f5d529e382eb"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://app.360learning.com",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://app.360learning.com"
     }
-  ],
-  "info": {
-    "_postman_id": "6beaa4b5-7c36-4807-b2fe-2eaa1f9dea19",
-    "name": "Bulk Authentication API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "",
-      "type": "text/plain"
-    }
-  }
+  ]
 }
